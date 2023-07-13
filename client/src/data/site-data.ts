@@ -1,11 +1,13 @@
 /*=============================================== Site data ===============================================*/
 
 export const SITE_DATA = {
-    NAME: "book-a-band",
-    FAVICON: "/vite.svg",
+    NAME: "Book a Band",
+    FAVICON: "/favicon.svg",
     EMAIL: "",
     AUTHOR: "",
     YEAR: "",
+    LOGO: "/images/logo.svg",
+    LOGO_WHITE: "/images/logo-white.svg",
 
     // Meta
     DESCRIPTION: "",

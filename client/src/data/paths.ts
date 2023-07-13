@@ -3,8 +3,8 @@
 export const PATHS = {
     ROOT: "/",
 
-    USERS: "/users",
-    USER: (id = ":id") => `/users/${id}`,
+    ARTISTS: "/artists",
+    ARTIST: (id = ":id") => `/artists/${id}`,
 
     SIGNUP: "/signup",
     THANK_YOU: "/signup/thank-you",

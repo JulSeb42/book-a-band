@@ -1,3 +1,3 @@
 /*=============================================== AllUsers exports ===============================================*/
 
-export * from "pages/user/AllUsers/AllUsers"
+export * from "pages/artists/AllArtists/AllArtists"

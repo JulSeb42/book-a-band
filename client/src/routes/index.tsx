@@ -10,7 +10,7 @@ import { AnonRoute } from "routes/AnonRoute"
 import { Homepage } from "pages/Homepage"
 import { NotFound } from "pages/NotFound"
 
-import { AllUsers, PublicProfile } from "pages/user"
+import { AllArtists, ArtistProfile } from "pages/artists"
 
 import {
     Signup,
@@ -41,8 +41,8 @@ export const routes: RouteType[] = [
     { path: PATHS.ROOT, element: <Homepage /> },
     { path: "*", element: <NotFound /> },
 
-    { path: PATHS.USERS, element: <AllUsers /> },
-    { path: PATHS.USER(), element: <PublicProfile /> },
+    { path: PATHS.ARTISTS, element: <AllArtists /> },
+    { path: PATHS.ARTIST(), element: <ArtistProfile /> },
 
     {
         path: PATHS.SIGNUP,

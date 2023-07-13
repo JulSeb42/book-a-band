@@ -1,14 +1,15 @@
 /*=============================================== Header ===============================================*/
 
 import { useContext } from "react"
+import type { ElementType } from "react"
 import { NavLink } from "react-router-dom"
+import styled from "styled-components"
 import {
     Header as Container,
-    ThemeContext,
-    ButtonIcon,
     uuid,
+    ThemeLight,
+    Transitions,
 } from "tsx-library-julseb"
-import type { ThemeContextProps } from "tsx-library-julseb/types"
 
 import { AuthContext } from "context"
 import type { AuthContextType } from "context/types"
@@ -21,19 +22,11 @@ export const Header = () => {
     const { isLoggedIn, logoutUser } = useContext(
         AuthContext
     ) as AuthContextType
-    const { toggleTheme, selectedTheme } = useContext(
-        ThemeContext
-    ) as ThemeContextProps
 
     const baseLinks: NavLinkType[] = [
         {
-            text: "Home",
-            to: PATHS.ROOT,
-            end: true,
-        },
-        {
-            text: "All users",
-            to: PATHS.USERS,
+            text: "All artists",
+            to: PATHS.ARTISTS,
         },
     ]
 
@@ -62,33 +55,56 @@ export const Header = () => {
     const navLinksFunc = (links: NavLinkType[]) =>
         links.map(({ text, to, onClick, end }) =>
             to ? (
-                <NavLink to={to} end={end} key={uuid()}>
+                <StyledLink to={to} end={end} key={uuid()}>
                     {text}
-                </NavLink>
+                </StyledLink>
             ) : (
-                <button onClick={onClick} key={uuid()}>
+                // @ts-ignore
+                <StyledLink as="button" onClick={onClick} key={uuid()}>
                     {text}
-                </button>
+                </StyledLink>
             )
         )
 
     return (
         <Container
-            logo={{ text: SITE_DATA.NAME, to: PATHS.ROOT }}
+            logo={{ img: SITE_DATA.LOGO_WHITE, height: 40, to: PATHS.ROOT }}
             navMobileVariant="drawer"
+            search={{
+                pathname: PATHS.ARTISTS,
+                icon: "search",
+                iconSize: 20,
+                placeholder: "Search by city or genre...",
+                keyboardShortcut: ["Command", "KeyK"],
+                showKeys: true,
+                maxWidth: 300,
+            }}
         >
             {navLinksFunc(baseLinks)}
 
             {isLoggedIn ? navLinksFunc(loggedInLinks) : navLinksFunc(anonLinks)}
-
-            <ButtonIcon
-                icon={selectedTheme === "dark" ? "sun" : "moon"}
-                size={24}
-                variant="transparent"
-                color="background"
-                onClick={toggleTheme}
-                aria-label="Toggle theme"
-            />
         </Container>
     )
 }
+
+const StyledLink = styled(NavLink)<{ as?: ElementType }>`
+    position: relative;
+
+    &:after {
+        content: "";
+        width: 0;
+        height: 1px;
+        position: absolute;
+        left: 50%;
+        right: 50%;
+        bottom: -1px;
+        background-color: ${ThemeLight.White};
+        transition: ${Transitions.Bezier};
+    }
+
+    &:hover:after {
+        width: 100%;
+        left: 0;
+        right: 0;
+    }
+`

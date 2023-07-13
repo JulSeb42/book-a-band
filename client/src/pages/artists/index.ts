@@ -1,4 +1,4 @@
 /*=============================================== Exports ===============================================*/
 
-export * from "pages/user/AllUsers"
-export * from "pages/user/PublicProfile"
+export * from "pages/artists/AllArtists"
+export * from "pages/artists/ArtistProfile"

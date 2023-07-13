@@ -10,7 +10,7 @@ import { PATHS } from "data"
 export const UserCard = ({ user }: UserCardProps) => {
     return (
         <StyledUserCard
-            to={PATHS.USER(user?._id)}
+            to={PATHS.ARTIST(user?._id)}
             border={{ width: 1 }}
             flexDirection="column"
             gap="xs"

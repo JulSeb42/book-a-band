@@ -1,4 +1,4 @@
-/*=============================================== UsersList ===============================================*/
+/*=============================================== ArtistsList ===============================================*/
 
 import type { AxiosResponse } from "axios"
 import { useFetch, Text, Grid, generateNumbers } from "tsx-library-julseb"
@@ -9,7 +9,7 @@ import { UserCard, UserCardSkeleton } from "components"
 
 import type { UserType } from "types"
 
-export const UsersList = () => {
+export const ArtistsList = () => {
     const { response, error, loading } = useFetch<AxiosResponse>(
         userService.allUsers()
     )

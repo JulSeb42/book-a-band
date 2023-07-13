@@ -1,4 +1,4 @@
-/*=============================================== PublicProfile ===============================================*/
+/*=============================================== ArtistProfile ===============================================*/
 
 import { useParams } from "react-router-dom"
 import { useFetch } from "tsx-library-julseb"
@@ -10,7 +10,7 @@ import { Page, UserHeader } from "components"
 
 import type { UserType } from "types"
 
-export const PublicProfile = () => {
+export const ArtistProfile = () => {
     const { id } = useParams<{ id: string }>()
 
     const { response, error, loading } = useFetch<AxiosResponse>(
