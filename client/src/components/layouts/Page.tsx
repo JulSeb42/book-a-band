@@ -14,7 +14,7 @@ export const Page = ({
     description,
     keywords,
     cover,
-    mainWidth = "default",
+    mainWidth = "large",
     noWrapper,
     isLoading,
     template = "1col",

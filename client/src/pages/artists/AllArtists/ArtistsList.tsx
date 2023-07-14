@@ -1,41 +1,64 @@
 /*=============================================== ArtistsList ===============================================*/
 
+import { Fragment } from "react"
+import {
+    useFetch,
+    Text,
+    generateNumbers,
+    usePaginatedData,
+    Pagination,
+    Hr,
+} from "tsx-library-julseb"
 import type { AxiosResponse } from "axios"
-import { useFetch, Text, Grid, generateNumbers } from "tsx-library-julseb"
 
 import { userService } from "api"
 
-import { UserCard, UserCardSkeleton } from "components"
+import { ArtistCard, ArtistCardSkeleton } from "components"
 
 import type { UserType } from "types"
 
 export const ArtistsList = () => {
     const { response, error, loading } = useFetch<AxiosResponse>(
-        userService.allUsers()
+        userService.allArtists()
     )
-    const users: UserType[] | null = response?.data
+
+    const { getPaginatedData, getNumberOfPages } = usePaginatedData(
+        response?.data,
+        10
+    )
+    const artists: UserType[] = getPaginatedData()
 
     if (loading) return <UsersListSkeleton />
 
     if (error) return <Text>Error while fetching users: {error}</Text>
 
-    if (!users?.length) return <Text>No user yet.</Text>
+    if (!artists?.length) return <Text>No artist yet.</Text>
 
     return (
-        <Grid col={3} gap="s">
-            {users.map(user => (
-                <UserCard user={user} key={user._id} />
+        <>
+            {artists.map((user, i) => (
+                <Fragment key={user?._id}>
+                    <ArtistCard artist={user} key={user._id} />
+                    {i !== artists?.length - 1 && <Hr />}
+                </Fragment>
             ))}
-        </Grid>
+
+            {getNumberOfPages() > 1 && (
+                <Pagination
+                    totalPages={getNumberOfPages()}
+                    icons={{ prev: "arrow-left", next: "arrow-right" }}
+                />
+            )}
+        </>
     )
 }
 
 const UsersListSkeleton = () => {
     return (
-        <Grid col={3} gap="s">
+        <>
             {generateNumbers(0, 4).map(n => (
-                <UserCardSkeleton key={n} />
+                <ArtistCardSkeleton key={n} />
             ))}
-        </Grid>
+        </>
     )
 }
