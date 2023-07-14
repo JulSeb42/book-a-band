@@ -4,6 +4,7 @@ import { Wrapper, Main, PageLoading } from "tsx-library-julseb"
 
 import { Helmet } from "components/layouts/Helmet"
 import { Header } from "components/layouts/Header"
+import { Footer } from "components/layouts/Footer"
 
 import type { HelmetProps } from "components/layouts/Helmet"
 
@@ -19,8 +20,6 @@ export const Page = ({
     template = "1col",
     noHeader,
 }: PageProps) => {
-    if (isLoading) return <PageLoading />
-
     return (
         <>
             <Helmet
@@ -52,6 +51,8 @@ export const Page = ({
                     ) : (
                         children
                     )}
+
+                    {!noHeader && <Footer />}
                 </>
             )}
         </>

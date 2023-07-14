@@ -7,7 +7,6 @@ import styled from "styled-components"
 import {
     useFetch,
     ThemeLight,
-    Mixins,
     Select,
     Button,
     Text,
@@ -15,10 +14,13 @@ import {
     Spacers,
     Shadows,
     slugify,
+    Skeleton,
 } from "tsx-library-julseb"
 import type { AxiosResponse } from "axios"
 
 import { userService } from "api"
+
+import { InputSkeleton } from "components"
 
 export const HomeSearch = () => {
     const navigate = useNavigate()
@@ -40,7 +42,7 @@ export const HomeSearch = () => {
     const [city, setCity] = useState("All")
     const [genre, setGenre] = useState("All")
 
-    if (citiesLoading || genresLoading) return null // TODO: Add skeleton
+    if (citiesLoading || genresLoading) return <HomeSearchSkeleton />
 
     if (citiesError || genresError)
         return (
@@ -112,12 +114,23 @@ const Form = styled.form`
     text-align: left;
     border-radius: ${Radiuses.M};
     box-shadow: ${Shadows.M};
-    ${Mixins.Flexbox({
-        $alignItems: "flex-end",
-        $gap: "s",
-    })};
-
-    & > div {
-        width: 100%;
-    }
+    display: grid;
+    grid-template-columns: 1fr 1fr 62px;
+    align-items: end;
+    gap: ${Spacers.S};
 `
+
+const HomeSearchSkeleton = () => {
+    return (
+        <Form as="div">
+            <InputSkeleton label="City" />
+            <InputSkeleton label="Genre" />
+            <Skeleton
+                width={62}
+                height={31}
+                borderRadius="m"
+                animation="shine"
+            />
+        </Form>
+    )
+}
