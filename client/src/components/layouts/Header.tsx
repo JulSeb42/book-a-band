@@ -2,7 +2,7 @@
 
 import { useContext } from "react"
 import type { ElementType } from "react"
-import { NavLink } from "react-router-dom"
+import { NavLink, useSearchParams } from "react-router-dom"
 import styled from "styled-components"
 import {
     Header as Container,
@@ -52,6 +52,20 @@ export const Header = () => {
         },
     ]
 
+    const [searchParams] = useSearchParams()
+    const city = searchParams.get("city") || null
+    const genre = searchParams.get("genre") || null
+    const query = searchParams.get("query") || null
+    const page = searchParams.get("page") || null
+
+    // @ts-ignore
+    const queries: string[][] = [
+        city ? ["city", city] : null,
+        genre ? ["genre", genre] : null,
+        query ? ["query", query] : null,
+        page ? ["page", page] : null,
+    ].filter(param => param !== null)
+
     const navLinksFunc = (links: NavLinkType[]) =>
         links.map(({ text, to, onClick, end }) =>
             to ? (
@@ -78,6 +92,7 @@ export const Header = () => {
                 keyboardShortcut: ["Command", "KeyK"],
                 showKeys: true,
                 maxWidth: 300,
+                queries,
             }}
         >
             {navLinksFunc(baseLinks)}

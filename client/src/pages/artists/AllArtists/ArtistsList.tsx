@@ -1,6 +1,7 @@
 /*=============================================== ArtistsList ===============================================*/
 
 import { Fragment } from "react"
+import { useSearchParams } from "react-router-dom"
 import {
     useFetch,
     Text,
@@ -28,6 +29,18 @@ export const ArtistsList = () => {
     )
     const artists: UserType[] = getPaginatedData()
 
+    const [searchParams] = useSearchParams()
+    const city = searchParams.get("city") || null
+    const genre = searchParams.get("genre") || null
+    const query = searchParams.get("query") || null
+
+    // @ts-ignore
+    const queries: string[][] = [
+        city ? ["city", city] : null,
+        genre ? ["genre", genre] : null,
+        query ? ["query", query] : null,
+    ].filter(param => param !== null)
+
     if (loading) return <UsersListSkeleton />
 
     if (error) return <Text>Error while fetching users: {error}</Text>
@@ -47,6 +60,7 @@ export const ArtistsList = () => {
                 <Pagination
                     totalPages={getNumberOfPages()}
                     icons={{ prev: "arrow-left", next: "arrow-right" }}
+                    queries={queries}
                 />
             )}
         </>
