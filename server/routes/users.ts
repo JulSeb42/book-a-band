@@ -3,7 +3,7 @@
 import { Router } from "express"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
-import { passwordRegex, deleteDuplicates } from "ts-utils-julseb"
+import { passwordRegex, deleteDuplicates, slugify } from "ts-utils-julseb"
 
 import { UserModel } from "../models/User.model"
 
@@ -19,19 +19,43 @@ router.get("/all-users", (_, res, next) => {
 })
 
 // Get artists
-router.get("/artists", (_, res, next) =>
+router.get("/artists", (req, res, next) => {
+    const { city, genre, query } = req.query as {
+        city?: string
+        genre?: string
+        query?: string
+    }
+
     UserModel.find()
-        .then(usersFromDb =>
-            res
-                .status(200)
-                .json(
-                    usersFromDb.filter(
-                        user => user.role === "artist" && user.isVisible
-                    )
+        .then(usersFromDb => {
+            let artists = usersFromDb.filter(
+                user => user.role === "artist" && user.isVisible
+            )
+
+            if (city !== "undefined")
+                artists = artists.filter(
+                    artist => slugify(artist.city!) === slugify(city!)
                 )
-        )
+
+            if (genre !== "undefined")
+                artists = artists.filter(
+                    artist => slugify(artist.genre!) === slugify(genre!)
+                )
+
+            if (query !== "undefined") {
+                console.log(query)
+                artists = artists.filter(
+                    artist =>
+                        slugify(artist.city!).includes(slugify(query!)) ||
+                        slugify(artist.genre!).includes(slugify(query!)) ||
+                        slugify(artist.fullName!).includes(slugify(query!))
+                )
+            }
+
+            res.status(200).json(artists)
+        })
         .catch(err => next(err))
-)
+})
 
 // Get all cities
 router.get("/cities", (req, res, next) => {

@@ -19,20 +19,17 @@ import { ArtistCard, ArtistCardSkeleton } from "components"
 import type { UserType } from "types"
 
 export const ArtistsList = () => {
+    const [searchParams] = useSearchParams()
+    const city = searchParams.get("city") || undefined
+    const genre = searchParams.get("genre") || undefined
+    const query = searchParams.get("query") || undefined
+
     const { response, error, loading } = useFetch<AxiosResponse>(
         userService.allArtists()
     )
+    const artists: UserType[] = response?.data
 
-    const { getPaginatedData, getNumberOfPages } = usePaginatedData(
-        response?.data,
-        10
-    )
-    const artists: UserType[] = getPaginatedData()
-
-    const [searchParams] = useSearchParams()
-    const city = searchParams.get("city") || null
-    const genre = searchParams.get("genre") || null
-    const query = searchParams.get("query") || null
+    const { getPaginatedData, getNumberOfPages } = usePaginatedData(artists, 10)
 
     // @ts-ignore
     const queries: string[][] = [
@@ -45,11 +42,11 @@ export const ArtistsList = () => {
 
     if (error) return <Text>Error while fetching users: {error}</Text>
 
-    if (!artists?.length) return <Text>No artist yet.</Text>
+    if (!getPaginatedData()?.length) return <Text>No artist yet.</Text>
 
     return (
         <>
-            {artists.map((user, i) => (
+            {getPaginatedData().map((user, i) => (
                 <Fragment key={user?._id}>
                     <ArtistCard artist={user} key={user._id} />
                     {i !== artists?.length - 1 && <Hr />}
