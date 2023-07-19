@@ -1,8 +1,20 @@
 /*=============================================== Ul ===============================================*/
 
+import { forwardRef } from "react"
+import type { ForwardedRef } from "react"
+
 import { StyledUl } from "components/ui/Text/styles"
 import type { TextProps } from "components/ui/Text/types"
 
-export const Ul = ({ children }: TextProps) => {
-    return <StyledUl>{children}</StyledUl>
-}
+export const Ul = forwardRef(
+    (
+        { as, children, color, ...rest }: TextProps,
+        ref?: ForwardedRef<HTMLUListElement>
+    ) => {
+        return (
+            <StyledUl ref={ref} as={as} data-color={color} {...rest}>
+                {children}
+            </StyledUl>
+        )
+    }
+)

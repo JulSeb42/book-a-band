@@ -4,8 +4,8 @@
 
 import { PATHS } from "data"
 
-import { ProtectedRoute } from "routes/ProtectedRoute"
-import { AnonRoute } from "routes/AnonRoute"
+// import { ProtectedRoute } from "routes/ProtectedRoute"
+// import { AnonRoute } from "routes/AnonRoute"
 
 import { Homepage } from "pages/Homepage"
 import { NotFound } from "pages/NotFound"

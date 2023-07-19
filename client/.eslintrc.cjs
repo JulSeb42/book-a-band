@@ -8,5 +8,9 @@ module.exports = {
         "import/no-duplicates": "warn",
         "@typescript-eslint/consistent-type-imports": "warn",
         "@typescript-eslint/no-unused-expressions": "warn",
+        "@typescript-eslint/no-unused-vars": "warn",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
     },
 }

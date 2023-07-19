@@ -1,79 +1,94 @@
 /*=============================================== Text styles ===============================================*/
 
 import styled, { css } from "styled-components"
-import { FONT_FAMILY, LINE_HEIGHT, FONT_SIZES, FONT_WEIGHTS } from "components"
+import {
+    FONT_FAMILY,
+    LINE_HEIGHT,
+    FONT_WEIGHTS,
+    COLORS,
+    TRANSITIONS,
+    Mixins,
+} from "components"
+import { generateFontSize } from "components/ui/Text/generate-font-size"
+import type { FontSizesTypes } from "components/types"
 
-const baseTextStyles = css`
+const baseTextStyles = ({
+    fontSize,
+}: {
+    fontSize: FontSizesTypes | "inherit"
+}) => css`
     font-family: ${FONT_FAMILY};
     line-height: ${LINE_HEIGHT};
+    font-size: ${generateFontSize(fontSize)};
+    color: currentColor;
+
+    ${Mixins.ColorAttribute};
 
     a,
     button {
         text-decoration: none;
         border: none;
         padding: 0;
+        color: ${COLORS.PRIMARY_500};
+        transition: ${TRANSITIONS.SHORT};
+        font-weight: ${FONT_WEIGHTS.BLACK};
+        font-size: ${generateFontSize(fontSize)};
+        background-color: transparent;
+
+        &:hover {
+            color: ${COLORS.PRIMARY_300};
+        }
     }
 `
 
 export const StyledH1 = styled.h1`
-    font-size: ${FONT_SIZES.H1};
     font-weight: ${FONT_WEIGHTS.BLACK};
-    ${baseTextStyles}
+    ${baseTextStyles({ fontSize: "h1" })}
 `
 
 export const StyledH2 = styled.h2`
-    font-size: ${FONT_SIZES.H2};
     font-weight: ${FONT_WEIGHTS.BLACK};
-    ${baseTextStyles}
+    ${baseTextStyles({ fontSize: "h2" })}
 `
 
 export const StyledH3 = styled.h3`
-    font-size: ${FONT_SIZES.H3};
     font-weight: ${FONT_WEIGHTS.BLACK};
-    ${baseTextStyles}
+    ${baseTextStyles({ fontSize: "h3" })}
 `
 
 export const StyledH4 = styled.h4`
-    font-size: ${FONT_SIZES.H4};
     font-weight: ${FONT_WEIGHTS.BLACK};
-    ${baseTextStyles}
+    ${baseTextStyles({ fontSize: "h4" })}
 `
 
 export const StyledH5 = styled.h5`
-    font-size: ${FONT_SIZES.H5};
     font-weight: ${FONT_WEIGHTS.BLACK};
-    ${baseTextStyles}
+    ${baseTextStyles({ fontSize: "h5" })}
 `
 
 export const StyledH6 = styled.h6`
-    font-size: ${FONT_SIZES.H6};
     font-weight: ${FONT_WEIGHTS.BLACK};
-    ${baseTextStyles}
+    ${baseTextStyles({ fontSize: "h6" })}
 `
 
 export const StyledP = styled.p`
-    font-size: ${FONT_SIZES.BODY};
-    ${baseTextStyles}
+    ${baseTextStyles({ fontSize: "body" })}
 `
 
 export const StyledStrong = styled.strong`
-    font-size: ${FONT_SIZES.BODY};
     font-weight: ${FONT_WEIGHTS.BLACK};
-    ${baseTextStyles}
+    ${baseTextStyles({ fontSize: "inherit" })}
 `
 
 export const StyledEm = styled.em`
-    font-size: ${FONT_SIZES.BODY};
     font-style: italic;
-    ${baseTextStyles}
+    ${baseTextStyles({ fontSize: "inherit" })}
 `
 
 export const StyledSmall = styled.small`
-    font-size: ${FONT_SIZES.SMALL};
-    ${baseTextStyles}
+    ${baseTextStyles({ fontSize: "small" })}
 `
 
 export const StyledUl = styled.ul`
-    font-size: ${FONT_SIZES.BODY};
-    ${baseTextStyles}
+    ${baseTextStyles({ fontSize: "body" })}
 `

@@ -1,6 +1,7 @@
 /*=============================================== Text types ===============================================*/
 
-import type { ReactNode } from "react"
+import type { ReactNode, ElementType, HTMLAttributes } from "react"
+import type { ColorsTypes } from "components/types"
 
 const tags = {
     h1: "h1",
@@ -18,7 +19,12 @@ const tags = {
 
 export type TextTagsTypes = keyof typeof tags
 
-export interface TextProps {
+export interface TextProps
+    extends HTMLAttributes<
+        HTMLHeadingElement & HTMLParagraphElement & HTMLUListElement
+    > {
+    as?: ElementType
     children?: ReactNode | ReactNode[]
     tag?: TextTagsTypes
+    color?: ColorsTypes
 }

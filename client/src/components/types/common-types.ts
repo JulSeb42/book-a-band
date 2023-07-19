@@ -1,6 +1,6 @@
 /*=============================================== Common types ===============================================*/
 
-import { typeValues } from "components/types"
+import type { typeValues } from "components/types"
 
 export type ColorsTypes = keyof typeof typeValues.colors
 export type ColorsShortTypes = keyof typeof typeValues.colorsShort

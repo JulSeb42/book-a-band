@@ -10,26 +10,35 @@
 /*====================== Variables ======================*/
 
 :root {
-    /* TODO: Add all colors 600 */
     /*===== Colors =====*/
 
     --color-black: #181818;
     --color-white: #FFFFFF;
 
-    --color-gray-800: #2f2f2f;
-    --color-gray-500: #767676;
-    --color-gray-300: #c8c8c8;
-    --color-gray-50: #f8f8f8;
+    --color-dark-gray: #2F2F2F;
+    --color-dark-gray-hover: #545454;
+    --color-dark-gray-active: #7A7A7A;
+    --color-dark-gray-ghost: #F2F2F2;
 
-    --color-primary-500: #142f43;
-    --color-primary-300: #26587e;
+    --color-gray: #767676;
+    --color-gray-hover: #9C9C9C;
+    --color-gray-active: #C2C2C2;
+    --color-gray-ghost: #F2F2F2;
 
-    --color-success-500: #23ce6b;
-    --color-success-300: #59e393;
+    --color-primary: #142F43;
+    --color-primary-hover: #26587E;
+    --color-primary-active: #3781B9;
+    --color-primary-ghost: #EBF3F9;
 
-    --color-danger-500: #ff0000;
-    --color-danger-300: #ff4c4d;
-    --color-danger-50: #ffe5e6;
+    --color-success: #23CE6B;
+    --color-success-hover: #59E393;
+    --color-success-active: #9BEEBE;
+    --color-success-ghost: #E9FBF1;
+
+    --color-danger: #FF0000;
+    --color-danger-hover: #FF4D4D;
+    --color-danger-active: #FF9999;
+    --color-danger-ghost: #FFE5E5;
 
     /*===== Overlays =====*/
 
