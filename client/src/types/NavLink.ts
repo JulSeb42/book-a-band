@@ -1,8 +1,19 @@
 /*=============================================== Nav link types ===============================================*/
 
-import type { ButtonLinkTypesRequire } from "tsx-library-julseb/types"
-
-export type NavLinkType = ButtonLinkTypesRequire & {
+type BaseLinkType = {
     text: string
-    end?: boolean
 }
+
+type NavLinkTypeLink = BaseLinkType & {
+    to: string
+    end?: boolean
+    onClick?: never
+}
+
+type NavLinkTypeButton = BaseLinkType & {
+    to?: never
+    end?: never
+    onClick: () => void
+}
+
+export type NavLinkType = NavLinkTypeLink | NavLinkTypeButton

@@ -4,6 +4,7 @@ import type { ReactNode } from "react"
 
 import { Wrapper, Main } from "components"
 import { Helmet } from "components/layouts/Helmet"
+import { Header } from "components/layouts/Header"
 
 import type { HelmetProps } from "components/layouts/Helmet"
 import type { MainSizesTypes } from "components/layouts/Main/types"
@@ -26,6 +27,8 @@ export const Page = ({
                 cover={cover}
                 keywords={keywords}
             />
+
+            {!noHeader && <Header />}
 
             {noWrapper ? (
                 children
