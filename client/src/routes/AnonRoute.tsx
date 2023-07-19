@@ -2,7 +2,6 @@
 
 import { useContext } from "react"
 import { Navigate } from "react-router-dom"
-import { PageLoading } from "tsx-library-julseb"
 
 import { AuthContext } from "context"
 import type { AuthContextType } from "context/types"
@@ -16,7 +15,7 @@ export const AnonRoute = ({
     const { isLoggedIn, isLoading } = useContext(AuthContext) as AuthContextType
 
     return isLoading ? (
-        <PageLoading />
+        <p>Loading...</p>
     ) : !isLoggedIn ? (
         children
     ) : (

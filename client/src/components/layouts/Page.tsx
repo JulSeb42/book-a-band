@@ -1,69 +1,46 @@
 /*=============================================== Page ===============================================*/
 
-import { Wrapper, Main, PageLoading } from "tsx-library-julseb"
+import type { ReactNode } from "react"
 
+import { Wrapper, Main } from "components"
 import { Helmet } from "components/layouts/Helmet"
-import { Header } from "components/layouts/Header"
-import { Footer } from "components/layouts/Footer"
 
 import type { HelmetProps } from "components/layouts/Helmet"
+import type { MainSizesTypes } from "components/layouts/Main/types"
 
 export const Page = ({
     children,
     title,
     description,
-    keywords,
     cover,
-    mainWidth = "large",
+    keywords,
     noWrapper,
-    isLoading,
-    template = "1col",
     noHeader,
+    mainSize,
 }: PageProps) => {
     return (
         <>
             <Helmet
                 title={title}
                 description={description}
-                keywords={keywords}
                 cover={cover}
+                keywords={keywords}
             />
 
-            {isLoading ? (
-                <PageLoading />
+            {noWrapper ? (
+                children
             ) : (
-                <>
-                    {!noHeader && <Header />}
-
-                    {!noWrapper ? (
-                        <Wrapper>
-                            {template === "1col" ? (
-                                <Main
-                                    minHeight="calc(100vh - 56px)"
-                                    size={mainWidth}
-                                >
-                                    {children}
-                                </Main>
-                            ) : (
-                                children
-                            )}
-                        </Wrapper>
-                    ) : (
-                        children
-                    )}
-
-                    {!noHeader && <Footer />}
-                </>
+                <Wrapper>
+                    <Main size={mainSize}>{children}</Main>
+                </Wrapper>
             )}
         </>
     )
 }
 
 interface PageProps extends HelmetProps {
-    children?: any
-    mainWidth?: "default" | "large" | "form"
-    template?: "1col" | "2cols" | "3cols"
-    isLoading?: boolean
+    children?: ReactNode | ReactNode[]
     noWrapper?: boolean
     noHeader?: boolean
+    mainSize?: MainSizesTypes
 }

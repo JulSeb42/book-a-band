@@ -1,30 +1,234 @@
+@charset "UTF-8";
+/* CSS Document */
+
 /*=============================================== Styles ===============================================*/
 
-/*====================== Overrides ======================*/
+/*==================== Imports ====================*/
 
-/*
-    Add all variables overrides here
-*/
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap");
+
+/*====================== Variables ======================*/
 
 :root {
+    /* TODO: Add all colors 600 */
+    /*===== Colors =====*/
+
     --color-black: #181818;
     --color-white: #FFFFFF;
 
-    /* TODO: Add all colors 600 */
-    --color-black: #181818;
     --color-gray-800: #2f2f2f;
     --color-gray-500: #767676;
     --color-gray-300: #c8c8c8;
     --color-gray-50: #f8f8f8;
-    --color-white: #ffffff;
 
     --color-primary-500: #142f43;
     --color-primary-300: #26587e;
-    --color-secondary-500: #ffab4c;
-    --color-secondary-300: #ffcf99;
+
     --color-success-500: #23ce6b;
     --color-success-300: #59e393;
+
     --color-danger-500: #ff0000;
     --color-danger-300: #ff4c4d;
     --color-danger-50: #ffe5e6;
+
+    /*===== Overlays =====*/
+
+    --overlay-black: rgba(0, 0, 0, 0.5);
+    --overlay-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.56) 100%);
+
+    /*===== Fonts =====*/
+
+    /* Font family */
+
+    --font-family-body: "Lato", sans-serif;
+
+    /* Font sizes */
+
+    --font-size-h1: 2.5rem;
+    --font-size-h2: 2rem;
+    --font-size-h3: 1.8rem;
+    --font-size-h4: 1.5rem;
+    --font-size-h5: 1.3rem;
+    --font-size-h6: 1.1rem;
+    --font-size-body: 1rem;
+    --font-size-small: 0.875rem;
+
+    /* Font weights */
+
+    --font-weight-regular: 400;
+    --font-weight-bold: 700;
+    --font-weight-black: 900;
+
+    /* Line height */
+
+    --line-height: 1.5;
+
+    /*===== Radiuses =====*/
+
+    --radius-xxl: 24px;
+    --radius-xl: 16px;
+    --radius-l: 12px;
+    --radius-m: 8px;
+    --radius-s: 4px;
+    --radius-xs: 2px;
+    --radius-round: 99em;
+    --radius-circle: 50%;
+
+    /*===== Spacers =====*/
+
+    --spacer-xxl: 48px;
+    --spacer-xl: 32px;
+    --spacer-l: 24px;
+    --spacer-m: 16px;
+    --spacer-s: 12px;
+    --spacer-xs: 8px;
+    --spacer-xxs: 4px;
+
+    /*===== Transitions =====*/
+
+    --transition-short: all 0.2s ease;
+    --transition-long: all 0.5s ease;
+    --transition-bezier: all 0.5s cubic-bezier(0.25, 0.75, 0, 0.66);
+
+    /*===== Containers =====*/
+
+    --main-default: 800px;
+    --main-form: 400px;
+    --aside-width: 200px;
+}
+
+@media screen and (max-width: 1024px) {
+    :root {
+        --main-default: 90%;
+        --main-form: 90%;
+        --aside-width: 90%;
+    }
+}
+
+/*=============================================== Reset ===============================================*/
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: none;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+        Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+img {
+    max-width: 100%;
+}
+
+button {
+    cursor: pointer;
 }

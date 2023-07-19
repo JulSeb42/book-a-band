@@ -16,27 +16,29 @@ endef
 define COMPONENT_FILE
 /*=============================================== $(name) component ===============================================*/
 
-import { } from "tsx-library-julseb"
+import { forwardRef } from "react"
+import { ForwardedRef } from "react"
 
 import { Styled$(name) } from "components/$(name)/styles"
 import type { $(name)Props } from "components/$(name)/types"
 
-export const $(name) = ({ }: $(name)Props) => {
-	return (
-		<Styled$(name)>
+export const $(name) = forwardRef(
+    ({ as }: $(name)Props, ref?: ForwardedRef<HTMLDivElement>) => {
+		return (
+			<Styled$(name) ref={ref} as={as}>
 
-		</Styled$(name)>
-	)
-}
+			</Styled$(name)>
+		)
+    }
+)
 endef
 
 define STYLES_FILE
 /*=============================================== $(name) styles ===============================================*/
 
 import styled from "styled-components"
-import { } from "tsx-library-julseb"
 
-export const Styled$(name) = styled.div<{ }>`
+export const Styled$(name) = styled.div`
 	
 `
 endef
@@ -44,8 +46,10 @@ endef
 define TYPES_FILE
 /*=============================================== $(name) types ===============================================*/
 
-export interface $(name)Props {
+import type { ElementType } from "react"
 
+export interface $(name)Props {
+	as?: ElementType
 }
 endef
 
@@ -57,8 +61,6 @@ endef
 
 define PAGE_FILE
 /*=============================================== $(pageName) ===============================================*/
-
-import { } from "tsx-library-julseb"
 
 import { Page } from "components"
 
@@ -95,6 +97,17 @@ const $(modelName)Schema = new Schema(
 export const $(modelName)Model = model("$(modelName)", $(modelName)Schema)
 endef
 
+define TEXT_FILE
+/*=============================================== $(textName) ===============================================*/
+
+import { Styled$(textName) } from "components/ui/Text/styles"
+import type { TextProps } from "components/ui/Text/types"
+
+export const $(textName) = ({ children }: TextProps) => {
+    return <Styled$(textName)>{children}</Styled$(textName)>
+}
+endef
+
 component:
 	mkdir client/src/components/$(name)
 	touch client/src/components/$(name)/index.ts
@@ -123,3 +136,7 @@ model:
 	touch server/models/$(modelName).model.ts
 	@echo '$(subst $(newline),\n,${MODEL_PAGE})' > server/models/$(modelName).model.ts
 	@echo 'export * from "./$(modelName).model"' >> server/models/index.ts
+
+text:
+	touch client/src/components/ui/Text/templates/$(textName).tsx
+	@echo '$(subst $(newline),\n,${TEXT_FILE})' > client/src/components/ui/Text/templates/$(textName).tsx
