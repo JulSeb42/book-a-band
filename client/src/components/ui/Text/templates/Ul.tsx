@@ -12,7 +12,7 @@ export const Ul = forwardRef(
         ref?: ForwardedRef<HTMLUListElement>
     ) => {
         return (
-            <StyledUl ref={ref} as={as} data-color={color} {...rest}>
+            <StyledUl ref={ref} as={as} $color={color} {...rest}>
                 {children}
             </StyledUl>
         )

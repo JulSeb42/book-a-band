@@ -2,42 +2,51 @@
 
 import styled from "styled-components"
 
-import { typeValues } from "components/types"
-import { generateDataAttributes } from "components"
+import type {
+    FlexAlignContentTypes,
+    FlexAlignItemsTypes,
+    FlexDirectionTypes,
+    FlexJustifyContentTypes,
+    FlexJustifyItemsTypes,
+    FlexWrapTypes,
+    SpacersTypes,
+} from "components/types"
+import { Mixins } from "components"
 
-export const StyledFlexbox = styled.div`
-    display: flex;
-    column-gap: var(--flex-column-gap);
-    row-gap: var(--flex-row-gap);
-
-    &.inline {
-        display: inline-flex;
-    }
-
-    ${generateDataAttributes(
-        "flex-direction",
-        Object.keys(typeValues.flexDirection)
-    )}
-
-    ${generateDataAttributes("flex-wrap", Object.keys(typeValues.flexWrap))}
-
-    ${generateDataAttributes(
-        "justify-content",
-        Object.keys(typeValues.flexJustifyContent)
-    )}
-
-    ${generateDataAttributes(
-        "justify-items",
-        Object.keys(typeValues.flexJustifyItems)
-    )}
-
-    ${generateDataAttributes(
-        "align-content",
-        Object.keys(typeValues.flexAlignContent)
-    )}
-
-    ${generateDataAttributes(
-        "align-items",
-        Object.keys(typeValues.flexAlignItems)
-    )}
+export const StyledFlexbox = styled.div<{
+    $inline?: boolean
+    $flexDirection?: FlexDirectionTypes
+    $flexWrap?: FlexWrapTypes
+    $justifyContent?: FlexJustifyContentTypes
+    $alignItems?: FlexAlignItemsTypes
+    $justifyItems?: FlexJustifyItemsTypes
+    $alignContent?: FlexAlignContentTypes
+    $gap?: SpacersTypes
+    $columnGap?: SpacersTypes
+    $rowGap?: SpacersTypes
+}>`
+    ${({
+        $inline,
+        $flexDirection,
+        $flexWrap,
+        $justifyContent,
+        $alignItems,
+        $justifyItems,
+        $alignContent,
+        $gap,
+        $columnGap,
+        $rowGap,
+    }) =>
+        Mixins.Flexbox({
+            inline: $inline,
+            flexDirection: $flexDirection,
+            flexWrap: $flexWrap,
+            justifyContent: $justifyContent,
+            alignItems: $alignItems,
+            justifyItems: $justifyItems,
+            alignContent: $alignContent,
+            gap: $gap,
+            columnGap: $columnGap,
+            rowGap: $rowGap,
+        })}
 `

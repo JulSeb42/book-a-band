@@ -92,3 +92,5 @@ export const BREAKPOINTS = {
     TOUCH: "(hover: none) and (pointer: coarse)",
     HOVER: "(hover: hover)",
 }
+
+export const INPUT_HEIGHT = 32

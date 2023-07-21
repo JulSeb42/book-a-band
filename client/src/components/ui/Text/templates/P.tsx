@@ -12,7 +12,7 @@ export const P = forwardRef(
         ref?: ForwardedRef<HTMLParagraphElement>
     ) => {
         return (
-            <StyledP ref={ref} as={as} data-color={color} {...rest}>
+            <StyledP ref={ref} as={as} $color={color} {...rest}>
                 {children}
             </StyledP>
         )

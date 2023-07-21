@@ -1,7 +1,8 @@
 /*=============================================== Aside types ===============================================*/
 
-import type { ElementType } from "react"
+import type { ElementType, ReactNode } from "react"
 
 export interface AsideProps {
-	as?: ElementType
+    as?: ElementType
+    children?: ReactNode | ReactNode[]
 }

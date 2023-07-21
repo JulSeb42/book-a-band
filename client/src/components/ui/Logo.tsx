@@ -19,10 +19,8 @@ export const Logo = forwardRef(
                 viewBox="0 0 200 200"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                style={{
-                    ["--logo-width" as any]: stringifyPx(width),
-                    ["--logo-height" as any]: stringifyPx(height),
-                }}
+                $width={width}
+                $height={height}
             >
                 {isWhite ? (
                     <>
@@ -179,7 +177,10 @@ interface LogoProps {
     height?: string | number
 }
 
-const StyledLogo = styled.svg`
-    width: var(--logo-width, auto);
-    height: var(--logo-height, auto);
+const StyledLogo = styled.svg<{
+    $width?: string | number
+    $height?: string | number
+}>`
+    width: ${({ $width }) => $width && stringifyPx($width)};
+    height: ${({ $height }) => $height && stringifyPx($height)};
 `

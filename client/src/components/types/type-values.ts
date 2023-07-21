@@ -24,14 +24,13 @@ export const typeValues = {
         "danger-hover": "danger-hover",
         "danger-active": "danger-active",
         "danger-ghost": "danger-ghost",
+        transparent: "transparent",
+        currentColor: "currentColor",
     },
-    colorsShort: {
+    colorsHover: {
         primary: "primary",
         success: "success",
         danger: "danger",
-        gray: "gray",
-        "dark-gray": "dark-gray",
-        black: "black",
         white: "white",
     },
     overlays: { black: "black", gradient: "gradient" },

@@ -3,10 +3,129 @@
 import { css } from "styled-components"
 import { stringifyPx } from "ts-utils-julseb"
 
-import { SPACERS, COLORS } from "components"
-import type { SpacerProps, FlexboxProps, GridProps } from "components/types"
+import { SPACERS, COLORS, FONT_SIZES } from "components"
+import type {
+    SpacerProps,
+    FontSizesTypes,
+    FlexAlignContentTypes,
+    FlexAlignItemsTypes,
+    FlexDirectionTypes,
+    FlexJustifyContentTypes,
+    FlexJustifyItemsTypes,
+    FlexWrapTypes,
+    SpacersTypes,
+    GridAlignContentTypes,
+    GridAlignItemsTypes,
+    GridJustifyContentTypes,
+    GridJustifyItemsTypes,
+    ColorsTypes,
+    ColorsHoverTypes,
+} from "components/types"
 
 export const Mixins = {
+    Color: ({ color }: { color: ColorsTypes }) => css`
+        ${color === "black"
+            ? COLORS.BLACK
+            : color === "white"
+            ? COLORS.WHITE
+            : color === "dark-gray"
+            ? COLORS.DARK_GRAY
+            : color === "dark-gray-hover"
+            ? COLORS.DARK_GRAY_HOVER
+            : color === "dark-gray-active"
+            ? COLORS.DARK_GRAY_ACTIVE
+            : color === "dark-gray-ghost"
+            ? COLORS.DARK_GRAY_GHOST
+            : color === "gray"
+            ? COLORS.GRAY
+            : color === "gray-hover"
+            ? COLORS.GRAY_HOVER
+            : color === "gray-active"
+            ? COLORS.GRAY_ACTIVE
+            : color === "gray-ghost"
+            ? COLORS.GRAY_GHOST
+            : color === "primary"
+            ? COLORS.PRIMARY
+            : color === "primary-hover"
+            ? COLORS.PRIMARY_HOVER
+            : color === "primary-active"
+            ? COLORS.PRIMARY_ACTIVE
+            : color === "primary-ghost"
+            ? COLORS.PRIMARY_GHOST
+            : color === "success"
+            ? COLORS.SUCCESS
+            : color === "success-hover"
+            ? COLORS.SUCCESS_HOVER
+            : color === "success-active"
+            ? COLORS.SUCCESS_ACTIVE
+            : color === "success-ghost"
+            ? COLORS.SUCCESS_GHOST
+            : color === "danger"
+            ? COLORS.DANGER
+            : color === "danger-hover"
+            ? COLORS.DANGER_HOVER
+            : color === "danger-active"
+            ? COLORS.DANGER_ACTIVE
+            : color === "danger-ghost"
+            ? COLORS.DANGER_GHOST
+            : color}
+    `,
+
+    ColorHoverDefault: ({ color }: { color: ColorsHoverTypes }) => css`
+        ${color === "primary"
+            ? COLORS.PRIMARY
+            : color === "success"
+            ? COLORS.SUCCESS
+            : color === "danger"
+            ? COLORS.DANGER
+            : color === "white" && COLORS.WHITE}
+    `,
+
+    ColorHoverHover: ({ color }: { color: ColorsHoverTypes }) =>
+        css`
+            ${color === "primary"
+                ? COLORS.PRIMARY_HOVER
+                : color === "success"
+                ? COLORS.SUCCESS_HOVER
+                : color === "danger"
+                ? COLORS.DANGER_HOVER
+                : color === "white" && COLORS.GRAY_GHOST}
+        `,
+
+    ColorHoverActive: ({ color }: { color: ColorsHoverTypes }) =>
+        css`
+            ${color === "primary"
+                ? COLORS.PRIMARY_ACTIVE
+                : color === "success"
+                ? COLORS.SUCCESS_ACTIVE
+                : color === "danger"
+                ? COLORS.DANGER_ACTIVE
+                : color === "white" && COLORS.GRAY_ACTIVE}
+        `,
+
+    FontSize: (fontSize: FontSizesTypes | "inherit") => {
+        switch (fontSize) {
+            case "h1":
+                return FONT_SIZES.H1
+            case "h2":
+                return FONT_SIZES.H2
+            case "h3":
+                return FONT_SIZES.H3
+            case "h4":
+                return FONT_SIZES.H4
+            case "h5":
+                return FONT_SIZES.H5
+            case "h6":
+                return FONT_SIZES.H6
+            case "small":
+                return FONT_SIZES.SMALL
+            case "inherit":
+                return null
+            default:
+                return FONT_SIZES.BODY
+        }
+    },
+
     Spacers: ({ spacer }: SpacerProps) => css`
         ${spacer === "xxl"
             ? SPACERS.XXL
@@ -35,7 +154,18 @@ export const Mixins = {
         gap,
         columnGap,
         rowGap,
-    }: FlexboxProps) => css`
+    }: {
+        inline?: boolean
+        flexDirection?: FlexDirectionTypes
+        flexWrap?: FlexWrapTypes
+        justifyContent?: FlexJustifyContentTypes
+        alignItems?: FlexAlignItemsTypes
+        justifyItems?: FlexJustifyItemsTypes
+        alignContent?: FlexAlignContentTypes
+        gap?: SpacersTypes
+        columnGap?: SpacersTypes
+        rowGap?: SpacersTypes
+    }) => css`
         display: ${inline ? "inline-flex" : "flex"};
         flex-direction: ${flexDirection};
         flex-wrap: ${flexWrap};
@@ -58,7 +188,17 @@ export const Mixins = {
         alignItems,
         justifyContent,
         alignContent,
-    }: GridProps) => css`
+    }: {
+        inline?: boolean
+        col?: number | string
+        gap?: SpacersTypes
+        columnGap?: SpacersTypes
+        rowGap?: SpacersTypes
+        justifyItems?: GridJustifyItemsTypes
+        alignItems?: GridAlignItemsTypes
+        justifyContent?: GridJustifyContentTypes
+        alignContent?: GridAlignContentTypes
+    }) => css`
         display: ${inline ? "inline-grid" : "grid"};
         grid-template-columns: ${col && typeof col === "number"
             ? `repeat(${col}, 1fr)`
@@ -70,95 +210,5 @@ export const Mixins = {
         justify-items: ${justifyItems};
         align-items: ${alignItems};
         align-content: ${alignContent};
-    `,
-
-    ColorAttribute: css`
-        &[data-color="black"] {
-            color: ${COLORS.BLACK};
-        }
-
-        &[data-color="white"] {
-            color: ${COLORS.WHITE};
-        }
-
-        &[data-color="dark-gray"] {
-            color: ${COLORS.DARK_GRAY};
-        }
-
-        &[data-color="dark-gray-hover"] {
-            color: ${COLORS.DARK_GRAY_HOVER};
-        }
-
-        &[data-color="dark-gray-active"] {
-            color: ${COLORS.DARK_GRAY_ACTIVE};
-        }
-
-        &[data-color="dark-gray-ghost"] {
-            color: ${COLORS.DARK_GRAY_GHOST};
-        }
-
-        &[data-color="gray"] {
-            color: ${COLORS.GRAY};
-        }
-
-        &[data-color="gray-hover"] {
-            color: ${COLORS.GRAY_HOVER};
-        }
-
-        &[data-color="gray-active"] {
-            color: ${COLORS.GRAY_ACTIVE};
-        }
-
-        &[data-color="gray-ghost"] {
-            color: ${COLORS.GRAY_GHOST};
-        }
-
-        &[data-color="primary"] {
-            color: ${COLORS.PRIMARY};
-        }
-
-        &[data-color="primary-hover"] {
-            color: ${COLORS.PRIMARY_HOVER};
-        }
-
-        &[data-color="primary-active"] {
-            color: ${COLORS.PRIMARY_ACTIVE};
-        }
-
-        &[data-color="primary-ghost"] {
-            color: ${COLORS.PRIMARY_GHOST};
-        }
-
-        &[data-color="success"] {
-            color: ${COLORS.SUCCESS};
-        }
-
-        &[data-color="success-hover"] {
-            color: ${COLORS.SUCCESS_HOVER};
-        }
-
-        &[data-color="success-active"] {
-            color: ${COLORS.SUCCESS_ACTIVE};
-        }
-
-        &[data-color="success-ghost"] {
-            color: ${COLORS.SUCCESS_GHOST};
-        }
-
-        &[data-color="danger"] {
-            color: ${COLORS.DANGER};
-        }
-
-        &[data-color="danger-hover"] {
-            color: ${COLORS.DANGER_HOVER};
-        }
-
-        &[data-color="danger-active"] {
-            color: ${COLORS.DANGER_ACTIVE};
-        }
-
-        &[data-color="danger-ghost"] {
-            color: ${COLORS.DANGER_GHOST};
-        }
     `,
 }

@@ -12,7 +12,7 @@ export const H3 = forwardRef(
         ref?: ForwardedRef<HTMLHeadingElement>
     ) => {
         return (
-            <StyledH3 ref={ref} as={as} data-color={color} {...rest}>
+            <StyledH3 ref={ref} as={as} $color={color} {...rest}>
                 {children}
             </StyledH3>
         )
