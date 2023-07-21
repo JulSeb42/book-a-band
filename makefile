@@ -17,7 +17,7 @@ define COMPONENT_FILE
 /*=============================================== $(name) component ===============================================*/
 
 import { forwardRef } from "react"
-import { ForwardedRef } from "react"
+import type { ForwardedRef } from "react"
 
 import { Styled$(name) } from "components/$(name)/styles"
 import type { $(name)Props } from "components/$(name)/types"
