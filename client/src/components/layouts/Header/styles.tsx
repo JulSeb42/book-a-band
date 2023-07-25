@@ -62,3 +62,8 @@ export const LinkNav = styled(NavLink)`
         font-weight: ${FONT_WEIGHTS.BLACK};
     }
 `
+
+export const SearchForm = styled.form`
+    width: 100%;
+    max-width: 300px;
+`

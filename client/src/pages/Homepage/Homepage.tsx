@@ -1,55 +1,21 @@
 /*=============================================== Homepage ===============================================*/
 
-import { Page, Text, Button } from "components"
+import { Page, Text, Logo } from "components"
+import { HomeCover } from "pages/Homepage/HomeCover"
+import { HomeSearch } from "pages/Homepage/HomeSearch"
 
 export const Homepage = () => {
-    const props = [
-        "inline?: boolean",
-        "col?: number | string",
-        "gap?: SpacersTypes",
-        "columnGap?: SpacersTypes",
-        "rowGap?: SpacersTypes",
-        "justifyItems?: GridJustifyItemsTypes",
-        "alignItems?: GridAlignItemsTypes",
-        "justifyContent?: GridJustifyContentTypes",
-        "alignContent?: GridAlignContentTypes",
-    ]
-
     return (
-        <Page title="Homepage">
-            <Text tag="h1">Hello World</Text>
+        <Page title="Homepage" noHeader noWrapper>
+            <HomeCover>
+                <Logo isWhite width={100} />
 
-            <ul>
-                {props.map(prop => (
-                    <li>${prop}</li>
-                ))}
-            </ul>
+                <Text tag="h1" color="white">
+                    Book an artist / a band for your next event!
+                </Text>
 
-            <ul>
-                {props.map(prop => {
-                    const p = prop.split(":")[0].replace("?", "")
-                    return <li>${p},</li>
-                })}
-            </ul>
-
-            <ul>
-                {props.map(prop => {
-                    const p = prop.split(":")[0].replace("?", "")
-                    return <li>{`${p}: $${p},`}</li>
-                })}
-            </ul>
-
-            <ul>
-                {props.map(prop => {
-                    const p = prop.split(":")[0].replace("?", "")
-
-                    return <li>{`$${p}={${p.replace("$", "")}}`}</li>
-                })}
-            </ul>
-
-            <div>
-                <Button onClick={() => alert("Hello")}>Hello</Button>
-            </div>
+                <HomeSearch />
+            </HomeCover>
         </Page>
     )
 }

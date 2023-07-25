@@ -10,7 +10,7 @@ import { PATHS } from "data"
 import { Homepage } from "pages/Homepage"
 import { NotFound } from "pages/NotFound"
 
-// import { AllArtists, ArtistProfile } from "pages/artists"
+import { AllArtists } from "pages/AllArtists"
 
 // import {
 //     Signup,
@@ -41,7 +41,7 @@ export const routes: RouteType[] = [
     { path: PATHS.ROOT, element: <Homepage /> },
     { path: "*", element: <NotFound /> },
 
-    // { path: PATHS.ARTISTS, element: <AllArtists /> },
+    { path: PATHS.ARTISTS, element: <AllArtists /> },
     // { path: PATHS.ARTIST(), element: <ArtistProfile /> },
 
     // {

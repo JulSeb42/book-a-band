@@ -11,6 +11,7 @@ interface InputPropsBase
     extends InputContainerBaseProps,
         InputHTMLAttributes<HTMLInputElement & HTMLTextAreaElement> {
     validation?: ValidationStatusTypes
+    keys?: string[]
 }
 
 interface InputTextProps extends InputPropsBase {

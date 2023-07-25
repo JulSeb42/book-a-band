@@ -1,3 +1,3 @@
 /*=============================================== Loader exports ===============================================*/
 
-export * from "components/Loader/Loader"
+export * from "components/ui/Loader/Loader"

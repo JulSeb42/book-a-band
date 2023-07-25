@@ -3,6 +3,7 @@
 import { forwardRef } from "react"
 import type { ForwardedRef } from "react"
 
+import { Key } from "components"
 import {
     InputIcon,
     InputRightContainer,
@@ -15,13 +16,14 @@ import type { InputProps } from "components/forms/Input/types"
 
 const InputFn = forwardRef(
     (
-        { type, icon, validation, ...rest }: InputProps,
+        { type, icon, validation, keys, ...rest }: InputProps,
         ref?: ForwardedRef<HTMLInputElement & HTMLTextAreaElement>
     ) => {
         if (type === "textarea")
             return (
                 <StyledInput
                     as="textarea"
+                    ref={ref}
                     $validation={validation}
                     $isTextarea
                     {...rest}
@@ -44,9 +46,10 @@ const InputFn = forwardRef(
 
                 {inputFn()}
 
-                {validation && (
+                {(validation || keys) && (
                     <InputRightContainer>
-                        <InputValidation status={validation} />
+                        {keys && <Key keys={keys} />}
+                        {validation && <InputValidation status={validation} />}
                     </InputRightContainer>
                 )}
             </InputContent>

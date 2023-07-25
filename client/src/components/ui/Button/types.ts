@@ -3,11 +3,7 @@
 import type { ElementType, ButtonHTMLAttributes, HTMLAttributes } from "react"
 import type { ColorsHoverTypes } from "components/types"
 
-const buttonVariants = {
-    plain: "plain",
-    ghost: "ghost",
-    transparent: "transparent",
-} as const
+const buttonVariants = { plain: "plain", transparent: "transparent" } as const
 export type ButtonVariantsTypes = keyof typeof buttonVariants
 
 const buttonSizes = { default: "default", small: "small" } as const
@@ -27,12 +23,12 @@ interface ButtonPropsBase
 }
 
 interface ButtonPropsVariantsBackground extends ButtonPropsBase {
-    variant?: Omit<ButtonVariantsTypes, "transparent">
+    variant?: "plain"
     noPadding?: never
 }
 
 interface ButtonPropsVariantsTransparent extends ButtonPropsBase {
-    variant?: Omit<ButtonVariantsTypes, "plain" | "ghost">
+    variant?: "transparent"
     noPadding?: boolean
 }
 

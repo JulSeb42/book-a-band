@@ -12,7 +12,7 @@ export const StyledWrapper = styled.div`
         justifyContent: "center",
         gap: "l",
     })}
-    min-height: 100vh;
+    min-height: calc(100vh - 70px);
 
     @media ${BREAKPOINTS.TABLET} {
         flex-direction: column;
