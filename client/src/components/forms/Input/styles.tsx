@@ -12,6 +12,7 @@ import {
     INPUT_HEIGHT,
     LINE_HEIGHT,
 } from "components"
+import { BaseInputStyles } from "components/forms/InputComponents/styles"
 import type { ValidationStatusTypes } from "components/forms/InputComponents/types"
 
 export const InputContent = styled.div`
@@ -28,48 +29,9 @@ export const StyledInput = styled.input<{
     $validation?: ValidationStatusTypes
     $isTextarea?: boolean
 }>`
-    width: 100%;
-    height: ${INPUT_HEIGHT}px;
-    background-color: ${COLORS.WHITE};
-    border: 1px solid ${COLORS.GRAY_ACTIVE};
-    border-radius: ${RADIUSES.S};
-    padding: 0 ${SPACERS.XS};
-    font-family: ${FONT_FAMILY};
-    font-size: ${FONT_SIZES.BODY};
-    line-height: 100%;
-    position: relative;
-    z-index: 0;
-    transition: ${TRANSITIONS.SHORT};
+    ${BaseInputStyles}
 
-    &:focus {
-        border-color: ${COLORS.PRIMARY};
-    }
-
-    &:disabled {
-        background-color: ${COLORS.GRAY_GHOST};
-        border-color: ${COLORS.GRAY_ACTIVE};
-        color: ${COLORS.GRAY};
-        cursor: not-allowed;
-    }
-
-    ${({ $hasIcon }) =>
-        $hasIcon &&
-        css`
-            padding-left: calc(32px + ${SPACERS.XS});
-        `}
-
-    ${({ $validation }) =>
-        $validation &&
-        $validation === "not-passed" &&
-        css`
-            background-color: ${COLORS.DANGER_GHOST};
-
-            &:focus {
-                border-color: ${COLORS.DANGER};
-            }
-        `}
-
-        ${({ $isTextarea }) =>
+    ${({ $isTextarea }) =>
         $isTextarea &&
         css`
             padding: ${SPACERS.XS};

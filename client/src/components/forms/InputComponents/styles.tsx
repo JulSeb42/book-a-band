@@ -1,6 +1,6 @@
 /*=============================================== InputComponents styles ===============================================*/
 
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 
 import {
     Mixins,
@@ -9,7 +9,61 @@ import {
     SPACERS,
     FONT_WEIGHTS,
     Text,
+    RADIUSES,
+    FONT_FAMILY,
+    FONT_SIZES,
+    TRANSITIONS,
 } from "components"
+import type { ValidationStatusTypes } from "components/forms/InputComponents/types"
+
+export const BaseInputStyles = ({
+    $hasIcon,
+    $validation,
+}: {
+    $hasIcon?: boolean
+    $validation?: ValidationStatusTypes
+}) => css`
+    width: 100%;
+    height: ${INPUT_HEIGHT}px;
+    background-color: ${COLORS.WHITE};
+    border: 1px solid ${COLORS.GRAY_ACTIVE};
+    border-radius: ${RADIUSES.S};
+    padding: 0 ${SPACERS.XS};
+    font-family: ${FONT_FAMILY};
+    font-size: ${FONT_SIZES.BODY};
+    line-height: 100%;
+    position: relative;
+    z-index: 0;
+    transition: ${TRANSITIONS.SHORT};
+    text-align: left;
+    outline: none;
+
+    &:focus {
+        border-color: ${COLORS.PRIMARY};
+    }
+
+    &:disabled {
+        background-color: ${COLORS.GRAY_GHOST};
+        border-color: ${COLORS.GRAY_ACTIVE};
+        color: ${COLORS.GRAY};
+        cursor: not-allowed;
+    }
+
+    ${$hasIcon &&
+    css`
+        padding-left: calc(32px + ${SPACERS.XS});
+    `}
+
+    ${$validation &&
+    $validation === "not-passed" &&
+    css`
+        background-color: ${COLORS.DANGER_GHOST};
+
+        &:focus {
+            border-color: ${COLORS.DANGER};
+        }
+    `}
+`
 
 export const StyledRightContainer = styled.span`
     position: absolute;
@@ -49,6 +103,7 @@ export const IconContainer = styled.span`
 `
 
 export const StyledInputContainer = styled.div`
+    width: 100%;
     ${Mixins.Flexbox({
         flexDirection: "column",
         alignContent: "stretch",

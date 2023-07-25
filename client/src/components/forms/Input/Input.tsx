@@ -66,13 +66,12 @@ export const Input = forwardRef(
     ) => {
         const inputFn = () => <InputFn ref={ref} id={id} {...rest} />
 
-        if (label || helper)
-            return (
-                <InputContainer label={label} helper={helper} id={id}>
-                    {inputFn()}
-                </InputContainer>
-            )
-
-        return inputFn()
+        return label || helper ? (
+            <InputContainer label={label} helper={helper} id={id}>
+                {inputFn()}
+            </InputContainer>
+        ) : (
+            inputFn()
+        )
     }
 )

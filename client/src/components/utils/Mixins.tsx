@@ -211,4 +211,13 @@ export const Mixins = {
         align-items: ${alignItems};
         align-content: ${alignContent};
     `,
+
+    HideScrollbar: css`
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    `,
 }

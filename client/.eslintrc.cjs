@@ -2,8 +2,15 @@
 module.exports = {
     root: true,
     // extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+    // extends: ["eslint:eslint-plugin-react-hooks"],
+    extends: ["plugin:react-hooks/recommended"],
     parser: "@typescript-eslint/parser",
-    plugins: ["@typescript-eslint", "eslint-plugin-import"],
+    plugins: [
+        "@typescript-eslint",
+        "eslint-plugin-import",
+        "eslint-plugin-react-hooks",
+        "react-hooks",
+    ],
     rules: {
         "import/no-duplicates": "warn",
         "@typescript-eslint/consistent-type-imports": "warn",
@@ -20,5 +27,6 @@ module.exports = {
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
+        "react-hooks/rules-of-hooks": "warn",
     },
 }
