@@ -4,6 +4,13 @@ import { Helmet as Meta } from "react-helmet"
 
 import { SITE_DATA } from "data"
 
+export interface HelmetProps {
+    title: string
+    description?: string
+    keywords?: string[]
+    cover?: string
+}
+
 export const Helmet = ({
     title,
     description = SITE_DATA.DESCRIPTION,
@@ -33,11 +40,4 @@ export const Helmet = ({
             <html lang={SITE_DATA.LANGUAGE} />
         </Meta>
     )
-}
-
-export interface HelmetProps {
-    title: string
-    description?: string
-    keywords?: string[]
-    cover?: string
 }

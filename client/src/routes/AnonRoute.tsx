@@ -8,6 +8,11 @@ import type { AuthContextType } from "context/types"
 
 import { PATHS } from "data"
 
+interface AnonRouteProps {
+    children: any
+    redirectTo?: string
+}
+
 export const AnonRoute = ({
     children,
     redirectTo = PATHS.MY_ACCOUNT,
@@ -21,9 +26,4 @@ export const AnonRoute = ({
     ) : (
         <Navigate to={redirectTo} />
     )
-}
-
-interface AnonRouteProps {
-    children: any
-    redirectTo?: string
 }

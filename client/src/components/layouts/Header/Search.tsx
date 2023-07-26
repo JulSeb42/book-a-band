@@ -10,7 +10,7 @@ import {
 } from "react-router-dom"
 
 import { Input } from "components"
-import { useKeyPress } from "hooks"
+import { useKeyPress, useQueryParams } from "hooks"
 import { PATHS } from "data"
 import { filterObject } from "utils"
 
@@ -21,28 +21,23 @@ export const Search = () => {
     const navigate = useNavigate()
 
     const [searchParams, setSearchParams] = useSearchParams()
-    const page: string | undefined = searchParams.get("page") || undefined
-    const city: string | undefined = searchParams.get("city") || undefined
-    const genre: string | undefined = searchParams.get("genre") || undefined
+    const query = searchParams.get("query") || ""
 
-    const el = useRef<HTMLInputElement>()
-    const keys = ["Command", "KeyK"]
+    const [search, setSearch] = useState(query)
 
-    useKeyPress(() => el.current!.focus(), keys)
-
-    const [search, setSearch] = useState("")
+    const params = useQueryParams()
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        const params = {
-            page: page || null,
-            city: city || null,
-            genre: genre || null,
-            query: search !== "" ? search : null,
-        }
-        // Using any to be able to use filtered params
-        const filteredParams: any = filterObject(params, ([_, v]) => v !== null)
+        const filteredParams: any = filterObject(
+            {
+                ...params,
+                query: search !== "" ? search : null,
+                page: null,
+            },
+            ([_, v]) => v !== null
+        )
 
         if (location === PATHS.ARTISTS) {
             setSearchParams(filteredParams)
@@ -53,6 +48,10 @@ export const Search = () => {
             })
         }
     }
+
+    const el = useRef<HTMLInputElement>()
+    const keys = ["Command", "KeyK"]
+    useKeyPress(() => el.current!.focus(), keys)
 
     return (
         <SearchForm onSubmit={handleSubmit}>

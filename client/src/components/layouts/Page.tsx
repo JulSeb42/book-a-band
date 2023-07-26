@@ -9,6 +9,14 @@ import { Header } from "components/layouts/Header"
 import type { HelmetProps } from "components/layouts/Helmet"
 import type { MainSizesTypes } from "components/layouts/Main/types"
 
+interface PageProps extends HelmetProps {
+    children?: ReactNode | ReactNode[]
+    noWrapper?: boolean
+    noHeader?: boolean
+    noMain?: boolean
+    mainSize?: MainSizesTypes
+}
+
 export const Page = ({
     children,
     title,
@@ -44,12 +52,4 @@ export const Page = ({
             )}
         </>
     )
-}
-
-interface PageProps extends HelmetProps {
-    children?: ReactNode | ReactNode[]
-    noWrapper?: boolean
-    noHeader?: boolean
-    noMain?: boolean
-    mainSize?: MainSizesTypes
 }

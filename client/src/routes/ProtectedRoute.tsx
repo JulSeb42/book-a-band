@@ -8,6 +8,11 @@ import type { AuthContextType } from "context/types"
 
 import { PATHS } from "data"
 
+interface ProtectedRouteProps {
+    children: any
+    redirectTo?: string
+}
+
 export const ProtectedRoute = ({
     children,
     redirectTo = PATHS.LOGIN,
@@ -21,9 +26,4 @@ export const ProtectedRoute = ({
     ) : (
         <Navigate to={redirectTo} />
     )
-}
-
-interface ProtectedRouteProps {
-    children: any
-    redirectTo?: string
 }

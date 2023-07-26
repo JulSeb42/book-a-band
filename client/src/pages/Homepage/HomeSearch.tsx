@@ -10,6 +10,7 @@ import { userService } from "api"
 
 import { Select, Button, COLORS, SPACERS, RADIUSES, Mixins } from "components"
 import { PATHS } from "data"
+import { useQueryParams } from "hooks"
 import { filterObject } from "utils"
 
 export const HomeSearch = () => {
@@ -28,15 +29,19 @@ export const HomeSearch = () => {
     const [city, setCity] = useState("All")
     const [genre, setGenre] = useState("All")
 
+    const params = useQueryParams()
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        const params = {
-            city: city === "All" ? null : slugify(city),
-            genre: genre === "All" ? null : slugify(genre),
-        }
-
-        const filteredParams: any = filterObject(params, ([_, v]) => v !== null)
+        const filteredParams: any = filterObject(
+            {
+                ...params,
+                city: city === "All" ? null : slugify(city),
+                genre: genre === "All" ? null : slugify(genre),
+            },
+            ([_, v]) => v !== null
+        )
 
         if (city === "All" && genre === "All") navigate(PATHS.ARTISTS)
 

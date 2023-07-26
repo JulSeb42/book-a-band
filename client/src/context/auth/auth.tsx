@@ -6,6 +6,10 @@ import type { AuthContextType } from "context/types"
 
 import type { UserType } from "types"
 
+interface AuthProviderWrapperProps {
+    children: any
+}
+
 export const AuthContext = createContext<null | AuthContextType>(null)
 
 export const AuthProviderWrapper = ({ children }: AuthProviderWrapperProps) => {
@@ -76,8 +80,4 @@ export const AuthProviderWrapper = ({ children }: AuthProviderWrapperProps) => {
             {children}
         </AuthContext.Provider>
     )
-}
-
-interface AuthProviderWrapperProps {
-    children: any
 }

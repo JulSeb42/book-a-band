@@ -6,9 +6,16 @@ import { generateNumbers } from "ts-utils-julseb"
 
 import { userService } from "api"
 
-import { ArtistCard, Hr, Text, ArtistCardSkeleton } from "components"
+import {
+    ArtistCard,
+    Hr,
+    Text,
+    ArtistCardSkeleton,
+    Pagination,
+} from "components"
 
 import type { UserType } from "types"
+import { usePaginatedData } from "hooks"
 
 export const ArtistsList = () => {
     const [searchParams] = useSearchParams()
@@ -26,17 +33,25 @@ export const ArtistsList = () => {
         setIsLoading(false)
     }, [city, genre, query])
 
+    const { paginatedData, totalPages } = usePaginatedData(artists)
+
     if (isLoading) return <ArtistsListSkeleton />
 
     if (!artists.length) return <Text>No artist yet.</Text>
 
-    return artists.map((artist, i) => (
-        <Fragment key={artist._id}>
-            <ArtistCard artist={artist} />
+    return (
+        <>
+            {paginatedData.map((artist, i) => (
+                <Fragment key={artist._id}>
+                    <ArtistCard artist={artist} />
 
-            {i !== artists.length - 1 && <Hr />}
-        </Fragment>
-    ))
+                    {i !== paginatedData.length - 1 && <Hr />}
+                </Fragment>
+            ))}
+
+            {totalPages > 1 && <Pagination totalPages={totalPages} />}
+        </>
+    )
 }
 
 const ArtistsListSkeleton = () => {

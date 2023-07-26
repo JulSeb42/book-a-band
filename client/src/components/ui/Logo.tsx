@@ -6,6 +6,12 @@ import type { ForwardedRef } from "react"
 import styled from "styled-components"
 import { stringifyPx } from "ts-utils-julseb"
 
+interface LogoProps {
+    isWhite?: boolean
+    width?: string | number
+    height?: string | number
+}
+
 export const Logo = forwardRef(
     (
         { isWhite, width, height }: LogoProps,
@@ -95,12 +101,6 @@ export const Logo = forwardRef(
         )
     }
 )
-
-interface LogoProps {
-    isWhite?: boolean
-    width?: string | number
-    height?: string | number
-}
 
 const StyledLogo = styled.svg<{
     $width?: string | number
