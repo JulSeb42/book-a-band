@@ -61,17 +61,18 @@ const InputFn = forwardRef(
 
 export const Input = forwardRef(
     (
-        { id, label, helper, ...rest }: InputProps,
+        { id, label, helper, isLoading, ...rest }: InputProps,
         ref?: ForwardedRef<HTMLInputElement & HTMLTextAreaElement>
     ) => {
-        const inputFn = () => <InputFn ref={ref} id={id} {...rest} />
-
-        return label || helper ? (
-            <InputContainer label={label} helper={helper} id={id}>
-                {inputFn()}
+        return (
+            <InputContainer
+                label={label}
+                helper={helper}
+                id={id}
+                isLoading={isLoading}
+            >
+                <InputFn ref={ref} id={id} {...rest} />
             </InputContainer>
-        ) : (
-            inputFn()
         )
     }
 )

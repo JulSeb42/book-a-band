@@ -32,6 +32,7 @@ export interface InputContainerBaseProps {
               icon: string | null
               iconColor?: ColorsTypes
           }
+    isLoading?: boolean
 }
 
 export interface InputContainerProps extends InputContainerBaseProps {

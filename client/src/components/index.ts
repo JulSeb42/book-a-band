@@ -2,6 +2,8 @@
 
 export * from "components/styles/Variables"
 export * from "components/styles/GlobalStyles"
+export * from "components/utils/get-border-radius"
+export * from "components/utils/get-spacer"
 export * from "components/utils/Mixins"
 
 export * from "components/ui/Logo"
@@ -19,3 +21,6 @@ export * from "components/ui/Button"
 export * from "components/ui/Loader"
 export * from "components/ui/Key"
 export * from "components/forms/Select"
+export * from "components/utils/SrOnly"
+export * from "components/ui/Hr"
+export * from "components/ui/Skeleton"

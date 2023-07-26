@@ -20,7 +20,7 @@ import type { SelectProps } from "components/forms/Select/types"
 
 export const Select = forwardRef(
     (
-        { label, helper, value, setValue, options }: SelectProps,
+        { label, helper, value, setValue, options, isLoading }: SelectProps,
         ref?: ForwardedRef<HTMLButtonElement>
     ) => {
         const [isListOpen, setIsListOpen] = useState(false)
@@ -42,8 +42,6 @@ export const Select = forwardRef(
                 setIsFocus(false)
                 setIsListOpen(false)
             }, 100)
-
-        console.log(cursor)
 
         const handleKeyNavigation = useCallback(
             (e: KeyboardEvent) => {
@@ -123,42 +121,36 @@ export const Select = forwardRef(
             }
         }, [handleKeyNavigation, isFocus, options.length])
 
-        const selectFn = () => (
-            <StyledSelect ref={containerRef}>
-                <SelectButton
-                    type="button"
-                    onFocus={() => setIsFocus(true)}
-                    onBlur={() => setIsFocus(false)}
-                    ref={ref}
-                    onKeyDown={handleKeyNavigation}
-                >
-                    {value}
-                </SelectButton>
+        return (
+            <InputContainer label={label} helper={helper} isLoading={isLoading}>
+                <StyledSelect ref={containerRef}>
+                    <SelectButton
+                        type="button"
+                        onFocus={() => setIsFocus(true)}
+                        onBlur={() => setIsFocus(false)}
+                        ref={ref}
+                        onKeyDown={handleKeyNavigation}
+                    >
+                        {value}
+                    </SelectButton>
 
-                <InputRightContainer>
-                    <Icon src="chevron-down" size={16} color="primary" />
-                </InputRightContainer>
+                    <InputRightContainer>
+                        <Icon src="chevron-down" size={16} color="primary" />
+                    </InputRightContainer>
 
-                <List $isOpen={isListOpen} ref={listRef}>
-                    {options.map((option, i) => (
-                        <Option
-                            onClick={() => setValue(option)}
-                            $isActive={option === value}
-                            key={`option-${i}`}
-                        >
-                            {option}
-                        </Option>
-                    ))}
-                </List>
-            </StyledSelect>
-        )
-
-        return label || helper ? (
-            <InputContainer label={label} helper={helper}>
-                {selectFn()}
+                    <List $isOpen={isListOpen} ref={listRef}>
+                        {options.map((option, i) => (
+                            <Option
+                                onClick={() => setValue(option)}
+                                $isActive={option === value}
+                                key={`option-${i}`}
+                            >
+                                {option}
+                            </Option>
+                        ))}
+                    </List>
+                </StyledSelect>
             </InputContainer>
-        ) : (
-            selectFn()
         )
     }
 )

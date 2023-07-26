@@ -53,6 +53,7 @@ export const HomeSearch = () => {
                 options={isLoading ? [] : ["All", ...cities]}
                 value={city}
                 setValue={setCity}
+                isLoading={isLoading}
             />
 
             <Select
@@ -60,9 +61,10 @@ export const HomeSearch = () => {
                 options={isLoading ? [] : ["All", ...genres]}
                 value={genre}
                 setValue={setGenre}
+                isLoading={isLoading}
             />
 
-            <Button type="submit" size="small">
+            <Button type="submit" size="small" isLoading={isLoading}>
                 Search
             </Button>
         </Search>

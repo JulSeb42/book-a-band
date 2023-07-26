@@ -1,6 +1,6 @@
 /*=============================================== InputComponents component ===============================================*/
 
-import { Icon } from "components"
+import { Icon, Skeleton, INPUT_HEIGHT } from "components"
 
 import {
     StyledRightContainer,
@@ -42,12 +42,22 @@ export const InputContainer = ({
     label,
     helper,
     children,
+    isLoading,
 }: InputContainerProps) => {
+    const input = () =>
+        isLoading ? (
+            <Skeleton height={INPUT_HEIGHT} borderRadius="s" isShining />
+        ) : (
+            children
+        )
+
+    if (!label && !helper) return input()
+
     return (
         <StyledInputContainer>
             {label && <Label htmlFor={id}>{label}</Label>}
 
-            {children}
+            {input()}
 
             {helper &&
                 (typeof helper === "string" ? (

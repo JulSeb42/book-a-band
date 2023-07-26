@@ -3,9 +3,8 @@
 import { css } from "styled-components"
 import { stringifyPx } from "ts-utils-julseb"
 
-import { SPACERS, COLORS, FONT_SIZES } from "components"
+import { COLORS, FONT_SIZES, getBorderRadius, getSpacer } from "components"
 import type {
-    SpacerProps,
     FontSizesTypes,
     FlexAlignContentTypes,
     FlexAlignItemsTypes,
@@ -20,6 +19,9 @@ import type {
     GridJustifyItemsTypes,
     ColorsTypes,
     ColorsHoverTypes,
+    BorderProps,
+    RadiusesTypes,
+    PaddingProps,
 } from "components/types"
 
 export const Mixins = {
@@ -126,22 +128,8 @@ export const Mixins = {
         }
     },
 
-    Spacers: ({ spacer }: SpacerProps) => css`
-        ${spacer === "xxl"
-            ? SPACERS.XXL
-            : spacer === "xl"
-            ? SPACERS.XL
-            : spacer === "l"
-            ? SPACERS.L
-            : spacer === "m"
-            ? SPACERS.M
-            : spacer === "s"
-            ? SPACERS.S
-            : spacer === "xs"
-            ? SPACERS.XS
-            : spacer === "xxs"
-            ? SPACERS.XXS
-            : stringifyPx(spacer)}
+    Spacers: ({ spacer = null }: { spacer?: SpacersTypes | null }) => css`
+        ${getSpacer(spacer)}
     `,
     Flexbox: ({
         inline,
@@ -219,5 +207,69 @@ export const Mixins = {
         &::-webkit-scrollbar {
             display: none;
         }
+    `,
+
+    Border: ({ style, width, color }: BorderProps) => css`
+        border-style: ${style ? style : width || color ? "solid" : undefined};
+        border-width: ${width
+            ? stringifyPx(width)
+            : style || color
+            ? 1
+            : undefined};
+        border-color: ${color
+            ? Mixins.Color({ color })
+            : width || style
+            ? COLORS.GRAY_ACTIVE
+            : undefined};
+    `,
+
+    BorderRadius: ({ borderRadius }: { borderRadius?: RadiusesTypes }) => css`
+        border-top-left-radius: ${getBorderRadius(
+            typeof borderRadius === "object"
+                ? borderRadius?.topLeft
+                : borderRadius
+        )};
+        border-top-right-radius: ${getBorderRadius(
+            typeof borderRadius === "object"
+                ? borderRadius?.topRight
+                : borderRadius
+        )};
+        border-bottom-left-radius: ${getBorderRadius(
+            typeof borderRadius === "object"
+                ? borderRadius?.bottomLeft
+                : borderRadius
+        )};
+        border-bottom-right-radius: ${getBorderRadius(
+            typeof borderRadius === "object"
+                ? borderRadius?.bottomRight
+                : borderRadius
+        )};
+    `,
+
+    Padding: ({ padding = null }: PaddingProps) => css`
+        padding-left: ${Mixins.Spacers({
+            spacer:
+                typeof padding === "object"
+                    ? padding?.left || padding?.leftRight
+                    : padding,
+        })};
+        padding-right: ${Mixins.Spacers({
+            spacer:
+                typeof padding === "object"
+                    ? padding?.right || padding?.leftRight
+                    : padding,
+        })};
+        padding-top: ${Mixins.Spacers({
+            spacer:
+                typeof padding === "object"
+                    ? padding?.top || padding?.topBottom
+                    : padding,
+        })};
+        padding-bottom: ${Mixins.Spacers({
+            spacer:
+                typeof padding === "object"
+                    ? padding?.bottom || padding?.topBottom
+                    : padding,
+        })};
     `,
 }

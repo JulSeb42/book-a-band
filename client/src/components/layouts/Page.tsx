@@ -17,6 +17,7 @@ export const Page = ({
     keywords,
     noWrapper,
     noHeader,
+    noMain,
     mainSize,
 }: PageProps) => {
     return (
@@ -34,7 +35,11 @@ export const Page = ({
                 children
             ) : (
                 <Wrapper>
-                    <Main size={mainSize}>{children}</Main>
+                    {!noMain ? (
+                        <Main size={mainSize}>{children}</Main>
+                    ) : (
+                        children
+                    )}
                 </Wrapper>
             )}
         </>
@@ -45,5 +50,6 @@ interface PageProps extends HelmetProps {
     children?: ReactNode | ReactNode[]
     noWrapper?: boolean
     noHeader?: boolean
+    noMain?: boolean
     mainSize?: MainSizesTypes
 }
