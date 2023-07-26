@@ -43,7 +43,6 @@ router.get("/artists", (req, res, next) => {
                 )
 
             if (query !== "undefined") {
-                console.log(query)
                 artists = artists.filter(
                     artist =>
                         slugify(artist.city!).includes(slugify(query!)) ||

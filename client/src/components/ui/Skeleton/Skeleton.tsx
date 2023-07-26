@@ -37,10 +37,10 @@ export const SkeletonCard = ({
     padding,
     children,
     border,
-    ...props
+    ...rest
 }: SkeletonCardProps) => {
     return (
-        <StyledSkeletonCard $padding={padding} $border={border} {...props}>
+        <StyledSkeletonCard $padding={padding} $border={border} {...rest}>
             {children}
 
             {isShining && <Shine />}

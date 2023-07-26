@@ -27,4 +27,5 @@ export interface TextProps
     children?: ReactNode | ReactNode[]
     tag?: TextTagsTypes
     color?: ColorsTypes
+    maxLines?: number
 }

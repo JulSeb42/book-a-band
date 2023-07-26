@@ -8,11 +8,17 @@ import type { TextProps } from "components/ui/Text/types"
 
 export const Ul = forwardRef(
     (
-        { as, children, color, ...rest }: TextProps,
+        { as, children, color, maxLines, ...rest }: TextProps,
         ref?: ForwardedRef<HTMLUListElement>
     ) => {
         return (
-            <StyledUl ref={ref} as={as} $color={color} {...rest}>
+            <StyledUl
+                ref={ref}
+                as={as}
+                $color={color}
+                $maxLines={maxLines}
+                {...rest}
+            >
                 {children}
             </StyledUl>
         )

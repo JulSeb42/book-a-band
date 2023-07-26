@@ -39,7 +39,7 @@ export const Search = () => {
             page: page || null,
             city: city || null,
             genre: genre || null,
-            query: search,
+            query: search !== "" ? search : null,
         }
         // Using any to be able to use filtered params
         const filteredParams: any = filterObject(params, ([_, v]) => v !== null)

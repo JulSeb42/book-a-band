@@ -8,11 +8,17 @@ import type { TextProps } from "components/ui/Text/types"
 
 export const Em = forwardRef(
     (
-        { as, children, color, ...rest }: TextProps,
+        { as, children, color, maxLines, ...rest }: TextProps,
         ref?: ForwardedRef<HTMLParagraphElement>
     ) => {
         return (
-            <StyledEm ref={ref} as={as} $color={color} {...rest}>
+            <StyledEm
+                ref={ref}
+                as={as}
+                $color={color}
+                $maxLines={maxLines}
+                {...rest}
+            >
                 {children}
             </StyledEm>
         )

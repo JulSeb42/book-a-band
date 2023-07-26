@@ -8,11 +8,17 @@ import type { TextProps } from "components/ui/Text/types"
 
 export const H3 = forwardRef(
     (
-        { as, children, color, ...rest }: TextProps,
+        { as, children, color, maxLines, ...rest }: TextProps,
         ref?: ForwardedRef<HTMLHeadingElement>
     ) => {
         return (
-            <StyledH3 ref={ref} as={as} $color={color} {...rest}>
+            <StyledH3
+                ref={ref}
+                as={as}
+                $color={color}
+                $maxLines={maxLines}
+                {...rest}
+            >
                 {children}
             </StyledH3>
         )

@@ -8,11 +8,17 @@ import type { TextProps } from "components/ui/Text/types"
 
 export const Strong = forwardRef(
     (
-        { as, children, color, ...rest }: TextProps,
+        { as, children, color, maxLines, ...rest }: TextProps,
         ref?: ForwardedRef<HTMLParagraphElement>
     ) => {
         return (
-            <StyledStrong ref={ref} as={as} $color={color} {...rest}>
+            <StyledStrong
+                ref={ref}
+                as={as}
+                $color={color}
+                $maxLines={maxLines}
+                {...rest}
+            >
                 {children}
             </StyledStrong>
         )

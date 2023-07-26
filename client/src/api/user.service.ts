@@ -8,7 +8,15 @@ class UserService {
         return http.get(`${SERVER_PATHS.USERS}/all-users`)
     }
 
-    allArtists(city?: string, genre?: string, query?: string) {
+    allArtists({
+        city,
+        genre,
+        query,
+    }: {
+        city?: string
+        genre?: string
+        query?: string
+    }) {
         return http.get(
             `${SERVER_PATHS.USERS}/artists?city=${city}&genre=${genre}&query=${query}`
         )
