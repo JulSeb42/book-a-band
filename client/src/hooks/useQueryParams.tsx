@@ -3,21 +3,30 @@
 import { useSearchParams } from "react-router-dom"
 
 import { filterObject } from "utils"
+import type { SortType } from "types"
 
 export const useQueryParams = () => {
     const [searchParams] = useSearchParams()
-    const page: string | null = searchParams.get("page") || null
-    const city: string | null = searchParams.get("city") || null
-    const genre: string | null = searchParams.get("genre") || null
-    const query: string | null = searchParams.get("query") || null
+    const city: string | null = searchParams.get("city")
+    const genre: string | null = searchParams.get("genre")
+    const query: string | null = searchParams.get("query")
+    const page: string | null = searchParams.get("page")
+    const sort: string | null = searchParams.get("sort")
 
     const params: any = {
-        page,
         city,
         genre,
         query,
+        page,
+        sort,
     }
-    const filteredParams = filterObject(params, ([_, v]) => v !== null)
+    const filteredParams: {
+        city?: string
+        genre?: string
+        query?: string
+        page?: string
+        sort?: SortType
+    } = filterObject(params, ([_, v]) => v !== null)
 
     return filteredParams
 }

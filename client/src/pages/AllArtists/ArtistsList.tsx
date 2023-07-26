@@ -1,7 +1,6 @@
 /*=============================================== ArtistsList ===============================================*/
 
 import { useState, useEffect, Fragment } from "react"
-import { useSearchParams } from "react-router-dom"
 import { generateNumbers } from "ts-utils-julseb"
 
 import { userService } from "api"
@@ -13,25 +12,22 @@ import {
     ArtistCardSkeleton,
     Pagination,
 } from "components"
+import { usePaginatedData, useQueryParams } from "hooks"
 
 import type { UserType } from "types"
-import { usePaginatedData } from "hooks"
 
 export const ArtistsList = () => {
-    const [searchParams] = useSearchParams()
-    const city: string | undefined = searchParams.get("city") || undefined
-    const genre: string | undefined = searchParams.get("genre") || undefined
-    const query: string | undefined = searchParams.get("query") || undefined
+    const { city, genre, query, sort } = useQueryParams()
 
     const [artists, setArtists] = useState<UserType[]>([])
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         userService
-            .allArtists({ city, genre, query })
+            .allArtists({ city, genre, query, sort })
             .then(res => setArtists(res.data))
         setIsLoading(false)
-    }, [city, genre, query])
+    }, [city, genre, query, sort])
 
     const { paginatedData, totalPages } = usePaginatedData(artists)
 

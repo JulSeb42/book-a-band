@@ -3,6 +3,8 @@
 import { http } from "api"
 import { SERVER_PATHS } from "data"
 
+import type { SortType } from "types"
+
 class UserService {
     allUsers() {
         return http.get(`${SERVER_PATHS.USERS}/all-users`)
@@ -12,13 +14,15 @@ class UserService {
         city,
         genre,
         query,
+        sort,
     }: {
         city?: string
         genre?: string
         query?: string
+        sort?: SortType
     }) {
         return http.get(
-            `${SERVER_PATHS.USERS}/artists?city=${city}&genre=${genre}&query=${query}`
+            `${SERVER_PATHS.USERS}/artists?city=${city}&genre=${genre}&query=${query}&sort=${sort}`
         )
     }
 

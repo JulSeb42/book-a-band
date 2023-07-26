@@ -20,13 +20,6 @@ export const ArtistCard = ({
 }: ArtistCardProps) => {
     const path = PATHS.ARTIST(_id)
 
-    const filteredDates = available?.filter(
-        date => new Date(date) >= new Date()
-    )
-    const sortedDates = filteredDates.sort((a, b) =>
-        new Date(a) < new Date(b) ? -1 : 0
-    )
-
     const infos: ArtistInfoType[] = [
         {
             id: 0,
@@ -36,7 +29,7 @@ export const ArtistCard = ({
         {
             id: 1,
             title: "Next availability",
-            value: convertDateShort(new Date(sortedDates[0])) || "-",
+            value: convertDateShort(new Date(available[0])) || "-",
         },
         {
             id: 2,

@@ -8,6 +8,7 @@ import { passwordRegex, deleteDuplicates, slugify } from "ts-utils-julseb"
 import { UserModel } from "../models/User.model"
 
 import { SALT_ROUNDS, TOKEN_SECRET, jwtConfig } from "../utils"
+import type { SortType } from "../types"
 
 const router = Router()
 
@@ -20,10 +21,11 @@ router.get("/all-users", (_, res, next) => {
 
 // Get artists
 router.get("/artists", (req, res, next) => {
-    const { city, genre, query } = req.query as {
+    const { city, genre, query, sort } = req.query as {
         city?: string
         genre?: string
         query?: string
+        sort?: SortType | "undefined"
     }
 
     UserModel.find()
@@ -31,6 +33,12 @@ router.get("/artists", (req, res, next) => {
             let artists = usersFromDb.filter(
                 user => user.role === "artist" && user.isVisible
             )
+
+            artists.forEach(artist => {
+                artist.available = artist.available
+                    .filter(date => new Date(date) >= new Date())
+                    .sort((a, b) => (new Date(a) < new Date(b) ? -1 : 0))
+            })
 
             if (city !== "undefined")
                 artists = artists.filter(
@@ -49,6 +57,22 @@ router.get("/artists", (req, res, next) => {
                         slugify(artist.genre!).includes(slugify(query!)) ||
                         slugify(artist.fullName!).includes(slugify(query!))
                 )
+            }
+
+            if (sort !== "undefined") {
+                if (sort === "availability") {
+                    artists = artists.sort((a, b) =>
+                        new Date(a.available[0]) < new Date(b.available[0])
+                            ? -1
+                            : 0
+                    )
+                }
+
+                if (sort === "price") {
+                    artists = artists.sort(
+                        (a, b) => (a.price || 0) - (b.price || 0)
+                    )
+                }
             }
 
             res.status(200).json(artists)
