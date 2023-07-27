@@ -5,9 +5,9 @@ import type { ForwardedRef } from "react"
 
 import { Skeleton } from "components"
 
-import type { ImageProps } from "components/ui/Image/types"
+import type { ImageProps } from "components/media/Image/types"
 
-const StyledImage = lazy(() => import("components/ui/Image/styles"))
+const StyledImage = lazy(() => import("components/media/Image/styles"))
 
 export const Image = forwardRef(
     (

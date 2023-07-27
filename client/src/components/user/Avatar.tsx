@@ -3,7 +3,7 @@
 import { Image, Skeleton } from "components"
 
 import type { SkeletonProps } from "components/ui/Skeleton/types"
-import type { ImageProps } from "components/ui/Image/types"
+import type { ImageProps } from "components/media/Image/types"
 
 interface AvatarProps {
     src: string

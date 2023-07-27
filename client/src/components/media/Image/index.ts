@@ -1,3 +1,3 @@
 /*=============================================== Image exports ===============================================*/
 
-export * from "components/ui/Image/Image"
+export * from "components/media/Image/Image"

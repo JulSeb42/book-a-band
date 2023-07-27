@@ -1,0 +1,26 @@
+/*=============================================== ArtistAvailabilities ===============================================*/
+
+import { generateNumbers, convertDateShort } from "ts-utils-julseb"
+
+import { Skeleton, TextIcon, Text } from "components"
+
+import type { ArtistSectionProps } from "pages/artists/ArtistDetail/sections/artist-sections-types"
+
+export const ArtistAvailabilities = ({
+    artist,
+    isLoading,
+}: ArtistSectionProps) => {
+    if (isLoading)
+        return generateNumbers(0, 4).map(n => (
+            <Skeleton height={24} width="80%" isShining key={n} />
+        ))
+
+    if (!artist?.available.length)
+        return <Text>{artist?.fullName} did not add any date yet.</Text>
+
+    return artist?.available.map(date => (
+        <TextIcon icon="chevron-right" key={date}>
+            {convertDateShort(new Date(date))}
+        </TextIcon>
+    ))
+}
