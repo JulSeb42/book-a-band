@@ -76,6 +76,7 @@ export const CONTAINERS = {
     MAIN: {
         DEFAULT: "var(--main-default)",
         FORM: "var(--main-form)",
+        LARGE: "var(--main-large)",
     },
     ASIDE: "var(--aside-width)",
 }

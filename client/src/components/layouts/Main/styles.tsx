@@ -8,7 +8,7 @@ import type { MainSizesTypes } from "components/layouts/Main/types"
 export const StyledMain = styled.main<{ $size?: MainSizesTypes }>`
     width: 100%;
     max-width: ${({ $size }) =>
-        $size === "form" ? CONTAINERS.MAIN.FORM : CONTAINERS.MAIN.DEFAULT};
+        $size === "form" ? CONTAINERS.MAIN.FORM : $size === "large" ? CONTAINERS.MAIN.LARGE : CONTAINERS.MAIN.DEFAULT};
     min-height: 100%;
     position: relative;
     padding: ${SPACERS.XXL} 0;

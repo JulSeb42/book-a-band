@@ -101,7 +101,8 @@
 
     /*===== Containers =====*/
 
-    --main-default: 800px;
+    --main-default: 600px;
+    --main-large: 800px;
     --main-form: 400px;
     --aside-width: 200px;
 }
