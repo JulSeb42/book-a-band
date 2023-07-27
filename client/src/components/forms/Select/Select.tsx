@@ -123,7 +123,7 @@ export const Select = forwardRef(
 
         return (
             <InputContainer label={label} helper={helper} isLoading={isLoading}>
-                <StyledSelect ref={containerRef}>
+                <StyledSelect ref={containerRef} $isOpen={isListOpen}>
                     <SelectButton
                         type="button"
                         onFocus={() => setIsFocus(true)}

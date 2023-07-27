@@ -191,9 +191,9 @@ export const Mixins = {
         grid-template-columns: ${col && typeof col === "number"
             ? `repeat(${col}, 1fr)`
             : col};
-        gap: ${gap && stringifyPx(gap)};
-        column-gap: ${columnGap && stringifyPx(columnGap)};
-        row-gap: ${rowGap && stringifyPx(rowGap)};
+        gap: ${gap && Mixins.Spacers({ spacer: gap })};
+        column-gap: ${columnGap && Mixins.Spacers({ spacer: columnGap })};
+        row-gap: ${rowGap && Mixins.Spacers({ spacer: rowGap })};
         justify-content: ${justifyContent};
         justify-items: ${justifyItems};
         align-items: ${alignItems};

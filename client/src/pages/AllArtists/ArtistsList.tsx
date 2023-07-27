@@ -1,9 +1,8 @@
 /*=============================================== ArtistsList ===============================================*/
 
-import { useState, useEffect, Fragment } from "react"
+import { Fragment } from "react"
+import type { AxiosError } from "axios"
 import { generateNumbers } from "ts-utils-julseb"
-
-import { userService } from "api"
 
 import {
     ArtistCard,
@@ -12,26 +11,31 @@ import {
     ArtistCardSkeleton,
     Pagination,
 } from "components"
-import { usePaginatedData, useQueryParams } from "hooks"
+import { usePaginatedData } from "hooks"
+import { filterByPrice } from "utils"
 
-import type { UserType } from "types"
+import type { UserType, PricesType } from "types"
 
-export const ArtistsList = () => {
-    const { city, genre, query, sort } = useQueryParams()
+interface ArtistsListProps {
+    artists: UserType[]
+    isLoading: boolean
+    error: AxiosError | undefined
+    prices: PricesType
+}
 
-    const [artists, setArtists] = useState<UserType[]>([])
-    const [isLoading, setIsLoading] = useState(true)
-
-    useEffect(() => {
-        userService
-            .allArtists({ city, genre, query, sort })
-            .then(res => setArtists(res.data))
-        setIsLoading(false)
-    }, [city, genre, query, sort])
-
-    const { paginatedData, totalPages } = usePaginatedData(artists)
+export const ArtistsList = ({
+    artists,
+    isLoading,
+    error,
+    prices,
+}: ArtistsListProps) => {
+    const { paginatedData, totalPages } = usePaginatedData(
+        filterByPrice(artists, prices)
+    )
 
     if (isLoading) return <ArtistsListSkeleton />
+
+    if (error) return <Text>Error while fetching artists: {error.message}</Text>
 
     if (!artists.length) return <Text>No artist yet.</Text>
 

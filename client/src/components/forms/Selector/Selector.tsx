@@ -13,8 +13,9 @@ export const Selector = forwardRef(
             label,
             id,
             name,
-            defaultChecked,
+            checked,
             onChange,
+            value,
         }: SelectorProps,
         ref?: ForwardedRef<HTMLLabelElement>
     ) => {
@@ -24,8 +25,9 @@ export const Selector = forwardRef(
                     type={type}
                     id={id}
                     name={name}
-                    defaultChecked={defaultChecked}
                     onChange={onChange}
+                    value={value}
+                    checked={checked}
                 />
 
                 {label}

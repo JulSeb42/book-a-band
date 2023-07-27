@@ -5,9 +5,10 @@ import styled from "styled-components"
 import { Mixins, COLORS, TRANSITIONS, SPACERS, RADIUSES } from "components"
 import { BaseInputStyles } from "components/forms/InputComponents/styles"
 
-export const StyledSelect = styled.div`
+export const StyledSelect = styled.div<{ $isOpen: boolean }>`
     width: 100%;
     position: relative;
+    z-index: ${({ $isOpen }) => $isOpen && 20};
 `
 
 export const SelectButton = styled.button`

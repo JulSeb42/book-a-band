@@ -7,8 +7,13 @@ import { passwordRegex, deleteDuplicates, slugify } from "ts-utils-julseb"
 
 import { UserModel } from "../models/User.model"
 
-import { SALT_ROUNDS, TOKEN_SECRET, jwtConfig } from "../utils"
-import type { SortType } from "../types"
+import {
+    SALT_ROUNDS,
+    TOKEN_SECRET,
+    jwtConfig,
+    getVisibleArtists,
+} from "../utils"
+import type { SortType, UserType } from "../types"
 
 const router = Router()
 
@@ -81,28 +86,24 @@ router.get("/artists", (req, res, next) => {
 })
 
 // Get all cities
-router.get("/cities", (req, res, next) => {
+router.get("/cities", (_, res, next) => {
     UserModel.find()
         .then(usersFromDb => {
-            const artists = usersFromDb.filter(
-                user => user.role === "artist" && user.isVisible
-            )
+            // @ts-expect-error
+            const artists = getVisibleArtists(usersFromDb)
             const cities = artists.map(artist => artist.city)
-
             return res.status(200).json(deleteDuplicates(cities))
         })
         .catch(err => next(err))
 })
 
 // Get all genres
-router.get("/genres", (req, res, next) => {
+router.get("/genres", (_, res, next) => {
     UserModel.find()
         .then(usersFromDb => {
-            const artists = usersFromDb.filter(
-                user => user.role === "artist" && user.isVisible
-            )
+            // @ts-expect-error
+            const artists = getVisibleArtists(usersFromDb)
             const genres = artists.map(artist => artist.genre)
-
             return res.status(200).json(deleteDuplicates(genres))
         })
         .catch(err => next(err))

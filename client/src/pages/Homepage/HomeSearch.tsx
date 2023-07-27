@@ -1,30 +1,20 @@
 /*=============================================== HomeSearch ===============================================*/
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import type { FormEvent } from "react"
 import { useNavigate, createSearchParams } from "react-router-dom"
 import styled from "styled-components"
 import { slugify } from "ts-utils-julseb"
 
-import { userService } from "api"
-
 import { Select, Button, COLORS, SPACERS, RADIUSES, Mixins } from "components"
 import { PATHS } from "data"
-import { useQueryParams } from "hooks"
+import { useQueryParams, useCitiesGenres } from "hooks"
 import { filterObject } from "utils"
 
 export const HomeSearch = () => {
     const navigate = useNavigate()
 
-    const [cities, setCities] = useState<string[]>([])
-    const [genres, setGenres] = useState<string[]>([])
-    const [isLoading, setIsLoading] = useState(true)
-
-    useEffect(() => {
-        userService.allCities().then(res => setCities(res.data))
-        userService.allGenres().then(res => setGenres(res.data))
-        setIsLoading(false)
-    }, [])
+    const { cities, genres, isLoading } = useCitiesGenres()
 
     const [city, setCity] = useState("All")
     const [genre, setGenre] = useState("All")
@@ -40,6 +30,7 @@ export const HomeSearch = () => {
                 city: city === "All" ? null : slugify(city),
                 genre: genre === "All" ? null : slugify(genre),
             },
+            // @ts-expect-error
             ([_, v]) => v !== null
         )
 
@@ -55,7 +46,7 @@ export const HomeSearch = () => {
         <Search onSubmit={handleSubmit}>
             <Select
                 label="City"
-                options={isLoading ? [] : ["All", ...cities]}
+                options={isLoading ? [] : cities}
                 value={city}
                 setValue={setCity}
                 isLoading={isLoading}
@@ -63,7 +54,7 @@ export const HomeSearch = () => {
 
             <Select
                 label="Genre"
-                options={isLoading ? [] : ["All", ...genres]}
+                options={isLoading ? [] : genres}
                 value={genre}
                 setValue={setGenre}
                 isLoading={isLoading}

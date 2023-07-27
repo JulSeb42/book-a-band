@@ -7,6 +7,7 @@ export interface SelectorProps {
     label: string
     id: string
     name?: string
-    defaultChecked?: boolean
+    checked?: boolean
     onChange?: ChangeEventHandler<HTMLInputElement>
+    value?: string
 }
