@@ -3,6 +3,7 @@
 import { Router } from "express"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
+import Fuse from "fuse.js"
 import { passwordRegex, deleteDuplicates, slugify } from "ts-utils-julseb"
 
 import { UserModel } from "../models/User.model"
@@ -55,15 +56,6 @@ router.get("/artists", (req, res, next) => {
                     artist => slugify(artist.genre!) === slugify(genre!)
                 )
 
-            if (query !== "undefined") {
-                artists = artists.filter(
-                    artist =>
-                        slugify(artist.city!).includes(slugify(query!)) ||
-                        slugify(artist.genre!).includes(slugify(query!)) ||
-                        slugify(artist.fullName!).includes(slugify(query!))
-                )
-            }
-
             if (sort !== "undefined") {
                 if (sort === "availability") {
                     artists = artists.sort((a, b) =>
@@ -78,6 +70,14 @@ router.get("/artists", (req, res, next) => {
                         (a, b) => (a.price || 0) - (b.price || 0)
                     )
                 }
+            }
+
+            if (query !== "undefined") {
+                const fuse = new Fuse(artists, {
+                    keys: ["city", "genre", "fullName"],
+                })
+
+                artists = fuse?.search(query!).map(fuseItem => fuseItem.item)
             }
 
             res.status(200).json(artists)
