@@ -1,10 +1,13 @@
 /*=============================================== Image component ===============================================*/
 
-import { forwardRef } from "react"
+import { forwardRef, Suspense, lazy } from "react"
 import type { ForwardedRef } from "react"
 
-import { StyledImage } from "components/ui/Image/styles"
+import { Skeleton } from "components"
+
 import type { ImageProps } from "components/ui/Image/types"
+
+const StyledImage = lazy(() => import("components/ui/Image/styles"))
 
 export const Image = forwardRef(
     (
@@ -12,15 +15,26 @@ export const Image = forwardRef(
         ref?: ForwardedRef<HTMLImageElement>
     ) => {
         return (
-            <StyledImage
-                ref={ref}
-                src={src}
-                $fit={fit}
-                $borderRadius={borderRadius}
-                $height={height}
-                $width={width}
-                {...rest}
-            />
+            <Suspense
+                fallback={
+                    <Skeleton
+                        width={width}
+                        height={height}
+                        borderRadius={borderRadius}
+                        isShining
+                    />
+                }
+            >
+                <StyledImage
+                    ref={ref}
+                    src={src}
+                    $fit={fit}
+                    $borderRadius={borderRadius}
+                    $height={height}
+                    $width={width}
+                    {...rest}
+                />
+            </Suspense>
         )
     }
 )

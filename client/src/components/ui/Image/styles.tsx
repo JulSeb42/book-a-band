@@ -6,7 +6,7 @@ import { stringifyPx } from "ts-utils-julseb"
 import { Mixins } from "components"
 import type { ObjectFitTypes, RadiusesTypes } from "components/types"
 
-export const StyledImage = styled.img<{
+const StyledImage = styled.img<{
     $width?: string | number
     $height?: string | number
     $fit?: ObjectFitTypes
@@ -18,3 +18,5 @@ export const StyledImage = styled.img<{
     ${({ $borderRadius }) =>
         Mixins.BorderRadius({ borderRadius: $borderRadius })}
 `
+
+export default StyledImage
