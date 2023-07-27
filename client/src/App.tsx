@@ -2,14 +2,17 @@
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
-import { GlobalStyle } from "components"
+import { GlobalStyle, PageLoading } from "components"
 import { routes } from "routes"
 
 export const App = () => {
     return (
         <>
             <GlobalStyle />
-            <RouterProvider router={createBrowserRouter(routes)} />
+            <RouterProvider
+                router={createBrowserRouter(routes)}
+                fallbackElement={<PageLoading />}
+            />
         </>
     )
 }
