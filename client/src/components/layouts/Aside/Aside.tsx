@@ -7,9 +7,12 @@ import { StyledAside } from "components/layouts/Aside/styles"
 import type { AsideProps } from "components/layouts/Aside/types"
 
 export const Aside = forwardRef(
-    ({ as, children }: AsideProps, ref?: ForwardedRef<HTMLDivElement>) => {
+    (
+        { as, children, center }: AsideProps,
+        ref?: ForwardedRef<HTMLDivElement>
+    ) => {
         return (
-            <StyledAside ref={ref} as={as}>
+            <StyledAside ref={ref} as={as} $center={center}>
                 {children}
             </StyledAside>
         )

@@ -6,8 +6,8 @@ import type { AxiosError } from "axios"
 import { userService } from "api"
 
 import { Page, SrOnly, Main, Aside, Flexbox } from "components"
-import { ArtistsFilters } from "pages/AllArtists/ArtistsFilters"
-import { ArtistsList } from "pages/AllArtists/ArtistsList"
+import { ArtistsFilters } from "pages/artists/AllArtists/ArtistsFilters"
+import { ArtistsList } from "pages/artists/AllArtists/ArtistsList"
 
 import { SITE_DATA } from "data"
 import { getMinMaxPrices } from "utils"

@@ -1,8 +1,9 @@
 /*=============================================== Page ===============================================*/
 
 import type { ReactNode } from "react"
+import type { AxiosError } from "axios"
 
-import { Wrapper, Main } from "components"
+import { Wrapper, Main, Text } from "components"
 import { Helmet } from "components/layouts/Helmet"
 import { Header } from "components/layouts/Header"
 
@@ -15,6 +16,7 @@ interface PageProps extends HelmetProps {
     noHeader?: boolean
     noMain?: boolean
     mainSize?: MainSizesTypes
+    error?: AxiosError
 }
 
 export const Page = ({
@@ -27,6 +29,7 @@ export const Page = ({
     noHeader,
     noMain,
     mainSize,
+    error,
 }: PageProps) => {
     return (
         <>
@@ -43,7 +46,15 @@ export const Page = ({
                 children
             ) : (
                 <Wrapper>
-                    {!noMain ? (
+                    {error ? (
+                        <Main>
+                            <Text tag="h1">An error occured</Text>
+
+                            <Text>
+                                Error while fetching data: {error.message}
+                            </Text>
+                        </Main>
+                    ) : !noMain ? (
                         <Main size={mainSize}>{children}</Main>
                     ) : (
                         children
