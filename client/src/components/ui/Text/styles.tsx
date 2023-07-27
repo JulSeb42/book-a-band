@@ -8,6 +8,7 @@ import {
     COLORS,
     TRANSITIONS,
     Mixins,
+    BREAKPOINTS,
 } from "components"
 import { generateFontSize } from "components/ui/Text/generate-font-size"
 import type { FontSizesTypes, ColorsTypes } from "components/types"
@@ -38,12 +39,14 @@ const baseTextStyles = ({
         font-size: ${generateFontSize(fontSize)};
         background-color: transparent;
 
-        &:hover {
-            color: ${COLORS.PRIMARY_HOVER};
-        }
+        @media ${BREAKPOINTS.HOVER} {
+            &:hover {
+                color: ${COLORS.PRIMARY_HOVER};
+            }
 
-        &:active {
-            color: ${COLORS.PRIMARY_ACTIVE};
+            &:active {
+                color: ${COLORS.PRIMARY_ACTIVE};
+            }
         }
     }
 

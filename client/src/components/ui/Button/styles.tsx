@@ -12,6 +12,7 @@ import {
     RADIUSES,
     TRANSITIONS,
     LINE_HEIGHT,
+    BREAKPOINTS,
 } from "components"
 
 import type { ColorsHoverTypes } from "components/types"
@@ -59,16 +60,18 @@ export const StyledButton = styled.button<{
                   })};
                   color: ${$color === "white" ? COLORS.PRIMARY : COLORS.WHITE};
 
-                  &:hover {
-                      background-color: ${Mixins.ColorHoverHover({
-                          color: $color,
-                      })};
-                  }
+                  @media ${BREAKPOINTS.HOVER} {
+                      &:not(:disabled):hover {
+                          background-color: ${Mixins.ColorHoverHover({
+                              color: $color,
+                          })};
+                      }
 
-                  &:active {
-                      background-color: ${Mixins.ColorHoverActive({
-                          color: $color,
-                      })};
+                      &:not(:disabled):active {
+                          background-color: ${Mixins.ColorHoverActive({
+                              color: $color,
+                          })};
+                      }
                   }
 
                   &:disabled {
@@ -83,20 +86,22 @@ export const StyledButton = styled.button<{
                       color: $color,
                   })};
 
-                  &:hover {
-                      color: ${Mixins.ColorHoverHover({
-                          color: $color,
-                      })};
-                  }
+                  @media ${BREAKPOINTS.HOVER} {
+                      &:not(:disabled):hover {
+                          color: ${Mixins.ColorHoverHover({
+                              color: $color,
+                          })};
+                      }
 
-                  &:active {
-                      color: ${Mixins.ColorHoverActive({
-                          color: $color,
-                      })};
-                  }
+                      &:not(:disabled):active {
+                          color: ${Mixins.ColorHoverActive({
+                              color: $color,
+                          })};
+                      }
 
-                  &:disabled {
-                      color: ${COLORS.GRAY};
+                      &:disabled {
+                          color: ${COLORS.GRAY};
+                      }
                   }
               `}
 `

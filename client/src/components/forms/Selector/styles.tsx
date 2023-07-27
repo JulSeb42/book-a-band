@@ -2,16 +2,25 @@
 
 import styled, { css } from "styled-components"
 
-import { COLORS, Mixins, RADIUSES, SPACERS, TRANSITIONS } from "components"
+import {
+    BREAKPOINTS,
+    COLORS,
+    Mixins,
+    RADIUSES,
+    SPACERS,
+    TRANSITIONS,
+} from "components"
 
 const Hover = css`
-    &:hover {
-        background-color: ${Mixins.ColorHoverHover({ color: "primary" })};
-        color: ${COLORS.WHITE};
-    }
+    @media ${BREAKPOINTS.HOVER} {
+        &:hover {
+            background-color: ${Mixins.ColorHoverHover({ color: "primary" })};
+            color: ${COLORS.WHITE};
+        }
 
-    &:active {
-        background-color: ${Mixins.ColorHoverActive({ color: "primary" })};
+        &:active {
+            background-color: ${Mixins.ColorHoverActive({ color: "primary" })};
+        }
     }
 `
 

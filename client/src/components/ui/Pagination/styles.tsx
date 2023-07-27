@@ -52,17 +52,19 @@ export const StyledPaginationButton = styled.button<{
                   color: ${$isActive ? COLORS.WHITE : COLORS.PRIMARY};
                   transition: ${TRANSITIONS.SHORT};
 
-                  &:not(:disabled):hover {
-                      background-color: ${Mixins.ColorHoverHover({
-                          color: "primary",
-                      })};
-                      color: ${COLORS.WHITE};
-                  }
+                  @media ${BREAKPOINTS.HOVER} {
+                      &:not(:disabled):hover {
+                          background-color: ${Mixins.ColorHoverHover({
+                              color: "primary",
+                          })};
+                          color: ${COLORS.WHITE};
+                      }
 
-                  &:not(:disabled):active {
-                      background-color: ${Mixins.ColorHoverActive({
-                          color: "primary",
-                      })};
+                      &:not(:disabled):active {
+                          background-color: ${Mixins.ColorHoverActive({
+                              color: "primary",
+                          })};
+                      }
                   }
 
                   &:disabled {

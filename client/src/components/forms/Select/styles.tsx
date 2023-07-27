@@ -2,7 +2,14 @@
 
 import styled from "styled-components"
 
-import { Mixins, COLORS, TRANSITIONS, SPACERS, RADIUSES } from "components"
+import {
+    Mixins,
+    COLORS,
+    TRANSITIONS,
+    SPACERS,
+    RADIUSES,
+    BREAKPOINTS,
+} from "components"
 import { BaseInputStyles } from "components/forms/InputComponents/styles"
 
 export const StyledSelect = styled.div<{ $isOpen: boolean }>`
@@ -48,12 +55,14 @@ export const Option = styled.span<{ $isActive: boolean }>`
         $isActive ? COLORS.PRIMARY : COLORS.WHITE};
     color: ${({ $isActive }) => ($isActive ? COLORS.WHITE : COLORS.BLACK)};
 
-    &:hover {
-        background-color: ${COLORS.PRIMARY_HOVER};
-        color: ${COLORS.WHITE};
-    }
+    @media ${BREAKPOINTS.HOVER} {
+        &:hover {
+            background-color: ${COLORS.PRIMARY_HOVER};
+            color: ${COLORS.WHITE};
+        }
 
-    &:active {
-        background-color: ${COLORS.PRIMARY_ACTIVE};
+        &:active {
+            background-color: ${COLORS.PRIMARY_ACTIVE};
+        }
     }
 `

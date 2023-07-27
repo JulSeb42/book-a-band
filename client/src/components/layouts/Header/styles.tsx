@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { NavLink } from "react-router-dom"
 
 import {
+    BREAKPOINTS,
     COLORS,
     FONT_FAMILY,
     FONT_SIZES,
@@ -53,9 +54,11 @@ export const LinkNav = styled(NavLink)`
         transition: ${TRANSITIONS.BEZIER};
     }
 
-    &:hover:before {
-        width: 100%;
-        left: 0;
+    @media ${BREAKPOINTS.HOVER} {
+        &:hover:before {
+            width: 100%;
+            left: 0;
+        }
     }
 
     &.active {
