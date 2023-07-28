@@ -20,8 +20,8 @@ import {
     Login,
     ForgotPassword,
     ForgotSent,
-    // ResetPassword,
-    // Goodbye,
+    ResetPassword,
+    Goodbye,
 } from "pages/auth"
 
 // import { MyAccount, EditAccount, EditPassword } from "pages/account"
@@ -79,22 +79,22 @@ export const routes = createBrowserRouter([
             </AnonRoute>
         ),
     },
-    // {
-    //     path: PATHS.RESET_PASSWORD,
-    //     element: (
-    //         <AnonRoute>
-    //             <ResetPassword />
-    //         </AnonRoute>
-    //     ),
-    // },
-    // {
-    //     path: PATHS.GOODBYE,
-    //     element: (
-    //         <AnonRoute>
-    //             <Goodbye />
-    //         </AnonRoute>
-    //     ),
-    // },
+    {
+        path: PATHS.RESET_PASSWORD,
+        element: (
+            <AnonRoute>
+                <ResetPassword />
+            </AnonRoute>
+        ),
+    },
+    {
+        path: PATHS.GOODBYE,
+        element: (
+            <AnonRoute>
+                <Goodbye />
+            </AnonRoute>
+        ),
+    },
 
     // {
     //     path: PATHS.MY_ACCOUNT,
