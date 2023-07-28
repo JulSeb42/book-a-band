@@ -12,7 +12,8 @@ export const ListCities = () => {
 
     if (loading) return <ListCitiesSkeleton />
 
-    if (error) return <Text>Error while fetching cities: {error.message}</Text>
+    if (error.cities)
+        return <Text>Error while fetching cities: {error.cities.message}</Text>
 
     return cities
         .filter(city => city !== "All")

@@ -10,7 +10,14 @@ import type { FormProps } from "components/forms/Form/types"
 
 export const Form = forwardRef(
     (
-        { as, children, buttonPrimary, buttonSecondary, ...rest }: FormProps,
+        {
+            as,
+            children,
+            buttonPrimary,
+            buttonSecondary,
+            isLoading,
+            ...rest
+        }: FormProps,
         ref?: ForwardedRef<HTMLFormElement>
     ) => {
         return (
@@ -20,7 +27,9 @@ export const Form = forwardRef(
                 {(buttonPrimary || buttonSecondary) && (
                     <Flexbox gap="xs">
                         {buttonPrimary && (
-                            <Button type="submit">{buttonPrimary}</Button>
+                            <Button type="submit" isLoading={isLoading}>
+                                {buttonPrimary}
+                            </Button>
                         )}
 
                         {buttonSecondary && (

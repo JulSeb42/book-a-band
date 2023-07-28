@@ -2,7 +2,7 @@
 
 import styled from "styled-components"
 
-import { Mixins, BREAKPOINTS } from "components"
+import { Mixins, BREAKPOINTS, SPACERS } from "components"
 
 export const StyledWrapper = styled.div`
     position: relative;
@@ -12,7 +12,7 @@ export const StyledWrapper = styled.div`
         justifyContent: "center",
         gap: "l",
     })}
-    min-height: calc(100vh - 70px);
+    min-height: calc(100vh - 70px - ${SPACERS.L} - ${SPACERS.M});
 
     @media ${BREAKPOINTS.TABLET} {
         flex-direction: column;

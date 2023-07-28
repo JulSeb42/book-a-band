@@ -15,8 +15,9 @@ type ButtonSecondaryClick = {
 }
 
 export interface FormProps extends HTMLAttributes<HTMLFormElement> {
-	as?: ElementType
-	children?: ReactNode[]
+    as?: ElementType
+    children?: ReactNode | ReactNode[]
     buttonPrimary?: string
     buttonSecondary?: ButtonSecondaryLink | ButtonSecondaryClick
+    isLoading?: boolean
 }

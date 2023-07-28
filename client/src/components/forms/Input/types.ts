@@ -3,12 +3,11 @@
 import type { InputHTMLAttributes } from "react"
 
 import type { InputContainerBaseProps } from "components/forms/InputComponents/types"
-import type { ValidationStatusType } from "types"
 
 interface InputPropsBase
     extends InputContainerBaseProps,
         InputHTMLAttributes<HTMLInputElement & HTMLTextAreaElement> {
-   
+    children?: never
     keys?: string[]
 }
 

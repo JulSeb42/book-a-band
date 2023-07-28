@@ -34,11 +34,11 @@ export const SignupForm = () => {
     const role = (searchParams.get("role") || "user") as UserRoleType
 
     const [inputs, setInputs] = useState({
-        fullName: "Julien Sebag",
-        email: "julien.sebag@me.com",
-        password: "Password42",
+        fullName: "",
+        email: "",
+        password: "",
     })
-    const [city, setCity] = useState<string>("Berlin")
+    const [city, setCity] = useState<string>("")
     const [validation, setValidation] = useState<ValidationInputsType>({
         fullName: undefined,
         email: undefined,
@@ -48,6 +48,7 @@ export const SignupForm = () => {
         ValidationStatusType | undefined
     >(undefined)
     const [error, setError] = useState<ErrorMessageType>(undefined)
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleInputs = (e: ChangeEvent<HTMLInputElement>) => {
         const id = e.target.id
@@ -80,8 +81,10 @@ export const SignupForm = () => {
         }
     }
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+
+        setIsLoading(true)
 
         if (
             !inputs.fullName.length ||
@@ -101,10 +104,12 @@ export const SignupForm = () => {
 
             if (!city.length) setValidationCity("not-passed")
 
+            setIsLoading(false)
+
             return
         }
 
-        authService
+        await authService
             .signup({
                 ...inputs,
                 city,
@@ -113,10 +118,11 @@ export const SignupForm = () => {
             .then(res => {
                 loginUser(res.data.authToken)
                 navigate(PATHS.THANK_YOU)
+                setIsLoading(false)
             })
             .catch(err => {
-                console.log(err)
                 setError(err)
+                setIsLoading(false)
             })
     }
 
@@ -129,6 +135,7 @@ export const SignupForm = () => {
                     to: PATHS.ARTISTS,
                 }}
                 onSubmit={handleSubmit}
+                isLoading={isLoading}
             >
                 <Input
                     id="fullName"

@@ -11,6 +11,7 @@ export const FORM_VALIDATION = {
 
     FULL_NAME_REQUIRED: "Full name is required.",
     EMAIL_REQUIRED: "Email is required.",
+    PASSWORD_REQUIRED: "Password is required",
     PASSWORD_REGEX_NOT_PASSED:
         "Password must be at least 6 characters long and must contain at least one number, one lowercase and one uppercase letter.",
     CITY_REQUIRED: "City is required.",
