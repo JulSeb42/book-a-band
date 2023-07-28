@@ -16,7 +16,7 @@ import { AllArtists, ArtistDetail } from "pages/artists"
 import {
     Signup,
     ThankYou,
-    // Verify,
+    Verify,
     Login,
     // ForgotPassword,
     // ForgotSent,
@@ -54,7 +54,7 @@ export const routes = createBrowserRouter([
         ),
     },
     { path: PATHS.THANK_YOU, element: <ThankYou /> },
-    // { path: PATHS.VERIFY, element: <Verify /> },
+    { path: PATHS.VERIFY, element: <Verify /> },
     {
         path: PATHS.LOGIN,
         element: (
