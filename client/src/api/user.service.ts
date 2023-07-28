@@ -38,11 +38,24 @@ class UserService {
         return http.get(`${SERVER_PATHS.USERS}/user/${id}`)
     }
 
-    editAccount(id: string, data: any) {
+    editAccount(
+        id: string,
+        data: {
+            fullName: string
+            avatar: string
+            // TODO: Add other variables
+        }
+    ) {
         return http.put(`${SERVER_PATHS.USERS}/edit-account/${id}`, data)
     }
 
-    editPassword(id: string, data: any) {
+    editPassword(
+        id: string,
+        data: {
+            oldPassword: string
+            newPassword: string
+        }
+    ) {
         return http.put(`${SERVER_PATHS.USERS}/edit-password/${id}`, data)
     }
 
