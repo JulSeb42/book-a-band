@@ -20,28 +20,30 @@ export const useCitiesGenres = () => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        userService
-            .allCities()
-            .then(res => setCities(["All", ...res.data]))
-            .catch(err =>
-                setError({
-                    ...error,
-                    cities: err,
-                })
-            )
+        if (loading) {
+            userService
+                .allCities()
+                .then(res => setCities(["All", ...res.data]))
+                .catch(err =>
+                    setError({
+                        ...error,
+                        cities: err,
+                    })
+                )
 
-        userService
-            .allGenres()
-            .then(res => setGenres(["All", ...res.data]))
-            .catch(err =>
-                setError({
-                    ...error,
-                    genres: err,
-                })
-            )
+            userService
+                .allGenres()
+                .then(res => setGenres(["All", ...res.data]))
+                .catch(err =>
+                    setError({
+                        ...error,
+                        genres: err,
+                    })
+                )
 
-        setLoading(false)
-    }, [error])
+            setLoading(false)
+        }
+    }, [error, loading])
 
     return { cities, genres, loading, error }
 }

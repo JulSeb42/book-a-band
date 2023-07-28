@@ -29,7 +29,12 @@ export const Verify = () => {
 
     useEffect(() => {
         if (isLoading) {
-            if (isLoggedIn && user?._id === id && user?.verifyToken === token) {
+            if (
+                id &&
+                isLoggedIn &&
+                user?._id === id &&
+                user?.verifyToken === token
+            ) {
                 authService
                     .verify({ id })
                     .then(res => {

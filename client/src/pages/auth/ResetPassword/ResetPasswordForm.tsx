@@ -69,9 +69,9 @@ export const ResetPasswordForm = () => {
 
         await authService
             .resetPassword({
-                id,
+                id: id!,
                 password,
-                resetToken: token,
+                resetToken: token!,
             })
             .then(() => navigate(PATHS.LOGIN))
             .catch(err => {
