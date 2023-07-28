@@ -41,7 +41,7 @@ export const ArtistsFilters = ({
     isLoading,
 }: ArtistsFiltersProps) => {
     const { city: cityParam, genre: genreParam } = useQueryParams()
-    const { cities, genres, isLoading: isDataLoading } = useCitiesGenres()
+    const { cities, genres, loading } = useCitiesGenres()
 
     const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
         const id = e.target.id
@@ -129,7 +129,7 @@ export const ArtistsFilters = ({
                                 value={selectedCity}
                                 setValue={setSelectedCity}
                                 options={cities}
-                                isLoading={isDataLoading}
+                                isLoading={loading}
                             />
                         )}
 
@@ -139,7 +139,7 @@ export const ArtistsFilters = ({
                                 value={selectedGenre}
                                 setValue={setSelectedGenre}
                                 options={genres}
-                                isLoading={isDataLoading}
+                                isLoading={loading}
                             />
                         )}
                     </>

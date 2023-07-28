@@ -8,6 +8,9 @@ export const SITE_DATA = {
     YEAR: "",
     LOGO: "/images/logo.svg",
     LOGO_WHITE: "/images/logo-white.svg",
+    FACEBOOK: "#",
+    INSTAGRAM: "#",
+    PORTFOLIO: "https://julien-sebag.com/",
 
     // Meta
     DESCRIPTION: "",

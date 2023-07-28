@@ -6,6 +6,7 @@ import type { AxiosError } from "axios"
 import { Wrapper, Main, Text } from "components"
 import { Helmet } from "components/layouts/Helmet"
 import { Header } from "components/layouts/Header"
+import { Footer } from "components/layouts/Footer"
 
 import type { HelmetProps } from "components/layouts/Helmet"
 import type { MainSizesTypes } from "components/layouts/Main/types"
@@ -61,6 +62,8 @@ export const Page = ({
                     )}
                 </Wrapper>
             )}
+
+            {!noHeader && <Footer />}
         </>
     )
 }

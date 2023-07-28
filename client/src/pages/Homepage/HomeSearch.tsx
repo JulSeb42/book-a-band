@@ -14,7 +14,7 @@ import { filterObject } from "utils"
 export const HomeSearch = () => {
     const navigate = useNavigate()
 
-    const { cities, genres, isLoading } = useCitiesGenres()
+    const { cities, genres, loading } = useCitiesGenres()
 
     const [city, setCity] = useState("All")
     const [genre, setGenre] = useState("All")
@@ -46,21 +46,21 @@ export const HomeSearch = () => {
         <Search onSubmit={handleSubmit}>
             <Select
                 label="City"
-                options={isLoading ? [] : cities}
+                options={loading ? [] : cities}
                 value={city}
                 setValue={setCity}
-                isLoading={isLoading}
+                isLoading={loading}
             />
 
             <Select
                 label="Genre"
-                options={isLoading ? [] : genres}
+                options={loading ? [] : genres}
                 value={genre}
                 setValue={setGenre}
-                isLoading={isLoading}
+                isLoading={loading}
             />
 
-            <Button type="submit" size="small" isLoading={isLoading}>
+            <Button type="submit" size="small" isLoading={loading}>
                 Search
             </Button>
         </Search>
