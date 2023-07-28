@@ -18,8 +18,8 @@ import {
     ThankYou,
     Verify,
     Login,
-    // ForgotPassword,
-    // ForgotSent,
+    ForgotPassword,
+    ForgotSent,
     // ResetPassword,
     // Goodbye,
 } from "pages/auth"
@@ -63,22 +63,22 @@ export const routes = createBrowserRouter([
             </AnonRoute>
         ),
     },
-    // {
-    //     path: PATHS.FORGOT_PASSWORD,
-    //     element: (
-    //         <AnonRoute>
-    //             <ForgotPassword />
-    //         </AnonRoute>
-    //     ),
-    // },
-    // {
-    //     path: PATHS.FORGOT_PASSWORD_SENT,
-    //     element: (
-    //         <AnonRoute>
-    //             <ForgotSent />
-    //         </AnonRoute>
-    //     ),
-    // },
+    {
+        path: PATHS.FORGOT_PASSWORD,
+        element: (
+            <AnonRoute>
+                <ForgotPassword />
+            </AnonRoute>
+        ),
+    },
+    {
+        path: PATHS.FORGOT_PASSWORD_SENT,
+        element: (
+            <AnonRoute>
+                <ForgotSent />
+            </AnonRoute>
+        ),
+    },
     // {
     //     path: PATHS.RESET_PASSWORD,
     //     element: (

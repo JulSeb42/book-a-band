@@ -119,7 +119,8 @@ export const Autocomplete = ({
     )
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setValue(e.target.value)
+        const { value } = e.target
+        setValue(value)
 
         if (setValidation && validation?.status) {
             if (!value.length) setValidation("not-passed")

@@ -44,8 +44,7 @@ export const ArtistsFilters = ({
     const { cities, genres, loading } = useCitiesGenres()
 
     const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
-        const id = e.target.id
-        const checked = e.target.checked
+        const { id, checked } = e.target
 
         if (id === "price" && checked) setSort("price")
         if (id === "availability" && checked) setSort("availability")

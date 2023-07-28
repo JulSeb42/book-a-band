@@ -10,7 +10,7 @@ import type { AuthContextType } from "context/types"
 import { authService } from "api"
 
 import { Form, Input, Password, Autocomplete } from "components"
-import { ErrorMessage, FORM_VALIDATION } from "errors"
+import { FORM_VALIDATION } from "errors"
 import { PATHS, GERMAN_CITIES } from "data"
 
 import type {
@@ -47,12 +47,12 @@ export const SignupForm = () => {
     const [validationCity, setValidationCity] = useState<
         ValidationStatusType | undefined
     >(undefined)
-    const [error, setError] = useState<ErrorMessageType>(undefined)
+    const [errorMessage, setErrorMessage] =
+        useState<ErrorMessageType>(undefined)
     const [isLoading, setIsLoading] = useState(false)
 
     const handleInputs = (e: ChangeEvent<HTMLInputElement>) => {
-        const id = e.target.id
-        const value = e.target.value
+        const { id, value } = e.target
 
         setInputs({
             ...inputs,
@@ -121,72 +121,69 @@ export const SignupForm = () => {
                 setIsLoading(false)
             })
             .catch(err => {
-                setError(err)
+                setErrorMessage(err)
                 setIsLoading(false)
             })
     }
 
     return (
-        <>
-            <Form
-                buttonPrimary="Create a new account"
-                buttonSecondary={{
-                    text: "Cancel",
-                    to: PATHS.ARTISTS,
+        <Form
+            buttonPrimary="Create a new account"
+            buttonSecondary={{
+                text: "Cancel",
+                to: PATHS.ARTISTS,
+            }}
+            onSubmit={handleSubmit}
+            isLoading={isLoading}
+            error={errorMessage}
+        >
+            <Input
+                id="fullName"
+                label={`${role === "artist" ? "Display" : "Full"} name`}
+                value={inputs.fullName}
+                onChange={handleInputs}
+                validation={{
+                    status: validation.fullName,
+                    message: FORM_VALIDATION.FULL_NAME_REQUIRED,
                 }}
-                onSubmit={handleSubmit}
-                isLoading={isLoading}
-            >
-                <Input
-                    id="fullName"
-                    label={`${role === "artist" ? "Display" : "Full"} name`}
-                    value={inputs.fullName}
-                    onChange={handleInputs}
-                    validation={{
-                        status: validation.fullName,
-                        message: FORM_VALIDATION.FULL_NAME_REQUIRED,
-                    }}
-                    autoFocus
-                />
+                autoFocus
+            />
 
-                <Input
-                    id="email"
-                    label="Email"
-                    type="email"
-                    value={inputs.email}
-                    onChange={handleInputs}
-                    validation={{
-                        status: validation.email,
-                        message: FORM_VALIDATION.EMAIL_REQUIRED,
-                    }}
-                />
+            <Input
+                id="email"
+                label="Email"
+                type="email"
+                value={inputs.email}
+                onChange={handleInputs}
+                validation={{
+                    status: validation.email,
+                    message: FORM_VALIDATION.EMAIL_REQUIRED,
+                }}
+            />
 
-                <Password
-                    id="password"
-                    label="Password"
-                    value={inputs.password}
-                    onChange={handleInputs}
-                    validation={{
-                        status: validation.password,
-                        message: FORM_VALIDATION.PASSWORD_REGEX_NOT_PASSED,
-                    }}
-                />
+            <Password
+                id="password"
+                label="Password"
+                value={inputs.password}
+                onChange={handleInputs}
+                validation={{
+                    status: validation.password,
+                    message: FORM_VALIDATION.PASSWORD_REGEX_NOT_PASSED,
+                }}
+            />
 
-                <Autocomplete
-                    id="city"
-                    label="City"
-                    value={city}
-                    setValue={setCity}
-                    options={GERMAN_CITIES}
-                    validation={{
-                        status: validationCity,
-                        message: FORM_VALIDATION.CITY_REQUIRED,
-                    }}
-                    setValidation={setValidationCity}
-                />
-            </Form>
-
-            <ErrorMessage error={error} />
-        </>
+            <Autocomplete
+                id="city"
+                label="City"
+                value={city}
+                setValue={setCity}
+                options={GERMAN_CITIES}
+                validation={{
+                    status: validationCity,
+                    message: FORM_VALIDATION.CITY_REQUIRED,
+                }}
+                setValidation={setValidationCity}
+            />
+        </Form>
     )
 }

@@ -10,7 +10,7 @@ import type { AuthContextType } from "context/types"
 import { authService } from "api"
 
 import { Form, Input, Password } from "components"
-import { ErrorMessage, FORM_VALIDATION } from "errors"
+import { FORM_VALIDATION } from "errors"
 import type { ErrorMessageType, ValidationStatusType } from "types"
 
 type LoginFormValidationType = {
@@ -32,8 +32,7 @@ export const LoginForm = () => {
     const [isLoading, setIsLoading] = useState(false)
 
     const handleInputs = (e: ChangeEvent<HTMLInputElement>) => {
-        const id = e.target.id
-        const value = e.target.value
+        const { id, value } = e.target
 
         setInputs({
             ...inputs,
@@ -83,42 +82,39 @@ export const LoginForm = () => {
     }
 
     return (
-        <>
-            <Form
-                onSubmit={handleSubmit}
-                buttonPrimary="Login"
-                buttonSecondary={{
-                    text: "Cancel",
-                    onClick: () => navigate(-1),
+        <Form
+            onSubmit={handleSubmit}
+            buttonPrimary="Login"
+            buttonSecondary={{
+                text: "Cancel",
+                onClick: () => navigate(-1),
+            }}
+            isLoading={isLoading}
+            error={errorMessage}
+        >
+            <Input
+                id="email"
+                label="Email"
+                type="email"
+                value={inputs.email}
+                onChange={handleInputs}
+                validation={{
+                    status: validation.email,
+                    message: FORM_VALIDATION.EMAIL_REQUIRED,
                 }}
-                isLoading={isLoading}
-            >
-                <Input
-                    id="email"
-                    label="Email"
-                    type="email"
-                    value={inputs.email}
-                    onChange={handleInputs}
-                    validation={{
-                        status: validation.email,
-                        message: FORM_VALIDATION.EMAIL_REQUIRED,
-                    }}
-                    autoFocus
-                />
+                autoFocus
+            />
 
-                <Password
-                    id="password"
-                    label="Password"
-                    value={inputs.password}
-                    onChange={handleInputs}
-                    validation={{
-                        status: validation.password,
-                        message: FORM_VALIDATION.PASSWORD_REQUIRED,
-                    }}
-                />
-            </Form>
-
-            <ErrorMessage error={errorMessage} />
-        </>
+            <Password
+                id="password"
+                label="Password"
+                value={inputs.password}
+                onChange={handleInputs}
+                validation={{
+                    status: validation.password,
+                    message: FORM_VALIDATION.PASSWORD_REQUIRED,
+                }}
+            />
+        </Form>
     )
 }

@@ -1,6 +1,7 @@
 /*=============================================== Form types ===============================================*/
 
 import type { ElementType, HTMLAttributes, ReactNode } from "react"
+import type { ErrorMessageType } from "types"
 
 type ButtonSecondaryLink = {
     text: string
@@ -20,4 +21,5 @@ export interface FormProps extends HTMLAttributes<HTMLFormElement> {
     buttonPrimary?: string
     buttonSecondary?: ButtonSecondaryLink | ButtonSecondaryClick
     isLoading?: boolean
+    error?: ErrorMessageType
 }
