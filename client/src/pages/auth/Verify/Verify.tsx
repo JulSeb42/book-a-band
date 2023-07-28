@@ -28,18 +28,20 @@ export const Verify = () => {
     )
 
     useEffect(() => {
-        if (isLoggedIn && user?._id === id && user?.verifyToken === token) {
-            authService
-                .verify({ id })
-                .then(res => {
-                    setUser(res.data.user)
-                    setToken(res.data.authToken)
-                })
-                .catch(err => setErrorMessage(err))
+        if (isLoading) {
+            if (isLoggedIn && user?._id === id && user?.verifyToken === token) {
+                authService
+                    .verify({ id })
+                    .then(res => {
+                        setUser(res.data.user)
+                        setToken(res.data.authToken)
+                    })
+                    .catch(err => setErrorMessage(err))
+            }
         }
 
         setIsLoading(false)
-    }, [id, isLoggedIn, setToken, setUser, token, user])
+    }, [id, isLoggedIn, setToken, setUser, token, user, isLoading])
 
     if (isLoading) return <VerifySkeleton />
 
