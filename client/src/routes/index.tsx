@@ -5,7 +5,7 @@ import { createBrowserRouter } from "react-router-dom"
 
 import { PATHS } from "data"
 
-// import { ProtectedRoute } from "routes/ProtectedRoute"
+import { ProtectedRoute } from "routes/ProtectedRoute"
 import { AnonRoute } from "routes/AnonRoute"
 
 import { Homepage } from "pages/Homepage"
@@ -24,7 +24,10 @@ import {
     Goodbye,
 } from "pages/auth"
 
-// import { MyAccount, EditAccount, EditPassword } from "pages/account"
+import {
+    MyAccount,
+    // EditAccount, EditPassword
+} from "pages/account"
 
 type RouteType = {
     path: string
@@ -96,14 +99,14 @@ export const routes = createBrowserRouter([
         ),
     },
 
-    // {
-    //     path: PATHS.MY_ACCOUNT,
-    //     element: (
-    //         <ProtectedRoute>
-    //             <MyAccount />
-    //         </ProtectedRoute>
-    //     ),
-    // },
+    {
+        path: PATHS.MY_ACCOUNT,
+        element: (
+            <ProtectedRoute>
+                <MyAccount />
+            </ProtectedRoute>
+        ),
+    },
     // {
     //     path: PATHS.EDIT_ACCOUNT,
     //     element: (

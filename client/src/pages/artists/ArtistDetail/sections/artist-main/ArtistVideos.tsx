@@ -4,7 +4,7 @@ import { uuid } from "ts-utils-julseb"
 
 import { Flexbox, Text, Youtube } from "components"
 
-import type { ArtistSectionProps } from "pages/artists/ArtistDetail/sections/artist-sections-types"
+import type { ArtistSectionProps } from "pages/artists/ArtistDetail/sections/types"
 
 export const ArtistVideos = ({ artist, isLoading }: ArtistSectionProps) => {
     if (isLoading || !artist?.youtubeLinks.length) return null

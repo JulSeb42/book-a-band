@@ -4,7 +4,7 @@ import { generateNumbers, convertPrice } from "ts-utils-julseb"
 
 import { Text, TextIcon, Skeleton, SkeletonCard } from "components"
 
-import type { ArtistSectionProps } from "pages/artists/ArtistDetail/sections/artist-sections-types"
+import type { ArtistSectionProps } from "pages/artists/ArtistDetail/sections/types"
 
 type InfoType = {
     id: number

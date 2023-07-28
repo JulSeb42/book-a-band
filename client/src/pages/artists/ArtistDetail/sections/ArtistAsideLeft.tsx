@@ -2,7 +2,7 @@
 
 import { Aside, Avatar } from "components"
 
-import type { ArtistSectionProps } from "pages/artists/ArtistDetail/sections/artist-sections-types"
+import type { ArtistSectionProps } from "pages/artists/ArtistDetail/sections/types"
 
 export const ArtistAsideLeft = ({ artist, isLoading }: ArtistSectionProps) => {
     return (

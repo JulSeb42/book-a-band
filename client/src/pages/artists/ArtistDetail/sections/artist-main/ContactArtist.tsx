@@ -9,7 +9,7 @@ import type { AuthContextType } from "context/types"
 import { Text, Skeleton } from "components"
 import { PATHS } from "data"
 
-import type { ArtistSectionProps } from "pages/artists/ArtistDetail/sections/artist-sections-types"
+import type { ArtistSectionProps } from "pages/artists/ArtistDetail/sections/types"
 
 export const ContactArtist = ({ artist, isLoading }: ArtistSectionProps) => {
     const { isLoggedIn } = useContext(AuthContext) as AuthContextType

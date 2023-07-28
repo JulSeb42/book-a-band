@@ -3,16 +3,21 @@
 import styled from "styled-components"
 import { CONTAINERS, Mixins, SPACERS } from "components"
 
-export const StyledAside = styled.aside<{ $center?: boolean }>`
+import type { SpacersType } from "components/types"
+
+export const StyledAside = styled.aside<{
+    $center?: boolean
+    $gap?: SpacersType
+}>`
     width: 100%;
     max-width: ${CONTAINERS.ASIDE};
     min-height: 100%;
     position: relative;
     padding: ${SPACERS.XXL} 0;
-    ${({ $center }) =>
+    ${({ $center, $gap }) =>
         Mixins.Flexbox({
             flexDirection: "column",
             alignItems: $center ? "center" : "stretch",
-            gap: "l",
+            gap: $gap,
         })}
 `

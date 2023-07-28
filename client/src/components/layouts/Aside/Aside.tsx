@@ -8,11 +8,11 @@ import type { AsideProps } from "components/layouts/Aside/types"
 
 export const Aside = forwardRef(
     (
-        { as, children, center }: AsideProps,
+        { as, children, center, gap = "l" }: AsideProps,
         ref?: ForwardedRef<HTMLDivElement>
     ) => {
         return (
-            <StyledAside ref={ref} as={as} $center={center}>
+            <StyledAside ref={ref} as={as} $center={center} $gap={gap}>
                 {children}
             </StyledAside>
         )

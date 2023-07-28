@@ -4,7 +4,7 @@ import type { UserType } from "types"
 
 export type AuthContextType = {
     isLoggedIn?: boolean
-    isLoading?: boolean
+    isLoading: boolean
     user: UserType | null
     setUser?: any
     loginUser?: any

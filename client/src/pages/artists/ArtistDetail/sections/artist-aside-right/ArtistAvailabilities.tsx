@@ -4,7 +4,7 @@ import { generateNumbers, convertDateShort } from "ts-utils-julseb"
 
 import { Skeleton, TextIcon, Text } from "components"
 
-import type { ArtistSectionProps } from "pages/artists/ArtistDetail/sections/artist-sections-types"
+import type { ArtistSectionProps } from "pages/artists/ArtistDetail/sections/types"
 
 export const ArtistAvailabilities = ({
     artist,

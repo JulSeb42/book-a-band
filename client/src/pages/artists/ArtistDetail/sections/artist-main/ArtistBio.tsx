@@ -7,7 +7,7 @@ import { generateNumbers } from "ts-utils-julseb"
 import { Flexbox, Skeleton, SkeletonCard, Mixins, Text } from "components"
 import { optionsMarkdown } from "config"
 
-import type { ArtistSectionProps } from "pages/artists/ArtistDetail/sections/artist-sections-types"
+import type { ArtistSectionProps } from "pages/artists/ArtistDetail/sections/types"
 
 export const ArtistBio = ({ artist, isLoading }: ArtistSectionProps) => {
     if (isLoading) return <ArtistBioSkeleton />
