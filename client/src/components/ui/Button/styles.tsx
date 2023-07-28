@@ -45,6 +45,7 @@ export const StyledButton = styled.button<{
     ${Mixins.Flexbox({
         inline: true,
         alignItems: "center",
+        justifyContent: "center",
         gap: "xs",
     })};
 
