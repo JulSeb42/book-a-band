@@ -5,9 +5,9 @@ import { stringifyPx } from "ts-utils-julseb"
 
 import { Flexbox, COLORS, Mixins } from "components"
 import type {
-    ColorsTypes,
-    RadiusesTypes,
-    PaddingTypes,
+    ColorsType,
+    RadiusesType,
+    PaddingType,
     BorderProps,
 } from "components/types"
 
@@ -37,8 +37,8 @@ export const StyledSkeleton = styled.div<{
     $width: string | number
     $height: string | number
     $maxWidth?: string | number
-    $backgroundColor: ColorsTypes
-    $borderRadius: RadiusesTypes
+    $backgroundColor: ColorsType
+    $borderRadius: RadiusesType
     $isShining?: boolean
 }>`
     position: relative;
@@ -62,7 +62,7 @@ export const StyledSkeleton = styled.div<{
 `
 
 export const StyledSkeletonCard = styled(Flexbox)<{
-    $padding: PaddingTypes
+    $padding: PaddingType
     $border?: BorderProps
 }>`
     position: relative;

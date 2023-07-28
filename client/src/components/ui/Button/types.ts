@@ -1,20 +1,20 @@
 /*=============================================== Button types ===============================================*/
 
 import type { ElementType, ButtonHTMLAttributes, HTMLAttributes } from "react"
-import type { ColorsHoverTypes } from "components/types"
+import type { ColorsHoverType } from "components/types"
 
 const buttonVariants = { plain: "plain", transparent: "transparent" } as const
-export type ButtonVariantsTypes = keyof typeof buttonVariants
+export type ButtonVariantsType = keyof typeof buttonVariants
 
 const buttonSizes = { default: "default", small: "small" } as const
-export type ButtonSizesTypes = keyof typeof buttonSizes
+export type ButtonSizesType = keyof typeof buttonSizes
 
 interface ButtonPropsBase
     extends HTMLAttributes<HTMLButtonElement & HTMLAnchorElement>,
         ButtonHTMLAttributes<HTMLButtonElement & HTMLAnchorElement> {
     as?: ElementType
-    color?: ColorsHoverTypes
-    size?: ButtonSizesTypes
+    color?: ColorsHoverType
+    size?: ButtonSizesType
     isLoading?: boolean
     icons?: {
         left?: string

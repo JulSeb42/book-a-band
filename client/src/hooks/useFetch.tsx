@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import type { AxiosError, AxiosResponse } from "axios"
 
 export const useFetch = <T,>(
-    fetchFunction: Promise<AxiosResponse<any, any>>
+    fetchFunction: Promise<AxiosResponse<any, any>>,
 ) => {
     const [response, setResponse] = useState<T | null>(null)
     const [loading, setLoading] = useState(true)

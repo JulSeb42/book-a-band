@@ -4,23 +4,23 @@ import styled from "styled-components"
 
 import { Mixins } from "components"
 import type {
-    GridAlignContentTypes,
-    GridAlignItemsTypes,
-    GridJustifyContentTypes,
-    GridJustifyItemsTypes,
-    SpacersTypes,
+    GridAlignContentType,
+    GridAlignItemsType,
+    GridJustifyContentType,
+    GridJustifyItemsType,
+    SpacersType,
 } from "components/types"
 
 export const StyledGrid = styled.div<{
     $inline?: boolean
     $col?: number | string
-    $gap?: SpacersTypes
-    $columnGap?: SpacersTypes
-    $rowGap?: SpacersTypes
-    $justifyItems?: GridJustifyItemsTypes
-    $alignItems?: GridAlignItemsTypes
-    $justifyContent?: GridJustifyContentTypes
-    $alignContent?: GridAlignContentTypes
+    $gap?: SpacersType
+    $columnGap?: SpacersType
+    $rowGap?: SpacersType
+    $justifyItems?: GridJustifyItemsType
+    $alignItems?: GridAlignItemsType
+    $justifyContent?: GridJustifyContentType
+    $alignContent?: GridAlignContentType
 }>`
     ${({
         $inline,

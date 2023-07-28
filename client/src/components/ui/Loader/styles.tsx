@@ -4,7 +4,7 @@ import styled, { keyframes } from "styled-components"
 
 import { Mixins, RADIUSES } from "components"
 
-import type { ColorsTypes } from "components/types"
+import type { ColorsType } from "components/types"
 
 const Flash = keyframes`
     0% {
@@ -20,7 +20,7 @@ const DURATION_LOADER_FOUR = 1000
 
 export const StyledLoader = styled.span<{
     $size?: number
-    $color: ColorsTypes
+    $color: ColorsType
 }>`
     width: ${({ $size }) => $size}px;
     height: ${({ $size }) => $size}px;

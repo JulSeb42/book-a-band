@@ -23,7 +23,7 @@ export const Helmet = ({
                 {title} | {SITE_DATA.NAME}
             </title>
             <link rel="icon" href={SITE_DATA.FAVICON} />
-            <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+            <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
             <meta
                 content="width=device-width, initial-scale=1"
                 name="viewport"

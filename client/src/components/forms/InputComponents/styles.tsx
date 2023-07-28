@@ -14,14 +14,14 @@ import {
     FONT_SIZES,
     TRANSITIONS,
 } from "components"
-import type { ValidationStatusTypes } from "components/forms/InputComponents/types"
+import type { ValidationStatusType } from "components/forms/InputComponents/types"
 
 export const BaseInputStyles = ({
     $hasIcon,
     $validation,
 }: {
     $hasIcon?: boolean
-    $validation?: ValidationStatusTypes
+    $validation?: ValidationStatusType
 }) => css`
     width: 100%;
     height: ${INPUT_HEIGHT}px;

@@ -3,11 +3,11 @@
 import styled from "styled-components"
 
 import { BREAKPOINTS, COLORS, Mixins, RADIUSES, TRANSITIONS } from "components"
-import type { SocialSitesTypes } from "types"
+import type { SocialSitesType } from "types"
 
 const SIZE = 48
 
-export const StyledSocialLink = styled.a<{ $site: SocialSitesTypes }>`
+export const StyledSocialLink = styled.a<{ $site: SocialSitesType }>`
     width: ${SIZE}px;
     height: ${SIZE}px;
     border-radius: ${RADIUSES.M};

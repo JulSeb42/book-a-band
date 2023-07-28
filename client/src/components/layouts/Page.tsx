@@ -9,14 +9,14 @@ import { Header } from "components/layouts/Header"
 import { Footer } from "components/layouts/Footer"
 
 import type { HelmetProps } from "components/layouts/Helmet"
-import type { MainSizesTypes } from "components/layouts/Main/types"
+import type { MainSizesType } from "components/layouts/Main/types"
 
 interface PageProps extends HelmetProps {
     children?: ReactNode | ReactNode[]
     noWrapper?: boolean
     noHeader?: boolean
     noMain?: boolean
-    mainSize?: MainSizesTypes
+    mainSize?: MainSizesType
     error?: AxiosError
 }
 

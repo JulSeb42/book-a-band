@@ -15,16 +15,16 @@ import {
     BREAKPOINTS,
 } from "components"
 
-import type { ColorsHoverTypes } from "components/types"
+import type { ColorsHoverType } from "components/types"
 import type {
-    ButtonSizesTypes,
-    ButtonVariantsTypes,
+    ButtonSizesType,
+    ButtonVariantsType,
 } from "components/ui/Button/types"
 
 export const StyledButton = styled.button<{
-    $variant?: ButtonVariantsTypes
-    $size?: ButtonSizesTypes
-    $color: ColorsHoverTypes
+    $variant?: ButtonVariantsType
+    $size?: ButtonSizesType
+    $color: ColorsHoverType
     $noPadding?: boolean
 }>`
     border: none;

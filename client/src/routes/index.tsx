@@ -5,23 +5,23 @@
 import { PATHS } from "data"
 
 // import { ProtectedRoute } from "routes/ProtectedRoute"
-// import { AnonRoute } from "routes/AnonRoute"
+import { AnonRoute } from "routes/AnonRoute"
 
 import { Homepage } from "pages/Homepage"
 import { NotFound } from "pages/NotFound"
 
 import { AllArtists, ArtistDetail } from "pages/artists"
 
-// import {
-//     Signup,
-//     ThankYou,
-//     Verify,
-//     Login,
-//     ForgotPassword,
-//     ForgotSent,
-//     ResetPassword,
-//     Goodbye,
-// } from "pages/auth"
+import {
+    Signup,
+    // ThankYou,
+    // Verify,
+    Login,
+    // ForgotPassword,
+    // ForgotSent,
+    // ResetPassword,
+    // Goodbye,
+} from "pages/auth"
 
 // import { MyAccount, EditAccount, EditPassword } from "pages/account"
 
@@ -44,24 +44,24 @@ export const routes: RouteType[] = [
     { path: PATHS.ARTISTS, element: <AllArtists /> },
     { path: PATHS.ARTIST(), element: <ArtistDetail /> },
 
-    // {
-    //     path: PATHS.SIGNUP,
-    //     element: (
-    //         <AnonRoute>
-    //             <Signup />
-    //         </AnonRoute>
-    //     ),
-    // },
+    {
+        path: PATHS.SIGNUP,
+        element: (
+            <AnonRoute>
+                <Signup />
+            </AnonRoute>
+        ),
+    },
     // { path: PATHS.THANK_YOU, element: <ThankYou /> },
     // { path: PATHS.VERIFY, element: <Verify /> },
-    // {
-    //     path: PATHS.LOGIN,
-    //     element: (
-    //         <AnonRoute>
-    //             <Login />
-    //         </AnonRoute>
-    //     ),
-    // },
+    {
+        path: PATHS.LOGIN,
+        element: (
+            <AnonRoute>
+                <Login />
+            </AnonRoute>
+        ),
+    },
     // {
     //     path: PATHS.FORGOT_PASSWORD,
     //     element: (

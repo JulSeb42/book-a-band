@@ -6,9 +6,9 @@ const sites = {
     youtube: "youtube",
 } as const
 
-export type SocialSitesTypes = keyof typeof sites
+export type SocialSitesType = keyof typeof sites
 
 export type SocialLinkType = {
-    site: SocialSitesTypes
+    site: SocialSitesType
     url: string
 }

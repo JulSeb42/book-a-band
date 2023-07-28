@@ -1,8 +1,8 @@
 /*=============================================== Get icon size ===============================================*/
 
-import type { TextTagsTypes } from "components/ui/Text/types"
+import type { TextTagsType } from "components/ui/Text/types"
 
-export const getIconSize = (tag: TextTagsTypes) => {
+export const getIconSize = (tag: TextTagsType) => {
     switch (tag) {
         case "h1":
             return 40

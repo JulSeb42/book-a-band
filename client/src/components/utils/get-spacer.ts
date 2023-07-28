@@ -3,9 +3,9 @@
 import { stringifyPx } from "ts-utils-julseb"
 
 import { SPACERS } from "components"
-import type { SpacersTypes } from "components/types"
+import type { SpacersType } from "components/types"
 
-export const getSpacer = (spacer: SpacersTypes | null) => {
+export const getSpacer = (spacer: SpacersType | null) => {
     if (typeof spacer === "number") return stringifyPx(spacer)
 
     switch (spacer) {

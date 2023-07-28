@@ -2,12 +2,12 @@
 
 import type { typeValues } from "components/types"
 
-export type ColorsTypes = keyof typeof typeValues.colors
-export type ColorsHoverTypes = keyof typeof typeValues.colorsHover
-export type OverlaysTypes = keyof typeof typeValues.overlays
-export type FontSizesTypes = keyof typeof typeValues.fontSizes
-export type FontWeightsTypes = keyof typeof typeValues.fontWeights
-export type RadiusesTypes =
+export type ColorsType = keyof typeof typeValues.colors
+export type ColorsHoverType = keyof typeof typeValues.colorsHover
+export type OverlaysType = keyof typeof typeValues.overlays
+export type FontSizesType = keyof typeof typeValues.fontSizes
+export type FontWeightsType = keyof typeof typeValues.fontWeights
+export type RadiusesType =
     | keyof typeof typeValues.radiuses
     | number
     | {
@@ -17,37 +17,37 @@ export type RadiusesTypes =
           bottomLeft?: keyof typeof typeValues.radiuses | null
       }
     | null
-export type SpacersTypes = keyof typeof typeValues.spacers | number
-export type TextAlignTypes = keyof typeof typeValues.textAlign
-export type GridJustifyItemsTypes = keyof typeof typeValues.gridJustifyItems
-export type GridAlignItemsTypes = keyof typeof typeValues.gridAlignItems
-export type GridJustifyContentTypes = keyof typeof typeValues.gridJustifyContent
-export type GridAlignContentTypes = keyof typeof typeValues.gridAlignContent
-export type FlexDirectionTypes = keyof typeof typeValues.flexDirection
-export type FlexWrapTypes = keyof typeof typeValues.flexWrap
-export type FlexJustifyContentTypes = keyof typeof typeValues.flexJustifyContent
-export type FlexAlignItemsTypes = keyof typeof typeValues.flexAlignItems
-export type FlexJustifyItemsTypes = keyof typeof typeValues.flexJustifyItems
-export type FlexAlignContentTypes = keyof typeof typeValues.flexAlignContent
-export type ObjectFitTypes = keyof typeof typeValues.objectFit
-export type PaddingTypes =
-    | SpacersTypes
+export type SpacersType = keyof typeof typeValues.spacers | number
+export type TextAlignType = keyof typeof typeValues.textAlign
+export type GridJustifyItemsType = keyof typeof typeValues.gridJustifyItems
+export type GridAlignItemsType = keyof typeof typeValues.gridAlignItems
+export type GridJustifyContentType = keyof typeof typeValues.gridJustifyContent
+export type GridAlignContentType = keyof typeof typeValues.gridAlignContent
+export type FlexDirectionType = keyof typeof typeValues.flexDirection
+export type FlexWrapType = keyof typeof typeValues.flexWrap
+export type FlexJustifyContentType = keyof typeof typeValues.flexJustifyContent
+export type FlexAlignItemsType = keyof typeof typeValues.flexAlignItems
+export type FlexJustifyItemsType = keyof typeof typeValues.flexJustifyItems
+export type FlexAlignContentType = keyof typeof typeValues.flexAlignContent
+export type ObjectFitType = keyof typeof typeValues.objectFit
+export type PaddingType =
+    | SpacersType
     | {
-          topBottom?: SpacersTypes | null
-          leftRight?: SpacersTypes | null
-          left?: SpacersTypes | null
-          top?: SpacersTypes | null
-          right?: SpacersTypes | null
-          bottom?: SpacersTypes | null
+          topBottom?: SpacersType | null
+          leftRight?: SpacersType | null
+          left?: SpacersType | null
+          top?: SpacersType | null
+          right?: SpacersType | null
+          bottom?: SpacersType | null
       }
     | null
 
 export interface BorderProps {
     style?: "solid" | "none"
     width?: number
-    color?: ColorsTypes
+    color?: ColorsType
 }
 
 export type PaddingProps = {
-    padding?: PaddingTypes
+    padding?: PaddingType
 }

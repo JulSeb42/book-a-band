@@ -2,7 +2,7 @@
 
 const roles = { user: "user", artist: "artist" } as const
 
-type RoleType = keyof typeof roles
+export type RoleType = keyof typeof roles
 
 export type UserType = {
     _id: string

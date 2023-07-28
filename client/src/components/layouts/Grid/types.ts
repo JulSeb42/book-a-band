@@ -2,11 +2,11 @@
 
 import type { ElementType, ReactNode, HTMLAttributes } from "react"
 import type {
-    GridAlignContentTypes,
-    GridAlignItemsTypes,
-    GridJustifyContentTypes,
-    GridJustifyItemsTypes,
-    SpacersTypes,
+    GridAlignContentType,
+    GridAlignItemsType,
+    GridJustifyContentType,
+    GridJustifyItemsType,
+    SpacersType,
 } from "components/types"
 
 export interface GridProps extends HTMLAttributes<HTMLDivElement> {
@@ -14,11 +14,11 @@ export interface GridProps extends HTMLAttributes<HTMLDivElement> {
     children?: ReactNode | ReactNode[]
     inline?: boolean
     col?: number | string
-    gap?: SpacersTypes
-    columnGap?: SpacersTypes
-    rowGap?: SpacersTypes
-    justifyItems?: GridJustifyItemsTypes
-    alignItems?: GridAlignItemsTypes
-    justifyContent?: GridJustifyContentTypes
-    alignContent?: GridAlignContentTypes
+    gap?: SpacersType
+    columnGap?: SpacersType
+    rowGap?: SpacersType
+    justifyItems?: GridJustifyItemsType
+    alignItems?: GridAlignItemsType
+    justifyContent?: GridJustifyContentType
+    alignContent?: GridAlignContentType
 }

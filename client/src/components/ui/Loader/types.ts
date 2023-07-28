@@ -2,10 +2,10 @@
 
 import type { ElementType } from "react"
 
-import type { ColorsTypes } from "components/types"
+import type { ColorsType } from "components/types"
 
 export interface LoaderProps {
     as?: ElementType
     size?: number
-    color?: ColorsTypes
+    color?: ColorsType
 }

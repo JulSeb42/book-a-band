@@ -5,27 +5,27 @@ import { stringifyPx } from "ts-utils-julseb"
 
 import { COLORS, FONT_SIZES, getBorderRadius, getSpacer } from "components"
 import type {
-    FontSizesTypes,
-    FlexAlignContentTypes,
-    FlexAlignItemsTypes,
-    FlexDirectionTypes,
-    FlexJustifyContentTypes,
-    FlexJustifyItemsTypes,
-    FlexWrapTypes,
-    SpacersTypes,
-    GridAlignContentTypes,
-    GridAlignItemsTypes,
-    GridJustifyContentTypes,
-    GridJustifyItemsTypes,
-    ColorsTypes,
-    ColorsHoverTypes,
+    FontSizesType,
+    FlexAlignContentType,
+    FlexAlignItemsType,
+    FlexDirectionType,
+    FlexJustifyContentType,
+    FlexJustifyItemsType,
+    FlexWrapType,
+    SpacersType,
+    GridAlignContentType,
+    GridAlignItemsType,
+    GridJustifyContentType,
+    GridJustifyItemsType,
+    ColorsType,
+    ColorsHoverType,
     BorderProps,
-    RadiusesTypes,
+    RadiusesType,
     PaddingProps,
 } from "components/types"
 
 export const Mixins = {
-    Color: ({ color }: { color: ColorsTypes }) => css`
+    Color: ({ color }: { color: ColorsType }) => css`
         ${color === "black"
             ? COLORS.BLACK
             : color === "white"
@@ -73,7 +73,7 @@ export const Mixins = {
             : color}
     `,
 
-    ColorHoverDefault: ({ color }: { color: ColorsHoverTypes }) => css`
+    ColorHoverDefault: ({ color }: { color: ColorsHoverType }) => css`
         ${color === "primary"
             ? COLORS.PRIMARY
             : color === "success"
@@ -83,7 +83,7 @@ export const Mixins = {
             : color === "white" && COLORS.WHITE}
     `,
 
-    ColorHoverHover: ({ color }: { color: ColorsHoverTypes }) =>
+    ColorHoverHover: ({ color }: { color: ColorsHoverType }) =>
         css`
             ${color === "primary"
                 ? COLORS.PRIMARY_HOVER
@@ -94,7 +94,7 @@ export const Mixins = {
                 : color === "white" && COLORS.GRAY_GHOST}
         `,
 
-    ColorHoverActive: ({ color }: { color: ColorsHoverTypes }) =>
+    ColorHoverActive: ({ color }: { color: ColorsHoverType }) =>
         css`
             ${color === "primary"
                 ? COLORS.PRIMARY_ACTIVE
@@ -105,7 +105,7 @@ export const Mixins = {
                 : color === "white" && COLORS.GRAY_ACTIVE}
         `,
 
-    FontSize: (fontSize: FontSizesTypes | "inherit") => {
+    FontSize: (fontSize: FontSizesType | "inherit") => {
         switch (fontSize) {
             case "h1":
                 return FONT_SIZES.H1
@@ -128,7 +128,7 @@ export const Mixins = {
         }
     },
 
-    Spacers: ({ spacer = null }: { spacer?: SpacersTypes | null }) => css`
+    Spacers: ({ spacer = null }: { spacer?: SpacersType | null }) => css`
         ${getSpacer(spacer)}
     `,
     Flexbox: ({
@@ -144,15 +144,15 @@ export const Mixins = {
         rowGap,
     }: {
         inline?: boolean
-        flexDirection?: FlexDirectionTypes
-        flexWrap?: FlexWrapTypes
-        justifyContent?: FlexJustifyContentTypes
-        alignItems?: FlexAlignItemsTypes
-        justifyItems?: FlexJustifyItemsTypes
-        alignContent?: FlexAlignContentTypes
-        gap?: SpacersTypes
-        columnGap?: SpacersTypes
-        rowGap?: SpacersTypes
+        flexDirection?: FlexDirectionType
+        flexWrap?: FlexWrapType
+        justifyContent?: FlexJustifyContentType
+        alignItems?: FlexAlignItemsType
+        justifyItems?: FlexJustifyItemsType
+        alignContent?: FlexAlignContentType
+        gap?: SpacersType
+        columnGap?: SpacersType
+        rowGap?: SpacersType
     }) => css`
         display: ${inline ? "inline-flex" : "flex"};
         flex-direction: ${flexDirection};
@@ -179,13 +179,13 @@ export const Mixins = {
     }: {
         inline?: boolean
         col?: number | string
-        gap?: SpacersTypes
-        columnGap?: SpacersTypes
-        rowGap?: SpacersTypes
-        justifyItems?: GridJustifyItemsTypes
-        alignItems?: GridAlignItemsTypes
-        justifyContent?: GridJustifyContentTypes
-        alignContent?: GridAlignContentTypes
+        gap?: SpacersType
+        columnGap?: SpacersType
+        rowGap?: SpacersType
+        justifyItems?: GridJustifyItemsType
+        alignItems?: GridAlignItemsType
+        justifyContent?: GridJustifyContentType
+        alignContent?: GridAlignContentType
     }) => css`
         display: ${inline ? "inline-grid" : "grid"};
         grid-template-columns: ${col && typeof col === "number"
@@ -223,7 +223,7 @@ export const Mixins = {
             : undefined};
     `,
 
-    BorderRadius: ({ borderRadius }: { borderRadius?: RadiusesTypes }) => css`
+    BorderRadius: ({ borderRadius }: { borderRadius?: RadiusesType }) => css`
         border-top-left-radius: ${getBorderRadius(
             typeof borderRadius === "object"
                 ? borderRadius?.topLeft

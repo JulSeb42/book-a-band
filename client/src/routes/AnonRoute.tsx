@@ -6,6 +6,8 @@ import { Navigate } from "react-router-dom"
 import { AuthContext } from "context"
 import type { AuthContextType } from "context/types"
 
+import { PageLoading } from "components"
+
 import { PATHS } from "data"
 
 interface AnonRouteProps {
@@ -20,7 +22,7 @@ export const AnonRoute = ({
     const { isLoggedIn, isLoading } = useContext(AuthContext) as AuthContextType
 
     return isLoading ? (
-        <p>Loading...</p>
+        <PageLoading />
     ) : !isLoggedIn ? (
         children
     ) : (

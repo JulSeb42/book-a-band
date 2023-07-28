@@ -53,7 +53,7 @@ export const Pagination = ({ totalPages, pageLimit = 5 }: PaginationProps) => {
     }
 
     const getPaginationGroup = () => {
-        let start = Math.floor((currentPage - 1) / pageLimit) * pageLimit
+        const start = Math.floor((currentPage - 1) / pageLimit) * pageLimit
 
         return (
             new Array(pageLimit)

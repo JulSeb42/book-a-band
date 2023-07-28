@@ -1,9 +1,9 @@
 /*=============================================== Generate font size ===============================================*/
 
 import { FONT_SIZES } from "components"
-import type { FontSizesTypes } from "components/types"
+import type { FontSizesType } from "components/types"
 
-export const generateFontSize = (fontSize: FontSizesTypes | "inherit") => {
+export const generateFontSize = (fontSize: FontSizesType | "inherit") => {
     switch (fontSize) {
         case "h1":
             return FONT_SIZES.H1

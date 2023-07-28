@@ -3,14 +3,14 @@
 import type { InputHTMLAttributes } from "react"
 
 import type {
-    ValidationStatusTypes,
+    ValidationStatusType,
     InputContainerBaseProps,
 } from "components/forms/InputComponents/types"
 
 interface InputPropsBase
     extends InputContainerBaseProps,
         InputHTMLAttributes<HTMLInputElement & HTMLTextAreaElement> {
-    validation?: ValidationStatusTypes
+    validation?: ValidationStatusType
     keys?: string[]
 }
 
@@ -27,4 +27,4 @@ interface InputTextareaProps extends InputPropsBase {
 export type InputProps = InputTextProps | InputTextareaProps
 
 // Types =>
-// password, select, textarea, check,
+// password,  check,

@@ -4,13 +4,13 @@ import styled from "styled-components"
 import { stringifyPx } from "ts-utils-julseb"
 
 import { Mixins } from "components"
-import type { ObjectFitTypes, RadiusesTypes } from "components/types"
+import type { ObjectFitType, RadiusesType } from "components/types"
 
 const StyledImage = styled.img<{
     $width?: string | number
     $height?: string | number
-    $fit?: ObjectFitTypes
-    $borderRadius?: RadiusesTypes
+    $fit?: ObjectFitType
+    $borderRadius?: RadiusesType
 }>`
     width: ${({ $width }) => $width && stringifyPx($width)};
     height: ${({ $height }) => $height && stringifyPx($height)};

@@ -2,18 +2,9 @@
 
 import styled, { css } from "styled-components"
 
-import {
-    COLORS,
-    RADIUSES,
-    SPACERS,
-    TRANSITIONS,
-    FONT_FAMILY,
-    FONT_SIZES,
-    INPUT_HEIGHT,
-    LINE_HEIGHT,
-} from "components"
+import { SPACERS, FONT_SIZES, INPUT_HEIGHT, LINE_HEIGHT } from "components"
 import { BaseInputStyles } from "components/forms/InputComponents/styles"
-import type { ValidationStatusTypes } from "components/forms/InputComponents/types"
+import type { ValidationStatusType } from "components/forms/InputComponents/types"
 
 export const InputContent = styled.div`
     width: 100%;
@@ -26,7 +17,7 @@ const MIN_HEIGHT_TEXTAREA = `calc(${FONT_SIZES.BODY} * ${LINE_HEIGHT} * 3 + (${S
 
 export const StyledInput = styled.input<{
     $hasIcon?: boolean
-    $validation?: ValidationStatusTypes
+    $validation?: ValidationStatusType
     $isTextarea?: boolean
 }>`
     ${BaseInputStyles}

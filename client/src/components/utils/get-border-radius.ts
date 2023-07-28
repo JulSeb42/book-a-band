@@ -3,9 +3,9 @@
 import { stringifyPx } from "ts-utils-julseb"
 
 import { RADIUSES } from "components"
-import type { RadiusesTypes } from "components/types"
+import type { RadiusesType } from "components/types"
 
-export const getBorderRadius = (radius?: RadiusesTypes | null) => {
+export const getBorderRadius = (radius?: RadiusesType | null) => {
     if (typeof radius === "number") return stringifyPx(radius)
 
     switch (radius) {

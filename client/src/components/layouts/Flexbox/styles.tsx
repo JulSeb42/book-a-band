@@ -3,27 +3,27 @@
 import styled from "styled-components"
 
 import type {
-    FlexAlignContentTypes,
-    FlexAlignItemsTypes,
-    FlexDirectionTypes,
-    FlexJustifyContentTypes,
-    FlexJustifyItemsTypes,
-    FlexWrapTypes,
-    SpacersTypes,
+    FlexAlignContentType,
+    FlexAlignItemsType,
+    FlexDirectionType,
+    FlexJustifyContentType,
+    FlexJustifyItemsType,
+    FlexWrapType,
+    SpacersType,
 } from "components/types"
 import { Mixins } from "components"
 
 export const StyledFlexbox = styled.div<{
     $inline?: boolean
-    $flexDirection?: FlexDirectionTypes
-    $flexWrap?: FlexWrapTypes
-    $justifyContent?: FlexJustifyContentTypes
-    $alignItems?: FlexAlignItemsTypes
-    $justifyItems?: FlexJustifyItemsTypes
-    $alignContent?: FlexAlignContentTypes
-    $gap?: SpacersTypes
-    $columnGap?: SpacersTypes
-    $rowGap?: SpacersTypes
+    $flexDirection?: FlexDirectionType
+    $flexWrap?: FlexWrapType
+    $justifyContent?: FlexJustifyContentType
+    $alignItems?: FlexAlignItemsType
+    $justifyItems?: FlexJustifyItemsType
+    $alignContent?: FlexAlignContentType
+    $gap?: SpacersType
+    $columnGap?: SpacersType
+    $rowGap?: SpacersType
 }>`
     ${({
         $inline,

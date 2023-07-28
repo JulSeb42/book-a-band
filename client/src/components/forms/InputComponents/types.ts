@@ -2,14 +2,14 @@
 
 import type { ReactNode } from "react"
 
-import type { ColorsTypes } from "components/types"
+import type { ColorsType } from "components/types"
 
 const validationStatus = {
     passed: "passed",
     "not-passed": "not-passed",
 } as const
 
-export type ValidationStatusTypes = keyof typeof validationStatus
+export type ValidationStatusType = keyof typeof validationStatus
 
 export interface InputRightContainerProps {
     children?: ReactNode | ReactNode[]
@@ -20,7 +20,7 @@ export interface InputIconProps {
 }
 
 export interface InputValidationProps {
-    status: ValidationStatusTypes
+    status: ValidationStatusType
 }
 
 export interface InputContainerBaseProps {
@@ -30,7 +30,7 @@ export interface InputContainerBaseProps {
         | {
               text: string | null
               icon: string | null
-              iconColor?: ColorsTypes
+              iconColor?: ColorsType
           }
     isLoading?: boolean
 }

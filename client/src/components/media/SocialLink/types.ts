@@ -1,8 +1,8 @@
 /*=============================================== SocialLink types ===============================================*/
 
-import type { SocialSitesTypes } from "types"
+import type { SocialSitesType } from "types"
 
 export interface SocialLinkProps {
-    site: SocialSitesTypes
+    site: SocialSitesType
     url: string
 }

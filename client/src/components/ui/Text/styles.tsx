@@ -11,15 +11,15 @@ import {
     BREAKPOINTS,
 } from "components"
 import { generateFontSize } from "components/ui/Text/generate-font-size"
-import type { FontSizesTypes, ColorsTypes } from "components/types"
+import type { FontSizesType, ColorsType } from "components/types"
 
 const baseTextStyles = ({
     fontSize,
     color,
     maxLines,
 }: {
-    fontSize: FontSizesTypes | "inherit"
-    color?: ColorsTypes
+    fontSize: FontSizesType | "inherit"
+    color?: ColorsType
     maxLines?: number
 }) => css`
     font-family: ${FONT_FAMILY};
@@ -84,43 +84,43 @@ const baseTextStyles = ({
           `)}
 `
 
-export const StyledH1 = styled.h1<{ $color?: ColorsTypes; $maxLines?: number }>`
+export const StyledH1 = styled.h1<{ $color?: ColorsType; $maxLines?: number }>`
     font-weight: ${FONT_WEIGHTS.BLACK};
     ${({ $color, $maxLines }) =>
         baseTextStyles({ fontSize: "h1", color: $color, maxLines: $maxLines })}
 `
 
-export const StyledH2 = styled.h2<{ $color?: ColorsTypes; $maxLines?: number }>`
+export const StyledH2 = styled.h2<{ $color?: ColorsType; $maxLines?: number }>`
     font-weight: ${FONT_WEIGHTS.BLACK};
     ${({ $color, $maxLines }) =>
         baseTextStyles({ fontSize: "h2", color: $color, maxLines: $maxLines })}
 `
 
-export const StyledH3 = styled.h3<{ $color?: ColorsTypes; $maxLines?: number }>`
+export const StyledH3 = styled.h3<{ $color?: ColorsType; $maxLines?: number }>`
     font-weight: ${FONT_WEIGHTS.BLACK};
     ${({ $color, $maxLines }) =>
         baseTextStyles({ fontSize: "h3", color: $color, maxLines: $maxLines })}
 `
 
-export const StyledH4 = styled.h4<{ $color?: ColorsTypes; $maxLines?: number }>`
+export const StyledH4 = styled.h4<{ $color?: ColorsType; $maxLines?: number }>`
     font-weight: ${FONT_WEIGHTS.BLACK};
     ${({ $color, $maxLines }) =>
         baseTextStyles({ fontSize: "h4", color: $color, maxLines: $maxLines })}
 `
 
-export const StyledH5 = styled.h5<{ $color?: ColorsTypes; $maxLines?: number }>`
+export const StyledH5 = styled.h5<{ $color?: ColorsType; $maxLines?: number }>`
     font-weight: ${FONT_WEIGHTS.BLACK};
     ${({ $color, $maxLines }) =>
         baseTextStyles({ fontSize: "h5", color: $color, maxLines: $maxLines })}
 `
 
-export const StyledH6 = styled.h6<{ $color?: ColorsTypes; $maxLines?: number }>`
+export const StyledH6 = styled.h6<{ $color?: ColorsType; $maxLines?: number }>`
     font-weight: ${FONT_WEIGHTS.BLACK};
     ${({ $color, $maxLines }) =>
         baseTextStyles({ fontSize: "h6", color: $color, maxLines: $maxLines })}
 `
 
-export const StyledP = styled.p<{ $color?: ColorsTypes; $maxLines?: number }>`
+export const StyledP = styled.p<{ $color?: ColorsType; $maxLines?: number }>`
     ${({ $color, $maxLines }) =>
         baseTextStyles({
             fontSize: "body",
@@ -130,7 +130,7 @@ export const StyledP = styled.p<{ $color?: ColorsTypes; $maxLines?: number }>`
 `
 
 export const StyledStrong = styled.strong<{
-    $color?: ColorsTypes
+    $color?: ColorsType
     $maxLines?: number
 }>`
     font-weight: ${FONT_WEIGHTS.BLACK};
@@ -142,7 +142,7 @@ export const StyledStrong = styled.strong<{
         })}
 `
 
-export const StyledEm = styled.em<{ $color?: ColorsTypes; $maxLines?: number }>`
+export const StyledEm = styled.em<{ $color?: ColorsType; $maxLines?: number }>`
     font-style: italic;
     ${({ $color, $maxLines }) =>
         baseTextStyles({
@@ -153,7 +153,7 @@ export const StyledEm = styled.em<{ $color?: ColorsTypes; $maxLines?: number }>`
 `
 
 export const StyledSmall = styled.small<{
-    $color?: ColorsTypes
+    $color?: ColorsType
     $maxLines?: number
 }>`
     ${({ $color, $maxLines }) =>
@@ -164,7 +164,7 @@ export const StyledSmall = styled.small<{
         })}
 `
 
-export const StyledUl = styled.ul<{ $color?: ColorsTypes; $maxLines?: number }>`
+export const StyledUl = styled.ul<{ $color?: ColorsType; $maxLines?: number }>`
     ${({ $color, $maxLines }) =>
         baseTextStyles({
             fontSize: "body",
