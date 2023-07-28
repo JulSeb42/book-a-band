@@ -1,6 +1,7 @@
 /*=============================================== Routes ===============================================*/
 
 // import { Navigate } from "react-router-dom"
+import { createBrowserRouter } from "react-router-dom"
 
 import { PATHS } from "data"
 
@@ -37,7 +38,7 @@ const redirects: RouteType[] = [
     // },
 ]
 
-export const routes: RouteType[] = [
+export const routes = createBrowserRouter([
     { path: PATHS.ROOT, element: <Homepage /> },
     { path: "*", element: <NotFound /> },
 
@@ -121,4 +122,4 @@ export const routes: RouteType[] = [
     // },
 
     ...redirects,
-]
+])

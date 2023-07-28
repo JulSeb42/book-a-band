@@ -2,10 +2,8 @@
 
 import type { InputHTMLAttributes } from "react"
 
-import type {
-    ValidationStatusType,
-    InputContainerBaseProps,
-} from "components/forms/InputComponents/types"
+import type { InputContainerBaseProps } from "components/forms/InputComponents/types"
+import type { ValidationStatusType } from "types"
 
 interface InputPropsBase
     extends InputContainerBaseProps,

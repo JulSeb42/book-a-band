@@ -8,6 +8,6 @@ export const StyledForm = styled.form`
     ${Mixins.Flexbox({
         flexDirection: "column",
         alignItems: "stretch",
-        gap: "xs",
+        gap: "s",
     })}
 `

@@ -1,4 +1,4 @@
-export const germanCities = [
+export const GERMAN_CITIES = [
     "Aachen",
     "Aach",
     "Aalen",

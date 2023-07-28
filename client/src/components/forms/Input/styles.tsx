@@ -4,7 +4,7 @@ import styled, { css } from "styled-components"
 
 import { SPACERS, FONT_SIZES, INPUT_HEIGHT, LINE_HEIGHT } from "components"
 import { BaseInputStyles } from "components/forms/InputComponents/styles"
-import type { ValidationStatusType } from "components/forms/InputComponents/types"
+import type { ValidationStatusType } from "types"
 
 export const InputContent = styled.div`
     width: 100%;

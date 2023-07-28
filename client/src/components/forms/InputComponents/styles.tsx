@@ -14,7 +14,7 @@ import {
     FONT_SIZES,
     TRANSITIONS,
 } from "components"
-import type { ValidationStatusType } from "components/forms/InputComponents/types"
+import type { ValidationStatusType } from "types"
 
 export const BaseInputStyles = ({
     $hasIcon,

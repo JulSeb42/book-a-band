@@ -3,7 +3,12 @@
 import { Router } from "express"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
-import { passwordRegex, emailRegex, getRandomString } from "ts-utils-julseb"
+import {
+    passwordRegex,
+    emailRegex,
+    getRandomString,
+    getRandomAvatar,
+} from "ts-utils-julseb"
 
 import { UserModel } from "../models/User.model"
 
@@ -15,7 +20,7 @@ const router = Router()
 
 // Signup
 router.post("/signup", (req, res, next) => {
-    const { email, fullName, password, avatar } = req.body
+    const { email, fullName, password, city } = req.body
     const verifyToken = getRandomString(20)
 
     if (!fullName) {
@@ -55,7 +60,8 @@ router.post("/signup", (req, res, next) => {
                 password: hashedPassword,
                 verified: false,
                 verifyToken,
-                avatar,
+                city,
+                avatar: getRandomAvatar(),
             }).then(createdUser => {
                 sendMail(
                     email,

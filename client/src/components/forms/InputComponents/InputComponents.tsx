@@ -31,6 +31,8 @@ export const InputIcon = ({ icon }: InputIconProps) => {
 }
 
 export const InputValidation = ({ status }: InputValidationProps) => {
+    if (!status) return null
+
     if (status === "not-passed")
         return <Icon src="close-circle" size={20} color="danger" />
 

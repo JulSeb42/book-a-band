@@ -1,8 +1,6 @@
 /* eslint-env node */
 module.exports = {
     root: true,
-    // extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
-    // extends: ["eslint:eslint-plugin-react-hooks"],
     extends: ["plugin:react-hooks/recommended"],
     parser: "@typescript-eslint/parser",
     plugins: [
@@ -16,12 +14,12 @@ module.exports = {
         "@typescript-eslint/consistent-type-imports": "warn",
         "@typescript-eslint/no-unused-expressions": "warn",
         "@typescript-eslint/no-unused-vars": [
-            "off",
+            "warn",
             {
                 vars: "all",
                 args: "after-used",
                 ignoreRestSiblings: true,
-                destructuredArrayIgnorePattern: "[A-Z]",
+                destructuredArrayIgnorePattern: "[A-Z, _]",
             },
         ],
         "@typescript-eslint/no-explicit-any": "off",
