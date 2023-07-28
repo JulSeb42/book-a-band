@@ -83,7 +83,7 @@ export const IconContainer = styled.span`
     position: absolute;
     left: 0;
     top: 0;
-    z-index: 1;
+    z-index: 2;
     ${Mixins.Flexbox({
         alignItems: "center",
         justifyContent: "center",

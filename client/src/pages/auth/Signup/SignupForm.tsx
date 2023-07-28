@@ -9,7 +9,8 @@ import { AuthContext } from "context"
 import type { AuthContextType } from "context/types"
 import { authService } from "api"
 
-import { Form, Input, Password, Autocomplete, ErrorMessage } from "components"
+import { Form, Input, Password, Autocomplete } from "components"
+import { ErrorMessage, FORM_VALIDATION } from "errors"
 import { PATHS, GERMAN_CITIES } from "data"
 
 import type {
@@ -22,7 +23,6 @@ type ValidationInputsType = {
     fullName: ValidationStatusType | undefined
     email: ValidationStatusType | undefined
     password: ValidationStatusType | undefined
-    city: ValidationStatusType | undefined
 }
 
 export const SignupForm = () => {
@@ -34,17 +34,19 @@ export const SignupForm = () => {
     const role = (searchParams.get("role") || "user") as UserRoleType
 
     const [inputs, setInputs] = useState({
-        fullName: "",
-        email: "",
-        password: "",
+        fullName: "Julien Sebag",
+        email: "julien.sebag@me.com",
+        password: "Password42",
     })
-    const [city, setCity] = useState<string>("")
+    const [city, setCity] = useState<string>("Berlin")
     const [validation, setValidation] = useState<ValidationInputsType>({
         fullName: undefined,
         email: undefined,
         password: undefined,
-        city: undefined,
     })
+    const [validationCity, setValidationCity] = useState<
+        ValidationStatusType | undefined
+    >(undefined)
     const [error, setError] = useState<ErrorMessageType>(undefined)
 
     const handleInputs = (e: ChangeEvent<HTMLInputElement>) => {
@@ -56,32 +58,49 @@ export const SignupForm = () => {
             [id]: value,
         })
 
-        if (value.length) {
-            if (id === "email") {
-                setValidation({
-                    ...validation,
-                    email: emailRegex.test(value) ? "passed" : "not-passed",
-                })
-            } else if (id === "password") {
-                setValidation({
-                    ...validation,
-                    password: passwordRegex.test(value)
-                        ? "passed"
-                        : "not-passed",
-                })
-            }
+        if (id === "fullName" && validation.fullName) {
+            setValidation({
+                ...validation,
+                fullName: !value?.length ? "not-passed" : "passed",
+            })
+        }
+
+        if (id === "email" && validation.email) {
+            setValidation({
+                ...validation,
+                email: emailRegex.test(value) ? "passed" : "not-passed",
+            })
+        }
+
+        if (id === "password" && (value.length || validation.password)) {
+            setValidation({
+                ...validation,
+                password: passwordRegex.test(value) ? "passed" : "not-passed",
+            })
         }
     }
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        if (!inputs.fullName.length || !city.length) {
+        if (
+            !inputs.fullName.length ||
+            !city.length ||
+            !emailRegex.test(inputs.email) ||
+            !passwordRegex.test(inputs.password)
+        ) {
             setValidation({
-                ...validation,
                 fullName: !inputs.fullName.length ? "not-passed" : undefined,
-                city: !city.length ? "not-passed" : undefined,
+                email: !emailRegex.test(inputs.email)
+                    ? "not-passed"
+                    : undefined,
+                password: !passwordRegex.test(inputs.password)
+                    ? "not-passed"
+                    : undefined,
             })
+
+            if (!city.length) setValidationCity("not-passed")
+
             return
         }
 
@@ -89,12 +108,16 @@ export const SignupForm = () => {
             .signup({
                 ...inputs,
                 city,
+                role,
             })
             .then(res => {
                 loginUser(res.data.authToken)
                 navigate(PATHS.THANK_YOU)
             })
-            .catch(err => setError(err))
+            .catch(err => {
+                console.log(err)
+                setError(err)
+            })
     }
 
     return (
@@ -112,7 +135,10 @@ export const SignupForm = () => {
                     label={`${role === "artist" ? "Display" : "Full"} name`}
                     value={inputs.fullName}
                     onChange={handleInputs}
-                    validation={validation.fullName}
+                    validation={{
+                        status: validation.fullName,
+                        message: FORM_VALIDATION.FULL_NAME_REQUIRED,
+                    }}
                     autoFocus
                 />
 
@@ -122,7 +148,10 @@ export const SignupForm = () => {
                     type="email"
                     value={inputs.email}
                     onChange={handleInputs}
-                    validation={validation.email}
+                    validation={{
+                        status: validation.email,
+                        message: FORM_VALIDATION.EMAIL_REQUIRED,
+                    }}
                 />
 
                 <Password
@@ -130,14 +159,23 @@ export const SignupForm = () => {
                     label="Password"
                     value={inputs.password}
                     onChange={handleInputs}
-                    validation={validation.password}
+                    validation={{
+                        status: validation.password,
+                        message: FORM_VALIDATION.PASSWORD_REGEX_NOT_PASSED,
+                    }}
                 />
 
                 <Autocomplete
+                    id="city"
                     label="City"
                     value={city}
                     setValue={setCity}
                     options={GERMAN_CITIES}
+                    validation={{
+                        status: validationCity,
+                        message: FORM_VALIDATION.CITY_REQUIRED,
+                    }}
+                    setValidation={setValidationCity}
                 />
             </Form>
 

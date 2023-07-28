@@ -27,10 +27,12 @@ export const Nav = () => {
         {
             text: "Login",
             to: PATHS.LOGIN,
+            end: true,
         },
         {
             text: "Sign up",
             to: PATHS.SIGNUP,
+            end: true,
         },
     ]
 

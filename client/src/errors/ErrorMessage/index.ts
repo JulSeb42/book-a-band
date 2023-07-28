@@ -1,3 +1,3 @@
 /*=============================================== ErrorMessage exports ===============================================*/
 
-export * from "components/forms/ErrorMessage/ErrorMessage"
+export * from "errors/ErrorMessage/ErrorMessage"

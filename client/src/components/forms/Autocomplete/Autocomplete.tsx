@@ -1,7 +1,7 @@
 /*=============================================== Autocomplete component ===============================================*/
 
 import { useCallback, useEffect, useRef, useState } from "react"
-import type { KeyboardEvent } from "react"
+import type { ChangeEvent, KeyboardEvent } from "react"
 import Fuse from "fuse.js"
 import { uuid } from "ts-utils-julseb"
 
@@ -9,7 +9,7 @@ import {
     InputContainer,
     InputIcon,
     InputRightContainer,
-    InputValidation,
+    InputValidationIcon,
 } from "components/forms/InputComponents"
 import { InputContent } from "components/forms/Input/styles"
 
@@ -30,6 +30,8 @@ export const Autocomplete = ({
     helper,
     icon,
     validation,
+    onChange,
+    setValidation,
     ...rest
 }: AutocompleteProps) => {
     const [isOpen, setIsOpen] = useState(false)
@@ -116,12 +118,26 @@ export const Autocomplete = ({
         [cursor, isOpen, results, setValue, isFocus]
     )
 
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setValue(e.target.value)
+
+        if (setValidation && validation?.status) {
+            if (!value.length) setValidation("not-passed")
+            else setValidation("passed")
+        }
+    }
+
     useEffect(() => {
         window.addEventListener("keypress", () => handleKeyNavigation)
     }, [handleKeyNavigation, isFocus, value.length])
 
     return (
-        <InputContainer id={id} label={label} helper={helper}>
+        <InputContainer
+            id={id}
+            label={label}
+            helper={helper}
+            validation={validation}
+        >
             <StyledAutocomplete $isOpen={isOpen}>
                 <InputContent>
                     {icon && <InputIcon icon={icon} />}
@@ -129,16 +145,20 @@ export const Autocomplete = ({
                     <StyledInput
                         id={id}
                         value={value}
-                        onChange={e => setValue(e.target.value)}
+                        onChange={handleChange}
                         onFocus={handleFocus}
                         onBlur={handleBlur}
                         onKeyDown={e => handleKeyNavigation(e)}
+                        $validation={validation?.status}
+                        $hasIcon={!!icon}
                         {...rest}
                     />
 
-                    <InputRightContainer>
-                        <InputValidation status={validation} />
-                    </InputRightContainer>
+                    {validation && (
+                        <InputRightContainer>
+                            <InputValidationIcon status={validation.status} />
+                        </InputRightContainer>
+                    )}
                 </InputContent>
 
                 <List $isOpen={isOpen && !!value.length} ref={listRef}>

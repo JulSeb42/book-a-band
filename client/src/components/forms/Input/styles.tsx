@@ -20,7 +20,11 @@ export const StyledInput = styled.input<{
     $validation?: ValidationStatusType
     $isTextarea?: boolean
 }>`
-    ${BaseInputStyles}
+    ${({ $validation, $hasIcon }) =>
+        BaseInputStyles({
+            $hasIcon,
+            $validation,
+        })}
 
     ${({ $isTextarea }) =>
         $isTextarea &&

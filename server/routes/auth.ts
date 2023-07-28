@@ -20,7 +20,7 @@ const router = Router()
 
 // Signup
 router.post("/signup", (req, res, next) => {
-    const { email, fullName, password, city } = req.body
+    const { email, fullName, password, city, role } = req.body
     const verifyToken = getRandomString(20)
 
     if (!fullName) {
@@ -62,6 +62,7 @@ router.post("/signup", (req, res, next) => {
                 verifyToken,
                 city,
                 avatar: getRandomAvatar(),
+                role,
             }).then(createdUser => {
                 sendMail(
                     email,

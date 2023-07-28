@@ -7,7 +7,7 @@ import { Key } from "components"
 import {
     InputIcon,
     InputRightContainer,
-    InputValidation,
+    InputValidationIcon,
     InputContainer,
 } from "components/forms/InputComponents"
 
@@ -24,7 +24,7 @@ const InputFn = forwardRef(
                 <StyledInput
                     as="textarea"
                     ref={ref}
-                    $validation={validation}
+                    $validation={validation?.status}
                     $isTextarea
                     {...rest}
                 />
@@ -34,7 +34,7 @@ const InputFn = forwardRef(
             <StyledInput
                 ref={ref}
                 type={type}
-                $validation={validation}
+                $validation={validation?.status}
                 $hasIcon={!!icon}
                 {...rest}
             />
@@ -49,7 +49,10 @@ const InputFn = forwardRef(
                 {(validation || keys) && (
                     <InputRightContainer>
                         {keys && <Key keys={keys} />}
-                        {validation && <InputValidation status={validation} />}
+
+                        {validation && (
+                            <InputValidationIcon status={validation?.status} />
+                        )}
                     </InputRightContainer>
                 )}
             </InputContent>
@@ -61,7 +64,7 @@ const InputFn = forwardRef(
 
 export const Input = forwardRef(
     (
-        { id, label, helper, isLoading, ...rest }: InputProps,
+        { id, label, helper, isLoading, validation, ...rest }: InputProps,
         ref?: ForwardedRef<HTMLInputElement & HTMLTextAreaElement>
     ) => {
         return (
@@ -70,8 +73,9 @@ export const Input = forwardRef(
                 helper={helper}
                 id={id}
                 isLoading={isLoading}
+                validation={validation}
             >
-                <InputFn ref={ref} id={id} {...rest} />
+                <InputFn ref={ref} id={id} validation={validation} {...rest} />
             </InputContainer>
         )
     }

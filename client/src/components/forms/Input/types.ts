@@ -8,7 +8,7 @@ import type { ValidationStatusType } from "types"
 interface InputPropsBase
     extends InputContainerBaseProps,
         InputHTMLAttributes<HTMLInputElement & HTMLTextAreaElement> {
-    validation?: ValidationStatusType
+   
     keys?: string[]
 }
 

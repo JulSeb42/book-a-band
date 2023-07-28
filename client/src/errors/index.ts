@@ -1,5 +1,4 @@
 /*=============================================== Exports ===============================================*/
 
-export * from "pages/auth/Signup"
-export * from "pages/auth/ThankYou"
-export * from "pages/auth/Login"
+export * from "errors/ErrorMessage"
+export * from "errors/form-validation"

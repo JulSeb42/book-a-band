@@ -6,7 +6,7 @@ import type { ForwardedRef } from "react"
 import { Icon } from "components"
 import {
     InputContainer,
-    InputValidation,
+    InputValidationIcon,
     InputRightContainer,
     InputIcon,
 } from "components/forms/InputComponents"
@@ -36,6 +36,7 @@ export const Password = forwardRef(
                 helper={helper}
                 id={id}
                 isLoading={isLoading}
+                validation={validation}
             >
                 <InputContent>
                     {icon && <InputIcon icon={icon} />}
@@ -45,12 +46,14 @@ export const Password = forwardRef(
                         type={type}
                         ref={ref}
                         $hasIcon={!!icon}
-                        $validation={validation}
+                        $validation={validation?.status}
                         {...rest}
                     />
 
                     <InputRightContainer>
-                        {validation && <InputValidation status={validation} />}
+                        {validation && (
+                            <InputValidationIcon status={validation?.status} />
+                        )}
 
                         <PasswordButton
                             onClick={() =>

@@ -2,6 +2,8 @@
 
 import { Icon, Skeleton, INPUT_HEIGHT } from "components"
 
+import { FORM_VALIDATION } from "errors"
+
 import {
     StyledRightContainer,
     IconContainer,
@@ -14,7 +16,7 @@ import {
 import type {
     InputRightContainerProps,
     InputIconProps,
-    InputValidationProps,
+    InputValidationIconProps,
     InputContainerProps,
 } from "components/forms/InputComponents/types"
 
@@ -30,7 +32,7 @@ export const InputIcon = ({ icon }: InputIconProps) => {
     )
 }
 
-export const InputValidation = ({ status }: InputValidationProps) => {
+export const InputValidationIcon = ({ status }: InputValidationIconProps) => {
     if (!status) return null
 
     if (status === "not-passed")
@@ -45,6 +47,7 @@ export const InputContainer = ({
     helper,
     children,
     isLoading,
+    validation,
 }: InputContainerProps) => {
     const input = () =>
         isLoading ? (
@@ -69,14 +72,36 @@ export const InputContainer = ({
                         <HelperIconContainer>
                             <Icon
                                 src={helper.icon!}
-                                color={helper.iconColor || "success"}
                                 size={12}
+                                color={helper?.iconColor || "primary"}
                             />
                         </HelperIconContainer>
 
                         <Helper>{helper.text}</Helper>
                     </HelperContainer>
                 ))}
+
+            {validation?.status && (
+                <HelperContainer>
+                    <HelperIconContainer>
+                        <Icon
+                            src={
+                                validation.status === "not-passed"
+                                    ? FORM_VALIDATION.ICON_NOT_PASSED
+                                    : FORM_VALIDATION.ICON_PASSED
+                            }
+                            size={12}
+                            color={
+                                validation.status === "not-passed"
+                                    ? FORM_VALIDATION.ICON_COLOR_NOT_PASSED
+                                    : FORM_VALIDATION.ICON_COLOR_PASSED
+                            }
+                        />
+                    </HelperIconContainer>
+
+                    <Helper>{validation.message}</Helper>
+                </HelperContainer>
+            )}
         </StyledInputContainer>
     )
 }
