@@ -28,6 +28,8 @@ export const COLORS = {
 export const OVERLAYS = {
     BLACK: "var(--overlay-black)",
     GRADIENT: "var(--overlay-gradient)",
+    WHITE_DEFAULT: "var(--overlay-white-default)",
+    WHITE_HOVER: "var(--overlay-white-hover)",
 }
 
 export const FONT_FAMILY = "var(--font-family-body)"

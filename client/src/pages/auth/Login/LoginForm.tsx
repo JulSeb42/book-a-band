@@ -14,15 +14,18 @@ import { FORM_VALIDATION } from "errors"
 import type { ErrorMessageType, ValidationStatusType } from "types"
 
 type LoginFormValidationType = {
-    email: ValidationStatusType | undefined
-    password: ValidationStatusType | undefined
+    email: ValidationStatusType
+    password: ValidationStatusType
 }
 
 export const LoginForm = () => {
     const navigate = useNavigate()
     const { loginUser } = useContext(AuthContext) as AuthContextType
 
-    const [inputs, setInputs] = useState({ email: "", password: "" })
+    const [inputs, setInputs] = useState({
+        email: "julien.sebag@me.com",
+        password: "Password43",
+    })
     const [errorMessage, setErrorMessage] =
         useState<ErrorMessageType>(undefined)
     const [validation, setValidation] = useState<LoginFormValidationType>({

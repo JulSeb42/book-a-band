@@ -36,9 +36,8 @@ export const ResetPasswordForm = () => {
     }, [id])
 
     const [password, setPassword] = useState("")
-    const [validation, setValidation] = useState<
-        ValidationStatusType | undefined
-    >(undefined)
+    const [validation, setValidation] =
+        useState<ValidationStatusType>(undefined)
     const [isFormLoading, setIsFormLoading] = useState(false)
     const [errorMessage, setErrorMessage] =
         useState<ErrorMessageType>(undefined)

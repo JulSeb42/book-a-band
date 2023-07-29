@@ -26,7 +26,8 @@ import {
 
 import {
     MyAccount,
-    // EditAccount, EditPassword
+    EditAccount,
+    // EditPassword
 } from "pages/account"
 
 type RouteType = {
@@ -107,14 +108,14 @@ export const routes = createBrowserRouter([
             </ProtectedRoute>
         ),
     },
-    // {
-    //     path: PATHS.EDIT_ACCOUNT,
-    //     element: (
-    //         <ProtectedRoute>
-    //             <EditAccount />
-    //         </ProtectedRoute>
-    //     ),
-    // },
+    {
+        path: PATHS.EDIT_ACCOUNT,
+        element: (
+            <ProtectedRoute>
+                <EditAccount />
+            </ProtectedRoute>
+        ),
+    },
     // {
     //     path: PATHS.EDIT_PASSWORD,
     //     element: (

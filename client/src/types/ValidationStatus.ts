@@ -5,4 +5,4 @@ const validationStatus = {
     "not-passed": "not-passed",
 } as const
 
-export type ValidationStatusType = keyof typeof validationStatus
+export type ValidationStatusType = keyof typeof validationStatus | undefined

@@ -17,9 +17,8 @@ export const ForgotPasswordForm = () => {
     const navigate = useNavigate()
 
     const [email, setEmail] = useState("")
-    const [validation, setValidation] = useState<
-        ValidationStatusType | undefined
-    >(undefined)
+    const [validation, setValidation] =
+        useState<ValidationStatusType>(undefined)
     const [errorMessage, setErrorMessage] =
         useState<ErrorMessageType>(undefined)
     const [isLoading, setIsLoading] = useState(false)

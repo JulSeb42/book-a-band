@@ -6,7 +6,7 @@ import type { ColorsType } from "components/types"
 import type { ValidationStatusType } from "types"
 
 export type ValidationInputHelperType = {
-    status: ValidationStatusType | undefined
+    status: ValidationStatusType
     message: string
 }
 
@@ -19,7 +19,7 @@ export interface InputIconProps {
 }
 
 export interface InputValidationIconProps {
-    status: ValidationStatusType | undefined
+    status: ValidationStatusType
 }
 
 export interface InputContainerBaseProps {

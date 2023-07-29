@@ -7,7 +7,7 @@ import type { ValidationStatusType } from "types"
 export type AutocompleteProps = InputProps & {
     options: string[]
     value: string
-    setValue: (value: string) => void
+    setValue: Dispatch<SetStateAction<string>>
     onChange?: never
-    setValidation?: Dispatch<SetStateAction<ValidationStatusType | undefined>>
+    setValidation?: Dispatch<SetStateAction<ValidationStatusType>>
 }

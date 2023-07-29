@@ -20,9 +20,9 @@ import type {
 } from "types"
 
 type ValidationInputsType = {
-    fullName: ValidationStatusType | undefined
-    email: ValidationStatusType | undefined
-    password: ValidationStatusType | undefined
+    fullName: ValidationStatusType
+    email: ValidationStatusType
+    password: ValidationStatusType
 }
 
 export const SignupForm = () => {
@@ -44,9 +44,8 @@ export const SignupForm = () => {
         email: undefined,
         password: undefined,
     })
-    const [validationCity, setValidationCity] = useState<
-        ValidationStatusType | undefined
-    >(undefined)
+    const [validationCity, setValidationCity] =
+        useState<ValidationStatusType>(undefined)
     const [errorMessage, setErrorMessage] =
         useState<ErrorMessageType>(undefined)
     const [isLoading, setIsLoading] = useState(false)

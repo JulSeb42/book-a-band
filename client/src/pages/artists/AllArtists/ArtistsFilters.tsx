@@ -20,9 +20,9 @@ import type { SortType, PricesType } from "types"
 interface ArtistsFiltersProps {
     isLoading: boolean
     sort: SortType | undefined
-    setSort: (sort: SortType | undefined) => void
+    setSort: Dispatch<SetStateAction<SortType | undefined>>
     prices: PricesType
-    setPrices: (prices: PricesType) => void
+    setPrices: Dispatch<SetStateAction<PricesType>>
     selectedCity: string
     setSelectedCity: Dispatch<SetStateAction<string>>
     selectedGenre: string
