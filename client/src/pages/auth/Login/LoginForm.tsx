@@ -23,8 +23,8 @@ export const LoginForm = () => {
     const { loginUser } = useContext(AuthContext) as AuthContextType
 
     const [inputs, setInputs] = useState({
-        email: "julien.sebag@me.com",
-        password: "Password43",
+        email: "",
+        password: "",
     })
     const [errorMessage, setErrorMessage] =
         useState<ErrorMessageType>(undefined)

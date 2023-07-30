@@ -31,6 +31,7 @@ export const DeleteAccount = () => {
         userService
             .deleteAccount(user?._id!)
             .then(() => {
+                setIsOpen(false)
                 logoutUser()
                 navigate(PATHS.GOODBYE)
                 setIsDeleteLoading(false)
