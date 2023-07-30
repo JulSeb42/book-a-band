@@ -1,7 +1,9 @@
 /*=============================================== Page ===============================================*/
 
+import { useEffect } from "react"
 import type { ReactNode } from "react"
 import type { AxiosError } from "axios"
+import { useLocation } from "react-router-dom"
 
 import { Wrapper, Main, Text } from "components"
 import { Helmet } from "components/layouts/Helmet"
@@ -32,6 +34,16 @@ export const Page = ({
     mainSize,
     error,
 }: PageProps) => {
+    const { pathname, search } = useLocation()
+
+    useEffect(() => {
+        document.documentElement.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "instant",
+        })
+    }, [pathname, search])
+
     return (
         <>
             <Helmet

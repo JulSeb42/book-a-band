@@ -16,7 +16,7 @@ import { PATHS } from "data"
 import { SearchForm } from "components/layouts/Header/styles"
 
 export const Search = () => {
-    const location = useLocation().pathname
+    const { pathname } = useLocation()
     const navigate = useNavigate()
 
     const [_, setSearchParams] = useSearchParams()
@@ -28,14 +28,14 @@ export const Search = () => {
         e.preventDefault()
 
         if (search !== "") {
-            if (location === PATHS.ARTISTS) setSearchParams({ query: search })
+            if (pathname === PATHS.ARTISTS) setSearchParams({ query: search })
             else
                 navigate({
                     pathname: PATHS.ARTISTS,
                     search: createSearchParams({ query: search }).toString(),
                 })
         } else {
-            if (location === PATHS.ARTISTS) setSearchParams({})
+            if (pathname === PATHS.ARTISTS) setSearchParams({})
             else navigate(PATHS.ARTISTS)
         }
     }

@@ -1,7 +1,7 @@
 /*=============================================== ListCities ===============================================*/
 
 import { Link } from "react-router-dom"
-import { generateNumbers, slugify, scrollToTop } from "ts-utils-julseb"
+import { generateNumbers, slugify } from "ts-utils-julseb"
 
 import { TextIcon, Text, Skeleton, SkeletonCard } from "components"
 import { useCitiesGenres } from "hooks"
@@ -19,10 +19,7 @@ export const ListCities = () => {
         .filter(city => city !== "All")
         .map(city => (
             <TextIcon icon="chevron-right" key={city}>
-                <Link
-                    to={`${PATHS.ARTISTS}?city=${slugify(city)}`}
-                    onClick={scrollToTop}
-                >
+                <Link to={`${PATHS.ARTISTS}?city=${slugify(city)}`}>
                     {SITE_DATA.NAME} in {city}
                 </Link>
             </TextIcon>

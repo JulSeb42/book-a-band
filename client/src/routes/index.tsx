@@ -24,11 +24,7 @@ import {
     Goodbye,
 } from "pages/auth"
 
-import {
-    MyAccount,
-    EditAccount,
-    // EditPassword
-} from "pages/account"
+import { MyAccount, EditAccount, EditPassword } from "pages/account"
 
 type RouteType = {
     path: string
@@ -116,14 +112,14 @@ export const routes = createBrowserRouter([
             </ProtectedRoute>
         ),
     },
-    // {
-    //     path: PATHS.EDIT_PASSWORD,
-    //     element: (
-    //         <ProtectedRoute>
-    //             <EditPassword />
-    //         </ProtectedRoute>
-    //     ),
-    // },
+    {
+        path: PATHS.EDIT_PASSWORD,
+        element: (
+            <ProtectedRoute>
+                <EditPassword />
+            </ProtectedRoute>
+        ),
+    },
 
     ...redirects,
 ])

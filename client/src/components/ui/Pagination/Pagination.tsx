@@ -26,8 +26,6 @@ export const Pagination = ({ totalPages, pageLimit = 5 }: PaginationProps) => {
             ...params,
             page: (currentPage - 1).toString(),
         })
-
-        window.scrollTo(0, 0)
     }
 
     const handleNext = () => {
@@ -37,8 +35,6 @@ export const Pagination = ({ totalPages, pageLimit = 5 }: PaginationProps) => {
             ...params,
             page: (currentPage + 1).toString(),
         })
-
-        window.scrollTo(0, 0)
     }
 
     const handlePage = (n: number) => {
@@ -48,8 +44,6 @@ export const Pagination = ({ totalPages, pageLimit = 5 }: PaginationProps) => {
             ...params,
             page: n.toString(),
         })
-
-        window.scrollTo(0, 0)
     }
 
     const getPaginationGroup = () => {
