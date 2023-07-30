@@ -118,7 +118,7 @@ router.get("/user/:id", (req, res, next) => {
 
 // Edit user
 router.put("/edit-account/:id", (req, res, next) => {
-    const { fullName, avatar } = req.body
+    const { fullName, avatar, city, ...reqBody } = req.body
 
     if (!fullName) {
         return res
@@ -126,9 +126,11 @@ router.put("/edit-account/:id", (req, res, next) => {
             .json({ message: "Your full name can not be empty." })
     }
 
+    if (!city) return res.status(400).json({ message: "City is required." })
+
     UserModel.findByIdAndUpdate(
         req.params.id,
-        { fullName, avatar },
+        { fullName, avatar, city, ...reqBody },
         { new: true }
     )
         .then(updatedUser => {

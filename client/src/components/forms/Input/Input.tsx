@@ -16,7 +16,7 @@ import type { InputProps } from "components/forms/Input/types"
 
 const InputFn = forwardRef(
     (
-        { type, icon, validation, keys, ...rest }: InputProps,
+        { type, icon, validation, keys, onClick, ...rest }: InputProps,
         ref?: ForwardedRef<HTMLInputElement & HTMLTextAreaElement>
     ) => {
         if (type === "textarea")
@@ -30,15 +30,17 @@ const InputFn = forwardRef(
                 />
             )
 
-        const inputFn = () => (
-            <StyledInput
-                ref={ref}
-                type={type}
-                $validation={validation?.status}
-                $hasIcon={!!icon}
-                {...rest}
-            />
-        )
+        const inputFn = () => {
+            return (
+                <StyledInput
+                    type={type}
+                    ref={ref}
+                    $validation={validation?.status}
+                    $hasIcon={!!icon}
+                    {...rest}
+                />
+            )
+        }
 
         return icon || validation ? (
             <InputContent>

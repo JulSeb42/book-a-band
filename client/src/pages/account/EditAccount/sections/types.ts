@@ -11,6 +11,7 @@ export type EditAccountMainInputType = {
     fullName: string
     genre: string
     price: number
+    bio: string
     facebookUrl: string
     instagramUrl: string
     youtubeUrl: string

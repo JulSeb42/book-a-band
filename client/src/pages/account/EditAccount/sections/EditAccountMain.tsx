@@ -17,8 +17,6 @@ interface EditAccountMainProps extends EditAccountSectionProps {
     setInputs: Dispatch<SetStateAction<EditAccountMainInputType>>
     city: string
     setCity: Dispatch<SetStateAction<string>>
-    bio: string
-    setBio: Dispatch<SetStateAction<string>>
     youtubeLinks: EditAccountYoutubeLinksType
     setYoutubeLinks: Dispatch<SetStateAction<EditAccountYoutubeLinksType>>
     validation: EditAccountValidationType
@@ -32,8 +30,6 @@ export const EditAccountMain = ({
     setInputs,
     city,
     setCity,
-    bio,
-    setBio,
     youtubeLinks,
     setYoutubeLinks,
     validation,
@@ -58,6 +54,9 @@ export const EditAccountMain = ({
             else setValidation({ ...validation, city: "passed" })
         }
     }
+
+    const handleYoutubeLink = (e: ChangeEvent<HTMLInputElement>) =>
+        setYoutubeLinks({ ...youtubeLinks, [e.target.id]: e.target.value })
 
     return (
         <>
@@ -95,7 +94,92 @@ export const EditAccountMain = ({
                         onChange={handleInputs}
                     />
 
-                    {/* Price, Bio, Facebook URL, Instagram URL, Youtube URL, Youtube Links */}
+                    <Input
+                        id="price"
+                        label="Price"
+                        value={inputs.price}
+                        onChange={handleInputs}
+                        min={0}
+                        step={100}
+                        type="number"
+                    />
+
+                    <Input
+                        id="bio"
+                        type="textarea"
+                        label="Bio"
+                        helper={{
+                            text: (
+                                <>
+                                    Here you can use{" "}
+                                    <a
+                                        href="https://www.markdownguide.org/cheat-sheet/"
+                                        target="_blank"
+                                        rel="noreferrer noopener"
+                                    >
+                                        markdown
+                                    </a>{" "}
+                                    to write your bio.
+                                </>
+                            ),
+                        }}
+                        value={inputs.bio}
+                        onChange={handleInputs}
+                    />
+
+                    <Input
+                        id="facebookUrl"
+                        label="Facebook url"
+                        value={inputs.facebookUrl}
+                        onChange={handleInputs}
+                        type="url"
+                    />
+
+                    <Input
+                        id="instagramUrl"
+                        label="Instagram url"
+                        value={inputs.instagramUrl}
+                        onChange={handleInputs}
+                        type="url"
+                    />
+
+                    <Input
+                        id="youtubeUrl"
+                        label="YouTube url"
+                        value={inputs.youtubeUrl}
+                        onChange={handleInputs}
+                        type="url"
+                    />
+
+                    <Input
+                        id="youtube1"
+                        label="Link to YouTube video"
+                        value={youtubeLinks.youtube1}
+                        onChange={handleYoutubeLink}
+                        type="url"
+                    />
+
+                    {youtubeLinks.youtube1.length ||
+                    youtubeLinks.youtube2.length ? (
+                        <Input
+                            id="youtube2"
+                            label="Link to YouTube video"
+                            value={youtubeLinks.youtube2}
+                            onChange={handleYoutubeLink}
+                            type="url"
+                        />
+                    ) : null}
+
+                    {youtubeLinks.youtube2.length ||
+                    youtubeLinks.youtube3.length ? (
+                        <Input
+                            id="youtube3"
+                            label="Link to YouTube video"
+                            value={youtubeLinks.youtube3}
+                            onChange={handleYoutubeLink}
+                            type="url"
+                        />
+                    ) : null}
                 </>
             )}
         </>

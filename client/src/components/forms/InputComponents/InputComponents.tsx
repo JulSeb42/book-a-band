@@ -69,13 +69,15 @@ export const InputContainer = ({
                     <Helper>{helper}</Helper>
                 ) : (
                     <HelperContainer>
-                        <HelperIconContainer>
-                            <Icon
-                                src={helper.icon!}
-                                size={12}
-                                color={helper?.iconColor || "primary"}
-                            />
-                        </HelperIconContainer>
+                        {helper.icon && (
+                            <HelperIconContainer>
+                                <Icon
+                                    src={helper.icon}
+                                    size={12}
+                                    color={helper.iconColor || "primary"}
+                                />
+                            </HelperIconContainer>
+                        )}
 
                         <Helper>{helper.text}</Helper>
                     </HelperContainer>

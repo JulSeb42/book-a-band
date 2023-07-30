@@ -42,8 +42,17 @@ class UserService {
         id: string,
         data: {
             fullName: string
+            genre: string
+            price: number
+            bio: string
+            facebookUrl: string
+            instagramUrl: string
+            youtubeUrl: string
+            isVisible: boolean
             avatar: string
-            // TODO: Add other variables
+            youtubeLinks: string[]
+            city: string
+            available: string[]
         }
     ) {
         return http.put(`${SERVER_PATHS.USERS}/edit-account/${id}`, data)

@@ -26,6 +26,15 @@ export const StyledInput = styled.input<{
             $validation,
         })}
 
+    &[type="date"] {
+        cursor: pointer;
+
+        &::-webkit-inner-spin-button,
+        &::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+        }
+    }
+
     ${({ $isTextarea }) =>
         $isTextarea &&
         css`

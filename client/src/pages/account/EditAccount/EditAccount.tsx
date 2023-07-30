@@ -2,10 +2,12 @@
 
 import { useContext, useState } from "react"
 import type { FormEvent } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { deleteDuplicates } from "ts-utils-julseb"
 
 import { AuthContext } from "context"
 import type { AuthContextType } from "context/types"
+import { userService } from "api"
 
 import { Page, Main, Aside, Form, Text, Flexbox } from "components"
 import {
@@ -14,6 +16,8 @@ import {
     DeleteAccount,
     EditAccountAvailabilities,
 } from "pages/account/EditAccount/sections"
+import { PATHS } from "data"
+import { formatDate, sortDates } from "utils"
 
 import type { ErrorMessageType } from "types"
 import type {
@@ -25,7 +29,11 @@ import type {
 export const EditAccount = () => {
     const FORM_ID = "edit-form"
 
-    const { user, isLoading } = useContext(AuthContext) as AuthContextType
+    const navigate = useNavigate()
+
+    const { user, isLoading, setUser, setToken } = useContext(
+        AuthContext
+    ) as AuthContextType
     const demoLoading = false
 
     const [avatar, setAvatar] = useState(user?.avatar!)
@@ -34,6 +42,7 @@ export const EditAccount = () => {
         fullName: user?.fullName!,
         genre: user?.genre || "",
         price: user?.price || 0,
+        bio: user?.bio || "",
         facebookUrl: user?.facebookUrl || "",
         instagramUrl: user?.instagramUrl || "",
         youtubeUrl: user?.youtubeUrl || "",
@@ -45,7 +54,6 @@ export const EditAccount = () => {
             youtube3: user?.youtubeLinks[2] || "",
         })
     const [city, setCity] = useState(user?.city!)
-    const [bio, setBio] = useState(user?.bio || "")
     const [dates, setDates] = useState(user?.available || [])
     const [errorMessage, setErrorMessage] =
         useState<ErrorMessageType>(undefined)
@@ -56,7 +64,40 @@ export const EditAccount = () => {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+
+        const requestBody = {
+            ...inputs,
+            isVisible,
+            avatar,
+            youtubeLinks: [
+                youtubeLinks.youtube1,
+                youtubeLinks.youtube2,
+                youtubeLinks.youtube3,
+            ].filter(link => link !== ""),
+            city,
+            available: sortDates(
+                deleteDuplicates(dates.map(d => formatDate(new Date(d))))
+            ),
+        }
+
+        userService
+            .editAccount(user!._id, requestBody)
+            .then(res => {
+                const { user, authToken } = res.data
+                setUser(user)
+                setToken(authToken)
+                navigate(PATHS.MY_ACCOUNT)
+            })
+            .catch(err => setErrorMessage(err))
     }
+
+    console.log(
+        formatDate(
+            new Date(
+                '"Tue Aug 01 2023 00:00:00 GMT+0200 (heure d’été d’Europe centrale)"'
+            )
+        )
+    )
 
     return (
         <Page title="Edit your account" noMain>
@@ -83,8 +124,6 @@ export const EditAccount = () => {
                         setInputs={setInputs}
                         city={city!}
                         setCity={setCity}
-                        bio={bio!}
-                        setBio={setBio}
                         youtubeLinks={youtubeLinks}
                         setYoutubeLinks={setYoutubeLinks}
                         validation={validation}
@@ -112,7 +151,6 @@ export const EditAccount = () => {
                             gap="xxs"
                         >
                             <EditAccountAvailabilities
-                                user={user}
                                 isLoading={isLoading}
                                 dates={dates}
                                 setDates={setDates}

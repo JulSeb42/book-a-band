@@ -23,12 +23,13 @@ export interface InputValidationIconProps {
 }
 
 export interface InputContainerBaseProps {
+    id?: string
     label?: string
     helper?:
         | string
         | {
-              text: string | null
-              icon: string | null
+              text: string | JSX.Element
+              icon?: string
               iconColor?: ColorsType
           }
         | undefined
@@ -37,6 +38,5 @@ export interface InputContainerBaseProps {
 }
 
 export interface InputContainerProps extends InputContainerBaseProps {
-    id?: string
     children?: ReactNode | ReactNode[]
 }
