@@ -15,7 +15,7 @@ import {
     BREAKPOINTS,
 } from "components"
 
-import type { ColorsHoverType } from "components/types"
+import type { ColorsHoverType, AlignSelfType } from "components/types"
 import type {
     ButtonSizesType,
     ButtonVariantsType,
@@ -26,6 +26,7 @@ export const StyledButton = styled.button<{
     $size?: ButtonSizesType
     $color: ColorsHoverType
     $noPadding?: boolean
+    $alignSelf?: AlignSelfType
 }>`
     border: none;
     text-decoration: none;
@@ -42,6 +43,7 @@ export const StyledButton = styled.button<{
             : `${SPACERS.XS} ${SPACERS.S}`};
     border-radius: ${RADIUSES.M};
     transition: ${TRANSITIONS.SHORT};
+    align-self: ${({ $alignSelf }) => $alignSelf};
     ${Mixins.Flexbox({
         inline: true,
         alignItems: "center",

@@ -1,7 +1,7 @@
 /*=============================================== Button types ===============================================*/
 
 import type { ElementType, ButtonHTMLAttributes, HTMLAttributes } from "react"
-import type { ColorsHoverType } from "components/types"
+import type { ColorsHoverType, AlignSelfType } from "components/types"
 
 const buttonVariants = { plain: "plain", transparent: "transparent" } as const
 export type ButtonVariantsType = keyof typeof buttonVariants
@@ -16,6 +16,7 @@ interface ButtonPropsBase
     color?: ColorsHoverType
     size?: ButtonSizesType
     isLoading?: boolean
+    alignSelf?: AlignSelfType
     icons?: {
         left?: string
         right?: string

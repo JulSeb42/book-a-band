@@ -168,4 +168,17 @@ export const typeValues = {
         "revert-layer": "revert-layer",
         unset: "unset",
     },
+    alignSelf: {
+        center: "center",
+        start: "start",
+        end: "end",
+        "self-start": "self-start",
+        "self-end": "self-end",
+        "flex-start": "flex-start",
+        "flex-end": "flex-end",
+        baseline: "baseline",
+        "first baseline": "first baseline",
+        "last baseline": "last baseline",
+        stretch: "stretch",
+    },
 } as const

@@ -259,3 +259,8 @@ button {
 button:disabled {
     cursor: not-allowed;
 }
+
+.stop-scrolling {
+    height: 100vh;
+    overflow: hidden;
+}

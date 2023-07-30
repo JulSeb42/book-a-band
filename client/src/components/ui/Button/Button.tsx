@@ -24,6 +24,7 @@ export const Button = forwardRef(
             to,
             blank,
             children,
+            alignSelf,
             ...rest
         }: ButtonProps,
         ref?: ForwardedRef<HTMLButtonElement>
@@ -41,6 +42,7 @@ export const Button = forwardRef(
                 $size={size}
                 $variant={variant}
                 $noPadding={noPadding}
+                $alignSelf={alignSelf}
                 {...rest}
             >
                 {isLoading && (

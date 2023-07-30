@@ -41,6 +41,7 @@ export type PaddingType =
           bottom?: SpacersType | null
       }
     | null
+export type AlignSelfType = keyof typeof typeValues.alignSelf
 
 export interface BorderProps {
     style?: "solid" | "none"
