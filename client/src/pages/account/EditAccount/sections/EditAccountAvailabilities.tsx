@@ -2,9 +2,21 @@
 
 import type { Dispatch, SetStateAction } from "react"
 import styled from "styled-components"
-import { getToday, convertDateShort, deleteDuplicates } from "ts-utils-julseb"
+import {
+    getToday,
+    convertDateShort,
+    deleteDuplicates,
+    generateNumbers,
+} from "ts-utils-julseb"
 
-import { Text, Icon, Mixins, Datepicker } from "components"
+import {
+    Text,
+    Icon,
+    Mixins,
+    Datepicker,
+    SkeletonCard,
+    Skeleton,
+} from "components"
 import { sortDates } from "utils"
 
 import type { EditAccountSectionProps } from "pages/account/EditAccount/sections/types"
@@ -99,5 +111,16 @@ const StyledText = styled(Text)`
 `
 
 const EditAccountAvailabilitiesSkeleton = () => {
-    return <></>
+    return (
+        <>
+            {generateNumbers(0, 4).map(n => (
+                <SkeletonCard gap="xxs" alignItems="center" isShining key={n}>
+                    <Skeleton width={16} height={16} />
+                    <Skeleton width="40%" height={24} />
+                </SkeletonCard>
+            ))}
+
+            <Datepicker label="Add a new date" isLoading onChange={() => {}} />
+        </>
+    )
 }

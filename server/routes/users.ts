@@ -148,36 +148,60 @@ router.put("/edit-account/:id", (req, res, next) => {
 })
 
 // Edit password
-router.put("/edit-password/:id", (req, res, next) => {
-    const { password } = req.body
+router.put("/edit-password/:id", async (req, res, next) => {
+    const { oldPassword, newPassword } = req.body
 
-    if (!passwordRegex.test(password)) {
-        return res.status(400).json({
-            message:
-                "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
-        })
+    // if (!passwordRegex.test(newPassword)) {
+    //     return res.status(400).json({
+    //         message:
+    //             "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
+    //     })
+    // }
+
+    const foundUser: UserType | null = await UserModel.findById(req.params.id)
+    console.log(foundUser)
+
+    if (foundUser) {
+        if (await bcrypt.compare(oldPassword, foundUser.password)) {
+            if (passwordRegex.test(newPassword)) {
+                const salt = bcrypt.genSaltSync(SALT_ROUNDS)
+                const hashedPassword = bcrypt.hashSync(newPassword, salt)
+
+                UserModel.findByIdAndUpdate(
+                    req.params.id,
+                    { password: hashedPassword },
+                    { new: true }
+                )
+                    .then(updatedUser => {
+                        const payload = { user: updatedUser }
+
+                        // @ts-expect-error
+                        const authToken = jwt.sign(
+                            payload,
+                            TOKEN_SECRET,
+                            jwtConfig
+                        )
+
+                        res.status(201).json({
+                            user: updatedUser,
+                            authToken: authToken,
+                        })
+                    })
+                    .catch(err => next(err))
+            } else {
+                return res.status(400).json({
+                    message:
+                        "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
+                })
+            }
+        } else {
+            return res
+                .status(400)
+                .json({ message: "Old password does not match." })
+        }
+    } else {
+        return res.status(400).json({ message: "User not found." })
     }
-
-    const salt = bcrypt.genSaltSync(SALT_ROUNDS)
-    const hashedPassword = bcrypt.hashSync(password, salt)
-
-    UserModel.findByIdAndUpdate(
-        req.params.id,
-        { password: hashedPassword },
-        { new: true }
-    )
-        .then(updatedUser => {
-            const payload = { user: updatedUser }
-
-            // @ts-expect-error
-            const authToken = jwt.sign(payload, TOKEN_SECRET, jwtConfig)
-
-            res.status(201).json({
-                user: updatedUser,
-                authToken: authToken,
-            })
-        })
-        .catch(err => next(err))
 })
 
 // Delete user

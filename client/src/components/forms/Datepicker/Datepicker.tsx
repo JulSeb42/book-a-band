@@ -7,9 +7,20 @@ import { InputContainer } from "components/forms/InputComponents"
 import { StyledDatepicker } from "components/forms/Datepicker/styles"
 import type { DatepickerProps } from "components/forms/Datepicker/types"
 
-export const Datepicker = ({ id, label, helper, ...rest }: DatepickerProps) => {
+export const Datepicker = ({
+    id,
+    label,
+    helper,
+    isLoading,
+    ...rest
+}: DatepickerProps) => {
     return (
-        <InputContainer id={id} label={label} helper={helper}>
+        <InputContainer
+            id={id}
+            label={label}
+            helper={helper}
+            isLoading={isLoading}
+        >
             <StyledDatepicker
                 showYearDropdown
                 showMonthDropdown

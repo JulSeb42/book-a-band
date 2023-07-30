@@ -35,7 +35,7 @@ export const EditAccountMain = ({
     validation,
     setValidation,
 }: EditAccountMainProps) => {
-    if (isLoading) return <EditAccountMainSkeleton />
+    // if (isLoading) return <EditAccountMainSkeleton />
 
     const handleInputs = (e: ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target
@@ -65,6 +65,7 @@ export const EditAccountMain = ({
                 label={`${user?.role === "artist" ? "Display" : "Full"} name`}
                 value={inputs.fullName}
                 onChange={handleInputs}
+                isLoading={isLoading}
                 autoFocus
             />
 
@@ -75,6 +76,7 @@ export const EditAccountMain = ({
                 value={user?.email}
                 disabled
                 helper="You can not edit your email."
+                isLoading={isLoading}
             />
 
             <Autocomplete
@@ -83,6 +85,7 @@ export const EditAccountMain = ({
                 options={GERMAN_CITIES}
                 label="City"
                 id="city"
+                isLoading={isLoading}
             />
 
             {user?.role === "artist" && (
@@ -92,6 +95,7 @@ export const EditAccountMain = ({
                         label="Genre"
                         value={inputs.genre}
                         onChange={handleInputs}
+                        isLoading={isLoading}
                     />
 
                     <Input
@@ -102,6 +106,7 @@ export const EditAccountMain = ({
                         min={0}
                         step={100}
                         type="number"
+                        isLoading={isLoading}
                     />
 
                     <Input
@@ -125,6 +130,7 @@ export const EditAccountMain = ({
                         }}
                         value={inputs.bio}
                         onChange={handleInputs}
+                        isLoading={isLoading}
                     />
 
                     <Input
@@ -133,6 +139,7 @@ export const EditAccountMain = ({
                         value={inputs.facebookUrl}
                         onChange={handleInputs}
                         type="url"
+                        isLoading={isLoading}
                     />
 
                     <Input
@@ -141,6 +148,7 @@ export const EditAccountMain = ({
                         value={inputs.instagramUrl}
                         onChange={handleInputs}
                         type="url"
+                        isLoading={isLoading}
                     />
 
                     <Input
@@ -149,6 +157,7 @@ export const EditAccountMain = ({
                         value={inputs.youtubeUrl}
                         onChange={handleInputs}
                         type="url"
+                        isLoading={isLoading}
                     />
 
                     <Input
@@ -157,6 +166,7 @@ export const EditAccountMain = ({
                         value={youtubeLinks.youtube1}
                         onChange={handleYoutubeLink}
                         type="url"
+                        isLoading={isLoading}
                     />
 
                     {youtubeLinks.youtube1.length ||
@@ -167,6 +177,7 @@ export const EditAccountMain = ({
                             value={youtubeLinks.youtube2}
                             onChange={handleYoutubeLink}
                             type="url"
+                            isLoading={isLoading}
                         />
                     ) : null}
 
@@ -178,14 +189,11 @@ export const EditAccountMain = ({
                             value={youtubeLinks.youtube3}
                             onChange={handleYoutubeLink}
                             type="url"
+                            isLoading={isLoading}
                         />
                     ) : null}
                 </>
             )}
         </>
     )
-}
-
-const EditAccountMainSkeleton = () => {
-    return <></>
 }

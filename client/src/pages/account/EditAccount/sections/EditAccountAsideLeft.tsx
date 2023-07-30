@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import type { Dispatch, SetStateAction } from "react"
+import { useNavigate } from "react-router-dom"
 
 import { Button, Skeleton, ImageUploader, Toggle } from "components"
 import { PATHS } from "data"
@@ -14,6 +15,7 @@ interface EditAccountAsideLeftProps extends EditAccountSectionProps {
     setAvatar: Dispatch<SetStateAction<string>>
     isVisible: boolean
     setIsVisible: Dispatch<SetStateAction<boolean>>
+    isSubmitLoading: boolean
 }
 
 export const EditAccountAsideLeft = ({
@@ -24,7 +26,10 @@ export const EditAccountAsideLeft = ({
     setAvatar,
     isVisible,
     setIsVisible,
+    isSubmitLoading,
 }: EditAccountAsideLeftProps) => {
+    const navigate = useNavigate()
+
     const [isImageLoading, setIsImageLoading] = useState(false)
 
     if (isLoading)
@@ -62,12 +67,17 @@ export const EditAccountAsideLeft = ({
             <Button
                 form={formId}
                 type="submit"
-                isLoading={isLoading || isImageLoading}
+                isLoading={isLoading || isImageLoading || isSubmitLoading}
             >
                 Save changes
             </Button>
 
-            <Button to={PATHS.MY_ACCOUNT} variant="transparent" noPadding>
+            <Button
+                onClick={() => navigate(PATHS.MY_ACCOUNT)}
+                variant="transparent"
+                disabled={isSubmitLoading}
+                noPadding
+            >
                 Cancel
             </Button>
         </>

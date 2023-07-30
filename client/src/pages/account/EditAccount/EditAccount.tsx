@@ -34,7 +34,6 @@ export const EditAccount = () => {
     const { user, isLoading, setUser, setToken } = useContext(
         AuthContext
     ) as AuthContextType
-    const demoLoading = false
 
     const [avatar, setAvatar] = useState(user?.avatar!)
     const [isVisible, setIsVisible] = useState(user?.isVisible || false)
@@ -61,9 +60,12 @@ export const EditAccount = () => {
         fullName: undefined,
         city: undefined,
     })
+    const [isSubmitLoading, setIsSubmitLoading] = useState(false)
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+
+        setIsSubmitLoading(true)
 
         const requestBody = {
             ...inputs,
@@ -87,34 +89,33 @@ export const EditAccount = () => {
                 setUser(user)
                 setToken(authToken)
                 navigate(PATHS.MY_ACCOUNT)
+                setIsSubmitLoading(false)
             })
-            .catch(err => setErrorMessage(err))
+            .catch(err => {
+                setErrorMessage(err)
+                setIsSubmitLoading(false)
+            })
     }
 
-    console.log(
-        formatDate(
-            new Date(
-                '"Tue Aug 01 2023 00:00:00 GMT+0200 (heure d’été d’Europe centrale)"'
-            )
-        )
-    )
+    const PAGE_TITLE = "Edit your account"
 
     return (
-        <Page title="Edit your account" noMain>
+        <Page title={PAGE_TITLE} noMain>
             <Aside gap="s" center>
                 <EditAccountAsideLeft
                     user={user!}
-                    isLoading={isLoading || demoLoading}
+                    isLoading={isLoading}
                     formId={FORM_ID}
                     avatar={avatar}
                     setAvatar={setAvatar}
                     isVisible={isVisible}
                     setIsVisible={setIsVisible}
+                    isSubmitLoading={isSubmitLoading}
                 />
             </Aside>
 
             <Main size="form">
-                <Text tag="h1">Edit your account</Text>
+                <Text tag="h1">{PAGE_TITLE}</Text>
 
                 <Form onSubmit={handleSubmit} id={FORM_ID} error={errorMessage}>
                     <EditAccountMain

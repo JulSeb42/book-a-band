@@ -28,6 +28,7 @@ export const Autocomplete = ({
     id,
     label,
     helper,
+    isLoading,
     icon,
     validation,
     onChange,
@@ -138,6 +139,7 @@ export const Autocomplete = ({
             label={label}
             helper={helper}
             validation={validation}
+            isLoading={isLoading}
         >
             <StyledAutocomplete $isOpen={isOpen}>
                 <InputContent>
