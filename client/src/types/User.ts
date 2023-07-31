@@ -1,5 +1,7 @@
 /*=============================================== User ===============================================*/
 
+import type { ConversationType } from "./"
+
 const roles = { user: "user", artist: "artist" } as const
 
 export type UserRoleType = keyof typeof roles
@@ -25,4 +27,5 @@ export type UserType = {
     instagramUrl: string
     youtubeLinks: string[]
     isVisible: boolean
+    conversations: ConversationType[]
 }

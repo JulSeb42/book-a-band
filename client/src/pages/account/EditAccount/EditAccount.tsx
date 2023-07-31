@@ -65,6 +65,14 @@ export const EditAccount = () => {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
+        if (!inputs.fullName.length || !city.length) {
+            setValidation({
+                fullName: !inputs.fullName.length ? "not-passed" : undefined,
+                city: !city.length ? "not-passed" : undefined,
+            })
+            return
+        }
+
         setIsSubmitLoading(true)
 
         const requestBody = {

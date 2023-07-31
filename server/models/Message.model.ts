@@ -5,8 +5,6 @@ import { Schema, model } from "mongoose"
 const MessageSchema = new Schema(
     {
         body: String,
-        date: String,
-        time: String,
         sender: {
             type: Schema.Types.ObjectId,
             ref: "User",

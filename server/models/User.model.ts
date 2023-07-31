@@ -30,6 +30,12 @@ const userSchema = new Schema(
         instagramUrl: String,
         youtubeLinks: Array,
         isVisible: Boolean,
+        conversations: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Conversation",
+            },
+        ],
     },
     { timestamps: true }
 )

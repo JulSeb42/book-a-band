@@ -58,8 +58,6 @@ export const LoginForm = () => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        setIsLoading(true)
-
         if (!emailRegex.test(inputs.email) || !inputs.password.length) {
             setValidation({
                 email: !emailRegex.test(inputs.email)
@@ -67,9 +65,10 @@ export const LoginForm = () => {
                     : undefined,
                 password: !inputs.password.length ? "not-passed" : undefined,
             })
-            setIsLoading(false)
             return
         }
+
+        setIsLoading(true)
 
         await authService
             .login(inputs)

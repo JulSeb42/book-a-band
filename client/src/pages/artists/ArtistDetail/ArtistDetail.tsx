@@ -44,7 +44,7 @@ export const ArtistDetail = () => {
 
                 <ArtistBio artist={artist!} isLoading={loading} />
 
-                <ArtistVideos artist={artist!} isLoading={loading} />
+                {/* <ArtistVideos artist={artist!} isLoading={loading} /> */}
 
                 <Flexbox flexDirection="column" alignItems="stretch" gap="xs">
                     <ContactArtist artist={artist!} isLoading={loading} />

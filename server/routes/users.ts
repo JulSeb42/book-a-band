@@ -21,6 +21,7 @@ const router = Router()
 // Get all users
 router.get("/all-users", (_, res, next) => {
     UserModel.find()
+        .populate("conversations")
         .then(usersFromDb => res.status(200).json(usersFromDb))
         .catch(err => next(err))
 })
@@ -112,8 +113,26 @@ router.get("/genres", (_, res, next) => {
 // Get user by ID
 router.get("/user/:id", (req, res, next) => {
     UserModel.findById(req.params.id)
+        .populate("conversations")
+        .populate({
+            path: "conversations",
+            populate: {
+                path: "user1",
+                model: "User",
+            },
+        })
+        .populate({
+            path: "conversations",
+            populate: {
+                path: "user2",
+                model: "User",
+            },
+        })
         .then(userFromDb => res.status(200).json(userFromDb))
-        .catch(() => res.status(400).json({ message: "User not found" }))
+        .catch(err => {
+            next(err)
+            return res.status(400).json({ message: "User not found" })
+        })
 })
 
 // Edit user
@@ -151,15 +170,14 @@ router.put("/edit-account/:id", (req, res, next) => {
 router.put("/edit-password/:id", async (req, res, next) => {
     const { oldPassword, newPassword } = req.body
 
-    // if (!passwordRegex.test(newPassword)) {
-    //     return res.status(400).json({
-    //         message:
-    //             "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
-    //     })
-    // }
+    if (!passwordRegex.test(newPassword)) {
+        return res.status(400).json({
+            message:
+                "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.",
+        })
+    }
 
     const foundUser: UserType | null = await UserModel.findById(req.params.id)
-    console.log(foundUser)
 
     if (foundUser) {
         if (await bcrypt.compare(oldPassword, foundUser.password)) {

@@ -37,13 +37,12 @@ export const ForgotPasswordForm = () => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        setIsLoading(true)
-
         if (!emailRegex.test(email)) {
             setValidation("not-passed")
-            setIsLoading(false)
             return
         }
+
+        setIsLoading(true)
 
         await authService
             .forgotPassword({ email })

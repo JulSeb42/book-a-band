@@ -7,6 +7,7 @@ import { AuthContext } from "context"
 import type { AuthContextType } from "context/types"
 
 import { Text, Skeleton } from "components"
+import { ContactArtistContent } from "pages/artists/ArtistDetail/sections/artist-main/contact-artist/ContactArtistContent"
 import { PATHS } from "data"
 
 import type { ArtistSectionProps } from "pages/artists/ArtistDetail/sections/types"
@@ -21,7 +22,7 @@ export const ContactArtist = ({ artist, isLoading }: ArtistSectionProps) => {
             <Text tag="h3">Contact {artist?.fullName}</Text>
 
             {isLoggedIn ? (
-                <>{/* TODO: Add contact form */}</>
+                <ContactArtistContent artist={artist} isLoading={isLoading} />
             ) : (
                 <Text>
                     Please <Link to={PATHS.LOGIN}>login</Link> to contact{" "}

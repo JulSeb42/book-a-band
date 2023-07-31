@@ -58,13 +58,12 @@ export const ResetPasswordForm = () => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        setIsFormLoading(true)
-
         if (!passwordRegex.test(password)) {
             setValidation("not-passed")
-            setIsFormLoading(false)
             return
         }
+
+        setIsFormLoading(true)
 
         await authService
             .resetPassword({

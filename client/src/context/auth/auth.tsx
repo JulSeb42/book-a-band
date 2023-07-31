@@ -1,7 +1,7 @@
 /*=============================================== Auth context ===============================================*/
 
 import { useState, useEffect, createContext } from "react"
-import { authService } from "api"
+import { authService, userService } from "api"
 import type { AuthContextType } from "context/types"
 
 import type { UserType } from "types"
@@ -45,9 +45,19 @@ export const AuthProviderWrapper = ({ children }: AuthProviderWrapperProps) => {
                 })
                 .then(res => {
                     const user: UserType = res.data.user
-                    setUser(user)
-                    setIsLoggedIn(true)
-                    setIsLoading(false)
+                    userService
+                        .getUser(user._id)
+                        .then(res => {
+                            setUser(res.data)
+                            setIsLoggedIn(true)
+                            setIsLoading(false)
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            setIsLoggedIn(false)
+                            setUser(null)
+                            setIsLoading(false)
+                        })
                 })
                 .catch(err => {
                     console.log(err)

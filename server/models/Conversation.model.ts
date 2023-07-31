@@ -14,8 +14,12 @@ const ConversationSchema = new Schema(
         },
         readUser1: Boolean,
         readUser2: Boolean,
-        dateLastMessage: String,
-        timeLastMessage: String,
+        messages: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Conversation",
+            },
+        ],
     },
     { timestamps: true }
 )

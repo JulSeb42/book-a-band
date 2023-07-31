@@ -83,8 +83,6 @@ export const SignupForm = () => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        setIsLoading(true)
-
         if (
             !inputs.fullName.length ||
             !city.length ||
@@ -103,10 +101,10 @@ export const SignupForm = () => {
 
             if (!city.length) setValidationCity("not-passed")
 
-            setIsLoading(false)
-
             return
         }
+
+        setIsLoading(true)
 
         await authService
             .signup({

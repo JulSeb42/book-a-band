@@ -1,5 +1,3 @@
 /*=============================================== Exports ===============================================*/
 
-export * from "./User.model"
-export * from "./Conversation.model"
-export * from "./Message.model"
+export * from "pages/artists/ArtistDetail/sections/artist-main/contact-artist/ContactArtist"
