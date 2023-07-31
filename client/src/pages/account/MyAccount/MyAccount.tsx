@@ -28,10 +28,17 @@ export const MyAccount = () => {
 
                 <Flexbox gap="xs" flexDirection="column" alignItems="stretch">
                     <Text tag="h3">Conversations</Text>
-                    <MyAccountConversations
-                        user={user!}
-                        isLoading={isLoading}
-                    />
+
+                    <Flexbox
+                        gap="xxs"
+                        flexDirection="column"
+                        alignItems="stretch"
+                    >
+                        <MyAccountConversations
+                            user={user!}
+                            isLoading={isLoading}
+                        />
+                    </Flexbox>
                 </Flexbox>
             </Main>
 

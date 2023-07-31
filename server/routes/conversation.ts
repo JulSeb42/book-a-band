@@ -5,12 +5,7 @@ import jwt from "jsonwebtoken"
 
 import { ConversationModel, MessageModel, UserModel } from "../models"
 
-import {
-    SALT_ROUNDS,
-    TOKEN_SECRET,
-    jwtConfig,
-    getVisibleArtists,
-} from "../utils"
+import { TOKEN_SECRET, jwtConfig } from "../utils"
 
 const router = Router()
 

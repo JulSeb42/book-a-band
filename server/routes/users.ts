@@ -22,6 +22,13 @@ const router = Router()
 router.get("/all-users", (_, res, next) => {
     UserModel.find()
         .populate("conversations")
+        .populate({
+            path: "conversations",
+            populate: {
+                path: "messages",
+                model: "Message",
+            },
+        })
         .then(usersFromDb => res.status(200).json(usersFromDb))
         .catch(err => next(err))
 })
@@ -126,6 +133,13 @@ router.get("/user/:id", (req, res, next) => {
             populate: {
                 path: "user2",
                 model: "User",
+            },
+        })
+        .populate({
+            path: "conversations",
+            populate: {
+                path: "messages",
+                model: "Message",
             },
         })
         .then(userFromDb => res.status(200).json(userFromDb))

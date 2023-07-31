@@ -1,6 +1,6 @@
 /*=============================================== Conversation type ===============================================*/
 
-import type { UserType } from "./"
+import type { UserType, MessageType } from "./"
 
 export type ConversationType = {
     _id: string
@@ -8,4 +8,5 @@ export type ConversationType = {
     user2: UserType
     readUser1: boolean
     readUser2: boolean
+    messages: MessageType[]
 }
