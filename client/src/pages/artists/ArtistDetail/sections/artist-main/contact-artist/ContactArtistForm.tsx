@@ -11,12 +11,7 @@ import { conversationService } from "api"
 import { Form, Input } from "components"
 import { PATHS } from "data"
 
-import type {
-    ConversationType,
-    ErrorMessageType,
-    UserType,
-    ValidationStatusType,
-} from "types"
+import type { ErrorMessageType, UserType, ValidationStatusType } from "types"
 
 interface ContactArtistFormProps {
     artist: UserType

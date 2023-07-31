@@ -31,10 +31,10 @@ export const ContactArtistContent = ({
     const conversation: ConversationType | undefined =
         user?.conversations?.find(
             conversation =>
-                (conversation.user1._id === user?._id &&
-                    conversation.user2._id === artist._id) ||
-                (conversation.user2._id === user?._id &&
-                    conversation.user1._id === artist._id)
+                (conversation?.user1?._id === user?._id &&
+                    conversation?.user2?._id === artist?._id) ||
+                (conversation?.user2?._id === user?._id &&
+                    conversation?.user1?._id === artist?._id)
         )
 
     if (conversation)
