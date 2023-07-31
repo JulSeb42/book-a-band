@@ -1,12 +1,14 @@
 /*=============================================== ConversationCard component ===============================================*/
 
 import { useContext } from "react"
+import { convertDateShort } from "ts-utils-julseb"
 
 import { AuthContext } from "context"
 import type { AuthContextType } from "context/types"
 
-import { Avatar, Text, Badge } from "components"
+import { Avatar, Text, Badge, Skeleton, SkeletonCard } from "components"
 import { PATHS } from "data"
+import { getTimeFromIso, getDateFromIso } from "utils"
 
 import {
     StyledConversationCard,
@@ -23,6 +25,11 @@ export const ConversationCard = ({ conversation }: ConversationCardProps) => {
             ? conversation.user2
             : conversation.user1
 
+    const isoDateLastMessage = new Date(conversation?.updatedAt)
+
+    const dateLastMessage = getDateFromIso(isoDateLastMessage)
+    const today = getDateFromIso(new Date())
+
     return (
         <StyledConversationCard to={PATHS.CONVERSATION(conversation._id)}>
             <Avatar
@@ -36,11 +43,20 @@ export const ConversationCard = ({ conversation }: ConversationCardProps) => {
                     {conversationUser.fullName}
                 </Text>
 
-                <Text maxLines={1} color="gray">
+                <Text maxLines={1}>
                     {
                         conversation.messages[conversation.messages.length - 1]
                             .body
                     }
+                </Text>
+
+                <Text tag="small" color="gray">
+                    <Text tag="em">
+                        {dateLastMessage === today
+                            ? "Today"
+                            : convertDateShort(new Date(dateLastMessage))}{" "}
+                        at {getTimeFromIso(isoDateLastMessage)}
+                    </Text>
                 </Text>
             </CardContent>
 
@@ -61,5 +77,15 @@ export const ConversationCard = ({ conversation }: ConversationCardProps) => {
 }
 
 export const ConversationCardSkeleton = () => {
-    return <div></div>
+    return (
+        <SkeletonCard padding="xs" gap="xs" isShining>
+            <Skeleton width={48} height={48} borderRadius="circle" />
+
+            <CardContent $isSkeleton>
+                <Skeleton height={24} width="40%" />
+                <Skeleton height={22} width="80%" />
+                <Skeleton height={15} width="10%" />
+            </CardContent>
+        </SkeletonCard>
+    )
 }

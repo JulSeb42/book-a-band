@@ -1,6 +1,6 @@
 /*=============================================== ConversationCard styles ===============================================*/
 
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 import { Link } from "react-router-dom"
 
 import {
@@ -32,10 +32,19 @@ export const StyledConversationCard = styled(Link)`
     }
 `
 
-export const CardContent = styled.div`
+export const CardContent = styled.div<{ $isSkeleton?: boolean }>`
     width: 100%;
     max-width: calc(100% - 8px - 48px - ${SPACERS.XS} * 2);
     display: block;
+
+    ${({ $isSkeleton }) =>
+        $isSkeleton &&
+        css`
+            ${Mixins.Flexbox({
+                flexDirection: "column",
+                gap: "xxs",
+            })}
+        `}
 `
 
 export const BadgeContainer = styled.span`

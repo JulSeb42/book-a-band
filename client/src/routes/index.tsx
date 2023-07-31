@@ -12,6 +12,8 @@ import { NotFound } from "pages/NotFound"
 
 import { AllArtists, ArtistDetail } from "pages/artists"
 
+import { Conversation } from "pages/Conversation"
+
 import {
     Signup,
     ThankYou,
@@ -116,6 +118,15 @@ export const routes = createBrowserRouter([
         element: (
             <ProtectedRoute>
                 <EditPassword />
+            </ProtectedRoute>
+        ),
+    },
+
+    {
+        path: PATHS.CONVERSATION(),
+        element: (
+            <ProtectedRoute>
+                <Conversation />
             </ProtectedRoute>
         ),
     },

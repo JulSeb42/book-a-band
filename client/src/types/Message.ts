@@ -9,4 +9,6 @@ export type MessageType = {
     time: string
     sender: UserType
     conversation: ConversationType
+    createdAt: Date
+    updatedAt: Date
 }

@@ -9,4 +9,6 @@ export type ConversationType = {
     readUser1: boolean
     readUser2: boolean
     messages: MessageType[]
+    createdAt: Date
+    updatedAt: Date
 }
