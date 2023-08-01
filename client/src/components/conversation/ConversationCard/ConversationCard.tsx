@@ -60,10 +60,6 @@ export const ConversationCard = ({ conversation }: ConversationCardProps) => {
                 </Text>
             </CardContent>
 
-            <BadgeContainer>
-                <Badge />
-            </BadgeContainer>
-
             {((conversation.user1._id === user?._id &&
                 !conversation.readUser1) ||
                 (conversation.user2._id === user?._id &&
