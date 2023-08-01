@@ -3,7 +3,7 @@
 import { http } from "api"
 import { SERVER_PATHS } from "data"
 
-import type { WhichUserType } from "components/conversation/Chat/types"
+import type { WhichUserType } from "types"
 
 class ConversationService {
     allConversations() {

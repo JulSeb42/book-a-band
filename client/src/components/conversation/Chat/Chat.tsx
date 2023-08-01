@@ -8,16 +8,13 @@ import type { AuthContextType } from "context/types"
 import { Hr } from "components"
 import { SendMessage } from "components/conversation/Chat/SendMessage"
 import { MessagesList } from "components/conversation/Chat/MessagesList"
-import type { MessageType } from "types"
+import type { MessageType, WhichUserType } from "types"
 
 import {
     StyledChat,
     MessagesContainer,
 } from "components/conversation/Chat/styles"
-import type {
-    ChatProps,
-    WhichUserType,
-} from "components/conversation/Chat/types"
+import type { ChatProps } from "components/conversation/Chat/types"
 
 export const Chat = ({ conversation, isLoading }: ChatProps) => {
     const { user } = useContext(AuthContext) as AuthContextType

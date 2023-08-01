@@ -2,10 +2,9 @@
 
 import { Router } from "express"
 import jwt from "jsonwebtoken"
-
 import { ConversationModel, MessageModel, UserModel } from "../models"
-
 import { TOKEN_SECRET, jwtConfig } from "../utils"
+import type { WhichUserType } from "../types"
 
 const router = Router()
 
@@ -106,7 +105,12 @@ router.post("/new-conversation", (req, res, next) => {
 
 // New message
 router.post("/new-message", (req, res, next) => {
-    const { body, conversation, sender, whichUser } = req.body
+    const { body, conversation, sender, whichUser } = req.body as {
+        body: string
+        conversation: string
+        sender: string
+        whichUser: WhichUserType
+    }
 
     if (!body)
         return res

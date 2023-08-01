@@ -8,10 +8,9 @@ import type { AuthContextType } from "context/types"
 import { conversationService } from "api"
 
 import { ButtonIcon } from "components"
-import type { MessageType } from "types"
+import type { MessageType, WhichUserType } from "types"
 
 import { Textarea, ChatForm } from "components/conversation/Chat/styles"
-import type { WhichUserType } from "components/conversation/Chat/types"
 
 interface SendMessageProps {
     id: string
