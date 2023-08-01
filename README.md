@@ -1,20 +1,30 @@
-# React Express JWT
+# Book a Band
 
-A boilerplate for fullstack projects written in TypeScript, React, Express and MongoDb.
+Final project done at Ironhack Web Development Bootcamp. The idea for this app is to facilitate the booking of artists or bands for private events. Find the app here: [https://artists-booking-app.vercel.app/](https://artists-booking-app.vercel.app/).
 
-## Install project
+## Features
 
-ename the file `template.env` to `.env`, and replace the values with your email, password, etc. Do the same thing in the `client` folder.
+Any artist can create their account, and have a page with some information about them and a contact form, with a chat directly integrated to the app.
 
-Then run `npm install` at the root of the project. Since we're using [Concurrently](https://www.npmjs.com/package/concurrently) this will install packages for backend and frontend.
+## Technologies
 
-## Run project
+### Client
 
-Run `npm run dev` at the root of the project. Once again, thanks to Concurrently, backend and frontend will run at the same time.
+React & TypeScript with:
 
-## Packages
+-   [Styled Components](https://styled-components.com/)
+-   [Axios](https://axios-http.com/)
+-   [Fuse.js](https://www.fusejs.io/)
+-   [Markdown to JSX](https://probablyup.com/markdown-to-jsx/)
+-   [React Datepicker](https://reactdatepicker.com/)
+-   [React Helmet](https://github.com/nfl/react-helmet)
+-   [React Inlinesvg](https://github.com/gilbarbara/react-inlinesvg)
+-   [React Router Dom](https://reactrouter.com/en/main)
+-   [TS Utils](https://www.npmjs.com/package/ts-utils-julseb): own package, with basic functions written in TypeScript
 
-### Backend
+### Server
+
+ExpressJS & TypeScript with:
 
 -   [Express](https://expressjs.com/)
 -   [Express JWT](https://www.npmjs.com/package/express-jwt)
@@ -22,39 +32,4 @@ Run `npm run dev` at the root of the project. Once again, thanks to Concurrently
 -   [Bcrypt js](https://www.npmjs.com/package/bcryptjs)
 -   [Mongoose](https://mongoosejs.com/)
 -   [Nodemailer](https://nodemailer.com/about/)
--   [JS utils](https://www.npmjs.com/package/js-utils-julseb): own package, with basic functions written in JavaScript
-
-### Frontend
-
--   [React](https://reactjs.org/)
--   [Axios](https://axios-http.com/docs/intro)
--   [Styled components](https://styled-components.com/)
--   [TSX library](https://documentation-components-react.vercel.app/): own package, with basic React UI components
-
-## Backend
-
-### API
-
-All the functions can be found in the `routes` folder.
-
-### Models
-
-All the models can be found in `models` folder.
-
-### Create data
-
-Find an example for adding bulk data inside a database in `db/seed.js`.
-
-## Frontend
-
-### API
-
-For backend calls, use the folder `client/src/api`, and follow the same pattern. You can see an example on the page `client/src/pages/auth/Login.js`.
-
-### Add pages
-
-Create your pages in `client/src/pages`. Then, go to `client/src/routes/routes.js` and add them in the array `const routes`.
-
-### Styling
-
-Most of components come from `TSX library` package. If you need new components, you can add them in `client/src/components`.
+-   [TS Utils](https://www.npmjs.com/package/ts-utils-julseb)

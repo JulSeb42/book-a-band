@@ -29,7 +29,6 @@ export const ArtistDetail = () => {
         loading,
         error,
     } = useFetch<UserType>(userService.getUser(id!))
-    // const loading = true
 
     return (
         <Page title={artist ? artist.fullName : "Artist"} error={error} noMain>

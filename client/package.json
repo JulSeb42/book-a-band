@@ -10,9 +10,7 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@types/react-datepicker": "^4.15.0",
         "axios": "^1.4.0",
-        "classnames": "^2.3.2",
         "fuse.js": "^6.6.2",
         "markdown-to-jsx": "^7.2.1",
         "react": "^18.2.0",
@@ -27,6 +25,7 @@
     },
     "devDependencies": {
         "@types/react": "^18.2.14",
+        "@types/react-datepicker": "^4.15.0",
         "@types/react-dom": "^18.2.6",
         "@types/react-helmet": "^6.1.6",
         "@types/react-inlinesvg": "^1.0.0",

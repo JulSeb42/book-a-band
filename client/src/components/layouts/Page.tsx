@@ -68,7 +68,7 @@ export const Page = ({
                             </Text>
                         </Main>
                     ) : !noMain ? (
-                        <Main size={mainSize || "large"}>{children}</Main>
+                        <Main size={mainSize}>{children}</Main>
                     ) : (
                         children
                     )}
