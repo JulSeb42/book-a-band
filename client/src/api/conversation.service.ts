@@ -3,6 +3,8 @@
 import { http } from "api"
 import { SERVER_PATHS } from "data"
 
+import type { WhichUserType } from "components/conversation/Chat/types"
+
 class ConversationService {
     allConversations() {
         return http.get(`${SERVER_PATHS.CONVERSATION}/all-conversations`)
@@ -14,6 +16,15 @@ class ConversationService {
 
     newConversation(data: { body: string; user1: string; user2: string }) {
         return http.post(`${SERVER_PATHS.CONVERSATION}/new-conversation`, data)
+    }
+
+    newMessage(data: {
+        body: string
+        conversation: string
+        sender: string
+        whichUser: WhichUserType
+    }) {
+        return http.post(`${SERVER_PATHS.CONVERSATION}/new-message`, data)
     }
 }
 

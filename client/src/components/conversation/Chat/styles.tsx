@@ -24,4 +24,6 @@ export const MessagesContainer = styled.div<{ $isEmpty: boolean }>``
 
 export const Bubble = styled(Linkify)<{ $type: MessageTypeType }>``
 
+export const ChatForm = styled.form``
+
 export const Textarea = styled.textarea``

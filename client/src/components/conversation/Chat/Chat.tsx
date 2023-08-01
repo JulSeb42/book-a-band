@@ -1,76 +1,55 @@
 /*=============================================== Chat component ===============================================*/
 
-import { useContext } from "react"
-import { convertDateShort } from "ts-utils-julseb"
+import { useState, useEffect, useContext } from "react"
 
 import { AuthContext } from "context"
 import type { AuthContextType } from "context/types"
 
-import { Flexbox, Text, Hr, ButtonIcon } from "components"
-import { getTimeFromIso, getDateFromIso } from "utils"
+import { Hr } from "components"
+import { SendMessage } from "components/conversation/Chat/SendMessage"
+import { MessagesList } from "components/conversation/Chat/MessagesList"
+import type { MessageType } from "types"
 
 import {
     StyledChat,
-    Bubble,
     MessagesContainer,
-    Textarea,
 } from "components/conversation/Chat/styles"
-import type { ChatProps } from "components/conversation/Chat/types"
+import type {
+    ChatProps,
+    WhichUserType,
+} from "components/conversation/Chat/types"
 
 export const Chat = ({ conversation, isLoading }: ChatProps) => {
     const { user } = useContext(AuthContext) as AuthContextType
 
-    if (isLoading || !conversation) return <ChatSkeleton />
+    const [messages, setMessages] = useState<MessageType[]>([])
+    const [whichUser, setWhichUser] = useState<WhichUserType>(undefined)
 
-    const { messages } = conversation
+    useEffect(() => {
+        if (conversation && user) {
+            setMessages(conversation.messages)
+            setWhichUser(
+                conversation.user1._id === user?._id ? "user2" : "user1"
+            )
+        }
+    }, [conversation, user])
+
+    if (isLoading || !conversation) return <ChatSkeleton />
 
     return (
         <StyledChat>
             <MessagesContainer $isEmpty={!messages?.length}>
-                {messages?.length ? (
-                    messages?.map(message => {
-                        const isoDate = new Date(message?.updatedAt)
-                        const dateMessage = getDateFromIso(isoDate)
-                        const today = getDateFromIso(new Date())
-
-                        return (
-                            <Flexbox
-                                alignItems="stretch"
-                                flexDirection="column"
-                                key={message._id}
-                            >
-                                <Bubble
-                                    $type={
-                                        user?._id === message.sender._id
-                                            ? "sent"
-                                            : "received"
-                                    }
-                                >
-                                    {message.body}
-                                </Bubble>
-
-                                <Text tag="small">
-                                    {dateMessage === today
-                                        ? "Today"
-                                        : convertDateShort(
-                                              new Date(dateMessage)
-                                          )}{" "}
-                                    at {getTimeFromIso(isoDate)}
-                                </Text>
-                            </Flexbox>
-                        )
-                    })
-                ) : (
-                    <Text>No message yet.</Text>
-                )}
+                <MessagesList messages={messages} />
             </MessagesContainer>
 
             <Hr />
 
-            <Flexbox alignItems="flex-end" gap="xs">
-                <Textarea />
-                <ButtonIcon icon="send" />
-            </Flexbox>
+            <SendMessage
+                id={conversation?._id}
+                messages={messages}
+                setMessages={setMessages}
+                whichUser={whichUser}
+            />
         </StyledChat>
     )
 }

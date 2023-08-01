@@ -104,4 +104,32 @@ router.post("/new-conversation", (req, res, next) => {
         .catch(err => next(err))
 })
 
+// New message
+router.post("/new-message", (req, res, next) => {
+    const { body, conversation, sender, whichUser } = req.body
+
+    if (!body)
+        return res
+            .status(400)
+            .json({ message: "Your message can not be empty." })
+
+    MessageModel.create({
+        body,
+        sender,
+        conversation,
+    })
+        .then(createdMessage => {
+            ConversationModel.findByIdAndUpdate(
+                conversation,
+                {
+                    $push: { messages: createdMessage },
+                    readUser1: whichUser === "user2",
+                    readUser2: whichUser === "user1",
+                },
+                { new: true }
+            ).then(() => res.status(200).json(createdMessage))
+        })
+        .catch(err => next(err))
+})
+
 export default router
