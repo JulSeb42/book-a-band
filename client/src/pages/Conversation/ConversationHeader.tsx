@@ -1,7 +1,9 @@
 /*=============================================== ConversationHeader ===============================================*/
 
-import { Avatar, Text, Skeleton, SkeletonCard, Flexbox } from "components"
+import { Link } from "react-router-dom"
 
+import { Avatar, Text, Skeleton, SkeletonCard, Flexbox } from "components"
+import { PATHS } from "data"
 import type { UserType } from "types"
 
 interface ConversationHeaderProps {
@@ -24,7 +26,10 @@ export const ConversationHeader = ({
             />
 
             <Text tag="h4" as="h1">
-                Conversation with {otherUser?.fullName}
+                Conversation with{" "}
+                <Link to={PATHS.ARTIST(otherUser?._id)}>
+                    {otherUser?.fullName}
+                </Link>
             </Text>
         </Flexbox>
     )

@@ -1,6 +1,6 @@
 /*=============================================== Chat component ===============================================*/
 
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect, useContext, useRef } from "react"
 
 import { AuthContext } from "context"
 import type { AuthContextType } from "context/types"
@@ -12,7 +12,8 @@ import type { MessageType, WhichUserType } from "types"
 
 import {
     StyledChat,
-    MessagesContainer,
+    StyledMessagesContainer,
+    StyledButton,
 } from "components/conversation/Chat/styles"
 import type { ChatProps } from "components/conversation/Chat/types"
 
@@ -21,6 +22,9 @@ export const Chat = ({ conversation, isLoading }: ChatProps) => {
 
     const [messages, setMessages] = useState<MessageType[]>([])
     const [whichUser, setWhichUser] = useState<WhichUserType>(undefined)
+    // const [isButtonVisible, setIsButtonVisible] = useState(true)
+
+    const containerRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         if (conversation && user) {
@@ -29,15 +33,24 @@ export const Chat = ({ conversation, isLoading }: ChatProps) => {
                 conversation.user1._id === user?._id ? "user2" : "user1"
             )
         }
-    }, [conversation, user])
+    }, [conversation, user, containerRef])
 
     if (isLoading || !conversation) return <ChatSkeleton />
 
     return (
         <StyledChat>
-            <MessagesContainer $isEmpty={!messages?.length}>
+            <StyledMessagesContainer
+                $isEmpty={!messages?.length}
+                ref={containerRef}
+            >
                 <MessagesList messages={messages} />
-            </MessagesContainer>
+            </StyledMessagesContainer>
+
+            {/* <StyledButton
+                icon="chevron-down"
+                variant="transparent"
+                $isVisible={isButtonVisible}
+            /> */}
 
             <Hr />
 

@@ -2,7 +2,6 @@
 
 import { useEffect } from "react"
 import type { ReactNode } from "react"
-import type { AxiosError } from "axios"
 import { useLocation } from "react-router-dom"
 
 import { Wrapper, Main, Text } from "components"
@@ -12,6 +11,7 @@ import { Footer } from "components/layouts/Footer"
 
 import type { HelmetProps } from "components/layouts/Helmet"
 import type { MainSizesType } from "components/layouts/Main/types"
+import type { ServerErrorType } from "types"
 
 interface PageProps extends HelmetProps {
     children?: ReactNode | ReactNode[]
@@ -19,7 +19,7 @@ interface PageProps extends HelmetProps {
     noHeader?: boolean
     noMain?: boolean
     mainSize?: MainSizesType
-    error?: AxiosError
+    error?: ServerErrorType
 }
 
 export const Page = ({
@@ -64,7 +64,8 @@ export const Page = ({
                             <Text tag="h1">An error occured</Text>
 
                             <Text>
-                                Error while fetching data: {error.message}
+                                Error while fetching data:{" "}
+                                {error?.response?.data?.message}
                             </Text>
                         </Main>
                     ) : !noMain ? (

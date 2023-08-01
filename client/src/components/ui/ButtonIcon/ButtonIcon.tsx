@@ -22,6 +22,7 @@ export const ButtonIcon = forwardRef(
             type = "button",
             to,
             blank,
+            ...rest
         }: ButtonIconProps,
         ref?: ForwardedRef<HTMLDivElement>
     ) => {
@@ -37,6 +38,7 @@ export const ButtonIcon = forwardRef(
                 $variant={variant}
                 $color={color}
                 $size={size}
+                {...rest}
             >
                 {isLoading ? (
                     <Loader size={size * 0.7} color="gray" />

@@ -40,7 +40,7 @@ export const Search = () => {
         }
     }
 
-    const el = useRef<HTMLInputElement>()
+    const el = useRef<HTMLInputElement & HTMLTextAreaElement>(null)
     const keys = ["Command", "KeyK"]
     useKeyPress(() => el.current!.focus(), keys)
 
@@ -49,7 +49,6 @@ export const Search = () => {
             <Input
                 icon="search"
                 placeholder="Search city, genre or name..."
-                // @ts-ignore
                 ref={el}
                 keys={keys}
                 value={search}

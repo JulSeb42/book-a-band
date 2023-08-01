@@ -21,32 +21,35 @@ export const MessagesList = ({ messages }: MessagesListProps) => {
 
     if (!messages.length) return <Text>No message yet.</Text>
 
-    return messages?.map(message => {
-        const isoDate = new Date(message?.updatedAt)
-        const dateMessage = getDateFromIso(isoDate)
-        const today = getDateFromIso(new Date())
+    return (
+        <>
+            {messages?.map(message => {
+                const isoDate = new Date(message?.updatedAt)
+                const dateMessage = getDateFromIso(isoDate)
+                const today = getDateFromIso(new Date())
 
-        return (
-            <Flexbox
-                alignItems="stretch"
-                flexDirection="column"
-                key={message._id}
-            >
-                <Bubble
-                    $type={
-                        user?._id === message.sender._id ? "sent" : "received"
-                    }
-                >
-                    {message.body}
-                </Bubble>
+                const messageType =
+                    user?._id === message.sender._id ? "sent" : "received"
 
-                <Text tag="small">
-                    {dateMessage === today
-                        ? "Today"
-                        : convertDateShort(new Date(dateMessage))}{" "}
-                    at {getTimeFromIso(isoDate)}
-                </Text>
-            </Flexbox>
-        )
-    })
+                return (
+                    <Flexbox
+                        alignItems={
+                            messageType === "sent" ? "flex-end" : "flex-start"
+                        }
+                        flexDirection="column"
+                        key={message._id}
+                    >
+                        <Bubble $type={messageType}>{message.body}</Bubble>
+
+                        <Text tag="small" color="gray">
+                            {dateMessage === today
+                                ? "Today"
+                                : convertDateShort(new Date(dateMessage))}{" "}
+                            at {getTimeFromIso(isoDate)}
+                        </Text>
+                    </Flexbox>
+                )
+            })}
+        </>
+    )
 }

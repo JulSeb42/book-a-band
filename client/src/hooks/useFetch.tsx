@@ -1,14 +1,15 @@
 /*=============================================== useFetch ===============================================*/
 
 import { useEffect, useState } from "react"
-import type { AxiosError, AxiosResponse } from "axios"
+import type { AxiosResponse } from "axios"
+import type { ServerErrorType } from "types"
 
 export const useFetch = <T,>(
-    fetchFunction: Promise<AxiosResponse<any, any>>,
+    fetchFunction: Promise<AxiosResponse<any, any>>
 ) => {
     const [response, setResponse] = useState<T | null>(null)
     const [loading, setLoading] = useState(true)
-    const [error, setError] = useState<AxiosError | undefined>(undefined)
+    const [error, setError] = useState<ServerErrorType | undefined>(undefined)
 
     useEffect(() => {
         fetchFunction
