@@ -5,18 +5,15 @@ import { Image, Skeleton } from "components"
 import type { SkeletonProps } from "components/ui/Skeleton/types"
 import type { ImageProps } from "components/media/Image/types"
 
-interface AvatarProps {
-    src: string
-    username?: string
-    size?: string | number
-    isLoading?: boolean
-}
+import { StyledLink } from "components/user/Avatar/styles"
+import type { AvatarProps } from "components/user/Avatar/types"
 
 export const Avatar = ({
     src,
     username,
     size = 120,
     isLoading,
+    to,
 }: AvatarProps) => {
     const commonProps = {
         width: size,
@@ -24,14 +21,23 @@ export const Avatar = ({
         borderRadius: "circle",
     } as SkeletonProps & ImageProps
 
-    if (isLoading) return <Skeleton isShining {...commonProps} />
-
-    return (
+    const avatarImg = () => (
         <Image
             src={src}
-            alt={username ? `Avatar ${username}` : undefined}
+            alt={`Avatar ${username}`}
             fit="cover"
             {...commonProps}
         />
     )
+
+    if (isLoading) return <Skeleton isShining {...commonProps} />
+
+    if (to)
+        return (
+            <StyledLink to={to} $size={size}>
+                {avatarImg()}
+            </StyledLink>
+        )
+
+    return avatarImg()
 }

@@ -40,9 +40,7 @@ export const ArtistCard = ({
 
     return (
         <Flexbox alignItems="flex-start" gap="s">
-            <Link to={path}>
-                <Avatar src={avatar} username={fullName} />
-            </Link>
+            <Avatar src={avatar} username={fullName} to={path} />
 
             <CardContent>
                 <Flexbox alignItems="flex-start" justifyContent="space-between">
