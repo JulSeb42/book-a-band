@@ -24,6 +24,8 @@ import type {
     PaddingProps,
 } from "components/types"
 
+type ColorsGhostType = Exclude<ColorsHoverType, "white">
+
 export const Mixins = {
     Color: ({ color }: { color: ColorsType }) => css`
         ${color === "black"
@@ -104,6 +106,35 @@ export const Mixins = {
                 ? COLORS.DANGER_ACTIVE
                 : color === "white" && COLORS.GRAY_ACTIVE}
         `,
+
+    ColorGhostDefault: ({
+        color,
+    }: {
+        color: Exclude<ColorsHoverType, "white">
+    }) =>
+        css`
+            ${color === "primary"
+                ? COLORS.PRIMARY_GHOST
+                : color === "success"
+                ? COLORS.SUCCESS_GHOST
+                : color === "danger" && COLORS.DANGER_GHOST}
+        `,
+
+    ColorGhostHover: ({ color }: { color: ColorsGhostType }) => css`
+        ${color === "primary"
+            ? COLORS.PRIMARY_ACTIVE
+            : color === "success"
+            ? COLORS.SUCCESS_ACTIVE
+            : color === "danger" && COLORS.DANGER_ACTIVE}
+    `,
+
+    ColorGhostActive: ({ color }: { color: ColorsGhostType }) => css`
+        ${color === "primary"
+            ? COLORS.PRIMARY_HOVER
+            : color === "success"
+            ? COLORS.SUCCESS_HOVER
+            : color === "danger" && COLORS.DANGER_HOVER}
+    `,
 
     FontSize: (fontSize: FontSizesType | "inherit") => {
         switch (fontSize) {

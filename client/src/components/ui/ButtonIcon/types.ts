@@ -31,3 +31,19 @@ interface ButtonIconPropsLink extends ButtonIconPropsBase {
 }
 
 export type ButtonIconProps = ButtonIconPropsButton | ButtonIconPropsLink
+
+interface ButtonIconStylePropsBase {
+    $size: number
+}
+
+interface ButtonIconStyleGhost extends ButtonIconStylePropsBase {
+    $variant: "ghost"
+    $color: Exclude<ColorsHoverType, "white">
+}
+
+interface ButtonIconStyleOther extends ButtonIconStylePropsBase {
+    $variant: Exclude<ButtonVariantsType, "ghost">
+    $color: ColorsHoverType
+}
+
+export type ButtonIconStyleProps = ButtonIconStyleGhost | ButtonIconStyleOther

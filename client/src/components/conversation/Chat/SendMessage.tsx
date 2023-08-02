@@ -7,7 +7,7 @@ import { AuthContext } from "context"
 import type { AuthContextType } from "context/types"
 import { conversationService } from "api"
 
-import { ButtonIcon } from "components"
+import { ButtonIcon, INPUT_HEIGHT } from "components"
 import { useKeyPress } from "hooks"
 import type { MessageType, WhichUserType } from "types"
 
@@ -18,6 +18,8 @@ interface SendMessageProps {
     messages: MessageType[]
     setMessages: Dispatch<SetStateAction<MessageType[]>>
     whichUser: WhichUserType
+    inputHeight: number
+    setInputHeight: Dispatch<SetStateAction<number>>
 }
 
 export const SendMessage = ({
@@ -25,6 +27,8 @@ export const SendMessage = ({
     messages,
     setMessages,
     whichUser,
+    inputHeight,
+    setInputHeight,
 }: SendMessageProps) => {
     const { user } = useContext(AuthContext) as AuthContextType
 
@@ -54,6 +58,7 @@ export const SendMessage = ({
                         },
                     ])
                     setBody("")
+                    setInputHeight(INPUT_HEIGHT)
                     setIsLoading(false)
                 })
                 .catch(err => {
@@ -63,11 +68,15 @@ export const SendMessage = ({
         }
     }
 
-    useKeyPress(() => {
-        if (isFocused && body.length) {
-            submit()
-        }
-    }, ["Enter"])
+    useKeyPress(
+        () => {
+            if (isFocused && body.length) {
+                submit()
+            }
+        },
+        ["Enter"],
+        true
+    )
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -80,15 +89,25 @@ export const SendMessage = ({
                 id="body"
                 placeholder="Type your message..."
                 value={body}
-                onChange={e => setBody(e.target.value)}
-                onKeyDown={e => {
+                onChange={e => {
+                    const { value, scrollHeight } = e.target
+
+                    setBody(value)
+
+                    if (!value) setInputHeight(INPUT_HEIGHT)
+                    else setInputHeight(scrollHeight)
+                }}
+                onKeyUp={e => {
                     if (e.key === "Enter") e.preventDefault()
+
                     if (e.key === "Enter" && e.shiftKey) {
-                        setBody(`${body}\n`)
+                        e.preventDefault()
+                        setBody(`${body}`)
                     }
                 }}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
+                $height={inputHeight}
                 autoFocus
             />
 

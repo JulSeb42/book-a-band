@@ -1,6 +1,6 @@
 /*=============================================== Chat styles ===============================================*/
 
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 
 import {
     COLORS,
@@ -36,6 +36,7 @@ export const StyledMessagesContainer = styled.div<{ $isEmpty: boolean }>`
     flex-grow: 1;
     overflow-y: scroll;
     scroll-behavior: smooth;
+    width: 100%;
     ${({ $isEmpty }) =>
         Mixins.Flexbox({
             flexDirection: "column",
@@ -47,13 +48,30 @@ export const StyledMessagesContainer = styled.div<{ $isEmpty: boolean }>`
     ${Mixins.HideScrollbar}
 `
 
-export const Bubble = styled(Linkify)<{ $type: MessageTypeType }>`
+export const StyledBubble = styled(Linkify)<{ $type: MessageTypeType }>`
     max-width: 60%;
     background-color: ${({ $type }) =>
         $type === "sent" ? COLORS.PRIMARY : COLORS.GRAY_GHOST};
     color: ${({ $type }) => ($type === "sent" ? COLORS.WHITE : COLORS.BLACK)};
     padding: ${SPACERS.XS} ${SPACERS.S};
     border-radius: ${RADIUSES.M};
+    white-space: pre-line;
+
+    ${({ $type }) =>
+        $type === "sent" &&
+        css`
+            a {
+                color: ${Mixins.ColorHoverDefault({ color: "white" })};
+
+                &:hover {
+                    color: ${Mixins.ColorHoverHover({ color: "white" })};
+                }
+
+                &:active {
+                    color: ${Mixins.ColorHoverActive({ color: "white" })};
+                }
+            }
+        `}
 `
 
 export const ChatForm = styled.form`
@@ -63,10 +81,10 @@ export const ChatForm = styled.form`
     })}
 `
 
-export const Textarea = styled.textarea`
+export const Textarea = styled.textarea<{ $height: number }>`
     flex-grow: 1;
     min-height: ${INPUT_HEIGHT}px;
-    height: fit-content;
+    height: ${({ $height }) => $height}px;
     padding: 0 ${SPACERS.XS};
     font-family: ${FONT_FAMILY};
     border: none;
@@ -83,16 +101,14 @@ export const Textarea = styled.textarea`
     }
 `
 
-export const Bottom = styled.div`
-    width: 100%;
-    height: 0;
-`
-
 export const StyledButton = styled(ButtonIcon)<{
     $isVisible: boolean
+    $inputHeight: number
 }>`
     position: absolute;
     right: ${SPACERS.S};
-    bottom: ${SPACERS.XXL};
+    bottom: ${({ $inputHeight }) =>
+        `calc(${$inputHeight}px + ${SPACERS.S} + ${SPACERS.XL})`};
     opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
+    visibility: ${({ $isVisible }) => ($isVisible ? "visible" : "hidden")};
 `

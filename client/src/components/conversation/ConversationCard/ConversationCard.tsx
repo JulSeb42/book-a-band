@@ -25,7 +25,9 @@ export const ConversationCard = ({ conversation }: ConversationCardProps) => {
             ? conversation.user2
             : conversation.user1
 
-    const isoDateLastMessage = new Date(conversation?.updatedAt)
+    const isoDateLastMessage = new Date(
+        conversation?.messages[conversation?.messages?.length - 1].updatedAt
+    )
 
     const dateLastMessage = getDateFromIso(isoDateLastMessage)
     const today = getDateFromIso(new Date())

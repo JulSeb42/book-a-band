@@ -19,11 +19,13 @@ export const ConversationHeader = ({
 
     return (
         <Flexbox gap="xs">
-            <Avatar
-                src={otherUser?.avatar}
-                size={36}
-                username={otherUser?.fullName}
-            />
+            <Link to={PATHS.ARTIST(otherUser?._id)}>
+                <Avatar
+                    src={otherUser?.avatar}
+                    size={36}
+                    username={otherUser?.fullName}
+                />
+            </Link>
 
             <Text tag="h4" as="h1">
                 Conversation with{" "}

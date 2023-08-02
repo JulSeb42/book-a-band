@@ -3,7 +3,11 @@
 import type { ElementType, ButtonHTMLAttributes, HTMLAttributes } from "react"
 import type { ColorsHoverType, AlignSelfType } from "components/types"
 
-const buttonVariants = { plain: "plain", transparent: "transparent" } as const
+const buttonVariants = {
+    plain: "plain",
+    transparent: "transparent",
+    ghost: "ghost",
+} as const
 export type ButtonVariantsType = keyof typeof buttonVariants
 
 const buttonSizes = { default: "default", small: "small" } as const

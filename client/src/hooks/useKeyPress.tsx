@@ -4,17 +4,16 @@ import { useEffect } from "react"
 
 export const useKeyPress = (
     callback: () => void,
-    keyCodes: string | string[]
+    keyCodes: string[],
+    disableShift?: boolean
 ): void => {
     useEffect(() => {
-        const singleHandler = ({ code }: KeyboardEvent) => {
-            if (keyCodes.includes(code)) {
-                callback()
-            }
-        }
+        const handler = (e: KeyboardEvent) => {
+            if (disableShift && e.shiftKey) return
 
-        const multiHandler = (e: KeyboardEvent) => {
-            if (typeof keyCodes !== "string") {
+            if (keyCodes?.length === 1 && keyCodes.includes(e.code)) {
+                callback()
+            } else {
                 const metaKey =
                     keyCodes[0] === "Command" ? e.metaKey : undefined
                 const ctrlKey =
@@ -22,7 +21,6 @@ export const useKeyPress = (
                 const shiftKey =
                     keyCodes[0] === "Shift" ? e.shiftKey : undefined
                 const altKey = keyCodes[0] === "Alt" ? e.altKey : undefined
-
                 if (
                     (metaKey || ctrlKey || shiftKey || altKey) &&
                     e.code === keyCodes[1]
@@ -32,19 +30,7 @@ export const useKeyPress = (
             }
         }
 
-        window.addEventListener(
-            "keydown",
-            typeof keyCodes !== "string" && keyCodes.length > 1
-                ? multiHandler
-                : singleHandler
-        )
-
-        return () =>
-            window.removeEventListener(
-                "keydown",
-                typeof keyCodes !== "string" && keyCodes.length > 1
-                    ? multiHandler
-                    : singleHandler
-            )
-    }, [callback, keyCodes])
+        window.addEventListener("keydown", handler)
+        return () => window.removeEventListener("keydown", handler)
+    }, [callback, keyCodes, disableShift])
 }
