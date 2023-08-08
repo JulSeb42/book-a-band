@@ -9,6 +9,7 @@ export const App = () => {
     return (
         <>
             <GlobalStyle />
+
             <RouterProvider router={routes} fallbackElement={<PageLoading />} />
         </>
     )
