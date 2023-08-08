@@ -22,6 +22,3 @@ interface InputTextareaProps extends InputPropsBase {
 }
 
 export type InputProps = InputTextProps | InputTextareaProps
-
-// Types =>
-// password,  check,

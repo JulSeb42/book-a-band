@@ -1,7 +1,6 @@
 /*=============================================== Input component ===============================================*/
 
-import { forwardRef } from "react"
-import type { ForwardedRef } from "react"
+import { forwardRef, type ForwardedRef } from "react"
 
 import { Key } from "components"
 import {
@@ -17,7 +16,7 @@ import type { InputProps } from "components/forms/Input/types"
 
 const InputFn = forwardRef(
     (
-        { type, icon, validation, keys, onClick, ...rest }: InputProps,
+        { type, icon, validation, keys, ...rest }: InputProps,
         ref?: ForwardedRef<HTMLInputElement & HTMLTextAreaElement>
     ) => {
         const isTouchScreen = useTouchScreen()

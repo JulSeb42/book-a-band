@@ -1,7 +1,6 @@
 /*=============================================== Selector component ===============================================*/
 
-import { forwardRef } from "react"
-import type { ForwardedRef } from "react"
+import { forwardRef, type ForwardedRef } from "react"
 
 import { StyledSelector, Input } from "components/forms/Selector/styles"
 import type { SelectorProps } from "components/forms/Selector/types"

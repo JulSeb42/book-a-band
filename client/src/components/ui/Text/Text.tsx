@@ -1,7 +1,6 @@
 /*=============================================== Text component ===============================================*/
 
-import { forwardRef } from "react"
-import type { ForwardedRef } from "react"
+import { forwardRef, type ForwardedRef } from "react"
 
 import { H1 } from "components/ui/Text/templates/H1"
 import { H2 } from "components/ui/Text/templates/H2"

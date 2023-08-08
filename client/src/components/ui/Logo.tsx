@@ -1,7 +1,6 @@
 /*=============================================== Logo ===============================================*/
 
-import { forwardRef } from "react"
-import type { ForwardedRef } from "react"
+import { forwardRef, type ForwardedRef } from "react"
 
 import styled from "styled-components"
 import { stringifyPx } from "ts-utils-julseb"

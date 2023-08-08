@@ -1,7 +1,6 @@
 /*=============================================== Page ===============================================*/
 
-import { useEffect } from "react"
-import type { ReactNode } from "react"
+import { useEffect, type ReactNode } from "react"
 import { useLocation } from "react-router-dom"
 
 import { Wrapper, Main, Text } from "components"

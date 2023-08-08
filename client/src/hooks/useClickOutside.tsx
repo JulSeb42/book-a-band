@@ -11,11 +11,12 @@ export const useClickOutside = <T extends HTMLElement = HTMLElement>(
 ) => {
     useEffect(() => {
         const listener = (e: Event) => {
-            const target = e.target as any
+            const target = e.target as HTMLElement
 
             if (target.getAttribute("href")) return false
 
             const el = ref?.current
+            
             if (!el || el.contains((e?.target as Node) || null)) {
                 return
             }

@@ -35,10 +35,10 @@ export const EditAccount = () => {
         AuthContext
     ) as AuthContextType
 
-    const [avatar, setAvatar] = useState(user?.avatar!)
+    const [avatar, setAvatar] = useState(user?.avatar || "")
     const [isVisible, setIsVisible] = useState(user?.isVisible || false)
     const [inputs, setInputs] = useState<EditAccountMainInputType>({
-        fullName: user?.fullName!,
+        fullName: user?.fullName || "",
         genre: user?.genre || "",
         price: user?.price || 0,
         bio: user?.bio || "",
@@ -52,7 +52,7 @@ export const EditAccount = () => {
             youtube2: user?.youtubeLinks[1] || "",
             youtube3: user?.youtubeLinks[2] || "",
         })
-    const [city, setCity] = useState(user?.city!)
+    const [city, setCity] = useState(user?.city || "")
     const [dates, setDates] = useState(user?.available || [])
     const [errorMessage, setErrorMessage] =
         useState<ErrorMessageType>(undefined)

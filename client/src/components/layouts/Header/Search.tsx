@@ -1,7 +1,6 @@
 /*=============================================== Search ===============================================*/
 
-import { useRef, useState } from "react"
-import type { FormEvent } from "react"
+import { useRef, useState, type FormEvent } from "react"
 import {
     useLocation,
     useSearchParams,

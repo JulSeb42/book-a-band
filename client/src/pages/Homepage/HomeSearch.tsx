@@ -1,7 +1,6 @@
 /*=============================================== HomeSearch ===============================================*/
 
-import { useState } from "react"
-import type { FormEvent } from "react"
+import { useState, type FormEvent } from "react"
 import { useNavigate, createSearchParams } from "react-router-dom"
 import styled from "styled-components"
 import { slugify } from "ts-utils-julseb"
@@ -38,7 +37,7 @@ export const HomeSearch = () => {
                 city: city === "All" ? null : slugify(city),
                 genre: genre === "All" ? null : slugify(genre),
             },
-            // @ts-expect-error
+            // @ts-expect-error: fix iterator error
             ([_, v]) => v !== null
         )
 

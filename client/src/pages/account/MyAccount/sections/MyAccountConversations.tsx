@@ -25,7 +25,7 @@ export const MyAccountConversations = () => {
         loading,
         error,
     } = useFetch<ConversationType[]>(
-        conversationService.getUserConversations(user?._id!)
+        conversationService.getUserConversations(user?._id || "")
     )
 
     if (loading) return <MyAccountConversationsSkeleton />
@@ -40,8 +40,6 @@ export const MyAccountConversations = () => {
 
     if (!conversations?.length)
         return <Text>You do not have any conversation yet.</Text>
-    
-    console.log(conversations)
 
     return (
         <>

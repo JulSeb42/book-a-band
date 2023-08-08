@@ -1,7 +1,6 @@
 /*=============================================== Form component ===============================================*/
 
-import { forwardRef } from "react"
-import type { ForwardedRef } from "react"
+import { forwardRef, type ForwardedRef } from "react"
 
 import { Button, Flexbox } from "components"
 import { ErrorMessage } from "errors"

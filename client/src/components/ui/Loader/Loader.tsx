@@ -1,7 +1,6 @@
 /*=============================================== Loader component ===============================================*/
 
-import { forwardRef } from "react"
-import type { ForwardedRef } from "react"
+import { forwardRef, type ForwardedRef } from "react"
 
 import { StyledLoader } from "components/ui/Loader/styles"
 import type { LoaderProps } from "components/ui/Loader/types"

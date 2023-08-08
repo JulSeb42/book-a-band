@@ -3,18 +3,18 @@
 import { http } from "api"
 import { SERVER_PATHS } from "data"
 
-const errorHandler = (err: any) => {
+const errorHandler = (err: Error) => {
     throw err
 }
 
-const uploadImage = (file: any) => {
+const uploadImage = (file: FormData) => {
     return http
         .put(`${SERVER_PATHS.UPLOADER}/upload-picture`, file)
         .then(res => res.data)
         .catch(errorHandler)
 }
 
-const createImage = (newImage: any) => {
+const createImage = (newImage: FormData) => {
     return http
         .post(`${SERVER_PATHS.UPLOADER}/edit-picture`, newImage)
         .then(res => res.data)

@@ -26,5 +26,22 @@ module.exports = {
         "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
         "react-hooks/rules-of-hooks": "warn",
+
+        // "import/no-duplicates": "error",
+        // "@typescript-eslint/consistent-type-imports": "error",
+        // "@typescript-eslint/no-unused-expressions": "error",
+        // "@typescript-eslint/no-unused-vars": [
+        //     "error",
+        //     // {
+        //     //     vars: "all",
+        //     //     args: "after-used",
+        //     //     ignoreRestSiblings: true,
+        //     //     destructuredArrayIgnorePattern: "[A-Z, _]",
+        //     // },
+        // ],
+        // "@typescript-eslint/no-explicit-any": "error",
+        // "@typescript-eslint/ban-ts-comment": "error",
+        // "@typescript-eslint/no-non-null-asserted-optional-chain": "error",
+        // "react-hooks/rules-of-hooks": "error",
     },
 }

@@ -50,21 +50,23 @@ export const EditPasswordForm = () => {
             return
         }
 
-        setIsSubmitLoading(true)
+        if (user) {
+            setIsSubmitLoading(true)
 
-        userService
-            .editPassword(user?._id!, inputs)
-            .then(res => {
-                const { user, authToken } = res.data
-                setUser(user)
-                setToken(authToken)
-                navigate(PATHS.MY_ACCOUNT)
-                setIsSubmitLoading(false)
-            })
-            .catch(err => {
-                setErrorMessage(err)
-                setIsSubmitLoading(false)
-            })
+            userService
+                .editPassword(user?._id, inputs)
+                .then(res => {
+                    const { user, authToken } = res.data
+                    setUser(user)
+                    setToken(authToken)
+                    navigate(PATHS.MY_ACCOUNT)
+                    setIsSubmitLoading(false)
+                })
+                .catch(err => {
+                    setErrorMessage(err)
+                    setIsSubmitLoading(false)
+                })
+        }
     }
 
     return (

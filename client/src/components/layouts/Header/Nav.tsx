@@ -1,7 +1,7 @@
 /*=============================================== Nav ===============================================*/
 
 import { useContext, useState, useRef } from "react"
-import { uuid } from "ts-utils-julseb"
+import { NavLink } from "react-router-dom"
 
 import { AuthContext } from "context"
 import type { AuthContextType } from "context/types"
@@ -27,6 +27,7 @@ export const Nav = () => {
 
     const baseLinks: NavLinkType[] = [
         {
+            id: 0,
             text: "All artists",
             to: PATHS.ARTISTS,
         },
@@ -34,10 +35,12 @@ export const Nav = () => {
 
     const anonLinks: NavLinkType[] = [
         {
+            id: 1,
             text: "Login",
             to: PATHS.LOGIN,
         },
         {
+            id: 2,
             text: "Sign up",
             to: PATHS.SIGNUP,
             end: true,
@@ -46,28 +49,30 @@ export const Nav = () => {
 
     const protectedLinks: NavLinkType[] = [
         {
+            id: 3,
             text: "My account",
             to: PATHS.MY_ACCOUNT,
         },
         {
+            id: 4,
             text: "Log out",
             onClick: logoutUser,
         },
     ]
 
     const linksFn = (links: NavLinkType[]) =>
-        links.map(({ text, end, to, onClick }) =>
-            to ? (
-                <LinkNav to={to} end={end} key={uuid()}>
-                    {text}
-                </LinkNav>
-            ) : (
-                // @ts-expect-error
-                <LinkNav as="button" onClick={onClick} key={uuid()}>
-                    {text}
-                </LinkNav>
-            )
-        )
+        links.map(({ text, end, to, onClick, id }) => (
+            <LinkNav
+                as={onClick ? "button" : NavLink}
+                // @ts-expect-error: fixed by `as` prop
+                to={to}
+                onClick={onClick}
+                end={end}
+                key={id}
+            >
+                {text}
+            </LinkNav>
+        ))
 
     return (
         <>

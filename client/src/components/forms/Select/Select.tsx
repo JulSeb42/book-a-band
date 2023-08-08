@@ -1,7 +1,14 @@
 /*=============================================== Select component ===============================================*/
 
-import { forwardRef, useState, useRef, useEffect, useCallback } from "react"
-import type { ForwardedRef, KeyboardEvent } from "react"
+import {
+    forwardRef,
+    useState,
+    useRef,
+    useEffect,
+    useCallback,
+    type ForwardedRef,
+    type KeyboardEvent,
+} from "react"
 
 import { Icon } from "components"
 import {

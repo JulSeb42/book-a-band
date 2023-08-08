@@ -1,6 +1,6 @@
 /*=============================================== ProtectedRoute ===============================================*/
 
-import { useContext } from "react"
+import { useContext, type ReactNode } from "react"
 import { Navigate } from "react-router-dom"
 
 import { AuthContext } from "context"
@@ -11,7 +11,7 @@ import { PageLoading } from "components"
 import { PATHS } from "data"
 
 interface ProtectedRouteProps {
-    children: any
+    children: ReactNode | ReactNode[]
     redirectTo?: string
 }
 

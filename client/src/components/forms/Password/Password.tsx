@@ -1,7 +1,6 @@
 /*=============================================== Password component ===============================================*/
 
-import { forwardRef, useState } from "react"
-import type { ForwardedRef } from "react"
+import { forwardRef, useState, type ForwardedRef } from "react"
 
 import { Icon } from "components"
 import {

@@ -1,7 +1,6 @@
 /*=============================================== Aside component ===============================================*/
 
-import { forwardRef } from "react"
-import type { ForwardedRef } from "react"
+import { forwardRef, type ForwardedRef } from "react"
 
 import { StyledAside } from "components/layouts/Aside/styles"
 import type { AsideProps } from "components/layouts/Aside/types"

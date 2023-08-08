@@ -28,19 +28,20 @@ export const DeleteAccount = () => {
     const handleDelete = () => {
         setIsDeleteLoading(true)
 
-        userService
-            .deleteAccount(user?._id!)
-            .then(() => {
-                setIsOpen(false)
-                logoutUser()
-                navigate(PATHS.GOODBYE)
-                setIsDeleteLoading(false)
-            })
-            .catch(err => {
-                setErrorMessage(err)
-                setIsOpen(false)
-                setIsDeleteLoading(false)
-            })
+        if (user)
+            userService
+                .deleteAccount(user?._id)
+                .then(() => {
+                    setIsOpen(false)
+                    logoutUser()
+                    navigate(PATHS.GOODBYE)
+                    setIsDeleteLoading(false)
+                })
+                .catch(err => {
+                    setErrorMessage(err)
+                    setIsOpen(false)
+                    setIsDeleteLoading(false)
+                })
     }
 
     return (
