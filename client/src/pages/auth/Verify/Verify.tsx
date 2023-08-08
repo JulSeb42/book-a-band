@@ -40,12 +40,14 @@ export const Verify = () => {
                     .then(res => {
                         setUser(res.data.user)
                         setToken(res.data.authToken)
+                        setIsLoading(false)
                     })
-                    .catch(err => setErrorMessage(err))
+                    .catch(err => {
+                        setErrorMessage(err)
+                        setIsLoading(false)
+                    })
             }
         }
-
-        setIsLoading(false)
     }, [id, isLoggedIn, setToken, setUser, token, user, isLoading])
 
     if (isLoading) return <VerifySkeleton />
