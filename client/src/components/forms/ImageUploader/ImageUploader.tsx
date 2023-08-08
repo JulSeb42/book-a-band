@@ -55,7 +55,7 @@ export const ImageUploader = ({
     return (
         <InputContainer id={id} label={label} helper={helper}>
             <StyledImageUploader htmlFor={id}>
-                <StyledAvatar src={image} />
+                <StyledAvatar src={image} username="uploader" />
 
                 <IconContainer>
                     <Icon src="edit" size={24} />

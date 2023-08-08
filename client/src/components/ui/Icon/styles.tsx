@@ -9,9 +9,10 @@ import type { ColorsType } from "components/types"
 export const StyledIcon = styled(SVG)<{ $size?: number; $color?: ColorsType }>`
     width: ${({ $size }) => $size}px;
     height: ${({ $size }) => $size}px;
-    fill: ${({ $color }) => Mixins.Color({ color: $color })};
+    fill: ${({ $color }) => Mixins.Color({ color: $color || "currentColor" })};
 
     path {
-        fill: ${({ $color }) => Mixins.Color({ color: $color })};
+        fill: ${({ $color }) =>
+            Mixins.Color({ color: $color || "currentColor" })};
     }
 `
