@@ -28,7 +28,7 @@ export const DeleteAccount = () => {
     const handleDelete = () => {
         setIsDeleteLoading(true)
 
-        if (user)
+        if (user && logoutUser)
             userService
                 .deleteAccount(user?._id)
                 .then(() => {

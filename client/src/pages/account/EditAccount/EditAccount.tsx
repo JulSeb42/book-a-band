@@ -90,19 +90,21 @@ export const EditAccount = () => {
             ),
         }
 
-        userService
-            .editAccount(user!._id, requestBody)
-            .then(res => {
-                const { user, authToken } = res.data
-                setUser(user)
-                setToken(authToken)
-                navigate(PATHS.MY_ACCOUNT)
-                setIsSubmitLoading(false)
-            })
-            .catch(err => {
-                setErrorMessage(err)
-                setIsSubmitLoading(false)
-            })
+        if (user) {
+            userService
+                .editAccount(user._id, requestBody)
+                .then(res => {
+                    const { user, authToken } = res.data
+                    setUser(user)
+                    setToken(authToken)
+                    navigate(PATHS.MY_ACCOUNT)
+                    setIsSubmitLoading(false)
+                })
+                .catch(err => {
+                    setErrorMessage(err)
+                    setIsSubmitLoading(false)
+                })
+        }
     }
 
     const PAGE_TITLE = "Edit your account"

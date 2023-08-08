@@ -8,7 +8,7 @@ export interface ImageUploaderProps
     extends InputContainerBaseProps,
         HTMLAttributes<HTMLInputElement> {
     image: string
-    setImage: Dispatch<SetStateAction<File>>
+    setImage: Dispatch<SetStateAction<string>>
     setIsLoading: Dispatch<SetStateAction<boolean>>
     value?: never
 }

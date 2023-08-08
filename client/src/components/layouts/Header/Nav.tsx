@@ -56,7 +56,7 @@ export const Nav = () => {
         {
             id: 4,
             text: "Log out",
-            onClick: logoutUser,
+            onClick: () => (logoutUser ? logoutUser() : console.log("Error")),
         },
     ]
 

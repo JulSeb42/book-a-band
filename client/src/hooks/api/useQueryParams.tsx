@@ -19,10 +19,8 @@ export const useQueryParams = () => {
         query,
         page,
     }
-    const filteredParams: QueryParamsType = filterObject(
-        params,
-        ([_, v]) => v !== null
-    )
+    // @ts-expect-error
+    const filteredParams: any = filterObject(params, ([_, v]) => v !== null)
 
     return filteredParams
 }

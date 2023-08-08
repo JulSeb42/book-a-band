@@ -40,6 +40,7 @@ export const ImageUploader = ({
             .catch(err => console.log(err))
 
         if (e.target.files && e.target.files[0]) {
+            // @ts-expect-error => fix types
             setImage(e.target.files[0])
             const reader = new FileReader()
             reader.addEventListener("load", () => {

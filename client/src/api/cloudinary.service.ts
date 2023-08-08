@@ -7,14 +7,14 @@ const errorHandler = (err: Error) => {
     throw err
 }
 
-const uploadImage = (file: FormData) => {
+const uploadImage = (file: any) => {
     return http
         .put(`${SERVER_PATHS.UPLOADER}/upload-picture`, file)
         .then(res => res.data)
         .catch(errorHandler)
 }
 
-const createImage = (newImage: FormData) => {
+const createImage = (newImage: any) => {
     return http
         .post(`${SERVER_PATHS.UPLOADER}/edit-picture`, newImage)
         .then(res => res.data)
