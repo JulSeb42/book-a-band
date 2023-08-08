@@ -37,7 +37,6 @@ export const HomeSearch = () => {
                 city: city === "All" ? null : slugify(city),
                 genre: genre === "All" ? null : slugify(genre),
             },
-            // @ts-expect-error: fix iterator error
             ([_, v]) => v !== null
         )
 
