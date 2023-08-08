@@ -34,10 +34,7 @@ export const MyAccount = () => {
                         flexDirection="column"
                         alignItems="stretch"
                     >
-                        <MyAccountConversations
-                            user={user!}
-                            isLoading={isLoading}
-                        />
+                        <MyAccountConversations />
                     </Flexbox>
                 </Flexbox>
             </Main>

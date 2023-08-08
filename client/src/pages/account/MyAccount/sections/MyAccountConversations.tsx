@@ -1,7 +1,11 @@
 /*=============================================== MyAccountConversations ===============================================*/
 
-import { Fragment } from "react"
+import { Fragment, useContext } from "react"
 import { generateNumbers } from "ts-utils-julseb"
+
+import { AuthContext } from "context"
+import type { AuthContextType } from "context/types"
+import { conversationService } from "api"
 
 import {
     Text,
@@ -9,27 +13,45 @@ import {
     ConversationCardSkeleton,
     Hr,
 } from "components"
+import { useFetch } from "hooks"
 
-import type { MyAccountSectionsProps } from "pages/account/MyAccount/sections/types"
+import type { ConversationType } from "types"
 
-export const MyAccountConversations = ({
-    user,
-    isLoading,
-}: MyAccountSectionsProps) => {
-    if (isLoading) return <MyAccountConversationsSkeleton />
+export const MyAccountConversations = () => {
+    const { user } = useContext(AuthContext) as AuthContextType
 
-    if (!user?.conversations?.length)
+    const {
+        response: conversations,
+        loading,
+        error,
+    } = useFetch<ConversationType[]>(
+        conversationService.getUserConversations(user?._id!)
+    )
+
+    if (loading) return <MyAccountConversationsSkeleton />
+
+    if (error)
+        return (
+            <Text>
+                Error while fetching conversations:{" "}
+                {error.response.data.message}
+            </Text>
+        )
+
+    if (!conversations?.length)
         return <Text>You do not have any conversation yet.</Text>
+    
+    console.log(conversations)
 
     return (
         <>
-            {user?.conversations
+            {conversations
                 ?.sort((a, b) => (a.updatedAt > b.updatedAt ? -1 : 0))
                 .map((conversation, i) => (
                     <Fragment key={conversation._id}>
                         <ConversationCard conversation={conversation} />
 
-                        {i !== user?.conversations?.length - 1 && <Hr />}
+                        {i !== conversations?.length - 1 && <Hr />}
                     </Fragment>
                 ))}
         </>

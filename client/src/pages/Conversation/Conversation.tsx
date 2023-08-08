@@ -9,6 +9,7 @@ import { conversationService } from "api"
 
 import { Page, Chat } from "components"
 import { ConversationHeader } from "pages/Conversation/ConversationHeader"
+import { ReadConversation } from "pages/Conversation/ReadConversation"
 import { useFetch } from "hooks"
 
 import type { ConversationType } from "types"
@@ -36,6 +37,8 @@ export const Conversation = () => {
             }`}
             error={error}
         >
+            <ReadConversation />
+
             <ConversationHeader otherUser={otherUser!} isLoading={loading} />
 
             <Chat conversation={conversation!} isLoading={loading} />

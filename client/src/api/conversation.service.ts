@@ -14,6 +14,10 @@ class ConversationService {
         return http.get(`${SERVER_PATHS.CONVERSATION}/conversation/${id}`)
     }
 
+    getUserConversations(id: string) {
+        return http.get(`${SERVER_PATHS.CONVERSATION}/user-conversations/${id}`)
+    }
+
     newConversation(data: { body: string; user1: string; user2: string }) {
         return http.post(`${SERVER_PATHS.CONVERSATION}/new-conversation`, data)
     }
@@ -25,6 +29,10 @@ class ConversationService {
         whichUser: WhichUserType
     }) {
         return http.post(`${SERVER_PATHS.CONVERSATION}/new-message`, data)
+    }
+
+    readConversation(id: string) {
+        return http.put(`${SERVER_PATHS.CONVERSATION}/read-conversation/${id}`)
     }
 }
 

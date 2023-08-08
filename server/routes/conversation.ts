@@ -25,6 +25,18 @@ router.get("/all-conversations", (_, res, next) => {
         .catch(err => next(err))
 })
 
+// Get user's conversations
+router.get("/user-conversations/:id", (req, res, next) => {
+    ConversationModel.find({
+        $or: [{ user1: req.params.id }, { user2: req.params.id }],
+    })
+        .populate("user1")
+        .populate("user2")
+        .populate("messages")
+        .then(foundConversations => res.status(200).json(foundConversations))
+        .catch(err => next(err))
+})
+
 // Get conversation
 router.get("/conversation/:id", async (req, res, next) => {
     const conversation = await ConversationModel.findById(req.params.id)
@@ -139,6 +151,17 @@ router.post("/new-message", (req, res, next) => {
                 { new: true }
             ).then(() => res.status(200).json(createdMessage))
         })
+        .catch(err => next(err))
+})
+
+// Read conversation
+router.put("/read-conversation/:id", (req, res, next) => {
+    ConversationModel.findByIdAndUpdate(
+        req.params.id,
+        { readUser1: true, readUser2: true },
+        { new: true }
+    )
+        .then(updatedConversation => res.status(200).json(updatedConversation))
         .catch(err => next(err))
 })
 
