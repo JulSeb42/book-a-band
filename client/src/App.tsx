@@ -2,7 +2,7 @@
 
 import { RouterProvider } from "react-router-dom"
 
-import { GlobalStyle, PageLoading } from "components"
+import { GlobalStyle, PageLoading, Toaster } from "components"
 import { routes } from "routes"
 
 export const App = () => {
@@ -10,6 +10,7 @@ export const App = () => {
         <>
             <GlobalStyle />
             <RouterProvider router={routes} fallbackElement={<PageLoading />} />
+            <Toaster />
         </>
     )
 }
