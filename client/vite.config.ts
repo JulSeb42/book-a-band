@@ -2,6 +2,9 @@ import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
 import tsconfigPaths from "vite-tsconfig-paths"
 import eslintPlugin from "vite-plugin-eslint"
+import dns from "dns"
+
+dns.setDefaultResultOrder("verbatim")
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -12,4 +15,9 @@ export default defineConfig({
             cache: false,
         }),
     ],
+    server: {
+        proxy: {
+            "/api": "http://localhost:5005",
+        },
+    },
 })
