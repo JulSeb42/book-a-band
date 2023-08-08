@@ -4,7 +4,7 @@ import styled from "styled-components"
 
 import { Mixins, BREAKPOINTS, SPACERS } from "components"
 
-export const StyledWrapper = styled.div<{ $reverseTablet?: boolean }>`
+export const StyledWrapper = styled.div`
     position: relative;
     min-height: calc(100vh - 70px - ${SPACERS.L} - ${SPACERS.M});
     padding: ${SPACERS.XXL} 0;
@@ -16,8 +16,6 @@ export const StyledWrapper = styled.div<{ $reverseTablet?: boolean }>`
     })}
 
     @media ${BREAKPOINTS.TABLET} {
-        /* flex-direction: ${({ $reverseTablet }) =>
-            $reverseTablet ? "column-reverse" : "column"}; */
         flex-direction: column;
         align-items: center;
         min-height: inherit;

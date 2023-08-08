@@ -13,10 +13,15 @@ export const useFetch = <T,>(
 
     useEffect(() => {
         fetchFunction
-            .then((res: AxiosResponse<T>) => setResponse(res.data))
-            .catch((err: any) => setError(err))
+            .then((res: AxiosResponse<T>) => {
+                setResponse(res.data)
+                setLoading(false)
+            })
+            .catch((err: any) => {
+                setError(err)
+                setLoading(false)
+            })
 
-        setLoading(false)
         // eslint-disable-next-line
     }, [])
 

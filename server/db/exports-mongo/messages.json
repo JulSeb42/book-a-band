@@ -1,0 +1,38 @@
+[{
+  "_id": {
+    "$oid": "64ca75d79845eae6a7f5b3ee"
+  },
+  "body": "Hello,\nI am getting married on the 20th of July 2024 near Berlin. My fiancee heard you playing at another wedding and loved what you did there! Would you have availabilities for that weekend?\nThanks!",
+  "sender": {
+    "$oid": "64b01b26deb5ecec6064c7f1"
+  },
+  "conversation": {
+    "$oid": "64ca75d79845eae6a7f5b3ec"
+  },
+  "createdAt": {
+    "$date": "2023-08-02T15:27:19.404Z"
+  },
+  "updatedAt": {
+    "$date": "2023-08-02T15:27:19.404Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64d21555a379b115c5bddb81"
+  },
+  "body": "Hi, I need to check with the rest of the band, and I will come back to you!",
+  "sender": {
+    "$oid": "64b01b26deb5ecec6064c7c4"
+  },
+  "conversation": {
+    "$oid": "64ca75d79845eae6a7f5b3ec"
+  },
+  "createdAt": {
+    "$date": "2023-08-08T10:13:41.284Z"
+  },
+  "updatedAt": {
+    "$date": "2023-08-08T10:13:41.284Z"
+  },
+  "__v": 0
+}]

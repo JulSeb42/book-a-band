@@ -24,24 +24,27 @@ export const useCitiesGenres = () => {
             userService
                 .allCities()
                 .then(res => setCities(["All", ...res.data]))
-                .catch(err =>
+                .catch(err => {
                     setError({
                         ...error,
                         cities: err,
                     })
-                )
+                    setLoading(false)
+                })
 
             userService
                 .allGenres()
-                .then(res => setGenres(["All", ...res.data]))
-                .catch(err =>
+                .then(res => {
+                    setGenres(["All", ...res.data])
+                    setLoading(false)
+                })
+                .catch(err => {
                     setError({
                         ...error,
                         genres: err,
                     })
-                )
-
-            setLoading(false)
+                    setLoading(false)
+                })
         }
     }, [error, loading])
 

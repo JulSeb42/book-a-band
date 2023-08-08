@@ -20,7 +20,6 @@ interface PageProps extends HelmetProps {
     noMain?: boolean
     mainSize?: MainSizesType
     error?: ServerErrorType
-    reverseWrapper?: boolean
 }
 
 export const Page = ({
@@ -34,7 +33,6 @@ export const Page = ({
     noMain,
     mainSize,
     error,
-    reverseWrapper,
 }: PageProps) => {
     const { pathname, search } = useLocation()
 
@@ -60,7 +58,7 @@ export const Page = ({
             {noWrapper ? (
                 children
             ) : (
-                <Wrapper reverse={reverseWrapper}>
+                <Wrapper>
                     {error ? (
                         <Main>
                             <Text tag="h1">An error occured</Text>

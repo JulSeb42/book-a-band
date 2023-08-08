@@ -53,21 +53,25 @@ export const AllArtists = () => {
 
                 setArtists(artistsRes)
 
-                if (isLoading)
+                if (isLoading) {
                     setPrices({
                         minPrice: getMinMaxPrices(artistsRes).minPrice,
                         maxPrice: getMinMaxPrices(artistsRes).maxPrice,
                         globalMinPrice: getMinMaxPrices(artistsRes).minPrice,
                         globalMaxPrice: getMinMaxPrices(artistsRes).maxPrice,
                     })
-            })
-            .catch(err => setError(err))
 
-        setIsLoading(false)
+                    setIsLoading(false)
+                }
+            })
+            .catch(err => {
+                setError(err)
+                setIsLoading(false)
+            })
     }, [city, genre, query, selectedCity, selectedGenre, sort, isLoading])
 
     return (
-        <Page title="Artists" reverseWrapper noMain>
+        <Page title="Artists" noMain>
             <Aside>
                 <ArtistsFilters
                     sort={sort}
