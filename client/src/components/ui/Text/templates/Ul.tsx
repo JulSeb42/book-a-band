@@ -1,7 +1,6 @@
 /*=============================================== Ul ===============================================*/
 
-import { forwardRef } from "react"
-import type { ForwardedRef } from "react"
+import { forwardRef, type ForwardedRef } from "react"
 
 import { StyledUl } from "components/ui/Text/styles"
 import type { TextProps } from "components/ui/Text/types"

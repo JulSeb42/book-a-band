@@ -1,13 +1,13 @@
 /*=============================================== Auth context ===============================================*/
 
-import { useState, useEffect, createContext } from "react"
+import { useState, useEffect, createContext, type ReactNode } from "react"
 import { authService, userService } from "api"
 import type { AuthContextType } from "context/types"
 
 import type { UserType } from "types"
 
 interface AuthProviderWrapperProps {
-    children: any
+    children: ReactNode | ReactNode[]
 }
 
 export const AuthContext = createContext<null | AuthContextType>(null)

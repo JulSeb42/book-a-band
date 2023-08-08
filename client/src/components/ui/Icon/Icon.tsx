@@ -1,7 +1,6 @@
 /*=============================================== Icon component ===============================================*/
 
-import { forwardRef } from "react"
-import type { ForwardedRef } from "react"
+import { forwardRef, type ForwardedRef } from "react"
 import type InlineSVG from "react-inlinesvg"
 
 import { StyledIcon } from "components/ui/Icon/styles"

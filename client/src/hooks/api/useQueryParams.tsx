@@ -4,6 +4,8 @@ import { useSearchParams } from "react-router-dom"
 
 import { filterObject } from "utils"
 
+import type { QueryParamsType } from "types"
+
 export const useQueryParams = () => {
     const [searchParams] = useSearchParams()
     const city: string | null = searchParams.get("city")
@@ -11,18 +13,16 @@ export const useQueryParams = () => {
     const query: string | null = searchParams.get("query")
     const page: string | null = searchParams.get("page")
 
-    const params: any = {
+    const params: QueryParamsType = {
         city,
         genre,
         query,
         page,
     }
-    const filteredParams: {
-        city?: string
-        genre?: string
-        query?: string
-        page?: string
-    } = filterObject(params, ([_, v]) => v !== null)
+    const filteredParams: QueryParamsType = filterObject(
+        params,
+        ([_, v]) => v !== null
+    )
 
     return filteredParams
 }

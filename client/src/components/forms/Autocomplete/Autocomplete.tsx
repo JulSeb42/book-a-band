@@ -1,7 +1,13 @@
 /*=============================================== Autocomplete component ===============================================*/
 
-import { useCallback, useEffect, useRef, useState } from "react"
-import type { ChangeEvent, KeyboardEvent } from "react"
+import {
+    useCallback,
+    useEffect,
+    useRef,
+    useState,
+    type ChangeEvent,
+    type KeyboardEvent,
+} from "react"
 import Fuse from "fuse.js"
 import { uuid } from "ts-utils-julseb"
 
@@ -31,7 +37,6 @@ export const Autocomplete = ({
     isLoading,
     icon,
     validation,
-    onChange,
     setValidation,
     ...rest
 }: AutocompleteProps) => {

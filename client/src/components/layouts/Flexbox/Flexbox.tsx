@@ -1,7 +1,6 @@
 /*=============================================== Flexbox component ===============================================*/
 
-import { forwardRef } from "react"
-import type { ForwardedRef } from "react"
+import { forwardRef, type ForwardedRef } from "react"
 
 import { StyledFlexbox } from "components/layouts/Flexbox/styles"
 import type { FlexboxProps } from "components/layouts/Flexbox/types"

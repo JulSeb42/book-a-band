@@ -4,9 +4,7 @@ import { useEffect, useState } from "react"
 import type { AxiosResponse } from "axios"
 import type { ServerErrorType } from "types"
 
-export const useFetch = <T,>(
-    fetchFunction: Promise<AxiosResponse<any, any>>
-) => {
+export const useFetch = <T,>(fetchFunction: Promise<AxiosResponse>) => {
     const [response, setResponse] = useState<T | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<ServerErrorType | undefined>(undefined)
@@ -17,7 +15,7 @@ export const useFetch = <T,>(
                 setResponse(res.data)
                 setLoading(false)
             })
-            .catch((err: any) => {
+            .catch((err: ServerErrorType) => {
                 setError(err)
                 setLoading(false)
             })

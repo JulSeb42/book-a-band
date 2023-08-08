@@ -58,27 +58,29 @@ export const ContactArtistForm = ({ artist }: ContactArtistFormProps) => {
             return
         }
 
-        setIsLoading(true)
+        if (user && artist) {
+            setIsLoading(true)
 
-        conversationService
-            .newConversation({
-                body,
-                user1: user?._id!,
-                user2: artist._id,
-            })
-            .then(res => {
-                const { createdConversation, user, authToken } = res.data
+            conversationService
+                .newConversation({
+                    body,
+                    user1: user?._id,
+                    user2: artist._id,
+                })
+                .then(res => {
+                    const { createdConversation, user, authToken } = res.data
 
-                setUser(user)
-                setToken(authToken)
-                navigate(PATHS.CONVERSATION(createdConversation._id))
-                setIsLoading(false)
-            })
-            .catch(err => {
-                console.log(err)
-                setErrorMessage(err)
-                setIsLoading(false)
-            })
+                    setUser(user)
+                    setToken(authToken)
+                    navigate(PATHS.CONVERSATION(createdConversation._id))
+                    setIsLoading(false)
+                })
+                .catch(err => {
+                    console.log(err)
+                    setErrorMessage(err)
+                    setIsLoading(false)
+                })
+        }
     }
 
     return (

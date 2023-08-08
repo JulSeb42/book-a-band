@@ -1,7 +1,6 @@
 /*=============================================== Button component ===============================================*/
 
-import { forwardRef } from "react"
-import type { ForwardedRef } from "react"
+import { forwardRef, type ForwardedRef } from "react"
 import { Link } from "react-router-dom"
 
 import { Icon, Loader } from "components"

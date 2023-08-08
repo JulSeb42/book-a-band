@@ -1,7 +1,6 @@
 /*=============================================== Grid component ===============================================*/
 
-import { forwardRef } from "react"
-import type { ForwardedRef } from "react"
+import { forwardRef, type ForwardedRef } from "react"
 
 import { StyledGrid } from "components/layouts/Grid/styles"
 import type { GridProps } from "components/layouts/Grid/types"

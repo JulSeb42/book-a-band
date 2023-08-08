@@ -29,7 +29,7 @@ export const ArtistsList = ({
     error,
     prices,
 }: ArtistsListProps) => {
-    const { paginatedData, totalPages } = usePaginatedData(
+    const { paginatedData, totalPages } = usePaginatedData<UserType>(
         filterByPrice(artists, prices)
     )
 

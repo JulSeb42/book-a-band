@@ -1,7 +1,12 @@
 /*=============================================== SendMessage ===============================================*/
 
-import { useState, useContext } from "react"
-import type { Dispatch, FormEvent, SetStateAction } from "react"
+import {
+    useState,
+    useContext,
+    type Dispatch,
+    type FormEvent,
+    type SetStateAction,
+} from "react"
 
 import { AuthContext } from "context"
 import type { AuthContextType } from "context/types"

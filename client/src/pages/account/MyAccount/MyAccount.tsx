@@ -16,7 +16,7 @@ export const MyAccount = () => {
     const { user, isLoading } = useContext(AuthContext) as AuthContextType
 
     return (
-        <Page title={isLoading ? "My account" : user?.fullName!} noMain>
+        <Page title={user?.fullName || "My account"} noMain>
             <Aside gap="s" center>
                 <MyAccountAside user={user!} isLoading={isLoading} />
             </Aside>
