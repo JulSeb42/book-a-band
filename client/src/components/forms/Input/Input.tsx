@@ -10,6 +10,7 @@ import {
     InputValidationIcon,
     InputContainer,
 } from "components/forms/InputComponents"
+import { useTouchScreen } from "hooks"
 
 import { StyledInput, InputContent } from "components/forms/Input/styles"
 import type { InputProps } from "components/forms/Input/types"
@@ -19,6 +20,8 @@ const InputFn = forwardRef(
         { type, icon, validation, keys, onClick, ...rest }: InputProps,
         ref?: ForwardedRef<HTMLInputElement & HTMLTextAreaElement>
     ) => {
+        const isTouchScreen = useTouchScreen()
+
         if (type === "textarea")
             return (
                 <StyledInput
@@ -50,7 +53,7 @@ const InputFn = forwardRef(
 
                 {(validation || keys) && (
                     <InputRightContainer>
-                        {keys && <Key keys={keys} />}
+                        {keys && !isTouchScreen && <Key keys={keys} />}
 
                         {validation && (
                             <InputValidationIcon status={validation?.status} />

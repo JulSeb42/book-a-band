@@ -14,4 +14,5 @@ export const StyledModal = styled.div<{ $isOpen: boolean }>`
     display: ${({ $isOpen }) => ($isOpen ? "flex" : "none")};
     justify-content: center;
     align-items: center;
+    z-index: 999;
 `

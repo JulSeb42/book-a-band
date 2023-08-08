@@ -2,7 +2,20 @@
 
 import styled from "styled-components"
 
-import { Mixins, SPACERS } from "components"
+import { BREAKPOINTS, Mixins, SPACERS } from "components"
+
+export const StyledArtistCard = styled.div`
+    ${Mixins.Flexbox({
+        alignItems: "flex-start",
+        gap: "s",
+    })}
+
+    @media ${BREAKPOINTS.MOBILE} {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+`
 
 export const CardContent = styled.div`
     flex-grow: 1;
@@ -12,6 +25,11 @@ export const CardContent = styled.div`
         justifyContent: "space-between",
         gap: "xs",
     })}
+
+    @media ${BREAKPOINTS.MOBILE} {
+        max-width: inherit;
+        width: 100%;
+    }
 `
 
 export const TextIconContainer = styled.div`

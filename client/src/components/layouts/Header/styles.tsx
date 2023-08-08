@@ -25,11 +25,24 @@ export const StyledHeader = styled.header`
     })}
 `
 
-export const StyledNav = styled.nav`
+export const StyledNav = styled.nav<{ $isOpen: boolean }>`
     ${Mixins.Flexbox({
         alignItems: "center",
         gap: "s",
     })}
+
+    @media ${BREAKPOINTS.MOBILE} {
+        position: absolute;
+        top: ${({ $isOpen }) => ($isOpen ? 70 : -200)}px;
+        transition: ${TRANSITIONS.SHORT};
+        background-color: ${COLORS.PRIMARY};
+        left: 0;
+        flex-direction: column;
+        z-index: 998;
+        width: 100%;
+        padding: ${({ $isOpen }) => ($isOpen ? `${SPACERS.S} 5%` : 0)};
+        align-items: flex-start;
+    }
 `
 
 export const LinkNav = styled(NavLink)`
@@ -69,4 +82,8 @@ export const LinkNav = styled(NavLink)`
 export const SearchForm = styled.form`
     width: 100%;
     max-width: 300px;
+
+    @media ${BREAKPOINTS.MOBILE} {
+        max-width: 150px;
+    }
 `

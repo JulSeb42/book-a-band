@@ -7,6 +7,7 @@ import { Text, TextIcon, Avatar, Button, Flexbox } from "components"
 import { PATHS } from "data"
 
 import {
+    StyledArtistCard,
     CardContent,
     TextIconContainer,
 } from "components/user/ArtistCard/styles"
@@ -39,7 +40,7 @@ export const ArtistCard = ({
     ]
 
     return (
-        <Flexbox alignItems="flex-start" gap="s">
+        <StyledArtistCard>
             <Avatar src={avatar} username={fullName} to={path} />
 
             <CardContent>
@@ -66,6 +67,6 @@ export const ArtistCard = ({
                     <Button to={path}>See their page</Button>
                 </Flexbox>
             </CardContent>
-        </Flexbox>
+        </StyledArtistCard>
     )
 }

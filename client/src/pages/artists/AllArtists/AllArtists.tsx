@@ -67,7 +67,7 @@ export const AllArtists = () => {
     }, [city, genre, query, selectedCity, selectedGenre, sort, isLoading])
 
     return (
-        <Page title="Artists" noMain>
+        <Page title="Artists" reverseWrapper noMain>
             <Aside>
                 <ArtistsFilters
                     sort={sort}

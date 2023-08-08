@@ -1,7 +1,7 @@
 /*=============================================== Aside styles ===============================================*/
 
 import styled from "styled-components"
-import { CONTAINERS, Mixins, SPACERS } from "components"
+import { CONTAINERS, Mixins } from "components"
 
 import type { SpacersType } from "components/types"
 
@@ -13,7 +13,6 @@ export const StyledAside = styled.aside<{
     max-width: ${CONTAINERS.ASIDE};
     min-height: 100%;
     position: relative;
-    padding: ${SPACERS.XXL} 0;
     ${({ $center, $gap }) =>
         Mixins.Flexbox({
             flexDirection: "column",

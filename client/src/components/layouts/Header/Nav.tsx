@@ -1,11 +1,13 @@
 /*=============================================== Nav ===============================================*/
 
-import { useContext } from "react"
+import { useContext, useState, useRef } from "react"
 import { uuid } from "ts-utils-julseb"
 
 import { AuthContext } from "context"
 import type { AuthContextType } from "context/types"
 
+import { Burger } from "components/layouts/Burger"
+import { useClickOutside } from "hooks"
 import { PATHS } from "data"
 
 import { StyledNav, LinkNav } from "components/layouts/Header/styles"
@@ -15,6 +17,13 @@ export const Nav = () => {
     const { isLoggedIn, logoutUser } = useContext(
         AuthContext
     ) as AuthContextType
+
+    const [isNavOpen, setIsNavOpen] = useState(false)
+    const navRef = useRef<HTMLDivElement>(null)
+
+    useClickOutside(navRef, () => {
+        if (isNavOpen) setIsNavOpen(false)
+    })
 
     const baseLinks: NavLinkType[] = [
         {
@@ -61,10 +70,17 @@ export const Nav = () => {
         )
 
     return (
-        <StyledNav>
-            {linksFn(baseLinks)}
+        <>
+            <Burger
+                isOpen={isNavOpen}
+                onClick={() => setIsNavOpen(!isNavOpen)}
+            />
 
-            {linksFn(isLoggedIn ? protectedLinks : anonLinks)}
-        </StyledNav>
+            <StyledNav $isOpen={isNavOpen} ref={navRef}>
+                {linksFn(baseLinks)}
+
+                {linksFn(isLoggedIn ? protectedLinks : anonLinks)}
+            </StyledNav>
+        </>
     )
 }

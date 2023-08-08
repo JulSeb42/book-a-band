@@ -2,7 +2,7 @@
 
 import styled from "styled-components"
 
-import { Mixins, CONTAINERS, SPACERS } from "components"
+import { Mixins, CONTAINERS } from "components"
 import type { MainSizesType } from "components/layouts/Main/types"
 
 export const StyledMain = styled.main<{ $size?: MainSizesType }>`
@@ -15,7 +15,6 @@ export const StyledMain = styled.main<{ $size?: MainSizesType }>`
             : CONTAINERS.MAIN.DEFAULT};
     min-height: 100%;
     position: relative;
-    padding: ${SPACERS.XXL} 0;
     ${Mixins.Flexbox({
         flexDirection: "column",
         alignItems: "stretch",

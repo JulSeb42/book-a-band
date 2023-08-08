@@ -10,7 +10,7 @@ export const Homepage = () => {
             <HomeCover>
                 <Logo isWhite width={100} />
 
-                <Text tag="h1" color="white">
+                <Text tag="h1" color="white" textAlign="center">
                     Book an artist / a band for your next event!
                 </Text>
 

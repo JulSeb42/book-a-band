@@ -6,7 +6,15 @@ import { useNavigate, createSearchParams } from "react-router-dom"
 import styled from "styled-components"
 import { slugify } from "ts-utils-julseb"
 
-import { Select, Button, COLORS, SPACERS, RADIUSES, Mixins } from "components"
+import {
+    Select,
+    Button,
+    COLORS,
+    SPACERS,
+    RADIUSES,
+    Mixins,
+    BREAKPOINTS,
+} from "components"
 import { PATHS } from "data"
 import { useQueryParams, useCitiesGenres } from "hooks"
 import { filterObject } from "utils"
@@ -77,4 +85,9 @@ const Search = styled.form`
         alignItems: "flex-end",
         gap: "xs",
     })}
+
+    @media ${BREAKPOINTS.MOBILE} {
+        flex-direction: column;
+        align-items: stretch;
+    }
 `

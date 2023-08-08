@@ -1,8 +1,7 @@
 /*=============================================== ArtistsFilters ===============================================*/
 
+import { useState } from "react"
 import type { ChangeEvent, Dispatch, SetStateAction } from "react"
-
-import styled from "styled-components"
 
 import {
     Button,
@@ -13,7 +12,7 @@ import {
     Input,
     Select,
 } from "components"
-import { useQueryParams, useCitiesGenres } from "hooks"
+import { useQueryParams, useCitiesGenres, useMaxWidth } from "hooks"
 
 import type { SortType, PricesType } from "types"
 
@@ -43,6 +42,9 @@ export const ArtistsFilters = ({
     const { city: cityParam, genre: genreParam } = useQueryParams()
     const { cities, genres, loading } = useCitiesGenres()
 
+    const [isOpen, setIsOpen] = useState(false)
+    const isTablet = useMaxWidth(1024)
+
     const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
         const { id, checked } = e.target
 
@@ -66,6 +68,22 @@ export const ArtistsFilters = ({
         setSelectedCity("All")
         setSelectedGenre("All")
     }
+
+    if (!isOpen && isTablet)
+        return (
+            <Flexbox flexDirection="column" alignItems="stretch" gap="xs">
+                <Text tag="h5">Filters</Text>
+
+                <Button
+                    alignSelf="flex-start"
+                    variant="transparent"
+                    noPadding
+                    onClick={() => setIsOpen(true)}
+                >
+                    Open filters
+                </Button>
+            </Flexbox>
+        )
 
     return (
         <>
@@ -145,11 +163,18 @@ export const ArtistsFilters = ({
                 )}
             </Flexbox>
 
-            <StyledButton onClick={handleReset}>Reset filters</StyledButton>
+            <Flexbox gap="xs">
+                <Button onClick={handleReset}>Reset filters</Button>
+
+                {isTablet && (
+                    <Button
+                        variant="transparent"
+                        onClick={() => setIsOpen(false)}
+                    >
+                        Close filters
+                    </Button>
+                )}
+            </Flexbox>
         </>
     )
 }
-
-const StyledButton = styled(Button)`
-    align-self: flex-start;
-`
