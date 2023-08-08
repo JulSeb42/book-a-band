@@ -4,7 +4,7 @@ import { Router } from "express"
 import jwt from "jsonwebtoken"
 import { ConversationModel, MessageModel, UserModel } from "../models"
 import { TOKEN_SECRET, jwtConfig } from "../utils"
-import type { WhichUserType } from "../types"
+import type { ConversationType, WhichUserType } from "../types"
 
 const router = Router()
 
@@ -27,37 +27,44 @@ router.get("/all-conversations", (_, res, next) => {
 
 // Get user's conversations
 router.get("/user-conversations/:id", (req, res, next) => {
-    ConversationModel.find({
+    const foundConversation = ConversationModel.find({
         $or: [{ user1: req.params.id }, { user2: req.params.id }],
     })
-        .populate("user1")
-        .populate("user2")
-        .populate("messages")
-        .then(foundConversations => res.status(200).json(foundConversations))
-        .catch(err => next(err))
-})
 
-// Get conversation
-router.get("/conversation/:id", async (req, res, next) => {
-    const conversation = await ConversationModel.findById(req.params.id)
-
-    if (conversation) {
-        await ConversationModel.findById(req.params.id)
+    if (foundConversation !== undefined) {
+        ConversationModel.find({
+            $or: [{ user1: req.params.id }, { user2: req.params.id }],
+        })
             .populate("user1")
             .populate("user2")
             .populate("messages")
-            .populate({
-                path: "messages",
-                populate: {
-                    path: "sender",
-                    model: "User",
-                },
-            })
-            .then(foundConversation => res.status(200).json(foundConversation))
+            .then(foundConversations =>
+                res.status(200).json(foundConversations)
+            )
             .catch(err => next(err))
     } else {
-        return res.status(400).json({ message: "Conversation not found" })
+        return res.status(400).json({ message: "Conversation not found." })
     }
+})
+
+// Get conversation
+router.get("/conversation/:id", (req, res, next) => {
+    ConversationModel.findById(req.params.id)
+        .populate("user1")
+        .populate("user2")
+        .populate("messages")
+        .populate({
+            path: "messages",
+            populate: {
+                path: "sender",
+                model: "User",
+            },
+        })
+        .then(foundConversation => res.status(200).json(foundConversation))
+        .catch(err => {
+            next(err)
+            return res.status(400).json({ message: "Conversation not found" })
+        })
 })
 
 // New conversation

@@ -9,7 +9,6 @@ export const ReadConversation = () => {
     const { id } = useParams<{ id: string }>()
 
     useEffect(() => {
-        console.log("Hello")
         if (id) {
             conversationService.readConversation(id).then(() => {})
         }

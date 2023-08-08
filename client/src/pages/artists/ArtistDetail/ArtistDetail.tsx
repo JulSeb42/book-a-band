@@ -1,8 +1,11 @@
 /*=============================================== ArtistDetail ===============================================*/
 
+import { useContext } from "react"
 import { useParams } from "react-router-dom"
 
 import { userService } from "api"
+import { AuthContext } from "context"
+import type { AuthContextType } from "context/types"
 
 import { Page, Main, Flexbox, Aside, Text } from "components"
 import { ArtistAsideLeft } from "pages/artists/ArtistDetail/sections/ArtistAsideLeft"
@@ -17,6 +20,7 @@ import {
     ArtistAvailabilities,
     ArtistFollow,
 } from "pages/artists/ArtistDetail/sections/artist-aside-right"
+import { NotFound } from "pages/NotFound"
 import { useFetch } from "hooks"
 
 import type { UserType } from "types"
@@ -24,11 +28,15 @@ import type { UserType } from "types"
 export const ArtistDetail = () => {
     const { id } = useParams<{ id: string }>()
 
+    const { user } = useContext(AuthContext) as AuthContextType
+
     const {
         response: artist,
         loading,
         error,
     } = useFetch<UserType>(userService.getUser(id!))
+
+    if (user?._id !== id && !artist?.isVisible) return <NotFound />
 
     return (
         <Page title={artist ? artist.fullName : "Artist"} error={error} noMain>

@@ -1,7 +1,7 @@
 /*=============================================== Text types ===============================================*/
 
 import type { ReactNode, ElementType, HTMLAttributes } from "react"
-import type { ColorsType } from "components/types"
+import type { ColorsType, TextAlignType } from "components/types"
 
 const tags = {
     h1: "h1",
@@ -28,4 +28,5 @@ export interface TextProps
     tag?: TextTagsType
     color?: ColorsType
     maxLines?: number
+    textAlign?: TextAlignType
 }

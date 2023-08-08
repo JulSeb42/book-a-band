@@ -10,6 +10,7 @@ import { conversationService } from "api"
 import { Page, Chat } from "components"
 import { ConversationHeader } from "pages/Conversation/ConversationHeader"
 import { ReadConversation } from "pages/Conversation/ReadConversation"
+import { NotFound } from "pages/NotFound"
 import { useFetch } from "hooks"
 
 import type { ConversationType } from "types"
@@ -24,6 +25,13 @@ export const Conversation = () => {
         loading,
         error,
     } = useFetch<ConversationType>(conversationService.getConversation(id!))
+
+    if (
+        (conversation?.user1?._id !== user?._id &&
+            conversation?.user2?._id !== user?._id) ||
+        !id
+    )
+        return <NotFound />
 
     const otherUser =
         conversation?.user1?._id === user?._id

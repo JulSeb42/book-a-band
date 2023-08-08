@@ -8,7 +8,7 @@ import type { TextProps } from "components/ui/Text/types"
 
 export const P = forwardRef(
     (
-        { as, children, color, maxLines, ...rest }: TextProps,
+        { as, children, color, maxLines, textAlign, ...rest }: TextProps,
         ref?: ForwardedRef<HTMLParagraphElement>
     ) => {
         return (
@@ -17,6 +17,7 @@ export const P = forwardRef(
                 as={as}
                 $color={color}
                 $maxLines={maxLines}
+                $textAlign={textAlign}
                 {...rest}
             >
                 {children}
