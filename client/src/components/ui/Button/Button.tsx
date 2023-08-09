@@ -48,13 +48,13 @@ export const Button = forwardRef(
                     <Loader size={size === "small" ? 14 : 16} color="gray" />
                 )}
 
-                {icons?.left && !isLoading && (
+                {icons && icons.left && !isLoading && (
                     <Icon src={icons.left} size={size === "small" ? 14 : 16} />
                 )}
 
                 {children}
 
-                {icons?.right && (
+                {icons && icons.right && (
                     <Icon src={icons.right} size={size === "small" ? 14 : 16} />
                 )}
             </StyledButton>
