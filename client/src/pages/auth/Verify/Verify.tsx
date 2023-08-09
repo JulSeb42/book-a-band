@@ -28,13 +28,13 @@ export const Verify = () => {
     >(undefined)
 
     useEffect(() => {
-        if (isLoading) {
+        if (isLoading && user) {
             if (!isLoggedIn) {
                 setIsLoading(false)
-            } else if (!id || id !== user?._id) {
+            } else if (!id || id !== user._id) {
                 setErrorMessage("User ID does not match.")
                 setIsLoading(false)
-            } else if (token !== user?.verifyToken) {
+            } else if (token !== user.verifyToken) {
                 setErrorMessage("User token does not match.")
                 setIsLoading(false)
             } else {
@@ -51,7 +51,7 @@ export const Verify = () => {
                     })
             }
         }
-    }, [id, isLoggedIn, isLoading, setToken, setUser, token, user])
+    }, [isLoggedIn, user, isLoading, id, token, setToken, setUser])
 
     if (isLoading) return <VerifySkeleton />
 
