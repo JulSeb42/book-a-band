@@ -19,6 +19,8 @@ export const PATHS = {
     EDIT_ACCOUNT: "/my-account/edit",
     EDIT_PASSWORD: "/my-account/edit-password",
     CONVERSATION: (id = ":id") => `/conversations/${id}`,
+
+    ADMIN: "/admin",
 }
 
 export const SERVER_PATHS = {

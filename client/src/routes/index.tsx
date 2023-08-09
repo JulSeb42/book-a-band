@@ -27,6 +27,8 @@ import {
 
 import { MyAccount, EditAccount, EditPassword } from "pages/account"
 
+import { AdminDashboard } from "pages/AdminDashboard"
+
 type RouteType = {
     path: string
     element: JSX.Element
@@ -127,6 +129,15 @@ export const routes = createBrowserRouter([
         element: (
             <ProtectedRoute>
                 <Conversation />
+            </ProtectedRoute>
+        ),
+    },
+
+    {
+        path: PATHS.ADMIN,
+        element: (
+            <ProtectedRoute>
+                <AdminDashboard />
             </ProtectedRoute>
         ),
     },
