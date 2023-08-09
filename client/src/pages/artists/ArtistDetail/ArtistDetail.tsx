@@ -35,7 +35,13 @@ export const ArtistDetail = () => {
         error,
     } = useFetch<UserType>(userService.getUser(id!))
 
-    if (user?._id !== id && !artist?.isVisible && !loading) return <NotFound />
+    if (
+        user?._id !== id &&
+        !artist?.isVisible &&
+        user?.role !== "admin" &&
+        !loading
+    )
+        return <NotFound />
 
     return (
         <Page title={artist ? artist.fullName : "Artist"} error={error} noMain>

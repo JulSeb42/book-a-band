@@ -6,7 +6,7 @@
         "start": "node server.js",
         "build": "cd client && yarn build",
         "install": "cd client && yarn",
-        "server": "nodemon --watch './**/*.ts' --exec 'ts-node' server/index.ts",
+        "server": "nodemon --watch './**/*.ts' --exec 'ts-node' --skipLibCheck server/index.ts",
         "client": "cd client && yarn dev",
         "dev": "concurrently --kill-others 'yarn server' 'yarn client'"
     },
