@@ -10,7 +10,7 @@ export const Toaster = () => {
     return (
         <HotToaster
             position="bottom-right"
-            toastOptions={{ duration: Infinity }}
+            toastOptions={{ duration: 2500 }}
             gutter={16}
             containerStyle={{ padding: 0 }}
         >

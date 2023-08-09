@@ -1,7 +1,6 @@
 /*=============================================== ForgotPasswordForm ===============================================*/
 
-import { useState } from "react"
-import type { FormEvent, ChangeEvent } from "react"
+import { useState, type ChangeEvent, type FormEvent } from "react"
 import { useNavigate } from "react-router-dom"
 import { emailRegex } from "ts-utils-julseb"
 

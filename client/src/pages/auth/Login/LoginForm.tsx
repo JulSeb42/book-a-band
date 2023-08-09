@@ -1,7 +1,6 @@
 /*=============================================== Login ===============================================*/
 
-import { useState, useContext } from "react"
-import type { ChangeEvent, FormEvent } from "react"
+import { useState, useContext, type ChangeEvent, type FormEvent } from "react"
 import { useNavigate } from "react-router-dom"
 import { emailRegex } from "ts-utils-julseb"
 

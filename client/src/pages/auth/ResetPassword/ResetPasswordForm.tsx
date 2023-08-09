@@ -1,7 +1,6 @@
 /*=============================================== ResetPasswordForm ===============================================*/
 
-import { useState, useEffect } from "react"
-import type { ChangeEvent, FormEvent } from "react"
+import { useState, useEffect, type ChangeEvent, type FormEvent } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { passwordRegex } from "ts-utils-julseb"
 
@@ -10,6 +9,7 @@ import { authService, userService } from "api"
 import { Form, Password, Text } from "components"
 import { FORM_VALIDATION } from "errors"
 import { PATHS } from "data"
+import { toast } from "utils"
 
 import type { ValidationStatusType, ErrorMessageType, UserType } from "types"
 
@@ -71,7 +71,10 @@ export const ResetPasswordForm = () => {
                 password,
                 resetToken: token!,
             })
-            .then(() => navigate(PATHS.LOGIN))
+            .then(() => {
+                navigate(PATHS.LOGIN)
+                toast.success("Your password was reset successfully!")
+            })
             .catch(err => {
                 setErrorMessage(err)
                 setIsFormLoading(false)

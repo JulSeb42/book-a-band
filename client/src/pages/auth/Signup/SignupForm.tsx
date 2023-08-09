@@ -1,7 +1,6 @@
 /*=============================================== SignupForm ===============================================*/
 
-import { useContext, useState } from "react"
-import type { ChangeEvent, FormEvent } from "react"
+import { useContext, useState, type ChangeEvent, type FormEvent } from "react"
 import { useSearchParams, useNavigate } from "react-router-dom"
 import { emailRegex, passwordRegex } from "ts-utils-julseb"
 

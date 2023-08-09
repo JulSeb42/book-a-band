@@ -1,7 +1,6 @@
 /*=============================================== EditAccount ===============================================*/
 
-import { useContext, useState } from "react"
-import type { FormEvent } from "react"
+import { useContext, useState, type FormEvent } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { deleteDuplicates } from "ts-utils-julseb"
 
@@ -17,7 +16,7 @@ import {
     EditAccountAvailabilities,
 } from "pages/account/EditAccount/sections"
 import { PATHS } from "data"
-import { formatDate, sortDates } from "utils"
+import { formatDate, sortDates, toast } from "utils"
 
 import type { ErrorMessageType } from "types"
 import type {
@@ -99,11 +98,14 @@ export const EditAccount = () => {
                     setToken(authToken)
                     navigate(PATHS.MY_ACCOUNT)
                     setIsSubmitLoading(false)
+                    toast.success("Changes were saved!")
                 })
                 .catch(err => {
                     setErrorMessage(err)
                     setIsSubmitLoading(false)
                 })
+        } else {
+            toast.error("User's data is missing.")
         }
     }
 

@@ -1,7 +1,11 @@
 /*=============================================== ArtistsFilters ===============================================*/
 
-import { useState } from "react"
-import type { ChangeEvent, Dispatch, SetStateAction } from "react"
+import {
+    useState,
+    type ChangeEvent,
+    type Dispatch,
+    type SetStateAction,
+} from "react"
 
 import {
     Button,

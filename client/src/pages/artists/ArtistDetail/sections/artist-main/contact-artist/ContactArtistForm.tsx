@@ -1,7 +1,6 @@
 /*=============================================== ContactArtistForm ===============================================*/
 
-import { useContext, useState } from "react"
-import type { ChangeEvent, FormEvent } from "react"
+import { useContext, useState, type ChangeEvent, type FormEvent } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { AuthContext } from "context"
