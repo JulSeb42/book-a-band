@@ -5,6 +5,7 @@ import { useSearchParams, Link } from "react-router-dom"
 import { Page, Text } from "components"
 import { SignupNav } from "pages/auth/Signup/SignupNav"
 import { SignupForm } from "pages/auth/Signup/SignupForm"
+import { NotFound } from "pages/NotFound"
 import { PATHS } from "data"
 
 import type { UserRoleType } from "types"
@@ -12,6 +13,12 @@ import type { UserRoleType } from "types"
 export const Signup = () => {
     const [searchParams] = useSearchParams()
     const role = (searchParams.get("role") || "user") as UserRoleType
+
+    const roles: UserRoleType[] = ["admin", "artist", "user"]
+
+    if (!roles.find(v => v === role)) return <NotFound />
+
+    // if(role !== "artist")
 
     return (
         <Page title="Create an account" mainSize="form">
