@@ -117,6 +117,13 @@ router.get("/genres", (_, res, next) => {
         .catch(err => next(err))
 })
 
+// Get non approved users
+router.get("/non-approved-users", (_, res, next) => {
+    UserModel.find({ isApproved: false || null || undefined, role: "artist" })
+        .then(foundUsers => res.status(200).json(foundUsers))
+        .catch(err => next(err))
+})
+
 // Get user by ID
 router.get("/user/:id", (req, res, next) => {
     UserModel.findById(req.params.id)

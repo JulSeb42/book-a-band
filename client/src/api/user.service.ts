@@ -34,6 +34,10 @@ class UserService {
         return http.get(`${SERVER_PATHS.USERS}/genres`)
     }
 
+    nonApprovedUsers() {
+        return http.get(`${SERVER_PATHS.USERS}/non-approved-users`)
+    }
+
     getUser(id: string) {
         return http.get(`${SERVER_PATHS.USERS}/user/${id}`)
     }
