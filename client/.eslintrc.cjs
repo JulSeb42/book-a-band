@@ -19,7 +19,7 @@ module.exports = {
                 vars: "all",
                 args: "after-used",
                 ignoreRestSiblings: true,
-                destructuredArrayIgnorePattern: "[A-Z, _]",
+                destructuredArrayIgnorePattern: "[_]",
             },
         ],
         "@typescript-eslint/no-explicit-any": "off",
