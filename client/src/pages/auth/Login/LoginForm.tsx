@@ -77,6 +77,7 @@ export const LoginForm = () => {
                 setIsLoading(false)
             })
             .catch(err => {
+                console.log(err)
                 setErrorMessage(err)
                 setIsLoading(false)
             })

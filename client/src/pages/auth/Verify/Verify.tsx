@@ -23,18 +23,21 @@ export const Verify = () => {
     ) as AuthContextType
 
     const [isLoading, setIsLoading] = useState(true)
-    const [errorMessage, setErrorMessage] = useState<AxiosError | undefined>(
-        undefined
-    )
+    const [errorMessage, setErrorMessage] = useState<
+        AxiosError | undefined | string
+    >(undefined)
 
     useEffect(() => {
         if (isLoading) {
-            if (
-                id &&
-                isLoggedIn &&
-                user?._id === id &&
-                user?.verifyToken === token
-            ) {
+            if (!isLoggedIn) {
+                setIsLoading(false)
+            } else if (!id || id !== user?._id) {
+                setErrorMessage("User ID does not match.")
+                setIsLoading(false)
+            } else if (token !== user?.verifyToken) {
+                setErrorMessage("User token does not match.")
+                setIsLoading(false)
+            } else {
                 authService
                     .verify({ id })
                     .then(res => {
@@ -48,7 +51,7 @@ export const Verify = () => {
                     })
             }
         }
-    }, [id, isLoggedIn, setToken, setUser, token, user, isLoading])
+    }, [id, isLoggedIn, isLoading, setToken, setUser, token, user])
 
     if (isLoading) return <VerifySkeleton />
 

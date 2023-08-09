@@ -5,7 +5,7 @@ import type { AxiosError } from "axios"
 import { Page, Text } from "components"
 
 interface VerificationFailedProps {
-    error: AxiosError
+    error: AxiosError | string
 }
 
 export const VerificationFailed = ({ error }: VerificationFailedProps) => {
@@ -17,7 +17,7 @@ export const VerificationFailed = ({ error }: VerificationFailedProps) => {
                 Your account could not be verified, please try again later.
             </Text>
 
-            <Text>{error.message}</Text>
+            <Text>{typeof error === "string" ? error : error.message}</Text>
         </Page>
     )
 }

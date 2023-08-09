@@ -237,10 +237,22 @@ router.put("/edit-password/:id", async (req, res, next) => {
 })
 
 // Delete user
-router.delete("/delete-account/:id", (req, res, next) => {
-    UserModel.findByIdAndDelete(req.params.id)
-        .then(() => res.status(200).json({ message: "User deleted" }))
-        .catch(err => next(err))
+router.put("/delete-account/:id", async (req, res, next) => {
+    const { password } = req.body as { password: string }
+
+    const foundUser: UserType | null = await UserModel.findById(req.params.id)
+
+    if (foundUser) {
+        if (await bcrypt.compare(password, foundUser?.password)) {
+            UserModel.findByIdAndDelete(req.params.id)
+                .then(() => res.status(200).json({ message: "User deleted" }))
+                .catch(err => next(err))
+        } else {
+            return res.status(500).json({ message: "Wrong password." })
+        }
+    } else {
+        return res.status(500).json({ message: "User not found." })
+    }
 })
 
 export default router

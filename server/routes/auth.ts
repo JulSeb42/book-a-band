@@ -98,7 +98,7 @@ router.post("/login", (req, res, next) => {
         .then(foundUser => {
             if (!foundUser) {
                 return res
-                    .status(401)
+                    .status(500)
                     .json({ message: "This user does not exist." })
             }
 
@@ -115,7 +115,7 @@ router.post("/login", (req, res, next) => {
 
                 res.status(200).json({ authToken: authToken })
             } else {
-                res.status(401).json({
+                res.status(500).json({
                     message: "Unable to authenticate the user.",
                 })
             }

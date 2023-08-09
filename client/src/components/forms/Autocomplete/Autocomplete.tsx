@@ -119,6 +119,17 @@ export const Autocomplete = ({
                         handleBlur()
                     }
                 }
+
+                if (e.key === "Enter") {
+                    if (isFocus) {
+                        e.preventDefault()
+
+                        if (cursor !== -1) {
+                            setValue(results[cursor])
+                            handleBlur()
+                        }
+                    }
+                }
             }
         },
         [cursor, isOpen, results, setValue, isFocus]

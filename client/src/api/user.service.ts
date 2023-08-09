@@ -68,8 +68,8 @@ class UserService {
         return http.put(`${SERVER_PATHS.USERS}/edit-password/${id}`, data)
     }
 
-    deleteAccount(id: string) {
-        return http.delete(`${SERVER_PATHS.USERS}/delete-account/${id}`)
+    deleteAccount(id: string, data: { password: string }) {
+        return http.put(`${SERVER_PATHS.USERS}/delete-account/${id}`, data)
     }
 }
 
