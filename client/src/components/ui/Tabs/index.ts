@@ -1,3 +1,3 @@
 /*=============================================== Tabs exports ===============================================*/
 
-export * from "components/Tabs/Tabs"
+export * from "components/ui/Tabs/Tabs"

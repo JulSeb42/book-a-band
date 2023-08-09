@@ -1,5 +1,7 @@
 /*=============================================== Common types ===============================================*/
 
+import type { ReactNode } from "react"
+
 import type { typeValues } from "components/types"
 
 export type ColorsType = keyof typeof typeValues.colors
@@ -51,4 +53,10 @@ export interface BorderProps {
 
 export type PaddingProps = {
     padding?: PaddingType
+}
+
+export type TabItemType = {
+    id: number
+    title: string
+    content: ReactNode | ReactNode[] | string
 }

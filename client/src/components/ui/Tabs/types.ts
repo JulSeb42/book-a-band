@@ -1,7 +1,8 @@
 /*=============================================== Tabs types ===============================================*/
 
-import type { ElementType } from "react"
+import type { TabItemType } from "components/types"
 
 export interface TabsProps {
-	as?: ElementType
+    tabs: TabItemType[]
+    defaultTab?: string
 }

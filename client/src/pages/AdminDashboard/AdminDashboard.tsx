@@ -6,7 +6,7 @@ import { AuthContext, type AuthContextType } from "context"
 
 import { Page, Text } from "components"
 import { NotFound } from "pages/NotFound"
-import { ArtistsList } from "pages/AdminDashboard/ArtistsList"
+import { ArtistsTabs } from "pages/AdminDashboard/ArtistsTabs"
 
 export const AdminDashboard = () => {
     const { user } = useContext(AuthContext) as AuthContextType
@@ -17,7 +17,7 @@ export const AdminDashboard = () => {
         <Page title="Dashboard">
             <Text tag="h1">Admin dashboard</Text>
 
-            <ArtistsList />
+            <ArtistsTabs />
         </Page>
     )
 }
