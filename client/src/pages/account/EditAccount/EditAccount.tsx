@@ -4,8 +4,7 @@ import { useContext, useState, type FormEvent } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { deleteDuplicates } from "ts-utils-julseb"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 import { userService } from "api"
 
 import { Page, Main, Aside, Form, Text, Flexbox } from "components"

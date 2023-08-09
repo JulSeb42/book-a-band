@@ -3,8 +3,7 @@
 import { useContext } from "react"
 import { Link } from "react-router-dom"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 
 import { Text, Skeleton } from "components"
 import { ContactArtistContent } from "pages/artists/ArtistDetail/sections/artist-main/contact-artist/ContactArtistContent"

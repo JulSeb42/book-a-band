@@ -3,8 +3,7 @@
 import { useContext, useState, useRef } from "react"
 import { NavLink } from "react-router-dom"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 
 import { Burger } from "components/layouts/Burger"
 import { useClickOutside } from "hooks"

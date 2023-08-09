@@ -10,7 +10,7 @@ class UserService {
         return http.get(`${SERVER_PATHS.USERS}/all-users`)
     }
 
-    allArtists({
+    artists({
         city,
         genre,
         query,
@@ -26,16 +26,20 @@ class UserService {
         )
     }
 
+    artistsAdmin({ isApproved }: { isApproved?: boolean }) {
+        return http.get(
+            `${SERVER_PATHS.USERS}/artists-admin?${
+                isApproved ? `isApproved=${isApproved.toString()}` : ""
+            }`
+        )
+    }
+
     allCities() {
         return http.get(`${SERVER_PATHS.USERS}/cities`)
     }
 
     allGenres() {
         return http.get(`${SERVER_PATHS.USERS}/genres`)
-    }
-
-    nonApprovedUsers() {
-        return http.get(`${SERVER_PATHS.USERS}/non-approved-users`)
     }
 
     getUser(id: string) {

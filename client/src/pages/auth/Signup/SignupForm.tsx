@@ -4,8 +4,7 @@ import { useContext, useState, type ChangeEvent, type FormEvent } from "react"
 import { useSearchParams, useNavigate } from "react-router-dom"
 import { emailRegex, passwordRegex } from "ts-utils-julseb"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 import { authService } from "api"
 
 import { Form, Input, Password, Autocomplete, Text } from "components"

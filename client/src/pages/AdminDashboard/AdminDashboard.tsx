@@ -2,18 +2,22 @@
 
 import { useContext } from "react"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
-import { userService } from "api"
+import { AuthContext, type AuthContextType } from "context"
 
-import { Page } from "components"
+import { Page, Text } from "components"
 import { NotFound } from "pages/NotFound"
-import { useFetch } from "hooks"
+import { ArtistsList } from "pages/AdminDashboard/ArtistsList"
 
 export const AdminDashboard = () => {
     const { user } = useContext(AuthContext) as AuthContextType
 
     if (user?.role !== "admin") return <NotFound />
 
-    return <Page title="Dashboard"></Page>
+    return (
+        <Page title="Dashboard">
+            <Text tag="h1">Admin dashboard</Text>
+
+            <ArtistsList />
+        </Page>
+    )
 }

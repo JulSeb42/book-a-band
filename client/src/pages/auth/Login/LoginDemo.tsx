@@ -3,8 +3,7 @@
 import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 import { authService } from "api"
 
 import { Button, Grid, Flexbox, Text } from "components"

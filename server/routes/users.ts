@@ -8,12 +8,7 @@ import { passwordRegex, deleteDuplicates, slugify } from "ts-utils-julseb"
 
 import { UserModel } from "../models/User.model"
 
-import {
-    SALT_ROUNDS,
-    TOKEN_SECRET,
-    jwtConfig,
-    getVisibleArtists,
-} from "../utils"
+import { SALT_ROUNDS, TOKEN_SECRET, jwtConfig, visibleArtists } from "../utils"
 import type { SortType, UserType } from "../types"
 
 const router = Router()
@@ -33,6 +28,31 @@ router.get("/all-users", (_, res, next) => {
         .catch(err => next(err))
 })
 
+// Get all artists with non approved ones
+router.get("/artists-admin", (req, res, next) => {
+    const { isApproved } = req.query as {
+        isApproved?: "true" | "false"
+    }
+
+    UserModel.find({ role: "artist" })
+        .then(foundUsers => {
+            if (isApproved) {
+                if (isApproved === "true") {
+                    foundUsers = foundUsers.filter(
+                        user => user.isApproved === true
+                    )
+                } else if (isApproved === "false") {
+                    foundUsers = foundUsers.filter(
+                        user => user.isApproved !== true
+                    )
+                }
+            }
+
+            return res.status(200).json(foundUsers)
+        })
+        .catch(err => next(err))
+})
+
 // Get artists
 router.get("/artists", (req, res, next) => {
     const { city, genre, query, sort } = req.query as {
@@ -42,31 +62,27 @@ router.get("/artists", (req, res, next) => {
         sort?: SortType | "undefined"
     }
 
-    UserModel.find()
+    UserModel.find(visibleArtists)
         .then(usersFromDb => {
-            let artists = usersFromDb.filter(
-                user => user.role === "artist" && user.isVisible
-            )
-
-            artists.forEach(artist => {
+            usersFromDb.forEach(artist => {
                 artist.available = artist.available
                     .filter(date => new Date(date) >= new Date())
                     .sort((a, b) => (new Date(a) < new Date(b) ? -1 : 0))
             })
 
             if (city !== "undefined")
-                artists = artists.filter(
+                usersFromDb = usersFromDb.filter(
                     artist => slugify(artist.city!) === slugify(city!)
                 )
 
             if (genre !== "undefined")
-                artists = artists.filter(
+                usersFromDb = usersFromDb.filter(
                     artist => slugify(artist.genre!) === slugify(genre!)
                 )
 
             if (sort !== "undefined") {
                 if (sort === "availability") {
-                    artists = artists.sort((a, b) =>
+                    usersFromDb = usersFromDb.sort((a, b) =>
                         new Date(a.available[0]) < new Date(b.available[0])
                             ? -1
                             : 0
@@ -74,32 +90,32 @@ router.get("/artists", (req, res, next) => {
                 }
 
                 if (sort === "price") {
-                    artists = artists.sort(
+                    usersFromDb = usersFromDb.sort(
                         (a, b) => (a.price || 0) - (b.price || 0)
                     )
                 }
             }
 
             if (query !== "undefined") {
-                const fuse = new Fuse(artists, {
+                const fuse = new Fuse(usersFromDb, {
                     keys: ["city", "genre", "fullName"],
                 })
 
-                artists = fuse?.search(query!).map(fuseItem => fuseItem.item)
+                usersFromDb = fuse
+                    ?.search(query!)
+                    .map(fuseItem => fuseItem.item)
             }
 
-            res.status(200).json(artists)
+            return res.status(200).json(usersFromDb)
         })
         .catch(err => next(err))
 })
 
 // Get all cities
 router.get("/cities", (_, res, next) => {
-    UserModel.find()
+    UserModel.find(visibleArtists)
         .then(usersFromDb => {
-            // @ts-expect-error
-            const artists = getVisibleArtists(usersFromDb)
-            const cities = artists.map(artist => artist.city)
+            const cities = usersFromDb.map(artist => artist.city)
             return res.status(200).json(deleteDuplicates(cities))
         })
         .catch(err => next(err))
@@ -109,18 +125,9 @@ router.get("/cities", (_, res, next) => {
 router.get("/genres", (_, res, next) => {
     UserModel.find()
         .then(usersFromDb => {
-            // @ts-expect-error
-            const artists = getVisibleArtists(usersFromDb)
-            const genres = artists.map(artist => artist.genre)
+            const genres = usersFromDb.map(artist => artist.genre)
             return res.status(200).json(deleteDuplicates(genres))
         })
-        .catch(err => next(err))
-})
-
-// Get non approved users
-router.get("/non-approved-users", (_, res, next) => {
-    UserModel.find({ isApproved: false || null || undefined, role: "artist" })
-        .then(foundUsers => res.status(200).json(foundUsers))
         .catch(err => next(err))
 })
 
