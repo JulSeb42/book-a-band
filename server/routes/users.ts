@@ -31,26 +31,42 @@ router.get("/all-users", (_, res, next) => {
 // Get all artists with non approved ones
 router.get("/artists-admin", (req, res, next) => {
     const { isApproved } = req.query as {
-        isApproved?: "true" | "false"
+        isApproved: "true" | "false" | "undefined"
     }
 
     UserModel.find({ role: "artist" })
         .then(foundUsers => {
-            if (isApproved) {
-                if (isApproved === "true") {
-                    foundUsers = foundUsers.filter(
-                        user => user.isApproved === true
-                    )
-                } else if (isApproved === "false") {
-                    foundUsers = foundUsers.filter(
-                        user => user.isApproved !== true
-                    )
-                }
-            }
+            // foundUsers
+            const approvedArtists = foundUsers.filter(
+                artist => artist.isApproved === true
+            )
+            const rejectedArtists = foundUsers.filter(
+                artist => artist.isApproved === false
+            )
+            const pendingArtists = foundUsers.filter(
+                artist =>
+                    artist.isApproved !== true && artist.isApproved !== false
+            )
 
-            return res.status(200).json(foundUsers)
+            const artists = foundUsers.filter(artist => {
+                if (isApproved === "true") return artist.isApproved === true
+                if (isApproved === "false") return artist.isApproved === false
+                return artist.isApproved !== true && artist.isApproved !== false
+            })
+
+            return res.status(200).json({
+                artists,
+                approvedArtists: approvedArtists.length,
+                rejectedArtists: rejectedArtists.length,
+                pendingArtists: pendingArtists.length,
+            })
         })
-        .catch(err => next(err))
+        .catch(err => {
+            next(err)
+            return res
+                .status(400)
+                .json({ message: "Error while fetching artists." })
+        })
 })
 
 // Get artists
@@ -248,6 +264,19 @@ router.put("/edit-password/:id", async (req, res, next) => {
     } else {
         return res.status(400).json({ message: "User not found." })
     }
+})
+
+// Approve artist
+router.put("/approve-artist/:id", async (req, res, next) => {
+    const { isApproved } = req.body as { isApproved: boolean }
+
+    await UserModel.findByIdAndUpdate(
+        req.params.id,
+        { isApproved },
+        { new: true }
+    )
+        .then(updatedUser => res.status(200).json(updatedUser))
+        .catch(err => next(err))
 })
 
 // Delete user

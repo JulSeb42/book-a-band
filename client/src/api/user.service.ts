@@ -26,12 +26,18 @@ class UserService {
         )
     }
 
-    artistsAdmin({ isApproved }: { isApproved?: boolean }) {
+    artistsAdmin({
+        isApproved,
+    }: {
+        isApproved: "true" | "false" | "undefined"
+    }) {
         return http.get(
-            `${SERVER_PATHS.USERS}/artists-admin?${
-                isApproved ? `isApproved=${isApproved.toString()}` : ""
-            }`
+            `${SERVER_PATHS.USERS}/artists-admin?isApproved=${isApproved}`
         )
+    }
+
+    approveArtist(id: string, data: { isApproved: boolean }) {
+        return http.put(`${SERVER_PATHS.USERS}/approve-artist/${id}`, data)
     }
 
     allCities() {

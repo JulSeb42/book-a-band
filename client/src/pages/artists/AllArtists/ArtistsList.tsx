@@ -49,7 +49,7 @@ export const ArtistsList = ({
                 </Fragment>
             ))}
 
-            {totalPages > 1 && <Pagination totalPages={totalPages} />}
+            <Pagination totalPages={totalPages} />
         </>
     )
 }

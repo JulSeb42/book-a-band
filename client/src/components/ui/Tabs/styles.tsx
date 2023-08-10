@@ -7,11 +7,11 @@ export const StyledTabs = styled.div`
     ${Mixins.Flexbox({
         flexDirection: "column",
         alignItems: "stretch",
-        gap: "m",
+        gap: "l",
     })}
 `
 
-export const TabsButtonsContainer = styled.div`
+export const StyledTabsButtonsContainer = styled.div`
     position: relative;
     ${Mixins.Flexbox({
         gap: "m",
@@ -29,7 +29,7 @@ export const TabsButtonsContainer = styled.div`
     }
 `
 
-export const TabButton = styled.button<{ $isActive: boolean }>`
+export const StyledTabButton = styled.button<{ $isActive: boolean }>`
     min-width: 80px;
     text-align: left;
     border: none;
@@ -52,7 +52,7 @@ export const TabButton = styled.button<{ $isActive: boolean }>`
     }
 `
 
-export const Tab = styled.div<{ $isActive: boolean }>`
+export const StyledTab = styled.div<{ $isActive: boolean }>`
     display: ${({ $isActive }) => ($isActive ? "flex" : "none")};
     flex-direction: column;
     gap: ${SPACERS.S};

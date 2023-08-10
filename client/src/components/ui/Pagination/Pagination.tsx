@@ -56,6 +56,8 @@ export const Pagination = ({ totalPages, pageLimit = 5 }: PaginationProps) => {
     }
     const paginationGroup = getPaginationGroup()
 
+    if (totalPages <= 1) return null
+
     return (
         <StyledPagination>
             <StyledPaginationButton
