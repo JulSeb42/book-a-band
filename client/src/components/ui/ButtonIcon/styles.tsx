@@ -2,7 +2,15 @@
 
 import styled from "styled-components"
 
-import { BREAKPOINTS, COLORS, Mixins, RADIUSES, TRANSITIONS } from "components"
+import {
+    BREAKPOINTS,
+    COLORS,
+    Mixins,
+    RADIUSES,
+    SPACERS,
+    TRANSITIONS,
+    OVERLAYS,
+} from "components"
 import type { ButtonIconStyleProps } from "components/ui/ButtonIcon/types"
 
 export const StyledButtonIcon = styled.button<ButtonIconStyleProps>`
@@ -57,5 +65,43 @@ export const StyledButtonIcon = styled.button<ButtonIconStyleProps>`
                 $variant === "transparent" &&
                 Mixins.ColorHoverActive({ color: $color })};
         }
+    }
+`
+
+export const ButtonContainer = styled.span`
+    position: relative;
+`
+
+export const Label = styled.span<{
+    $isVisible: boolean
+    $buttonSize: number
+    $width: number
+    $height: number
+}>`
+    position: absolute;
+    top: calc(${({ $height }) => $height * -1}px - ${SPACERS.XS});
+    left: calc(50% - ${({ $width }) => $width}px / 2);
+    background-color: ${OVERLAYS.BLACK_80};
+    color: ${COLORS.WHITE};
+    border-radius: ${RADIUSES.S};
+    padding: ${SPACERS.XXS} ${SPACERS.S};
+    opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
+    visibility: ${({ $isVisible }) => ($isVisible ? "visible" : "hidden")};
+    text-align: center;
+    transition: ${TRANSITIONS.SHORT};
+
+    &:after {
+        content: "";
+        margin-left: 2px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: ${OVERLAYS.BLACK_80} transparent transparent transparent;
+        z-index: 1;
+        transition: ${TRANSITIONS.SHORT};
+        position: absolute;
+        left: calc(
+            (${({ $width }) => $width}px + ${SPACERS.XXS} * 2) / 2 - 10px
+        );
+        bottom: calc(${SPACERS.XS} * -1 - 2px);
     }
 `

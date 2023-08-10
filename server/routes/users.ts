@@ -9,12 +9,17 @@ import { passwordRegex, deleteDuplicates, slugify } from "ts-utils-julseb"
 import { UserModel } from "../models/User.model"
 
 import { SALT_ROUNDS, TOKEN_SECRET, jwtConfig, visibleArtists } from "../utils"
-import type { SortType, UserType } from "../types"
+import type { SortType, UserRoleType, UserType } from "../types"
 
 const router = Router()
 
 // Get all users
-router.get("/all-users", (_, res, next) => {
+router.get("/all-users", (req, res, next) => {
+    const { role, isApproved } = req.query as {
+        role?: UserRoleType
+        isApproved?: "true" | "false" | "undefined"
+    }
+
     UserModel.find()
         .populate("conversations")
         .populate({
@@ -24,8 +29,35 @@ router.get("/all-users", (_, res, next) => {
                 model: "Message",
             },
         })
-        .then(usersFromDb => res.status(200).json(usersFromDb))
-        .catch(err => next(err))
+        .then(usersFromDb => {
+            if (isApproved) {
+                if (isApproved === "true")
+                    usersFromDb = usersFromDb.filter(
+                        user => user.isApproved === true
+                    )
+                if (isApproved === "false")
+                    usersFromDb = usersFromDb.filter(
+                        user => user.isApproved === false
+                    )
+                if (isApproved === "undefined")
+                    usersFromDb = usersFromDb.filter(
+                        user =>
+                            user.isApproved !== true &&
+                            user.isApproved !== false
+                    )
+            }
+
+            if (role)
+                usersFromDb = usersFromDb.filter(user => user.role === role)
+
+            return res.status(200).json(usersFromDb)
+        })
+        .catch(err => {
+            next(err)
+            return res
+                .status(400)
+                .json({ message: "Error while fetching artists." })
+        })
 })
 
 // Get all artists with non approved ones

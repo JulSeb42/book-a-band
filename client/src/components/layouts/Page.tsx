@@ -12,7 +12,7 @@ import type { HelmetProps } from "components/layouts/Helmet"
 import type { MainSizesType } from "components/layouts/Main/types"
 import type { ServerErrorType } from "types"
 
-interface PageProps extends HelmetProps {
+export interface PageProps extends HelmetProps {
     children?: ReactNode | ReactNode[]
     noWrapper?: boolean
     noHeader?: boolean

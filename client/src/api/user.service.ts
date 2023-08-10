@@ -3,11 +3,21 @@
 import { http } from "api"
 import { SERVER_PATHS } from "data"
 
-import type { SortType } from "types"
+import type { SortType, UserRoleType, AdminApproveStatusType } from "types"
 
 class UserService {
-    allUsers() {
-        return http.get(`${SERVER_PATHS.USERS}/all-users`)
+    allUsers({
+        role,
+        isApproved,
+    }: {
+        role?: UserRoleType | undefined
+        isApproved?: AdminApproveStatusType | undefined
+    }) {
+        return http.get(
+            `${SERVER_PATHS.USERS}/all-users?${
+                role !== undefined ? `?role=${role}` : ""
+            }${isApproved !== undefined ? `?isApproved=${isApproved}` : ""}`
+        )
     }
 
     artists({

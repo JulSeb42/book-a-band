@@ -6,7 +6,7 @@ import { AuthContext, type AuthContextType } from "context"
 
 import { Page, Text } from "components"
 import { NotFound } from "pages/NotFound"
-import { ArtistsTabs } from "pages/AdminDashboard/ArtistsTabs"
+import { UsersList } from "pages/AdminDashboard/sections"
 
 export const AdminDashboard = () => {
     const { user } = useContext(AuthContext) as AuthContextType
@@ -14,10 +14,9 @@ export const AdminDashboard = () => {
     if (user?.role !== "admin") return <NotFound />
 
     return (
-        <Page title="Dashboard">
-            <Text tag="h1">Admin dashboard</Text>
-
-            <ArtistsTabs />
+        <Page title="Dashboard" mainSize="large">
+            <Text tag="h1">Dashboard</Text>
+            <UsersList />
         </Page>
     )
 }
