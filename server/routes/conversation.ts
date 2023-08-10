@@ -70,13 +70,13 @@ router.get("/conversation/:id", (req, res, next) => {
 // New conversation
 router.post("/new-conversation", (req, res, next) => {
     const { body, user1, user2 } = req.body as {
-        body: string
+        body?: string
         user1: string
         user2: string
     }
 
-    if (!body)
-        return res.status(400).json({ message: "Body can not be empty." })
+    // if (!body)
+    //     return res.status(400).json({ message: "Body can not be empty." })
 
     ConversationModel.create({
         user1,
@@ -85,6 +85,37 @@ router.post("/new-conversation", (req, res, next) => {
         readUser2: false,
     })
         .then(createdConversation => {
+            if (!body) {
+                UserModel.findByIdAndUpdate(
+                    user1,
+                    { $push: { conversations: createdConversation } },
+                    { new: true }
+                ).then(updatedUser1 => {
+                    UserModel.findByIdAndUpdate(
+                        user2,
+                        { $push: { conversations: createdConversation } },
+                        { new: true }
+                    ).then(() => {
+                        const payload = { user: updatedUser1 }
+
+                        // @ts-expect-error
+                        const authToken = jwt.sign(
+                            payload,
+                            TOKEN_SECRET,
+                            jwtConfig
+                        )
+
+                        return res.status(201).json({
+                            createdConversation,
+                            user: updatedUser1,
+                            authToken: authToken,
+                        })
+                    })
+                })
+
+                return
+            }
+
             MessageModel.create({
                 body,
                 sender: user1,

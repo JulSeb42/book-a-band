@@ -24,10 +24,20 @@ router.get("/all-users", (req, res, next) => {
         .populate("conversations")
         .populate({
             path: "conversations",
-            populate: {
-                path: "messages",
-                model: "Message",
-            },
+            populate: [
+                {
+                    path: "messages",
+                    model: "Message",
+                },
+                {
+                    path: "user1",
+                    model: "User",
+                },
+                {
+                    path: "user2",
+                    model: "User",
+                },
+            ],
         })
         .then(usersFromDb => {
             if (isApproved) {

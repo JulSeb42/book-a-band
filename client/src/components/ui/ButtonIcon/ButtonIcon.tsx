@@ -78,6 +78,7 @@ export const ButtonIcon = forwardRef(
                 <ButtonContainer
                     onMouseEnter={() => setIsLabelVisible(true)}
                     onMouseLeave={() => setIsLabelVisible(false)}
+                    $size={size}
                 >
                     <Label
                         ref={labelRef}

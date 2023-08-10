@@ -19,14 +19,22 @@ import type { ConversationCardProps } from "components/conversation/Conversation
 export const ConversationCard = ({ conversation }: ConversationCardProps) => {
     const { user } = useContext(AuthContext) as AuthContextType
 
+    // console.log(conversation)
+
     const conversationUser =
         user?._id === conversation.user1._id
             ? conversation.user2
             : conversation.user1
 
-    const isoDateLastMessage = new Date(
-        conversation?.messages[conversation?.messages?.length - 1].updatedAt
-    )
+    const isoDateLastMessage = conversation?.messages?.length
+        ? new Date(
+              conversation?.messages[
+                  conversation?.messages?.length - 1
+              ].updatedAt
+          )
+        : conversation?.updatedAt
+        ? new Date(conversation?.updatedAt)
+        : new Date(conversation?.createdAt)
 
     const dateLastMessage = getDateFromIso(isoDateLastMessage)
     const today = getDateFromIso(new Date())
@@ -45,10 +53,14 @@ export const ConversationCard = ({ conversation }: ConversationCardProps) => {
                 </Text>
 
                 <Text maxLines={1}>
-                    {
+                    {conversation.messages.length ? (
                         conversation.messages[conversation.messages.length - 1]
                             .body
-                    }
+                    ) : (
+                        <Text tag="em" color="gray">
+                            No message
+                        </Text>
+                    )}
                 </Text>
 
                 <Text tag="small" color="gray">

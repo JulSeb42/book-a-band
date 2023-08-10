@@ -4,7 +4,8 @@ import { useState } from "react"
 import { useSearchParams } from "react-router-dom"
 
 import { Icon } from "components"
-import { useQueryParams } from "hooks"
+import { useQueryParams, useAdminParams } from "hooks"
+import { filterObject } from "utils"
 
 import {
     StyledPagination,
@@ -16,6 +17,12 @@ export const Pagination = ({ totalPages, pageLimit = 5 }: PaginationProps) => {
     const [_, setSearchParams] = useSearchParams()
 
     const { page, ...params } = useQueryParams()
+    const adminParams = useAdminParams()
+
+    const filteredAdminParams: any = filterObject(
+        adminParams,
+        ([_, v]) => v !== null
+    )
 
     const [currentPage, setCurrentPage] = useState(parseInt(page || "1"))
 
@@ -24,6 +31,7 @@ export const Pagination = ({ totalPages, pageLimit = 5 }: PaginationProps) => {
 
         setSearchParams({
             ...params,
+            ...filteredAdminParams,
             page: (currentPage - 1).toString(),
         })
     }
@@ -33,6 +41,7 @@ export const Pagination = ({ totalPages, pageLimit = 5 }: PaginationProps) => {
 
         setSearchParams({
             ...params,
+            ...filteredAdminParams,
             page: (currentPage + 1).toString(),
         })
     }
@@ -42,6 +51,7 @@ export const Pagination = ({ totalPages, pageLimit = 5 }: PaginationProps) => {
 
         setSearchParams({
             ...params,
+            ...filteredAdminParams,
             page: n.toString(),
         })
     }

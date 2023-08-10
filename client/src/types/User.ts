@@ -29,4 +29,6 @@ export type UserType = {
     isVisible: boolean
     conversations: ConversationType[]
     isApproved: boolean
+    createdAt: Date
+    updatedAt: Date
 }

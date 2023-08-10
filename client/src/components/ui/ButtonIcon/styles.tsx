@@ -68,8 +68,10 @@ export const StyledButtonIcon = styled.button<ButtonIconStyleProps>`
     }
 `
 
-export const ButtonContainer = styled.span`
+export const ButtonContainer = styled.span<{ $size: number }>`
     position: relative;
+    width: ${({ $size }) => $size}px;
+    height: ${({ $size }) => $size}px;
 `
 
 export const Label = styled.span<{

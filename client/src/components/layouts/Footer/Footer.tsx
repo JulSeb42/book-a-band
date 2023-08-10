@@ -40,6 +40,9 @@ export const Footer = () => {
                         check my portfolio here
                     </a>
                     !
+                    <br />
+                    You can also contact me at{" "}
+                    <a href={`mailto:${SITE_DATA.EMAIL}`}>{SITE_DATA.EMAIL}</a>.
                 </Text>
             </Flexbox>
         </StyledFooter>

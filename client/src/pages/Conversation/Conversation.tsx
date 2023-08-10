@@ -45,9 +45,7 @@ export const Conversation = () => {
             error={error}
         >
             <ReadConversation />
-
             <ConversationHeader otherUser={otherUser!} isLoading={loading} />
-
             <Chat conversation={conversation!} isLoading={loading} />
         </Page>
     )
