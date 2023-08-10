@@ -1,10 +1,11 @@
 /*=============================================== Dashboard ===============================================*/
 
 import { useState, useEffect } from "react"
+import Fuse from "fuse.js"
 
 import { userService } from "api"
 
-import { AdminLayout, Flexbox } from "components"
+import { AdminLayout, Flexbox, SearchDashboard } from "components"
 import { UsersList } from "pages/dashboard/Dashboard/UsersList"
 import { useAdminParams } from "hooks"
 import type { UserType } from "types"
@@ -17,6 +18,8 @@ export const Dashboard = () => {
     const [errorMessage, setErrorMessage] = useState<undefined | string>(
         undefined
     )
+
+    const [search, setSearch] = useState("")
 
     useEffect(() => {
         userService
@@ -36,11 +39,18 @@ export const Dashboard = () => {
             .catch(err => setErrorMessage(err.response.data.message))
     }, [role])
 
+    const fuse = new Fuse(users, {
+        keys: ["fullName"],
+    })
+    const results = fuse.search(search).map(option => option.item)
+
     return (
         <AdminLayout title="Dashboard">
+            <SearchDashboard search={search} setSearch={setSearch} />
+
             <Flexbox gap="s" flexDirection="column" alignItems="stretch">
                 <UsersList
-                    users={users}
+                    users={search.length ? results : users}
                     isLoading={loading}
                     errorMessage={errorMessage}
                 />

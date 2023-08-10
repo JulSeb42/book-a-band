@@ -27,13 +27,17 @@ export const UsersList = ({
 
     return (
         <>
-            {paginatedData.map((user, i) => (
-                <Fragment key={user._id}>
-                    <UserLineContact user={user} />
+            {paginatedData.length ? (
+                paginatedData.map((user, i) => (
+                    <Fragment key={user._id}>
+                        <UserLineContact user={user} />
 
-                    {i !== paginatedData.length - 1 && <Hr />}
-                </Fragment>
-            ))}
+                        {i !== paginatedData.length - 1 && <Hr />}
+                    </Fragment>
+                ))
+            ) : (
+                <Text>No result.</Text>
+            )}
 
             <Pagination totalPages={totalPages} />
         </>

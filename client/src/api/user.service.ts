@@ -10,12 +10,19 @@ class UserService {
         role,
         isApproved,
     }: {
-        role?: UserRoleType | undefined
+        role?: UserRoleType | "all" | undefined
         isApproved?: AdminApproveStatusType | undefined
     }) {
+        const getRole = () => {
+            if (role === null) return null
+            if (role === undefined) return null
+            if (role === "all") return null
+            return role
+        }
+
         return http.get(
             `${SERVER_PATHS.USERS}/all-users?${
-                role !== undefined ? `?role=${role}` : ""
+                getRole() !== null ? `role=${getRole()}` : ""
             }${isApproved !== undefined ? `?isApproved=${isApproved}` : ""}`
         )
     }

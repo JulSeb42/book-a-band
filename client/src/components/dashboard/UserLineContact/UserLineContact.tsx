@@ -11,8 +11,8 @@ import { Avatar, Flexbox, ButtonIcon, Text } from "components"
 import { PATHS } from "data"
 import type { ButtonIconProps } from "components/ui/ButtonIcon/types"
 
-import { Name } from "components/user/UserLineContact/styles"
-import type { UserLineContactProps } from "components/user/UserLineContact/types"
+import { Name } from "components/dashboard/UserLineContact/styles"
+import type { UserLineContactProps } from "components/dashboard/UserLineContact/types"
 
 export const UserLineContact = ({ user }: UserLineContactProps) => {
     const navigate = useNavigate()

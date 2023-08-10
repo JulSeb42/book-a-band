@@ -1,3 +1,3 @@
 /*=============================================== UserLineContact exports ===============================================*/
 
-export * from "components/user/UserLineContact/UserLineContact"
+export * from "components/dashboard/UserLineContact/UserLineContact"
