@@ -12,18 +12,30 @@ import { PATHS } from "data"
 interface ProtectedRouteProps {
     children: ReactNode | ReactNode[]
     redirectTo?: string
+    isAdminPage?: boolean
 }
 
 export const ProtectedRoute = ({
     children,
     redirectTo = PATHS.LOGIN,
+    isAdminPage,
 }: ProtectedRouteProps) => {
-    const { isLoggedIn, isLoading } = useContext(AuthContext) as AuthContextType
+    const { isLoggedIn, isLoading, user } = useContext(
+        AuthContext
+    ) as AuthContextType
 
     return isLoading ? (
         <PageLoading />
     ) : isLoggedIn ? (
-        children
+        isAdminPage ? (
+            user?.role === "admin" ? (
+                children
+            ) : (
+                <Navigate to={redirectTo} />
+            )
+        ) : (
+            children
+        )
     ) : (
         <Navigate to={redirectTo} />
     )

@@ -8,6 +8,7 @@ export * from "components/utils/Mixins"
 
 export * from "components/ui/Logo"
 export * from "components/layouts/Page"
+export * from "components/layouts/AdminLayout"
 export * from "components/ui/Text"
 export * from "components/utils/Linkify"
 export * from "components/layouts/Flexbox"

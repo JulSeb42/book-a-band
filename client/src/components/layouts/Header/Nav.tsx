@@ -55,7 +55,7 @@ export const Nav = () => {
         {
             id: 4,
             text: "Admin",
-            to: PATHS.ADMIN,
+            to: PATHS.DASHBOARD,
             role: "admin",
         },
         {

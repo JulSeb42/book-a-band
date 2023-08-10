@@ -1,6 +1,7 @@
 /*=============================================== AdminLayout ===============================================*/
 
-import { Main, Aside, Page } from "components"
+import { Main, Page, Text } from "components"
+import { DashboardNav } from "components/layouts/DashboardNav"
 
 import type { PageProps } from "components/layouts/Page"
 
@@ -22,9 +23,13 @@ export const AdminLayout = ({
             keywords={keywords}
             noMain
         >
-            <Aside></Aside>
+            <DashboardNav />
 
-            <Main>{children}</Main>
+            <Main>
+                <Text tag="h1">{title}</Text>
+
+                {children}
+            </Main>
         </Page>
     )
 }

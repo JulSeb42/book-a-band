@@ -27,7 +27,7 @@ import {
 
 import { MyAccount, EditAccount, EditPassword } from "pages/account"
 
-import { AdminDashboard } from "pages/AdminDashboard"
+import { Dashboard, DashboardArtists, DashboardRoles } from "pages/dashboard"
 
 type RouteType = {
     path: string
@@ -134,10 +134,26 @@ export const routes = createBrowserRouter([
     },
 
     {
-        path: PATHS.ADMIN,
+        path: PATHS.DASHBOARD,
         element: (
-            <ProtectedRoute>
-                <AdminDashboard />
+            <ProtectedRoute isAdminPage>
+                <Dashboard />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: PATHS.DASHBOARD_ARTISTS,
+        element: (
+            <ProtectedRoute isAdminPage>
+                <DashboardArtists />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: PATHS.DASHBOARD_ROLES,
+        element: (
+            <ProtectedRoute isAdminPage>
+                <DashboardRoles />
             </ProtectedRoute>
         ),
     },
