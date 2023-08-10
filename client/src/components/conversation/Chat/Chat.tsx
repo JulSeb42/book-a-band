@@ -2,8 +2,7 @@
 
 import { useState, useEffect, useContext, useRef, useCallback } from "react"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 
 import { Hr, Text, INPUT_HEIGHT } from "components"
 import { SendMessage } from "components/conversation/Chat/SendMessage"

@@ -10,7 +10,7 @@ class UserService {
         return http.get(`${SERVER_PATHS.USERS}/all-users`)
     }
 
-    allArtists({
+    artists({
         city,
         genre,
         query,
@@ -24,6 +24,20 @@ class UserService {
         return http.get(
             `${SERVER_PATHS.USERS}/artists?city=${city}&genre=${genre}&query=${query}&sort=${sort}`
         )
+    }
+
+    artistsAdmin({
+        isApproved,
+    }: {
+        isApproved: "true" | "false" | "undefined"
+    }) {
+        return http.get(
+            `${SERVER_PATHS.USERS}/artists-admin?isApproved=${isApproved}`
+        )
+    }
+
+    approveArtist(id: string, data: { isApproved: boolean }) {
+        return http.put(`${SERVER_PATHS.USERS}/approve-artist/${id}`, data)
     }
 
     allCities() {

@@ -3,8 +3,7 @@
 import { useContext } from "react"
 import { convertDateShort } from "ts-utils-julseb"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 
 import { Avatar, Text, Badge, Skeleton, SkeletonCard } from "components"
 import { PATHS } from "data"

@@ -3,8 +3,7 @@
 import { useContext, useState, useRef } from "react"
 import { NavLink } from "react-router-dom"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 
 import { Burger } from "components/layouts/Burger"
 import { useClickOutside } from "hooks"
@@ -14,7 +13,7 @@ import { StyledNav, LinkNav } from "components/layouts/Header/styles"
 import type { NavLinkType } from "types"
 
 export const Nav = () => {
-    const { isLoggedIn, logoutUser } = useContext(
+    const { isLoggedIn, logoutUser, user } = useContext(
         AuthContext
     ) as AuthContextType
 
@@ -55,24 +54,39 @@ export const Nav = () => {
         },
         {
             id: 4,
+            text: "Admin",
+            to: PATHS.ADMIN,
+            role: "admin",
+        },
+        {
+            id: 5,
             text: "Log out",
             onClick: logoutUser,
         },
     ]
 
     const linksFn = (links: NavLinkType[]) =>
-        links.map(({ text, end, to, onClick, id }) => (
-            <LinkNav
-                as={onClick ? "button" : NavLink}
-                // @ts-expect-error: fixed by `as` prop
-                to={to}
-                onClick={onClick}
-                end={end}
-                key={id}
-            >
-                {text}
-            </LinkNav>
-        ))
+        links.map(({ text, end, to, onClick, id, role }) => {
+            const navLink = () => (
+                <LinkNav
+                    as={onClick ? "button" : NavLink}
+                    // @ts-expect-error: fixed by `as` prop
+                    to={to}
+                    onClick={onClick}
+                    end={end}
+                    key={id}
+                >
+                    {text}
+                </LinkNav>
+            )
+
+            if (role) {
+                if (user?.role === role) return navLink()
+                else return null
+            } else {
+                return navLink()
+            }
+        })
 
     return (
         <>

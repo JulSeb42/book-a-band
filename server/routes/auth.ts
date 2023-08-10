@@ -42,6 +42,12 @@ router.post("/signup", (req, res, next) => {
         })
     }
 
+    if (role === "admin") {
+        return res
+            .status(400)
+            .json({ message: "You can not create an account as an admin." })
+    }
+
     UserModel.findOne({ email })
         // @ts-expect-error
         .then(foundUser => {

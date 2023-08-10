@@ -3,8 +3,7 @@
 import { Fragment, useContext } from "react"
 import { generateNumbers } from "ts-utils-julseb"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 import { conversationService } from "api"
 
 import {

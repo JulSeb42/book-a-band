@@ -4,11 +4,10 @@ import { useContext, useState, type ChangeEvent, type FormEvent } from "react"
 import { useSearchParams, useNavigate } from "react-router-dom"
 import { emailRegex, passwordRegex } from "ts-utils-julseb"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 import { authService } from "api"
 
-import { Form, Input, Password, Autocomplete } from "components"
+import { Form, Input, Password, Autocomplete, Text } from "components"
 import { FORM_VALIDATION } from "errors"
 import { PATHS, GERMAN_CITIES } from "data"
 
@@ -121,6 +120,9 @@ export const SignupForm = () => {
                 setIsLoading(false)
             })
     }
+
+    if (role === "admin")
+        return <Text>You can not create an account as admin!</Text>
 
     return (
         <Form

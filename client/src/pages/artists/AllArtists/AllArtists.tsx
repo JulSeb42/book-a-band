@@ -47,20 +47,23 @@ export const AllArtists = () => {
         }
 
         userService
-            .allArtists({ city: getCity(), genre: getGenre(), query, sort })
+            .artists({ city: getCity(), genre: getGenre(), query, sort })
             .then(res => {
                 const artistsRes: UserType[] = res.data
 
                 setArtists(artistsRes)
 
-                if (isLoading) {
+                if (isLoading && artistsRes?.length) {
                     setPrices({
-                        minPrice: getMinMaxPrices(artistsRes).minPrice,
-                        maxPrice: getMinMaxPrices(artistsRes).maxPrice,
-                        globalMinPrice: getMinMaxPrices(artistsRes).minPrice,
-                        globalMaxPrice: getMinMaxPrices(artistsRes).maxPrice,
+                        minPrice: getMinMaxPrices(artistsRes).minPrice || 0,
+                        maxPrice: getMinMaxPrices(artistsRes).maxPrice || 0,
+                        globalMinPrice:
+                            getMinMaxPrices(artistsRes).minPrice || 0,
+                        globalMaxPrice:
+                            getMinMaxPrices(artistsRes).maxPrice || 0,
                     })
-
+                    setIsLoading(false)
+                } else {
                     setIsLoading(false)
                 }
             })

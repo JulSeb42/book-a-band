@@ -3,8 +3,7 @@
 import { useState, useContext, type FormEvent, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 import { userService } from "api"
 
 import { Button, Modal, Alert, Text, Flexbox, Password, Form } from "components"

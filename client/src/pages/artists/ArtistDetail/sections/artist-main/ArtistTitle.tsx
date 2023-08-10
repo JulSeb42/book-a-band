@@ -2,8 +2,7 @@
 
 import { useContext } from "react"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 
 import { Text, Skeleton, Flexbox } from "components"
 

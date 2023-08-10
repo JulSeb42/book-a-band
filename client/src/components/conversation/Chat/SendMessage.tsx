@@ -8,8 +8,7 @@ import {
     type SetStateAction,
 } from "react"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 import { conversationService } from "api"
 
 import { ButtonIcon, INPUT_HEIGHT } from "components"

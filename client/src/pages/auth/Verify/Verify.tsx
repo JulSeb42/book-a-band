@@ -4,8 +4,7 @@ import { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import type { AxiosError } from "axios"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 import { authService } from "api"
 
 import {

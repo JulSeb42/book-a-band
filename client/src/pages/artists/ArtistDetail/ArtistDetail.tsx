@@ -4,8 +4,7 @@ import { useContext } from "react"
 import { useParams } from "react-router-dom"
 
 import { userService } from "api"
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 
 import { Page, Main, Flexbox, Aside, Text } from "components"
 import { ArtistAsideLeft } from "pages/artists/ArtistDetail/sections/ArtistAsideLeft"
@@ -36,7 +35,13 @@ export const ArtistDetail = () => {
         error,
     } = useFetch<UserType>(userService.getUser(id!))
 
-    if (user?._id !== id && !artist?.isVisible && !loading) return <NotFound />
+    if (
+        user?._id !== id &&
+        !artist?.isVisible &&
+        user?.role !== "admin" &&
+        !loading
+    )
+        return <NotFound />
 
     return (
         <Page title={artist ? artist.fullName : "Artist"} error={error} noMain>

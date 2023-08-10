@@ -3,8 +3,7 @@
 import { useContext } from "react"
 import { useParams } from "react-router-dom"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 import { conversationService } from "api"
 
 import { Page, Chat } from "components"

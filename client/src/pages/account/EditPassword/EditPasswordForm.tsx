@@ -4,8 +4,7 @@ import { useState, useContext, type ChangeEvent, type FormEvent } from "react"
 import { useNavigate } from "react-router-dom"
 import { passwordRegex } from "ts-utils-julseb"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 import { userService } from "api"
 
 import { Password, Form } from "components"

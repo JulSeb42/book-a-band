@@ -18,4 +18,5 @@ const StyledHr = styled.hr`
     height: 1px;
     background-color: ${COLORS.GRAY_ACTIVE};
     border-radius: ${RADIUSES.ROUND};
+    margin: 0;
 `

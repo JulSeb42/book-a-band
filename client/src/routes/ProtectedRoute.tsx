@@ -3,8 +3,7 @@
 import { useContext, type ReactNode } from "react"
 import { Navigate } from "react-router-dom"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 
 import { PageLoading } from "components"
 
