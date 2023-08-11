@@ -19,9 +19,7 @@ export const ReadConversation = () => {
                 })
         }
 
-        if (id) {
-            readConversation()
-        }
+        readConversation()
     }, [id])
 
     return null

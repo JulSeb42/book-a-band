@@ -23,17 +23,20 @@ export const ResetPasswordForm = () => {
     const [isUserLoading, setIsUserLoading] = useState(true)
 
     useEffect(() => {
-        const getUser = async () =>
-            await userService
-                .getUser(id!)
-                .then(res => {
-                    setFoundUser(res.data)
-                    setIsUserLoading(false)
-                })
-                .catch(() => {
-                    setFoundUser(null)
-                    setIsUserLoading(false)
-                })
+        const getUser = async () => {
+            if (id)
+                await userService
+                    .getUser(id)
+                    .then(res => {
+                        setFoundUser(res.data)
+                        setIsUserLoading(false)
+                    })
+                    .catch(() => {
+                        setFoundUser(null)
+                        setIsUserLoading(false)
+                    })
+            else toast.error(FORM_VALIDATION.USER_ID_MISSING)
+        }
 
         getUser()
     }, [id])
@@ -68,20 +71,23 @@ export const ResetPasswordForm = () => {
 
         setIsFormLoading(true)
 
-        await authService
-            .resetPassword({
-                id: id!,
-                password,
-                resetToken: token!,
-            })
-            .then(() => {
-                navigate(PATHS.LOGIN)
-                toast.success("Your password was reset successfully!")
-            })
-            .catch(err => {
-                setErrorMessage(err)
-                setIsFormLoading(false)
-            })
+        if (id && token)
+            await authService
+                .resetPassword({
+                    id: id,
+                    password,
+                    resetToken: token,
+                })
+                .then(() => {
+                    navigate(PATHS.LOGIN)
+                    toast.success("Your password was reset successfully!")
+                })
+                .catch(err => {
+                    setErrorMessage(err)
+                    setIsFormLoading(false)
+                })
+        else if (!id) toast.error(FORM_VALIDATION.USER_ID_MISSING)
+        else if (!token) toast.error(FORM_VALIDATION.TOKEN_MISSING)
     }
 
     if (foundUser === null)

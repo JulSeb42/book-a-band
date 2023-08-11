@@ -28,7 +28,8 @@ export const Conversation = () => {
     if (
         (conversation?.user1?._id !== user?._id &&
             conversation?.user2?._id !== user?._id) ||
-        !id
+        !id ||
+        !conversation
     )
         return <NotFound />
 
@@ -45,8 +46,8 @@ export const Conversation = () => {
             error={error}
         >
             <ReadConversation />
-            <ConversationHeader otherUser={otherUser!} isLoading={loading} />
-            <Chat conversation={conversation!} isLoading={loading} />
+            <ConversationHeader otherUser={otherUser} isLoading={loading} />
+            <Chat conversation={conversation} isLoading={loading} />
         </Page>
     )
 }

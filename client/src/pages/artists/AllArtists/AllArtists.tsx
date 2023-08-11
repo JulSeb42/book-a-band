@@ -1,80 +1,25 @@
 /*=============================================== AllArtists ===============================================*/
 
-import { useState, useEffect } from "react"
-import type { AxiosError } from "axios"
-
-import { userService } from "api"
+import { useState } from "react"
 
 import { Page, SrOnly, Main, Aside, Flexbox } from "components"
 import { ArtistsFilters } from "pages/artists/AllArtists/ArtistsFilters"
 import { ArtistsList } from "pages/artists/AllArtists/ArtistsList"
 
 import { SITE_DATA } from "data"
-import { getMinMaxPrices } from "utils"
-import { useQueryParams } from "hooks"
+import { useGetArtists } from "hooks"
 
-import type { SortType, UserType, PricesType } from "types"
+import type { SortType } from "types"
 
 export const AllArtists = () => {
-    const { city, genre, query } = useQueryParams()
-
-    const [artists, setArtists] = useState<UserType[]>([])
     const [sort, setSort] = useState<SortType | undefined>(undefined)
-    const [prices, setPrices] = useState<PricesType>({
-        minPrice: 0,
-        maxPrice: 0,
-        globalMinPrice: 0,
-        globalMaxPrice: 0,
-    })
+
     const [selectedCity, setSelectedCity] = useState<string>("All")
     const [selectedGenre, setSelectedGenre] = useState<string>("All")
-    const [isLoading, setIsLoading] = useState(true)
-    const [error, setError] = useState<AxiosError | undefined>(undefined)
 
-    useEffect(() => {
-        const getCity = () => {
-            if (selectedCity !== "All") return selectedCity
-            if (city) return city
-
-            return "undefined"
-        }
-
-        const getGenre = () => {
-            if (selectedGenre !== "All") return selectedGenre
-            if (genre) return genre
-
-            return "undefined"
-        }
-
-        const getData = async () =>
-            await userService
-                .artists({ city: getCity(), genre: getGenre(), query, sort })
-                .then(res => {
-                    const artistsRes: UserType[] = res.data
-
-                    setArtists(artistsRes)
-
-                    if (isLoading && artistsRes?.length) {
-                        setPrices({
-                            minPrice: getMinMaxPrices(artistsRes).minPrice || 0,
-                            maxPrice: getMinMaxPrices(artistsRes).maxPrice || 0,
-                            globalMinPrice:
-                                getMinMaxPrices(artistsRes).minPrice || 0,
-                            globalMaxPrice:
-                                getMinMaxPrices(artistsRes).maxPrice || 0,
-                        })
-                        setIsLoading(false)
-                    } else {
-                        setIsLoading(false)
-                    }
-                })
-                .catch(err => {
-                    setError(err)
-                    setIsLoading(false)
-                })
-
-        getData()
-    }, [city, genre, query, selectedCity, selectedGenre, sort, isLoading])
+    const { artists, prices, setPrices, loading, errorMessage } = useGetArtists(
+        { sort, selectedCity, selectedGenre }
+    )
 
     return (
         <Page title="Artists" noMain>
@@ -88,7 +33,7 @@ export const AllArtists = () => {
                     setSelectedCity={setSelectedCity}
                     selectedGenre={selectedGenre}
                     setSelectedGenre={setSelectedGenre}
-                    isLoading={isLoading}
+                    isLoading={loading}
                 />
             </Aside>
 
@@ -98,8 +43,8 @@ export const AllArtists = () => {
                 <Flexbox flexDirection="column" gap="s" alignContent="stretch">
                     <ArtistsList
                         artists={artists}
-                        isLoading={isLoading}
-                        error={error}
+                        isLoading={loading}
+                        error={errorMessage}
                         prices={prices}
                     />
                 </Flexbox>

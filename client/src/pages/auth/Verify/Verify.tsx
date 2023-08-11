@@ -27,17 +27,9 @@ export const Verify = () => {
     >(undefined)
 
     useEffect(() => {
-        if (isLoading && user) {
-            if (!isLoggedIn) {
-                setIsLoading(false)
-            } else if (!id || id !== user._id) {
-                setErrorMessage("User ID does not match.")
-                setIsLoading(false)
-            } else if (token !== user.verifyToken) {
-                setErrorMessage("User token does not match.")
-                setIsLoading(false)
-            } else {
-                authService
+        const verifyFn = async () => {
+            if (id)
+                await authService
                     .verify({ id })
                     .then(res => {
                         setUser(res.data.user)
@@ -48,6 +40,19 @@ export const Verify = () => {
                         setErrorMessage(err)
                         setIsLoading(false)
                     })
+        }
+
+        if (isLoading && user) {
+            if (!isLoggedIn) {
+                setIsLoading(false)
+            } else if (!id || id !== user._id) {
+                setErrorMessage("User ID does not match.")
+                setIsLoading(false)
+            } else if (token !== user.verifyToken) {
+                setErrorMessage("User token does not match.")
+                setIsLoading(false)
+            } else {
+                verifyFn()
             }
         }
     }, [isLoggedIn, user, isLoading, id, token, setToken, setUser])
