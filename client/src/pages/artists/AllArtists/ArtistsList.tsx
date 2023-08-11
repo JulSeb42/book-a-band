@@ -1,7 +1,6 @@
 /*=============================================== ArtistsList ===============================================*/
 
 import { Fragment } from "react"
-import type { AxiosError } from "axios"
 import { generateNumbers } from "ts-utils-julseb"
 
 import {
@@ -14,12 +13,12 @@ import {
 import { usePaginatedData } from "hooks"
 import { filterByPrice } from "utils"
 
-import type { UserType, PricesType } from "types"
+import type { UserType, PricesType, ServerErrorType } from "types"
 
 interface ArtistsListProps {
     artists: UserType[]
     isLoading: boolean
-    error: AxiosError | undefined
+    error: ServerErrorType
     prices: PricesType
 }
 
@@ -35,7 +34,12 @@ export const ArtistsList = ({
 
     if (isLoading) return <ArtistsListSkeleton />
 
-    if (error) return <Text>Error while fetching artists: {error.message}</Text>
+    if (error)
+        return (
+            <Text>
+                Error while fetching artists: {error.response.data.message}
+            </Text>
+        )
 
     if (!artists.length) return <Text>No artist yet.</Text>
 

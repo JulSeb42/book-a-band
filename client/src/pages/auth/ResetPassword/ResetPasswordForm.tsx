@@ -1,45 +1,24 @@
 /*=============================================== ResetPasswordForm ===============================================*/
 
-import { useState, useEffect, type ChangeEvent, type FormEvent } from "react"
+import { useState, type ChangeEvent, type FormEvent } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { passwordRegex } from "ts-utils-julseb"
 
-import { authService, userService } from "api"
+import { authService } from "api"
 
 import { Form, Password, Text } from "components"
 import { FORM_VALIDATION } from "errors"
 import { PATHS } from "data"
 import { toast } from "utils"
+import { useGetUser } from "hooks"
 
-import type { ValidationStatusType, ErrorMessageType, UserType } from "types"
+import type { ValidationStatusType, ErrorMessageType } from "types"
 
 export const ResetPasswordForm = () => {
     const navigate = useNavigate()
     const { token, id } = useParams<{ token: string; id: string }>()
 
-    const [foundUser, setFoundUser] = useState<UserType | undefined | null>(
-        undefined
-    )
-    const [isUserLoading, setIsUserLoading] = useState(true)
-
-    useEffect(() => {
-        const getUser = async () => {
-            if (id)
-                await userService
-                    .getUser(id)
-                    .then(res => {
-                        setFoundUser(res.data)
-                        setIsUserLoading(false)
-                    })
-                    .catch(() => {
-                        setFoundUser(null)
-                        setIsUserLoading(false)
-                    })
-            else toast.error(FORM_VALIDATION.USER_ID_MISSING)
-        }
-
-        getUser()
-    }, [id])
+    const { user: foundUser, loading } = useGetUser(id || "")
 
     const [password, setPassword] = useState("")
     const [validation, setValidation] =
@@ -97,13 +76,13 @@ export const ResetPasswordForm = () => {
         <Form
             onSubmit={handleSubmit}
             buttonPrimary="Send"
-            isLoading={isFormLoading || isUserLoading}
+            isLoading={isFormLoading || loading}
             error={errorMessage}
         >
             <Password
                 id="password"
                 label="New password"
-                isLoading={isUserLoading}
+                isLoading={loading}
                 value={password}
                 onChange={handlePassword}
                 validation={{

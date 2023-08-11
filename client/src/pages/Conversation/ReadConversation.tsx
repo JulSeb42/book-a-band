@@ -17,6 +17,7 @@ export const ReadConversation = () => {
                     console.log(err)
                     toast.error("An error occured while updating conversation.")
                 })
+            else toast.error("Conversation ID is missing.")
         }
 
         readConversation()

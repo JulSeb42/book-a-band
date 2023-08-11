@@ -1,13 +1,14 @@
 /*=============================================== Get cities and genres ===============================================*/
 
 import { useState, useEffect } from "react"
-import type { AxiosError } from "axios"
 
 import { userService } from "api"
 
+import type { ServerErrorType } from "types"
+
 type CitiesGenresErrorType = {
-    cities: AxiosError | undefined
-    genres: AxiosError | undefined
+    cities: ServerErrorType
+    genres: ServerErrorType
 }
 
 export const useCitiesGenres = () => {

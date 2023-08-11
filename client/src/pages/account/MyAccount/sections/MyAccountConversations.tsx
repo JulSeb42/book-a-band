@@ -1,10 +1,7 @@
 /*=============================================== MyAccountConversations ===============================================*/
 
-import { Fragment, useContext } from "react"
+import { Fragment } from "react"
 import { generateNumbers } from "ts-utils-julseb"
-
-import { AuthContext, type AuthContextType } from "context"
-import { conversationService } from "api"
 
 import {
     Text,
@@ -12,28 +9,18 @@ import {
     ConversationCardSkeleton,
     Hr,
 } from "components"
-import { useFetch } from "hooks"
-
-import type { ConversationType } from "types"
+import { useGetUserConversations } from "hooks"
 
 export const MyAccountConversations = () => {
-    const { user } = useContext(AuthContext) as AuthContextType
-
-    const {
-        response: conversations,
-        loading,
-        error,
-    } = useFetch<ConversationType[]>(
-        conversationService.getUserConversations(user?._id || "")
-    )
+    const { conversations, loading, errorMessage } = useGetUserConversations()
 
     if (loading) return <MyAccountConversationsSkeleton />
 
-    if (error)
+    if (errorMessage)
         return (
             <Text>
                 Error while fetching conversations:{" "}
-                {error.response.data.message}
+                {errorMessage.response.data.message}
             </Text>
         )
 

@@ -1,14 +1,13 @@
 /*=============================================== useGetArtists ===============================================*/
 
 import { useState, useEffect } from "react"
-import type { AxiosError } from "axios"
 
 import { userService } from "api"
 
 import { useQueryParams } from "hooks"
 import { getMinMaxPrices } from "utils"
 
-import type { UserType, SortType, PricesType } from "types"
+import type { UserType, SortType, PricesType, ServerErrorType } from "types"
 
 interface useGetArtistsProps {
     sort?: SortType | undefined
@@ -31,9 +30,7 @@ export const useGetArtists = ({
         globalMinPrice: 0,
         globalMaxPrice: 0,
     })
-    const [errorMessage, setErrorMessage] = useState<AxiosError | undefined>(
-        undefined
-    )
+    const [errorMessage, setErrorMessage] = useState<ServerErrorType>(undefined)
 
     useEffect(() => {
         const getCity = () => {
