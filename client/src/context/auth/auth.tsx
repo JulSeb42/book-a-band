@@ -33,19 +33,19 @@ export const AuthProviderWrapper = ({ children }: AuthProviderWrapperProps) => {
         setUser(null)
     }
 
-    const verifyStoredToken = () => {
+    const verifyStoredToken = async () => {
         const storedToken = localStorage.getItem("authToken")
 
         if (storedToken) {
-            authService
+            return await authService
                 .loggedIn({
                     headers: {
                         Authorization: `Bearer ${storedToken}`,
                     },
                 })
-                .then(res => {
+                .then(async res => {
                     const user: UserType = res.data.user
-                    userService
+                    return await userService
                         .getUser(user._id)
                         .then(res => {
                             setUser(res.data)

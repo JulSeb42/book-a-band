@@ -48,7 +48,7 @@ export const ContactArtistForm = ({ artist }: ContactArtistFormProps) => {
         setValidation(undefined)
     }
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         if (!body.length) {
@@ -59,7 +59,7 @@ export const ContactArtistForm = ({ artist }: ContactArtistFormProps) => {
         if (user && artist) {
             setIsLoading(true)
 
-            conversationService
+            return await conversationService
                 .newConversation({
                     body,
                     user1: user?._id,

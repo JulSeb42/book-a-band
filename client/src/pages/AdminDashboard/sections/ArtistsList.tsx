@@ -21,13 +21,16 @@ export const UsersList = ({}: UsersListProps) => {
     )
 
     useEffect(() => {
-        userService
-            .allUsers({ role, isApproved })
-            .then(res => {
-                setUsers(res.data)
-                setLoading(false)
-            })
-            .catch(err => setErrorMessage(err.response.data.message))
+        const getUsers = async () =>
+            await userService
+                .allUsers({ role, isApproved })
+                .then(res => {
+                    setUsers(res.data)
+                    setLoading(false)
+                })
+                .catch(err => setErrorMessage(err.response.data.message))
+
+        getUsers()
     }, [role, isApproved])
 
     if (loading) return null // TODO: Add skeleton

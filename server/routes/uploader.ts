@@ -14,7 +14,7 @@ router.put(
             return
         }
 
-        res.json({ secure_url: req.file.path })
+        return res.json({ secure_url: req.file.path })
     }
 )
 

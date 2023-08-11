@@ -23,7 +23,7 @@ export const ImageUploader = ({
     label,
     helper,
 }: ImageUploaderProps) => {
-    const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleImage = async (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
 
         const uploadData = new FormData()
@@ -31,7 +31,7 @@ export const ImageUploader = ({
 
         uploadData.append("imageUrl", e.target.files ? e.target.files[0] : "")
 
-        cloudinaryService
+        await cloudinaryService
             .uploadImage(uploadData)
             .then(res => {
                 setImage(res.secure_url)
@@ -48,7 +48,7 @@ export const ImageUploader = ({
                 setImage(reader.result)
             })
 
-            reader.readAsDataURL(e.target.files[0])
+            return reader.readAsDataURL(e.target.files[0])
         }
     }
 

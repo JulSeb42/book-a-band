@@ -46,31 +46,34 @@ export const AllArtists = () => {
             return "undefined"
         }
 
-        userService
-            .artists({ city: getCity(), genre: getGenre(), query, sort })
-            .then(res => {
-                const artistsRes: UserType[] = res.data
+        const getData = async () =>
+            await userService
+                .artists({ city: getCity(), genre: getGenre(), query, sort })
+                .then(res => {
+                    const artistsRes: UserType[] = res.data
 
-                setArtists(artistsRes)
+                    setArtists(artistsRes)
 
-                if (isLoading && artistsRes?.length) {
-                    setPrices({
-                        minPrice: getMinMaxPrices(artistsRes).minPrice || 0,
-                        maxPrice: getMinMaxPrices(artistsRes).maxPrice || 0,
-                        globalMinPrice:
-                            getMinMaxPrices(artistsRes).minPrice || 0,
-                        globalMaxPrice:
-                            getMinMaxPrices(artistsRes).maxPrice || 0,
-                    })
+                    if (isLoading && artistsRes?.length) {
+                        setPrices({
+                            minPrice: getMinMaxPrices(artistsRes).minPrice || 0,
+                            maxPrice: getMinMaxPrices(artistsRes).maxPrice || 0,
+                            globalMinPrice:
+                                getMinMaxPrices(artistsRes).minPrice || 0,
+                            globalMaxPrice:
+                                getMinMaxPrices(artistsRes).maxPrice || 0,
+                        })
+                        setIsLoading(false)
+                    } else {
+                        setIsLoading(false)
+                    }
+                })
+                .catch(err => {
+                    setError(err)
                     setIsLoading(false)
-                } else {
-                    setIsLoading(false)
-                }
-            })
-            .catch(err => {
-                setError(err)
-                setIsLoading(false)
-            })
+                })
+
+        getData()
     }, [city, genre, query, selectedCity, selectedGenre, sort, isLoading])
 
     return (

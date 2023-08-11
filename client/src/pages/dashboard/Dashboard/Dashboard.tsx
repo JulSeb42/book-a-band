@@ -22,21 +22,24 @@ export const Dashboard = () => {
     const [search, setSearch] = useState("")
 
     useEffect(() => {
-        userService
-            .allUsers({ role })
-            .then(res => {
-                const userData: UserType[] = res.data
+        const getUsers = async () =>
+            await userService
+                .allUsers({ role })
+                .then(res => {
+                    const userData: UserType[] = res.data
 
-                setUsers(
-                    userData
-                        .sort((a, b) => {
-                            return a.createdAt > b.createdAt ? -1 : 0
-                        })
-                        .sort(user => (user.role === "admin" ? -1 : 0))
-                )
-                setLoading(false)
-            })
-            .catch(err => setErrorMessage(err.response.data.message))
+                    setUsers(
+                        userData
+                            .sort((a, b) => {
+                                return a.createdAt > b.createdAt ? -1 : 0
+                            })
+                            .sort(user => (user.role === "admin" ? -1 : 0))
+                    )
+                    setLoading(false)
+                })
+                .catch(err => setErrorMessage(err.response.data.message))
+
+        getUsers()
     }, [role])
 
     const fuse = new Fuse(users, {

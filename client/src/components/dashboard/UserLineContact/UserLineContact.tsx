@@ -37,9 +37,9 @@ export const UserLineContact = ({ user }: UserLineContactProps) => {
             conversation.user2._id === loggedInUser?._id
     )
 
-    const handleCreateConversation = () => {
+    const handleCreateConversation = async () => {
         if (loggedInUser) {
-            conversationService
+            return await conversationService
                 .newConversation({
                     user1: loggedInUser?._id,
                     user2: user._id,

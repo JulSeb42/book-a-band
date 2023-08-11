@@ -33,13 +33,13 @@ export const DeleteAccount = () => {
         } else setButtonType("button")
     }, [isFormOpen])
 
-    const handleDelete = (e: FormEvent<HTMLFormElement>) => {
+    const handleDelete = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         setIsDeleteLoading(true)
 
         if (user)
-            userService
+            return await userService
                 .deleteAccount(user?._id, { password })
                 .then(() => {
                     setIsOpen(false)

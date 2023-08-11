@@ -23,16 +23,19 @@ export const ResetPasswordForm = () => {
     const [isUserLoading, setIsUserLoading] = useState(true)
 
     useEffect(() => {
-        userService
-            .getUser(id!)
-            .then(res => {
-                setFoundUser(res.data)
-                setIsUserLoading(false)
-            })
-            .catch(() => {
-                setFoundUser(null)
-                setIsUserLoading(false)
-            })
+        const getUser = async () =>
+            await userService
+                .getUser(id!)
+                .then(res => {
+                    setFoundUser(res.data)
+                    setIsUserLoading(false)
+                })
+                .catch(() => {
+                    setFoundUser(null)
+                    setIsUserLoading(false)
+                })
+
+        getUser()
     }, [id])
 
     const [password, setPassword] = useState("")

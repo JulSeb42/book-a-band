@@ -14,13 +14,13 @@ import type { SortType, UserRoleType, UserType } from "../types"
 const router = Router()
 
 // Get all users
-router.get("/all-users", (req, res, next) => {
+router.get("/all-users", async (req, res, next) => {
     const { role, isApproved } = req.query as {
         role?: UserRoleType
         isApproved?: "true" | "false" | "undefined"
     }
 
-    UserModel.find()
+    return await UserModel.find()
         .populate("conversations")
         .populate({
             path: "conversations",
@@ -71,14 +71,13 @@ router.get("/all-users", (req, res, next) => {
 })
 
 // Get all artists with non approved ones
-router.get("/artists-admin", (req, res, next) => {
+router.get("/artists-admin", async (req, res, next) => {
     const { isApproved } = req.query as {
         isApproved: "true" | "false" | "undefined"
     }
 
-    UserModel.find({ role: "artist" })
+    return await UserModel.find({ role: "artist" })
         .then(foundUsers => {
-            // foundUsers
             const approvedArtists = foundUsers.filter(
                 artist => artist.isApproved === true
             )
@@ -112,7 +111,7 @@ router.get("/artists-admin", (req, res, next) => {
 })
 
 // Get artists
-router.get("/artists", (req, res, next) => {
+router.get("/artists", async (req, res, next) => {
     const { city, genre, query, sort } = req.query as {
         city?: string
         genre?: string
@@ -120,7 +119,7 @@ router.get("/artists", (req, res, next) => {
         sort?: SortType | "undefined"
     }
 
-    UserModel.find(visibleArtists)
+    return await UserModel.find(visibleArtists)
         .then(usersFromDb => {
             usersFromDb.forEach(artist => {
                 artist.available = artist.available
@@ -170,8 +169,8 @@ router.get("/artists", (req, res, next) => {
 })
 
 // Get all cities
-router.get("/cities", (_, res, next) => {
-    UserModel.find(visibleArtists)
+router.get("/cities", async (_, res, next) => {
+    return await UserModel.find(visibleArtists)
         .then(usersFromDb => {
             const cities = usersFromDb.map(artist => artist.city)
             return res.status(200).json(deleteDuplicates(cities))
@@ -180,8 +179,8 @@ router.get("/cities", (_, res, next) => {
 })
 
 // Get all genres
-router.get("/genres", (_, res, next) => {
-    UserModel.find()
+router.get("/genres", async (_, res, next) => {
+    return await UserModel.find()
         .then(usersFromDb => {
             const genres = usersFromDb.map(artist => artist.genre)
             return res.status(200).json(deleteDuplicates(genres))
@@ -190,29 +189,25 @@ router.get("/genres", (_, res, next) => {
 })
 
 // Get user by ID
-router.get("/user/:id", (req, res, next) => {
-    UserModel.findById(req.params.id)
+router.get("/user/:id", async (req, res, next) => {
+    return await UserModel.findById(req.params.id)
         .populate("conversations")
         .populate({
             path: "conversations",
-            populate: {
-                path: "user1",
-                model: "User",
-            },
-        })
-        .populate({
-            path: "conversations",
-            populate: {
-                path: "user2",
-                model: "User",
-            },
-        })
-        .populate({
-            path: "conversations",
-            populate: {
-                path: "messages",
-                model: "Message",
-            },
+            populate: [
+                {
+                    path: "user1",
+                    model: "User",
+                },
+                {
+                    path: "user2",
+                    model: "User",
+                },
+                {
+                    path: "messages",
+                    model: "Message",
+                },
+            ],
         })
         .then(userFromDb => res.status(200).json(userFromDb))
         .catch(err => {
@@ -222,7 +217,7 @@ router.get("/user/:id", (req, res, next) => {
 })
 
 // Edit user
-router.put("/edit-account/:id", (req, res, next) => {
+router.put("/edit-account/:id", async (req, res, next) => {
     const { fullName, avatar, city, ...reqBody } = req.body
 
     if (!fullName) {
@@ -233,7 +228,7 @@ router.put("/edit-account/:id", (req, res, next) => {
 
     if (!city) return res.status(400).json({ message: "City is required." })
 
-    UserModel.findByIdAndUpdate(
+    return await UserModel.findByIdAndUpdate(
         req.params.id,
         { fullName, avatar, city, ...reqBody },
         { new: true }
@@ -271,7 +266,7 @@ router.put("/edit-password/:id", async (req, res, next) => {
                 const salt = bcrypt.genSaltSync(SALT_ROUNDS)
                 const hashedPassword = bcrypt.hashSync(newPassword, salt)
 
-                UserModel.findByIdAndUpdate(
+                return await UserModel.findByIdAndUpdate(
                     req.params.id,
                     { password: hashedPassword },
                     { new: true }
@@ -312,7 +307,7 @@ router.put("/edit-password/:id", async (req, res, next) => {
 router.put("/approve-artist/:id", async (req, res, next) => {
     const { isApproved } = req.body as { isApproved: boolean }
 
-    await UserModel.findByIdAndUpdate(
+    return await UserModel.findByIdAndUpdate(
         req.params.id,
         { isApproved },
         { new: true }
@@ -329,7 +324,7 @@ router.put("/delete-account/:id", async (req, res, next) => {
 
     if (foundUser) {
         if (await bcrypt.compare(password, foundUser?.password)) {
-            UserModel.findByIdAndDelete(req.params.id)
+            return await UserModel.findByIdAndDelete(req.params.id)
                 .then(() => res.status(200).json({ message: "User deleted" }))
                 .catch(err => next(err))
         } else {

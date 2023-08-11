@@ -10,16 +10,18 @@ export const useFetch = <T,>(fetchFunction: Promise<AxiosResponse>) => {
     const [error, setError] = useState<ServerErrorType | undefined>(undefined)
 
     useEffect(() => {
-        fetchFunction
-            .then((res: AxiosResponse<T>) => {
-                setResponse(res.data)
-                setLoading(false)
-            })
-            .catch((err: ServerErrorType) => {
-                setError(err)
-                setLoading(false)
-            })
+        const getData = async () =>
+            await fetchFunction
+                .then((res: AxiosResponse<T>) => {
+                    setResponse(res.data)
+                    setLoading(false)
+                })
+                .catch((err: ServerErrorType) => {
+                    setError(err)
+                    setLoading(false)
+                })
 
+        getData()
         // eslint-disable-next-line
     }, [])
 
