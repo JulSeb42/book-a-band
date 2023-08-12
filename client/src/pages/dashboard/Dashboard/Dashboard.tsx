@@ -4,12 +4,12 @@ import { useState } from "react"
 
 import { AdminLayout, Flexbox, SearchDashboard } from "components"
 import { UsersList } from "pages/dashboard/Dashboard/UsersList"
-import { useAdminParams, useGetUsers } from "hooks"
+import { useAdminParams, useFetchUsers } from "hooks"
 
 export const Dashboard = () => {
     const { role } = useAdminParams()
     const [search, setSearch] = useState("")
-    const { users, loading, errorMessage } = useGetUsers({ role, search })
+    const { users, loading, errorMessage } = useFetchUsers({ role, search })
 
     return (
         <AdminLayout title="Dashboard">

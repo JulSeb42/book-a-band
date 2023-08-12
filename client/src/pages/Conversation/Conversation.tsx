@@ -9,14 +9,16 @@ import { Page, Chat } from "components"
 import { ConversationHeader } from "pages/Conversation/ConversationHeader"
 import { ReadConversation } from "pages/Conversation/ReadConversation"
 import { NotFound } from "pages/NotFound"
-import { useGetConversation } from "hooks"
+import { useFetchConversation } from "hooks"
 
 export const Conversation = () => {
     const { id } = useParams<{ id: string }>()
 
     const { user } = useContext(AuthContext) as AuthContextType
 
-    const { conversation, loading, errorMessage } = useGetConversation(id || "")
+    const { conversation, loading, errorMessage } = useFetchConversation(
+        id || ""
+    )
 
     if (
         (conversation?.user1?._id !== user?._id &&

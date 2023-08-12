@@ -1,4 +1,4 @@
-/*=============================================== useGetArtists ===============================================*/
+/*=============================================== useFetchArtists ===============================================*/
 
 import { useState, useEffect } from "react"
 
@@ -9,17 +9,17 @@ import { getMinMaxPrices } from "utils"
 
 import type { UserType, SortType, PricesType, ServerErrorType } from "types"
 
-interface useGetArtistsProps {
+interface useFetchArtistsProps {
     sort?: SortType | undefined
     selectedCity?: string
     selectedGenre?: string
 }
 
-export const useGetArtists = ({
+export const useFetchArtists = ({
     selectedCity,
     selectedGenre,
     sort,
-}: useGetArtistsProps) => {
+}: useFetchArtistsProps) => {
     const { city, genre, query } = useQueryParams()
 
     const [artists, setArtists] = useState<UserType[]>([])

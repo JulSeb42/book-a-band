@@ -1,4 +1,4 @@
-/*=============================================== useGetUser ===============================================*/
+/*=============================================== useFetchUser ===============================================*/
 
 import { useState, useEffect } from "react"
 
@@ -6,7 +6,7 @@ import { userService } from "api"
 
 import type { UserType, ServerErrorType } from "types"
 
-export const useGetUser = (id: string) => {
+export const useFetchUser = (id: string) => {
     const [user, setUser] = useState<UserType>()
     const [loading, setLoading] = useState(true)
     const [errorMessage, setErrorMessage] = useState<ServerErrorType>(undefined)

@@ -10,7 +10,7 @@ import { Form, Password, Text } from "components"
 import { FORM_VALIDATION } from "errors"
 import { PATHS } from "data"
 import { toast } from "utils"
-import { useGetUser } from "hooks"
+import { useFetchUser } from "hooks"
 
 import type { ValidationStatusType, ErrorMessageType } from "types"
 
@@ -18,7 +18,7 @@ export const ResetPasswordForm = () => {
     const navigate = useNavigate()
     const { token, id } = useParams<{ token: string; id: string }>()
 
-    const { user: foundUser, loading } = useGetUser(id || "")
+    const { user: foundUser, loading } = useFetchUser(id || "")
 
     const [password, setPassword] = useState("")
     const [validation, setValidation] =

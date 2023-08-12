@@ -1,4 +1,4 @@
-/*=============================================== useGetUsers ===============================================*/
+/*=============================================== useFetchUsers ===============================================*/
 
 import { useEffect, useState } from "react"
 import Fuse from "fuse.js"
@@ -7,13 +7,17 @@ import { userService } from "api"
 
 import type { UserRoleType, AdminApproveStatusType, UserType } from "types"
 
-interface useGetUsersProps {
+interface useFetchUsersProps {
     role?: UserRoleType | "all" | undefined
     isApproved?: AdminApproveStatusType | undefined
     search?: string
 }
 
-export const useGetUsers = ({ role, isApproved, search }: useGetUsersProps) => {
+export const useFetchUsers = ({
+    role,
+    isApproved,
+    search,
+}: useFetchUsersProps) => {
     const [users, setUsers] = useState<UserType[]>([])
     const [loading, setLoading] = useState(true)
     const [errorMessage, setErrorMessage] = useState<undefined | string>(

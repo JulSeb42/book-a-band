@@ -1,4 +1,4 @@
-/*=============================================== useGetUserConversations ===============================================*/
+/*=============================================== useFetchUserConversations ===============================================*/
 
 import { useState, useEffect, useContext } from "react"
 
@@ -7,7 +7,7 @@ import { conversationService } from "api"
 
 import type { ConversationType, ServerErrorType } from "types"
 
-export const useGetUserConversations = () => {
+export const useFetchUserConversations = () => {
     const { user } = useContext(AuthContext) as AuthContextType
 
     const [conversations, setConversations] = useState<ConversationType[]>([])

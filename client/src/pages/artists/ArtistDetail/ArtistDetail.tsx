@@ -19,14 +19,14 @@ import {
     ArtistFollow,
 } from "pages/artists/ArtistDetail/sections/artist-aside-right"
 import { NotFound } from "pages/NotFound"
-import { useGetUser } from "hooks"
+import { useFetchUser } from "hooks"
 
 export const ArtistDetail = () => {
     const { id } = useParams<{ id: string }>()
 
     const { user } = useContext(AuthContext) as AuthContextType
 
-    const { user: artist, loading, errorMessage } = useGetUser(id || "")
+    const { user: artist, loading, errorMessage } = useFetchUser(id || "")
 
     if (
         user?._id !== id &&

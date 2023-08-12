@@ -9,10 +9,10 @@ import {
     ConversationCardSkeleton,
     Hr,
 } from "components"
-import { useGetUserConversations } from "hooks"
+import { useFetchUserConversations } from "hooks"
 
 export const MyAccountConversations = () => {
-    const { conversations, loading, errorMessage } = useGetUserConversations()
+    const { conversations, loading, errorMessage } = useFetchUserConversations()
 
     if (loading) return <MyAccountConversationsSkeleton />
 
