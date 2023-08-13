@@ -1,16 +1,15 @@
 /*=============================================== ArtistLineApprove component ===============================================*/
 
-import { useState, type ChangeEvent } from "react"
+import { useState } from "react"
 import { Link } from "react-router-dom"
 
 import { userService } from "api"
 
-import { Avatar, Flexbox } from "components"
-import { Select } from "components/dashboard/SearchDashboard/Select"
+import { Avatar, Flexbox, ButtonIcon } from "components"
 import { PATHS } from "data"
 import { toast } from "utils"
 
-import type { AdminApproveStatusType, UserType } from "types"
+import type { UserType } from "types"
 
 import {
     StyledArtistLineApprove,
@@ -25,37 +24,16 @@ export const ArtistLineApprove = ({
 }: ArtistLineApproveProps) => {
     const [artist, setArtist] = useState<UserType>(artistData)
 
-    const [status, setStatus] = useState<string>(
-        artist.isApproved === true
-            ? "approved"
-            : artist.isApproved === false
-            ? "rejected"
-            : "pending"
-    )
-
-    const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-        setStatus(e.target.value)
-
+    const handleClick = (isApproved: boolean) => {
         setIsChangeLoading(true)
-
         userService
-            .approveArtist(artist._id, {
-                isApproved: e.target.value === "approved" ? true : false,
-            })
-            .then(res => {
-                setArtist(res.data)
-            })
+            .approveArtist(artist._id, { isApproved })
+            .then(res => setArtist(res.data))
             .catch(err => {
-                toast.error("An error occured, check console")
+                toast.error("An error occured, check console.")
                 console.log(err)
             })
     }
-
-    const statuses: AdminApproveStatusType[] = [
-        "approved",
-        "pending",
-        "rejected",
-    ]
 
     return (
         <StyledArtistLineApprove>
@@ -71,17 +49,23 @@ export const ArtistLineApprove = ({
                 </Name>
             </Flexbox>
 
-            <Select
-                id="user-status"
-                value={status}
-                onChange={handleChange}
-                options={
-                    artist.isApproved === true || artist.isApproved === false
-                        ? statuses.filter(status => status !== "pending")
-                        : statuses
-                }
-                disabled={isChangeLoading}
-            />
+            <Flexbox gap="xs" alignItems="center">
+                <ButtonIcon
+                    icon="check"
+                    size={24}
+                    color="success"
+                    onClick={() => handleClick(true)}
+                    disabled={artist.isApproved === true || isChangeLoading}
+                />
+
+                <ButtonIcon
+                    icon="close"
+                    size={24}
+                    color="danger"
+                    onClick={() => handleClick(false)}
+                    disabled={artist.isApproved === false || isChangeLoading}
+                />
+            </Flexbox>
         </StyledArtistLineApprove>
     )
 }

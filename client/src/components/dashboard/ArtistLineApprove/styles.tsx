@@ -10,8 +10,8 @@ export const StyledArtistLineApprove = styled.div`
         gap: "xs",
     })}
 
-    & > div:last-child {
-        width: 30%;
+    & > * {
+        height: 32px;
     }
 `
 
