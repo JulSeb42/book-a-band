@@ -8,10 +8,10 @@ import type { SortType, UserRoleType, AdminApproveStatusType } from "types"
 class UserService {
     allUsers({
         role,
-        isApproved,
+        status,
     }: {
         role?: UserRoleType | "all" | undefined
-        isApproved?: AdminApproveStatusType | undefined
+        status?: AdminApproveStatusType | "all" | undefined
     }) {
         const getRole = () => {
             if (role === null) return null
@@ -20,10 +20,21 @@ class UserService {
             return role
         }
 
+        const getStatus = () => {
+            if (
+                status === null ||
+                status === undefined ||
+                status === "all" ||
+                status === "undefined"
+            )
+                return null
+            return status
+        }
+
         return http.get(
             `${SERVER_PATHS.USERS}/all-users?${
                 getRole() !== null ? `role=${getRole()}` : ""
-            }${isApproved !== undefined ? `?isApproved=${isApproved}` : ""}`
+            }${getStatus() !== null ? `&status=${getStatus()}` : ""}`
         )
     }
 

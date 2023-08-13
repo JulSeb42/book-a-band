@@ -15,9 +15,9 @@ const router = Router()
 
 // Get all users
 router.get("/all-users", async (req, res, next) => {
-    const { role, isApproved } = req.query as {
+    const { role, status } = req.query as {
         role?: UserRoleType
-        isApproved?: "true" | "false" | "undefined"
+        status?: "approved" | "rejected" | "pending" | "undefined"
     }
 
     return await UserModel.find()
@@ -40,21 +40,30 @@ router.get("/all-users", async (req, res, next) => {
             ],
         })
         .then(usersFromDb => {
-            if (isApproved) {
-                if (isApproved === "true")
-                    usersFromDb = usersFromDb.filter(
-                        user => user.isApproved === true
-                    )
-                if (isApproved === "false")
-                    usersFromDb = usersFromDb.filter(
-                        user => user.isApproved === false
-                    )
-                if (isApproved === "undefined")
-                    usersFromDb = usersFromDb.filter(
-                        user =>
-                            user.isApproved !== true &&
-                            user.isApproved !== false
-                    )
+            if (status) {
+                usersFromDb = usersFromDb.filter(user => user.role === "artist")
+
+                if (status !== "undefined") {
+                    if (status === "approved") {
+                        usersFromDb = usersFromDb.filter(
+                            user => user.isApproved === true
+                        )
+                    }
+
+                    if (status === "rejected") {
+                        usersFromDb = usersFromDb.filter(
+                            user => user.isApproved === false
+                        )
+                    }
+
+                    if (status === "pending") {
+                        usersFromDb = usersFromDb.filter(
+                            user =>
+                                user.isApproved !== true &&
+                                user.isApproved !== false
+                        )
+                    }
+                }
             }
 
             if (role)

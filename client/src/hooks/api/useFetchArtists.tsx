@@ -5,7 +5,7 @@ import { useState, useEffect } from "react"
 import { userService } from "api"
 
 import { useQueryParams } from "hooks"
-import { getMinMaxPrices } from "utils"
+import { getMinMaxPrices, getFuseUsers } from "utils"
 
 import type { UserType, SortType, PricesType, ServerErrorType } from "types"
 
@@ -13,12 +13,14 @@ interface useFetchArtistsProps {
     sort?: SortType | undefined
     selectedCity?: string
     selectedGenre?: string
+    search?: string
 }
 
 export const useFetchArtists = ({
     selectedCity,
     selectedGenre,
     sort,
+    search,
 }: useFetchArtistsProps) => {
     const { city, genre, query } = useQueryParams()
 
@@ -73,6 +75,14 @@ export const useFetchArtists = ({
                     } else {
                         setLoading(false)
                     }
+
+                    if (search && search.length) {
+                        setArtists(
+                            getFuseUsers(artistsRes, search, ["fullName"])
+                        )
+                    } else {
+                        setArtists(artistsRes)
+                    }
                 })
                 .catch(err => {
                     setErrorMessage(err)
@@ -80,7 +90,7 @@ export const useFetchArtists = ({
                 })
 
         getData()
-    }, [city, genre, loading, query, selectedCity, selectedGenre, sort])
+    }, [city, genre, loading, query, selectedCity, selectedGenre, sort, search])
 
     return {
         artists,

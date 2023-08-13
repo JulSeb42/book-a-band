@@ -7,7 +7,7 @@ import type { UserRoleType, AdminApproveStatusType } from "types"
 export const useAdminParams = () => {
     const [searchParams] = useSearchParams()
     const role = searchParams.get("role") as UserRoleType
-    const isApproved = searchParams.get("isApproved") as AdminApproveStatusType
+    const status = searchParams.get("status") as AdminApproveStatusType
 
-    return { role, isApproved }
+    return { role, status }
 }

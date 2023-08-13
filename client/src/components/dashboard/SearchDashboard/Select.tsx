@@ -27,12 +27,13 @@ export const Select = ({
     label,
     helper,
     options,
+    disabled,
     ...rest
 }: SelectProps) => {
     return (
         <InputContainer id={id} label={label} helper={helper}>
             <SelectContainer>
-                <StyledSelect id={id} {...rest}>
+                <StyledSelect id={id} disabled={disabled} {...rest}>
                     {options.map((option, i) => (
                         <option value={option} key={i}>
                             {unslugify(option)}
@@ -41,7 +42,11 @@ export const Select = ({
                 </StyledSelect>
 
                 <InputRightContainer>
-                    <Icon src="chevron-down" size={16} color="primary" />
+                    <Icon
+                        src="chevron-down"
+                        size={16}
+                        color={disabled ? "gray" : "primary"}
+                    />
                 </InputRightContainer>
             </SelectContainer>
         </InputContainer>

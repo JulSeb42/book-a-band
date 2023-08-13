@@ -11,18 +11,23 @@ import { filterObject } from "utils"
 
 import { StyledSearchDashboard } from "components/dashboard/SearchDashboard/styles"
 import type { SearchDashboardProps } from "components/dashboard/SearchDashboard/types"
-import type { UserRoleType } from "types"
+import type { AdminApproveStatusType, UserRoleType } from "types"
 
 export const SearchDashboard = ({
     search,
     setSearch,
     isArtistsList,
 }: SearchDashboardProps) => {
-    const { role: roleParam, ...otherParams } = useAdminParams()
+    const {
+        role: roleParam,
+        status: statusParam,
+        ...otherParams
+    } = useAdminParams()
 
     const [_, setSearchParams] = useSearchParams()
 
     const [role, setRole] = useState<string>(slugify(roleParam || "all"))
+    const [status, setStatus] = useState<string>(slugify(statusParam || "all"))
 
     const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value)
@@ -63,7 +68,39 @@ export const SearchDashboard = ({
         }
     }
 
+    const handleStatus = (e: ChangeEvent<HTMLSelectElement>) => {
+        setStatus(e.target.value)
+
+        if (e.target.value !== "all") {
+            const newParams: any = filterObject(
+                {
+                    ...otherParams,
+                    status: slugify(e.target.value),
+                    page: null,
+                },
+                ([_, v]) => v !== null
+            )
+            setSearchParams(newParams)
+        } else {
+            const newParams: any = filterObject(
+                {
+                    ...otherParams,
+                    status: null,
+                    page: null,
+                },
+                ([_, v]) => v !== null
+            )
+            setSearchParams(newParams)
+        }
+    }
+
     const roles: (UserRoleType | "all")[] = ["all", "admin", "artist", "user"]
+    const statuses: (AdminApproveStatusType | "all")[] = [
+        "all",
+        "approved",
+        "pending",
+        "rejected",
+    ]
 
     return (
         <StyledSearchDashboard>
@@ -75,14 +112,25 @@ export const SearchDashboard = ({
                 onChange={handleSearch}
             />
 
-            <Select
-                label="Filter by role"
-                value={role}
-                onChange={handleRole}
-                options={roles}
-            />
+            {!isArtistsList && (
+                <Select
+                    label="Filter by role"
+                    value={role}
+                    onChange={handleRole}
+                    options={roles}
+                />
+            )}
 
-            {isArtistsList && ""}
+            {isArtistsList && (
+                <>
+                    <Select
+                        label="Filter by status"
+                        value={status}
+                        onChange={handleStatus}
+                        options={statuses}
+                    />
+                </>
+            )}
         </StyledSearchDashboard>
     )
 }
