@@ -31,6 +31,7 @@ export const useFetchUsers = ({ role, status, search }: useFetchUsersProps) => {
                     if (search && search.length) {
                         setUsers(getFuseUsers(userData, search, ["fullName"]))
                         setLoading(false)
+                        setIsChangeLoading(false)
                     } else {
                         setUsers(
                             userData
@@ -40,34 +41,15 @@ export const useFetchUsers = ({ role, status, search }: useFetchUsersProps) => {
                                 .sort(user => (user.role === "admin" ? -1 : 0))
                         )
                         setLoading(false)
-                    }
-
-                    if (isChangeLoading) {
-                        if (search && search.length) {
-                            setUsers(
-                                getFuseUsers(userData, search, ["fullName"])
-                            )
-                            setIsChangeLoading(false)
-                        } else {
-                            setUsers(
-                                userData
-                                    .sort((a, b) => {
-                                        return a.createdAt > b.createdAt
-                                            ? -1
-                                            : 0
-                                    })
-                                    .sort(user =>
-                                        user.role === "admin" ? -1 : 0
-                                    )
-                            )
-                            setIsChangeLoading(false)
-                        }
+                        setIsChangeLoading(false)
                     }
                 })
                 .catch(err => setErrorMessage(err.response.data.message))
 
         getUsers()
-    }, [role, search, status, isChangeLoading])
+
+        if (isChangeLoading) getUsers()
+    }, [role, search, status, isChangeLoading, loading])
 
     return {
         users,
