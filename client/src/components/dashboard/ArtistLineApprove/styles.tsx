@@ -11,7 +11,7 @@ export const StyledArtistLineApprove = styled.div`
     })}
 
     & > * {
-        height: 32px;
+        min-height: 32px;
     }
 `
 

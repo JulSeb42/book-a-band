@@ -17,5 +17,7 @@ export const FORM_VALIDATION = {
     CITY_REQUIRED: "City is required.",
 
     USER_ID_MISSING: "User ID is missing.",
-    TOKEN_MISSING: "User token is missing."
+    TOKEN_MISSING: "User token is missing.",
+
+    USER_NOT_VERIFIED: "You can not change status if user is not verified.",
 }

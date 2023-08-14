@@ -5,8 +5,9 @@ import { Link } from "react-router-dom"
 
 import { userService } from "api"
 
-import { Avatar, Flexbox, ButtonIcon } from "components"
+import { Avatar, Flexbox, ButtonIcon, Text } from "components"
 import { PATHS } from "data"
+import { FORM_VALIDATION } from "errors"
 import { toast } from "utils"
 
 import type { UserType } from "types"
@@ -35,6 +36,12 @@ export const ArtistLineApprove = ({
             })
     }
 
+    const name = () => (
+        <Name maxLines={1}>
+            <Link to={PATHS.ARTIST(artist._id)}>{artist.fullName}</Link>
+        </Name>
+    )
+
     return (
         <StyledArtistLineApprove>
             <Flexbox gap="xs">
@@ -44,9 +51,17 @@ export const ArtistLineApprove = ({
                     size={32}
                 />
 
-                <Name maxLines={1}>
-                    <Link to={PATHS.ARTIST(artist._id)}>{artist.fullName}</Link>
-                </Name>
+                {artist.verified ? (
+                    name()
+                ) : (
+                    <Flexbox flexDirection="column" alignItems="stretch">
+                        {name()}
+
+                        <Text tag="small" color="gray">
+                            User not verified.
+                        </Text>
+                    </Flexbox>
+                )}
             </Flexbox>
 
             <Flexbox gap="xs" alignItems="center">
@@ -55,7 +70,17 @@ export const ArtistLineApprove = ({
                     size={24}
                     color="success"
                     onClick={() => handleClick(true)}
-                    disabled={artist.isApproved === true || isChangeLoading}
+                    disabled={
+                        !artist.verified ||
+                        artist.isApproved === true ||
+                        isChangeLoading
+                    }
+                    label={
+                        !artist.verified
+                            ? FORM_VALIDATION.USER_NOT_VERIFIED
+                            : "Approve"
+                    }
+                    showLabel
                 />
 
                 <ButtonIcon
@@ -63,7 +88,17 @@ export const ArtistLineApprove = ({
                     size={24}
                     color="danger"
                     onClick={() => handleClick(false)}
-                    disabled={artist.isApproved === false || isChangeLoading}
+                    disabled={
+                        !artist.verified ||
+                        artist.isApproved === false ||
+                        isChangeLoading
+                    }
+                    label={
+                        !artist.verified
+                            ? FORM_VALIDATION.USER_NOT_VERIFIED
+                            : "Reject"
+                    }
+                    showLabel
                 />
             </Flexbox>
         </StyledArtistLineApprove>

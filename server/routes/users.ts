@@ -13,6 +13,119 @@ import type { SortType, UserRoleType, UserType } from "../types"
 
 const router = Router()
 
+// Users
+router.get("/users", async (req, res, next) => {
+    const { role, status, city, genre, query, sort, verified } = req.query as {
+        role?: UserRoleType | "undefined"
+        status?: "approved" | "rejected" | "pending" | "undefined"
+        city?: string
+        genre?: string
+        query?: string
+        sort?: SortType | "undefined"
+        verified?: "true" | "false"
+    }
+
+    return await UserModel.find()
+        .populate("conversations")
+        .populate({
+            path: "conversations",
+            populate: [
+                {
+                    path: "messages",
+                    model: "Message",
+                },
+                {
+                    path: "user1",
+                    model: "User",
+                },
+                {
+                    path: "user2",
+                    model: "User",
+                },
+            ],
+        })
+        .then(foundUsers => {
+            if (role && role !== "undefined") {
+                foundUsers = foundUsers.filter(user => user.role === role)
+            }
+
+            if (status && status !== "undefined") {
+                if (status === "approved") {
+                    foundUsers = foundUsers.filter(
+                        user => user.isApproved === true
+                    )
+                }
+
+                if (status === "rejected") {
+                    foundUsers = foundUsers.filter(
+                        user => user.isApproved === false
+                    )
+                }
+
+                if (status === "pending") {
+                    foundUsers = foundUsers.filter(
+                        user =>
+                            user.isApproved !== true &&
+                            user.isApproved !== false
+                    )
+                }
+            }
+
+            if (city) {
+                foundUsers = foundUsers.filter(
+                    user => slugify(user.city!) === slugify(city)
+                )
+            }
+
+            if (genre) {
+                foundUsers = foundUsers.filter(
+                    user => slugify(user.genre!) === slugify(genre)
+                )
+            }
+
+            if (query && query !== "") {
+                const fuse = new Fuse(foundUsers, {
+                    keys: ["city", "genre", "fullName"],
+                })
+
+                foundUsers = fuse?.search(query).map(fuseItem => fuseItem.item)
+            }
+
+            if (sort) {
+                if (sort === "availability") {
+                    foundUsers = foundUsers.sort((a, b) =>
+                        new Date(a.available[0]) < new Date(b.available[0])
+                            ? -1
+                            : 0
+                    )
+                }
+
+                if (sort === "price") {
+                    foundUsers = foundUsers.sort(
+                        (a, b) => (a.price || 0) - (b.price || 0)
+                    )
+                }
+            }
+
+            if (verified) {
+                if (verified === "true") {
+                    foundUsers = foundUsers.filter(
+                        user => user.verified === true
+                    )
+                }
+
+                if (verified === "false") {
+                    foundUsers = foundUsers.filter(
+                        user => user.verified === false || !user.verified
+                    )
+                }
+            }
+
+            return res.status(200).json(foundUsers)
+        })
+        .catch(err => next(err))
+})
+
 // Get all users
 router.get("/all-users", async (req, res, next) => {
     const { role, status } = req.query as {

@@ -6,7 +6,7 @@ import { slugify } from "ts-utils-julseb"
 
 import { Input } from "components"
 import { Select } from "components/dashboard/SearchDashboard/Select"
-import { useAdminParams } from "hooks"
+import { useAdminParams, useFetchUsers } from "hooks"
 import { filterObject } from "utils"
 
 import { StyledSearchDashboard } from "components/dashboard/SearchDashboard/styles"
@@ -23,6 +23,7 @@ export const SearchDashboard = ({
         status: statusParam,
         ...otherParams
     } = useAdminParams()
+    const { setIsChangeLoading } = useFetchUsers({})
 
     const [_, setSearchParams] = useSearchParams()
 
@@ -44,6 +45,7 @@ export const SearchDashboard = ({
 
     const handleRole = (e: ChangeEvent<HTMLSelectElement>) => {
         setRole(e.target.value)
+        setIsChangeLoading(true)
 
         if (e.target.value !== "all") {
             const newParams: any = filterObject(
@@ -81,6 +83,7 @@ export const SearchDashboard = ({
                 ([_, v]) => v !== null
             )
             setSearchParams(newParams)
+            setIsChangeLoading(true)
         } else {
             const newParams: any = filterObject(
                 {
@@ -91,6 +94,7 @@ export const SearchDashboard = ({
                 ([_, v]) => v !== null
             )
             setSearchParams(newParams)
+            setIsChangeLoading(true)
         }
     }
 

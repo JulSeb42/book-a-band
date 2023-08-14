@@ -25,6 +25,8 @@ export const UsersList = ({
     if (errorMessage)
         return <Text>Error while fetching users: {errorMessage}</Text>
 
+    if (!users.length) return <Text>No result.</Text>
+
     return (
         <>
             {paginatedData.length ? (

@@ -49,15 +49,12 @@ export const Chat = ({ conversation, isLoading }: ChatProps) => {
 
     if (isLoading || !conversation) return <ChatSkeleton />
 
-    console.log(messages)
-
     return (
         <StyledChat>
             <StyledMessagesContainer
                 ref={containerRef}
                 $isEmpty={!messages.length}
             >
-               
                 {messages?.length ? (
                     messages.map(message => (
                         <Bubble message={message} key={message._id} />

@@ -19,8 +19,6 @@ import type { ConversationCardProps } from "components/conversation/Conversation
 export const ConversationCard = ({ conversation }: ConversationCardProps) => {
     const { user } = useContext(AuthContext) as AuthContextType
 
-    // console.log(conversation)
-
     const conversationUser =
         user?._id === conversation.user1._id
             ? conversation.user2
