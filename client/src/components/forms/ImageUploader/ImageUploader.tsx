@@ -2,10 +2,11 @@
 
 import type { ChangeEvent } from "react"
 
+import { cloudinaryService } from "api"
+
 import { Icon } from "components"
 import { InputContainer } from "components/forms/InputComponents"
-
-import { cloudinaryService } from "api"
+import type { UserType } from "types"
 
 import {
     StyledImageUploader,
@@ -52,10 +53,15 @@ export const ImageUploader = ({
         }
     }
 
+    const user: Partial<UserType> = {
+        avatar: image,
+        fullName: "uploader",
+    }
+
     return (
         <InputContainer id={id} label={label} helper={helper}>
             <StyledImageUploader htmlFor={id}>
-                <StyledAvatar src={image} username="uploader" />
+                <StyledAvatar user={user} />
 
                 <IconContainer>
                     <Icon src="edit" size={24} />
