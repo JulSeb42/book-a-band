@@ -1,13 +1,14 @@
 /*=============================================== SearchDashboard component ===============================================*/
 
 import { type ChangeEvent, useState } from "react"
-import { useSearchParams } from "react-router-dom"
+import { useSearchParams, useLocation } from "react-router-dom"
 import { slugify } from "ts-utils-julseb"
 
 import { Input } from "components"
 import { Select } from "components/dashboard/SearchDashboard/Select"
-import { useAdminParams, useFetchUsers } from "hooks"
+import { useAdminParams } from "hooks"
 import { filterObject } from "utils"
+import { PATHS } from "data"
 
 import { StyledSearchDashboard } from "components/dashboard/SearchDashboard/styles"
 import type { SearchDashboardProps } from "components/dashboard/SearchDashboard/types"
@@ -16,14 +17,16 @@ import type { AdminApproveStatusType, UserRoleType } from "types"
 export const SearchDashboard = ({
     search,
     setSearch,
-    isArtistsList,
+    setLoading,
 }: SearchDashboardProps) => {
+    const { pathname } = useLocation()
+    const isArtistsList = pathname === PATHS.DASHBOARD_ARTISTS
+
     const {
         role: roleParam,
         status: statusParam,
         ...otherParams
     } = useAdminParams()
-    const { setIsChangeLoading } = useFetchUsers({})
 
     const [_, setSearchParams] = useSearchParams()
 
@@ -31,6 +34,7 @@ export const SearchDashboard = ({
     const [status, setStatus] = useState<string>(slugify(statusParam || "all"))
 
     const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+        setLoading(true)
         setSearch(e.target.value)
         const newParams: any = filterObject(
             {
@@ -44,8 +48,9 @@ export const SearchDashboard = ({
     }
 
     const handleRole = (e: ChangeEvent<HTMLSelectElement>) => {
+        setLoading(true)
+
         setRole(e.target.value)
-        setIsChangeLoading(true)
 
         if (e.target.value !== "all") {
             const newParams: any = filterObject(
@@ -71,6 +76,8 @@ export const SearchDashboard = ({
     }
 
     const handleStatus = (e: ChangeEvent<HTMLSelectElement>) => {
+        setLoading(true)
+
         setStatus(e.target.value)
 
         if (e.target.value !== "all") {
@@ -83,7 +90,6 @@ export const SearchDashboard = ({
                 ([_, v]) => v !== null
             )
             setSearchParams(newParams)
-            setIsChangeLoading(true)
         } else {
             const newParams: any = filterObject(
                 {
@@ -94,7 +100,6 @@ export const SearchDashboard = ({
                 ([_, v]) => v !== null
             )
             setSearchParams(newParams)
-            setIsChangeLoading(true)
         }
     }
 

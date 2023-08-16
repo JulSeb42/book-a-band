@@ -28,11 +28,12 @@ export const Select = ({
     helper,
     options,
     disabled,
+    className,
     ...rest
 }: SelectProps) => {
     return (
         <InputContainer id={id} label={label} helper={helper}>
-            <SelectContainer>
+            <SelectContainer className={className}>
                 <StyledSelect id={id} disabled={disabled} {...rest}>
                     {options.map((option, i) => (
                         <option value={option} key={i}>

@@ -14,7 +14,7 @@ import type { SortType, UserRoleType, UserType } from "../types"
 const router = Router()
 
 // Users
-router.get("/users", async (req, res, next) => {
+router.get("/users", (req, res, next) => {
     const { role, status, city, genre, query, sort, verified } = req.query as {
         role?: UserRoleType | "undefined"
         status?: "approved" | "rejected" | "pending" | "undefined"
@@ -25,7 +25,7 @@ router.get("/users", async (req, res, next) => {
         verified?: "true" | "false"
     }
 
-    return await UserModel.find()
+    return UserModel.find()
         .populate("conversations")
         .populate({
             path: "conversations",
@@ -366,6 +366,19 @@ router.put("/edit-account/:id", async (req, res, next) => {
                 authToken: authToken,
             })
         })
+        .catch(err => next(err))
+})
+
+// Change user role
+router.put("/user-role/:id", async (req, res, next) => {
+    const { role } = req.body
+
+    return await UserModel.findByIdAndUpdate(
+        req.params.id,
+        { role },
+        { new: true }
+    )
+        .then(updatedUser => res.status(200).json(updatedUser))
         .catch(err => next(err))
 })
 

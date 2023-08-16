@@ -43,6 +43,9 @@ export const ArtistsList = ({
 
     if (!artists.length) return <Text>No artist yet.</Text>
 
+    if (!paginatedData.length)
+        return <Text>Your search did not return any result.</Text>
+
     return (
         <>
             {paginatedData.map((artist, i) => (

@@ -17,6 +17,7 @@ export const StyledSearchDashboard = styled.div`
 
 export const SelectContainer = styled.div`
     position: relative;
+    width: 100%;
 `
 
 export const StyledSelect = styled.select`

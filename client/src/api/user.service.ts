@@ -3,7 +3,7 @@
 import { http } from "api"
 import { SERVER_PATHS } from "data"
 
-import type { FetchUsersType, SortType } from "types"
+import type { FetchUsersType, SortType, UserRoleType } from "types"
 
 class UserService {
     users(filters?: FetchUsersType) {
@@ -108,6 +108,10 @@ class UserService {
         }
     ) {
         return http.put(`${SERVER_PATHS.USERS}/edit-password/${id}`, data)
+    }
+
+    setUserRole(id: string, data: { role: UserRoleType }) {
+        return http.put(`${SERVER_PATHS.USERS}/user-role/${id}`, data)
     }
 
     deleteAccount(id: string, data: { password: string }) {

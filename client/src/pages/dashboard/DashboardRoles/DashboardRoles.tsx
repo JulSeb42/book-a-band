@@ -1,7 +1,11 @@
 /*=============================================== DashboardRoles ===============================================*/
 
-import { AdminLayout } from "components"
+import { AdminLayout, UsersListDashboard } from "components"
 
 export const DashboardRoles = () => {
-    return <AdminLayout title="Roles"></AdminLayout>
+    return (
+        <AdminLayout title="Roles">
+            <UsersListDashboard page="roles" />
+        </AdminLayout>
+    )
 }

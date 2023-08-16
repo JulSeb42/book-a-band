@@ -22,6 +22,7 @@ import type { SortType, PricesType } from "types"
 
 interface ArtistsFiltersProps {
     isLoading: boolean
+    setIsLoading: Dispatch<SetStateAction<boolean>>
     sort: SortType | undefined
     setSort: Dispatch<SetStateAction<SortType | undefined>>
     prices: PricesType
@@ -42,6 +43,7 @@ export const ArtistsFilters = ({
     selectedGenre,
     setSelectedGenre,
     isLoading,
+    setIsLoading,
 }: ArtistsFiltersProps) => {
     const { city: cityParam, genre: genreParam } = useQueryParams()
     const { cities, genres, loading } = useCitiesGenres()
@@ -71,6 +73,7 @@ export const ArtistsFilters = ({
         })
         setSelectedCity("All")
         setSelectedGenre("All")
+        setIsLoading(true)
     }
 
     if (!isOpen && isTablet)
@@ -151,6 +154,7 @@ export const ArtistsFilters = ({
                                 setValue={setSelectedCity}
                                 options={cities}
                                 isLoading={loading}
+                                setIsLoading={setIsLoading}
                             />
                         )}
 
@@ -161,6 +165,7 @@ export const ArtistsFilters = ({
                                 setValue={setSelectedGenre}
                                 options={genres}
                                 isLoading={loading}
+                                setIsLoading={setIsLoading}
                             />
                         )}
                     </>

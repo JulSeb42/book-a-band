@@ -27,7 +27,15 @@ import type { SelectProps } from "components/forms/Select/types"
 
 export const Select = forwardRef(
     (
-        { label, helper, value, setValue, options, isLoading }: SelectProps,
+        {
+            label,
+            helper,
+            value,
+            setValue,
+            options,
+            isLoading,
+            setIsLoading,
+        }: SelectProps,
         ref?: ForwardedRef<HTMLButtonElement>
     ) => {
         const [isListOpen, setIsListOpen] = useState(false)
@@ -148,7 +156,10 @@ export const Select = forwardRef(
                     <List $isOpen={isListOpen} ref={listRef}>
                         {options.map((option, i) => (
                             <Option
-                                onClick={() => setValue(option)}
+                                onClick={() => {
+                                    setValue(option)
+                                    if (setIsLoading) setIsLoading(true)
+                                }}
                                 $isActive={option === value}
                                 key={`option-${i}`}
                             >
