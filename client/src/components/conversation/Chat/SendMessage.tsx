@@ -40,11 +40,11 @@ export const SendMessage = ({
     const [isFocused, setIsFocused] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
 
-    const submit = () => {
+    const submit = async () => {
         if (user) {
             setIsLoading(true)
 
-            conversationService
+            return await conversationService
                 .newMessage({
                     body,
                     sender: user?._id,
@@ -82,9 +82,9 @@ export const SendMessage = ({
         true
     )
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        submit()
+        return await submit()
     }
 
     return (

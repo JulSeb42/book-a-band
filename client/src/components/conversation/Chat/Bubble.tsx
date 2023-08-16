@@ -28,6 +28,8 @@ export const Bubble = ({ message }: BubbleProps) => {
 
     const [showTime, setShowTime] = useState(false)
 
+    if (!message.body) return null
+
     return (
         <Flexbox
             alignItems={messageType === "sent" ? "flex-end" : "flex-start"}

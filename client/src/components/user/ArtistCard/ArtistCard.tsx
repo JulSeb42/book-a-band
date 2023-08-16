@@ -16,9 +16,9 @@ import type {
     ArtistInfoType,
 } from "components/user/ArtistCard/types"
 
-export const ArtistCard = ({
-    artist: { _id, fullName, city, genre, available, price, avatar },
-}: ArtistCardProps) => {
+export const ArtistCard = ({ artist }: ArtistCardProps) => {
+    const { _id, fullName, city, genre, available, price } = artist
+
     const path = PATHS.ARTIST(_id)
 
     const infos: ArtistInfoType[] = [
@@ -41,7 +41,7 @@ export const ArtistCard = ({
 
     return (
         <StyledArtistCard>
-            <Avatar src={avatar} username={fullName} to={path} />
+            <Avatar user={artist} isLink />
 
             <CardContent>
                 <Flexbox alignItems="flex-start" justifyContent="space-between">

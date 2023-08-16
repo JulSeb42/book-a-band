@@ -24,20 +24,22 @@ export const ConversationCard = ({ conversation }: ConversationCardProps) => {
             ? conversation.user2
             : conversation.user1
 
-    const isoDateLastMessage = new Date(
-        conversation?.messages[conversation?.messages?.length - 1].updatedAt
-    )
+    const isoDateLastMessage = conversation?.messages?.length
+        ? new Date(
+              conversation?.messages[
+                  conversation?.messages?.length - 1
+              ].updatedAt
+          )
+        : conversation?.updatedAt
+        ? new Date(conversation?.updatedAt)
+        : new Date(conversation?.createdAt)
 
     const dateLastMessage = getDateFromIso(isoDateLastMessage)
     const today = getDateFromIso(new Date())
 
     return (
         <StyledConversationCard to={PATHS.CONVERSATION(conversation._id)}>
-            <Avatar
-                src={conversationUser.avatar}
-                username={conversationUser.fullName}
-                size={48}
-            />
+            <Avatar user={conversationUser} size={48} />
 
             <CardContent>
                 <Text tag="h6" maxLines={1}>
@@ -45,10 +47,14 @@ export const ConversationCard = ({ conversation }: ConversationCardProps) => {
                 </Text>
 
                 <Text maxLines={1}>
-                    {
+                    {conversation.messages.length ? (
                         conversation.messages[conversation.messages.length - 1]
                             .body
-                    }
+                    ) : (
+                        <Text tag="em" color="gray">
+                            No message
+                        </Text>
+                    )}
                 </Text>
 
                 <Text tag="small" color="gray">

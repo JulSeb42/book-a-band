@@ -6,6 +6,7 @@ import type { InputContainerBaseProps } from "components/forms/InputComponents/t
 
 export interface SelectProps extends InputContainerBaseProps {
     value: string
-	setValue: Dispatch<SetStateAction<string>>
-	options: string[]
+    setValue: Dispatch<SetStateAction<string>>
+    options: string[]
+    setIsLoading?: Dispatch<SetStateAction<boolean>>
 }

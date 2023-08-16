@@ -18,8 +18,6 @@ export const Signup = () => {
 
     if (!roles.find(v => v === role)) return <NotFound />
 
-    // if(role !== "artist")
-
     return (
         <Page title="Create an account" mainSize="form">
             <SignupNav />

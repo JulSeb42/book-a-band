@@ -1,6 +1,7 @@
 /*=============================================== Avatar ===============================================*/
 
 import { Image, Skeleton } from "components"
+import { PATHS } from "data"
 
 import type { SkeletonProps } from "components/ui/Skeleton/types"
 import type { ImageProps } from "components/media/Image/types"
@@ -9,11 +10,10 @@ import { StyledLink } from "components/user/Avatar/styles"
 import type { AvatarProps } from "components/user/Avatar/types"
 
 export const Avatar = ({
-    src,
-    username,
+    user,
     size = 120,
     isLoading,
-    to,
+    isLink,
 }: AvatarProps) => {
     const commonProps = {
         width: size,
@@ -23,8 +23,8 @@ export const Avatar = ({
 
     const avatarImg = () => (
         <Image
-            src={src}
-            alt={`Avatar ${username}`}
+            src={user.avatar}
+            alt={`Avatar ${user.fullName}`}
             fit="cover"
             {...commonProps}
         />
@@ -32,9 +32,9 @@ export const Avatar = ({
 
     if (isLoading) return <Skeleton isShining {...commonProps} />
 
-    if (to)
+    if (isLink)
         return (
-            <StyledLink to={to} $size={size}>
+            <StyledLink to={PATHS.ARTIST(user._id)} $size={size}>
                 {avatarImg()}
             </StyledLink>
         )

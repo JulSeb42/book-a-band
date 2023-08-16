@@ -30,7 +30,19 @@ interface ButtonIconPropsLink extends ButtonIconPropsBase {
     blank?: boolean
 }
 
-export type ButtonIconProps = ButtonIconPropsButton | ButtonIconPropsLink
+type ButtonIconBehaviour = ButtonIconPropsButton | ButtonIconPropsLink
+
+type ButtonIconLabelShow = ButtonIconBehaviour & {
+    label?: string
+    showLabel?: boolean
+}
+
+type ButtonIconLabelHide = ButtonIconBehaviour & {
+    label?: undefined
+    showLabel?: never
+}
+
+export type ButtonIconProps = ButtonIconLabelShow | ButtonIconLabelHide
 
 interface ButtonIconStylePropsBase {
     $size: number

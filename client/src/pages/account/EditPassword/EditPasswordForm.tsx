@@ -40,7 +40,7 @@ export const EditPasswordForm = () => {
         }
     }
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         if (!passwordRegex.test(inputs.newPassword)) {
@@ -51,7 +51,7 @@ export const EditPasswordForm = () => {
         if (user) {
             setIsSubmitLoading(true)
 
-            userService
+            return await userService
                 .editPassword(user?._id, inputs)
                 .then(res => {
                     const { user, authToken } = res.data

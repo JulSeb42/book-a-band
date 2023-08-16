@@ -3,7 +3,6 @@
 import { useContext } from "react"
 import { useParams } from "react-router-dom"
 
-import { userService } from "api"
 import { AuthContext, type AuthContextType } from "context"
 
 import { Page, Main, Flexbox, Aside, Text } from "components"
@@ -20,20 +19,14 @@ import {
     ArtistFollow,
 } from "pages/artists/ArtistDetail/sections/artist-aside-right"
 import { NotFound } from "pages/NotFound"
-import { useFetch } from "hooks"
-
-import type { UserType } from "types"
+import { useFetchUser } from "hooks"
 
 export const ArtistDetail = () => {
     const { id } = useParams<{ id: string }>()
 
     const { user } = useContext(AuthContext) as AuthContextType
 
-    const {
-        response: artist,
-        loading,
-        error,
-    } = useFetch<UserType>(userService.getUser(id!))
+    const { user: artist, loading, errorMessage } = useFetchUser(id || "")
 
     if (
         user?._id !== id &&
@@ -44,7 +37,11 @@ export const ArtistDetail = () => {
         return <NotFound />
 
     return (
-        <Page title={artist ? artist.fullName : "Artist"} error={error} noMain>
+        <Page
+            title={artist ? artist.fullName : "Artist"}
+            error={errorMessage}
+            noMain
+        >
             <ArtistAsideLeft artist={artist!} isLoading={loading} />
 
             <Main>

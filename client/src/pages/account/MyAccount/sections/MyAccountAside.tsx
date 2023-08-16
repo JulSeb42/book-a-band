@@ -8,12 +8,7 @@ import type { MyAccountSectionsProps } from "pages/account/MyAccount/sections/ty
 export const MyAccountAside = ({ user, isLoading }: MyAccountSectionsProps) => {
     return (
         <>
-            <Avatar
-                src={user?.avatar}
-                size={150}
-                isLoading={isLoading}
-                username={user?.fullName}
-            />
+            <Avatar user={user} size={150} isLoading={isLoading} />
 
             <Button to={PATHS.EDIT_ACCOUNT}>Edit your account</Button>
 

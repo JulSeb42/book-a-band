@@ -27,6 +27,7 @@ export const COLORS = {
 
 export const OVERLAYS = {
     BLACK: "var(--overlay-black)",
+    BLACK_80: "var(--overlay-black-80)",
     GRADIENT: "var(--overlay-gradient)",
     WHITE_DEFAULT: "var(--overlay-white-default)",
     WHITE_HOVER: "var(--overlay-white-hover)",

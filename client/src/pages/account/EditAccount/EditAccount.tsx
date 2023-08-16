@@ -60,7 +60,7 @@ export const EditAccount = () => {
     })
     const [isSubmitLoading, setIsSubmitLoading] = useState(false)
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         if (!inputs.fullName.length || !city.length) {
@@ -89,7 +89,7 @@ export const EditAccount = () => {
         }
 
         if (user) {
-            userService
+            return await userService
                 .editAccount(user._id, requestBody)
                 .then(res => {
                     const { user, authToken } = res.data
