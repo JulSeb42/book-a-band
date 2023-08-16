@@ -7,19 +7,15 @@ import { IconContainer } from "components/ui/TextIcon/styles"
 import type { TextIconProps } from "components/ui/TextIcon/types"
 
 export function TextIcon({
-    tag,
+    tag = "p",
     icon,
     iconColor = "gray",
     ...rest
 }: TextIconProps) {
     return (
         <Flexbox alignItems="flex-start" gap="xxs">
-            <IconContainer $height={getIconSize(tag || "p") * 1.5}>
-                <Icon
-                    src={icon}
-                    color={iconColor}
-                    size={getIconSize(tag || "p")}
-                />
+            <IconContainer $height={getIconSize(tag) * 1.5}>
+                <Icon src={icon} color={iconColor} size={getIconSize(tag)} />
             </IconContainer>
 
             <Text tag={tag} {...rest} />

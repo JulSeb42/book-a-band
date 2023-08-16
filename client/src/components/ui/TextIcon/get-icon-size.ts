@@ -18,5 +18,5 @@ export const getIconSize = (
         ]
     )
 
-    return tags.get(tag || "p")
+    return tags.get(tag) || 16
 }
