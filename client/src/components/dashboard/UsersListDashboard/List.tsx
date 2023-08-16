@@ -16,13 +16,13 @@ interface UsersListDashboardProps {
     page: UserLinePageType
 }
 
-export const List = ({
+export function List({
     users,
     loading,
     setLoading,
     errorMessage,
     page,
-}: UsersListDashboardProps) => {
+}: UsersListDashboardProps) {
     const { paginatedData, totalPages } = usePaginatedData(users, 50)
 
     if (loading) return <Text>Loading</Text> // TODO: Add skeleton

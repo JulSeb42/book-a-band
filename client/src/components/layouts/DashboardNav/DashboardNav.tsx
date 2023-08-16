@@ -14,7 +14,7 @@ type LinkType = {
     end?: boolean
 }
 
-export const DashboardNav = () => {
+export function DashboardNav() {
     const links: LinkType[] = [
         {
             id: 0,

@@ -22,12 +22,12 @@ interface ArtistsListProps {
     prices: PricesType
 }
 
-export const ArtistsList = ({
+export function ArtistsList({
     artists,
     isLoading,
     error,
     prices,
-}: ArtistsListProps) => {
+}: ArtistsListProps) {
     const { paginatedData, totalPages } = usePaginatedData<UserType>(
         filterByPrice(artists, prices)
     )

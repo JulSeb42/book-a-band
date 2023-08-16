@@ -21,7 +21,7 @@ import {
 import { NotFound } from "pages/NotFound"
 import { useFetchUser } from "hooks"
 
-export const ArtistDetail = () => {
+export function ArtistDetail() {
     const { id } = useParams<{ id: string }>()
 
     const { user } = useContext(AuthContext) as AuthContextType

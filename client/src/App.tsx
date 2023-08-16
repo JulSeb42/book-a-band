@@ -5,7 +5,7 @@ import { RouterProvider } from "react-router-dom"
 import { GlobalStyle, PageLoading, Toaster } from "components"
 import { routes } from "routes"
 
-export const App = () => {
+export function App() {
     return (
         <>
             <GlobalStyle />

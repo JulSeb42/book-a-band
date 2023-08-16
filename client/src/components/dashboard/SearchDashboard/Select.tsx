@@ -22,7 +22,7 @@ interface SelectProps
     options: string[]
 }
 
-export const Select = ({
+export function Select({
     id,
     label,
     helper,
@@ -30,7 +30,7 @@ export const Select = ({
     disabled,
     className,
     ...rest
-}: SelectProps) => {
+}: SelectProps) {
     return (
         <InputContainer id={id} label={label} helper={helper}>
             <SelectContainer className={className}>

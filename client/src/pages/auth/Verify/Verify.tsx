@@ -14,7 +14,7 @@ import {
     VerificationSuccess,
 } from "pages/auth/Verify/sections"
 
-export const Verify = () => {
+export function Verify() {
     const { token, id } = useParams<{ token: string; id: string }>()
 
     const { user, setUser, isLoggedIn, setToken } = useContext(

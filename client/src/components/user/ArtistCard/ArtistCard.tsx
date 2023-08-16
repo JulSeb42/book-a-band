@@ -16,7 +16,7 @@ import type {
     ArtistInfoType,
 } from "components/user/ArtistCard/types"
 
-export const ArtistCard = ({ artist }: ArtistCardProps) => {
+export function ArtistCard({ artist }: ArtistCardProps) {
     const { _id, fullName, city, genre, available, price } = artist
 
     const path = PATHS.ARTIST(_id)

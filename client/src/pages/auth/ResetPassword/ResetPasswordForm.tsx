@@ -14,7 +14,7 @@ import { useFetchUser } from "hooks"
 
 import type { ValidationStatusType, ErrorMessageType } from "types"
 
-export const ResetPasswordForm = () => {
+export function ResetPasswordForm() {
     const navigate = useNavigate()
     const { token, id } = useParams<{ token: string; id: string }>()
 

@@ -15,11 +15,11 @@ interface ProtectedRouteProps {
     isAdminPage?: boolean
 }
 
-export const ProtectedRoute = ({
+export function ProtectedRoute({
     children,
     redirectTo = PATHS.LOGIN,
     isAdminPage,
-}: ProtectedRouteProps) => {
+}: ProtectedRouteProps) {
     const { isLoggedIn, isLoading, user } = useContext(
         AuthContext
     ) as AuthContextType

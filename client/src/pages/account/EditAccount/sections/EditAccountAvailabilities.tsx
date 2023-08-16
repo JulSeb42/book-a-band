@@ -27,11 +27,11 @@ interface EditAccountAvailabilitiesPros
     setDates: Dispatch<SetStateAction<string[]>>
 }
 
-export const EditAccountAvailabilities = ({
+export function EditAccountAvailabilities({
     isLoading,
     dates,
     setDates,
-}: EditAccountAvailabilitiesPros) => {
+}: EditAccountAvailabilitiesPros) {
     if (isLoading) return <EditAccountAvailabilitiesSkeleton />
 
     return (
@@ -110,7 +110,7 @@ const StyledText = styled(Text)`
     flex-grow: 1;
 `
 
-const EditAccountAvailabilitiesSkeleton = () => {
+function EditAccountAvailabilitiesSkeleton() {
     return (
         <>
             {generateNumbers(0, 4).map(n => (

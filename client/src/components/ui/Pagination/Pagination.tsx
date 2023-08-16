@@ -13,7 +13,7 @@ import {
 } from "components/ui/Pagination/styles"
 import type { PaginationProps } from "components/ui/Pagination/types"
 
-export const Pagination = ({ totalPages, pageLimit = 5 }: PaginationProps) => {
+export function Pagination({ totalPages, pageLimit = 5 }: PaginationProps) {
     const [_, setSearchParams] = useSearchParams()
 
     const { page, ...params } = useQueryParams()

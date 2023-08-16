@@ -20,12 +20,12 @@ const subtitlesProps: Partial<TextProps> = {
     color: "gray",
 }
 
-export const UserLineDashboard = ({
+export function UserLineDashboard({
     user,
     page,
     setLoading,
     allUsers,
-}: UserLineDashboardProps) => {
+}: UserLineDashboardProps) {
     return (
         <StyledUserLineDashboard>
             <UserInfo>

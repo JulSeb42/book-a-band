@@ -2,11 +2,11 @@
 
 import { useEffect } from "react"
 
-export const useKeyPress = (
+export function useKeyPress(
     callback: () => void,
     keyCodes: string[],
     disableShift?: boolean
-): void => {
+): void {
     useEffect(() => {
         const handler = (e: KeyboardEvent) => {
             if (disableShift && e.shiftKey) return

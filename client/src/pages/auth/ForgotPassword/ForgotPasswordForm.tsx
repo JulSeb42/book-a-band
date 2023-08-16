@@ -12,7 +12,7 @@ import { PATHS } from "data"
 
 import type { ErrorMessageType, ValidationStatusType } from "types"
 
-export const ForgotPasswordForm = () => {
+export function ForgotPasswordForm() {
     const navigate = useNavigate()
 
     const [email, setEmail] = useState("")

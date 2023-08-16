@@ -27,7 +27,7 @@ import {
 } from "components/forms/Autocomplete/styles"
 import type { AutocompleteProps } from "components/forms/Autocomplete/types"
 
-export const Autocomplete = ({
+export function Autocomplete({
     options,
     value,
     setValue,
@@ -39,7 +39,7 @@ export const Autocomplete = ({
     validation,
     setValidation,
     ...rest
-}: AutocompleteProps) => {
+}: AutocompleteProps) {
     const [isOpen, setIsOpen] = useState(false)
     const [isFocus, setIsFocus] = useState(false)
     const [cursor, setCursor] = useState<number>(-1)

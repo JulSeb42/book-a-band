@@ -6,7 +6,7 @@ import { conversationService } from "api"
 
 import type { ConversationType, ServerErrorType } from "types"
 
-export const useFetchConversation = (id: string) => {
+export function useFetchConversation(id: string) {
     const [conversation, setConversation] = useState<ConversationType>()
     const [loading, setLoading] = useState(true)
     const [errorMessage, setErrorMessage] = useState<

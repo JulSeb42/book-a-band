@@ -8,7 +8,7 @@ interface HrProps {
     className?: string
 }
 
-export const Hr = ({ className }: HrProps) => {
+export function Hr({ className }: HrProps) {
     return <StyledHr className={className} />
 }
 

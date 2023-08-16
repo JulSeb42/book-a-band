@@ -15,7 +15,7 @@ import {
 } from "components/conversation/Chat/styles"
 import type { ChatProps } from "components/conversation/Chat/types"
 
-export const Chat = ({ conversation, isLoading }: ChatProps) => {
+export function Chat({ conversation, isLoading }: ChatProps) {
     const { user } = useContext(AuthContext) as AuthContextType
 
     const [messages, setMessages] = useState<MessageType[]>([])
@@ -78,6 +78,6 @@ export const Chat = ({ conversation, isLoading }: ChatProps) => {
     )
 }
 
-const ChatSkeleton = () => {
+function ChatSkeleton() {
     return null // TODO: Add skeleton
 }

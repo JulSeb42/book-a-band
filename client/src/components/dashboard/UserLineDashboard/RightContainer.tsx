@@ -8,12 +8,12 @@ import {
 
 import type { UserLineDashboardProps } from "components/dashboard/UserLineDashboard/types"
 
-export const RightContainer = ({
+export function RightContainer({
     user,
     page,
     setLoading,
     allUsers,
-}: UserLineDashboardProps) => {
+}: UserLineDashboardProps) {
     if (page === "dashboard")
         return <SectionDashboard user={user} setLoading={setLoading} />
 

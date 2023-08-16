@@ -10,11 +10,11 @@ import type { UserRoleType, UserType } from "types"
 
 import type { DashboardSectionProps } from "components/dashboard/UserLineDashboard/sections/types"
 
-export const SectionRoles = ({
+export function SectionRoles({
     user: userProp,
     setLoading,
     allUsers,
-}: DashboardSectionProps) => {
+}: DashboardSectionProps) {
     const [user, setUser] = useState(userProp)
     const [admins, setAdmins] = useState<UserType[]>([])
     const [role, setRole] = useState<UserRoleType>(user.role)

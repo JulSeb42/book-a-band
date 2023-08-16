@@ -12,7 +12,7 @@ import { PATHS } from "data"
 
 import type { ErrorMessageType } from "types"
 
-export const DeleteAccount = () => {
+export function DeleteAccount() {
     const navigate = useNavigate()
 
     const { user, isLoading, logoutUser } = useContext(

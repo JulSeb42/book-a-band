@@ -21,7 +21,7 @@ export interface PageProps extends HelmetProps {
     error?: ServerErrorType
 }
 
-export const Page = ({
+export function Page({
     children,
     title,
     description,
@@ -32,7 +32,7 @@ export const Page = ({
     noMain,
     mainSize,
     error,
-}: PageProps) => {
+}: PageProps) {
     const { pathname, search } = useLocation()
 
     useEffect(() => {

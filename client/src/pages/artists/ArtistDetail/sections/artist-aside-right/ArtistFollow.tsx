@@ -4,7 +4,7 @@ import { Text, Flexbox, SocialLinksList } from "components"
 
 import type { ArtistSectionProps } from "pages/artists/ArtistDetail/sections/types"
 
-export const ArtistFollow = ({ artist, isLoading }: ArtistSectionProps) => {
+export function ArtistFollow({ artist, isLoading }: ArtistSectionProps) {
     const title = "Follow"
 
     if (isLoading)

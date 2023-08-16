@@ -11,10 +11,10 @@ interface ConversationHeaderProps {
     isLoading: boolean
 }
 
-export const ConversationHeader = ({
+export function ConversationHeader({
     otherUser,
     isLoading,
-}: ConversationHeaderProps) => {
+}: ConversationHeaderProps) {
     if (isLoading) return <ConversationHeaderSkeleton />
 
     return (
@@ -31,7 +31,7 @@ export const ConversationHeader = ({
     )
 }
 
-const ConversationHeaderSkeleton = () => {
+function ConversationHeaderSkeleton() {
     return (
         <SkeletonCard gap="xs" isShining>
             <Skeleton width={36} height={36} borderRadius="circle" />

@@ -23,7 +23,7 @@ interface EditAccountMainProps extends EditAccountSectionProps {
     setValidation: Dispatch<SetStateAction<EditAccountValidationType>>
 }
 
-export const EditAccountMain = ({
+export function EditAccountMain({
     user,
     isLoading,
     inputs,
@@ -34,7 +34,7 @@ export const EditAccountMain = ({
     setYoutubeLinks,
     validation,
     setValidation,
-}: EditAccountMainProps) => {
+}: EditAccountMainProps) {
     // if (isLoading) return <EditAccountMainSkeleton />
 
     const handleInputs = (e: ChangeEvent<HTMLInputElement>) => {

@@ -7,7 +7,7 @@ import { conversationService } from "api"
 
 import { toast } from "utils"
 
-export const ReadConversation = () => {
+export function ReadConversation() {
     const { id } = useParams<{ id: string }>()
 
     useEffect(() => {

@@ -10,12 +10,12 @@ type AdminLayoutProps = Omit<
     "noWrapper" | "noHeader" | "noMain" | "mainSize" | "error"
 >
 
-export const AdminLayout = ({
+export function AdminLayout({
     title,
     description,
     keywords,
     children,
-}: AdminLayoutProps) => {
+}: AdminLayoutProps) {
     return (
         <Page
             title={title}

@@ -11,7 +11,7 @@ type CitiesGenresErrorType = {
     genres: ServerErrorType
 }
 
-export const useCitiesGenres = () => {
+export function useCitiesGenres() {
     const [cities, setCities] = useState<string[]>([])
     const [genres, setGenres] = useState<string[]>([])
     const [error, setError] = useState<CitiesGenresErrorType>({

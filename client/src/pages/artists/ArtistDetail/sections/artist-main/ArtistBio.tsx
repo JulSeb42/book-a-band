@@ -9,7 +9,7 @@ import { optionsMarkdown } from "config"
 
 import type { ArtistSectionProps } from "pages/artists/ArtistDetail/sections/types"
 
-export const ArtistBio = ({ artist, isLoading }: ArtistSectionProps) => {
+export function ArtistBio({ artist, isLoading }: ArtistSectionProps) {
     if (isLoading) return <ArtistBioSkeleton />
 
     if (artist?.bio === "" || !artist?.bio)
@@ -28,7 +28,7 @@ const StyledMarkdown = styled(Markdown)`
     })}
 `
 
-const ArtistBioSkeleton = () => {
+function ArtistBioSkeleton() {
     return (
         <Flexbox flexDirection="column" gap="s" alignItems="stretch">
             {generateNumbers(0, 4).map(n => (

@@ -6,7 +6,7 @@ import { filterObject } from "utils"
 
 import type { QueryParamsType } from "types"
 
-export const useQueryParams = () => {
+export function useQueryParams() {
     const [searchParams] = useSearchParams()
     const city: string | null = searchParams.get("city")
     const genre: string | null = searchParams.get("genre")

@@ -16,10 +16,10 @@ interface ContactArtistFormProps {
     isLoading: boolean
 }
 
-export const ContactArtistContent = ({
+export function ContactArtistContent({
     artist,
     isLoading,
-}: ContactArtistFormProps) => {
+}: ContactArtistFormProps) {
     const { user } = useContext(AuthContext) as AuthContextType
 
     if (artist?._id === user?._id)

@@ -26,14 +26,14 @@ interface SendMessageProps {
     setInputHeight: Dispatch<SetStateAction<number>>
 }
 
-export const SendMessage = ({
+export function SendMessage({
     id,
     messages,
     setMessages,
     whichUser,
     inputHeight,
     setInputHeight,
-}: SendMessageProps) => {
+}: SendMessageProps) {
     const { user } = useContext(AuthContext) as AuthContextType
 
     const [body, setBody] = useState("")

@@ -6,7 +6,7 @@ import { SITE_DATA } from "data"
 
 import { StyledFooter } from "components/layouts/Footer/styles"
 
-export const Footer = () => {
+export function Footer() {
     return (
         <StyledFooter>
             <Flexbox flexDirection="column" alignItems="stretch" gap="xs">

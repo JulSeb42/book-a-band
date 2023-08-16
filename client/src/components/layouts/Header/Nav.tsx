@@ -12,7 +12,7 @@ import { PATHS } from "data"
 import { StyledNav, LinkNav } from "components/layouts/Header/styles"
 import type { NavLinkType } from "types"
 
-export const Nav = () => {
+export function Nav() {
     const { isLoggedIn, logoutUser, user } = useContext(
         AuthContext
     ) as AuthContextType

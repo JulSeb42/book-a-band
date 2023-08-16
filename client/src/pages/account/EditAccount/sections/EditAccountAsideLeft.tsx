@@ -18,7 +18,7 @@ interface EditAccountAsideLeftProps extends EditAccountSectionProps {
     isSubmitLoading: boolean
 }
 
-export const EditAccountAsideLeft = ({
+export function EditAccountAsideLeft({
     user,
     isLoading,
     formId,
@@ -27,7 +27,7 @@ export const EditAccountAsideLeft = ({
     isVisible,
     setIsVisible,
     isSubmitLoading,
-}: EditAccountAsideLeftProps) => {
+}: EditAccountAsideLeftProps) {
     const navigate = useNavigate()
 
     const [isImageLoading, setIsImageLoading] = useState(false)

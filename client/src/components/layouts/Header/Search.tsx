@@ -14,7 +14,7 @@ import { PATHS } from "data"
 
 import { SearchForm } from "components/layouts/Header/styles"
 
-export const Search = () => {
+export function Search() {
     const { pathname } = useLocation()
     const navigate = useNavigate()
 

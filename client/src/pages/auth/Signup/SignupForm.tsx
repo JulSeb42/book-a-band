@@ -23,7 +23,7 @@ type ValidationInputsType = {
     password: ValidationStatusType
 }
 
-export const SignupForm = () => {
+export function SignupForm() {
     const navigate = useNavigate()
 
     const { loginUser } = useContext(AuthContext) as AuthContextType

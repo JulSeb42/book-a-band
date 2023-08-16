@@ -13,7 +13,7 @@ interface LinkifyProps extends TextProps {
     children?: string
 }
 
-export const Linkify = ({ children, ...rest }: LinkifyProps) => {
+export function Linkify({ children, ...rest }: LinkifyProps) {
     const words: string[] = children ? children.split(" ") : []
 
     return (

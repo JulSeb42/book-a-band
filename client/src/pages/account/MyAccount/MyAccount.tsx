@@ -11,7 +11,7 @@ import {
     MyAccountAside,
 } from "pages/account/MyAccount/sections"
 
-export const MyAccount = () => {
+export function MyAccount() {
     const { user, isLoading } = useContext(AuthContext) as AuthContextType
 
     return (

@@ -8,7 +8,7 @@ import { Search } from "components/layouts/Header/Search"
 
 import { StyledHeader } from "components/layouts/Header/styles"
 
-export const Header = () => {
+export function Header() {
     return (
         <StyledHeader>
             <Link to="/">

@@ -16,7 +16,7 @@ interface BubbleProps {
     message: MessageType
 }
 
-export const Bubble = ({ message }: BubbleProps) => {
+export function Bubble({ message }: BubbleProps) {
     const { user } = useContext(AuthContext) as AuthContextType
 
     const isoDate = new Date(message?.updatedAt)

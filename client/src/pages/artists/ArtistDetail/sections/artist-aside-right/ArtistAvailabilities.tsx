@@ -6,10 +6,10 @@ import { Skeleton, TextIcon, Text } from "components"
 
 import type { ArtistSectionProps } from "pages/artists/ArtistDetail/sections/types"
 
-export const ArtistAvailabilities = ({
+export function ArtistAvailabilities({
     artist,
     isLoading,
-}: ArtistSectionProps) => {
+}: ArtistSectionProps) {
     if (isLoading)
         return generateNumbers(0, 4).map(n => (
             <Skeleton height={24} width="80%" isShining key={n} />

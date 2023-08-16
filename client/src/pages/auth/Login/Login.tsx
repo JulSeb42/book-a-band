@@ -7,7 +7,7 @@ import { LoginForm } from "pages/auth/Login/LoginForm"
 import { LoginDemo } from "pages/auth/Login/LoginDemo"
 import { PATHS } from "data"
 
-export const Login = () => {
+export function Login() {
     return (
         <Page title="Login" mainSize="form">
             <Text tag="h1">Log in</Text>

@@ -18,7 +18,7 @@ interface UsersListDashboardProps {
     page: UserLinePageType
 }
 
-export const UsersListDashboard = ({ page }: UsersListDashboardProps) => {
+export function UsersListDashboard({ page }: UsersListDashboardProps) {
     const { pathname } = useLocation()
 
     const { role, status } = useAdminParams()

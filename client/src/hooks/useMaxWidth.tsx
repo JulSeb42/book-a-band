@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 
-export const useMaxWidth = (width: number) => {
+export function useMaxWidth(width: number) {
     const [isMax, setIsMax] = useState<undefined | boolean>(undefined)
 
     useEffect(() => {

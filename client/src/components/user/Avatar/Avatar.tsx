@@ -9,12 +9,7 @@ import type { ImageProps } from "components/media/Image/types"
 import { StyledLink } from "components/user/Avatar/styles"
 import type { AvatarProps } from "components/user/Avatar/types"
 
-export const Avatar = ({
-    user,
-    size = 120,
-    isLoading,
-    isLink,
-}: AvatarProps) => {
+export function Avatar({ user, size = 120, isLoading, isLink }: AvatarProps) {
     const commonProps = {
         width: size,
         height: size,

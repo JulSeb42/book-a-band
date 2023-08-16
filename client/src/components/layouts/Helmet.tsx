@@ -11,12 +11,12 @@ export interface HelmetProps {
     cover?: string
 }
 
-export const Helmet = ({
+export function Helmet({
     title,
     description = SITE_DATA.DESCRIPTION,
     keywords,
     cover = SITE_DATA.COVER,
-}: HelmetProps) => {
+}: HelmetProps) {
     return (
         <Meta>
             <title>

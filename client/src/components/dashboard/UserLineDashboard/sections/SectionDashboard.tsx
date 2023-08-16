@@ -12,7 +12,7 @@ import type { ButtonIconProps } from "components/ui/ButtonIcon/types"
 
 import type { DashboardSectionProps } from "components/dashboard/UserLineDashboard/sections/types"
 
-export const SectionDashboard = ({ user }: DashboardSectionProps) => {
+export function SectionDashboard({ user }: DashboardSectionProps) {
     const navigate = useNavigate()
 
     const {

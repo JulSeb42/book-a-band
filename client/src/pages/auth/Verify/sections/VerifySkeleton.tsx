@@ -2,7 +2,7 @@
 
 import { Page, Skeleton } from "components"
 
-export const VerifySkeleton = () => {
+export function VerifySkeleton() {
     return (
         <Page title="Verification loading">
             <Skeleton height={60} width="60%" isShining />

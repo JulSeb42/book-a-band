@@ -13,7 +13,7 @@ import { getMinMaxPrices } from "utils"
 
 import type { SortType, UserType, ServerErrorType, PricesType } from "types"
 
-export const AllArtists = () => {
+export function AllArtists() {
     const { city, genre, query } = useQueryParams()
 
     const [artists, setArtists] = useState<UserType[]>([])

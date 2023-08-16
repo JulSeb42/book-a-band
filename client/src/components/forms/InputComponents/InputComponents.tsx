@@ -20,11 +20,11 @@ import type {
     InputContainerProps,
 } from "components/forms/InputComponents/types"
 
-export const InputRightContainer = ({ children }: InputRightContainerProps) => {
+export function InputRightContainer({ children }: InputRightContainerProps) {
     return <StyledRightContainer>{children}</StyledRightContainer>
 }
 
-export const InputIcon = ({ icon }: InputIconProps) => {
+export function InputIcon({ icon }: InputIconProps) {
     return (
         <IconContainer>
             <Icon src={icon} size={20} color="primary" />
@@ -32,7 +32,7 @@ export const InputIcon = ({ icon }: InputIconProps) => {
     )
 }
 
-export const InputValidationIcon = ({ status }: InputValidationIconProps) => {
+export function InputValidationIcon({ status }: InputValidationIconProps) {
     if (!status) return null
 
     if (status === "not-passed")
@@ -41,14 +41,14 @@ export const InputValidationIcon = ({ status }: InputValidationIconProps) => {
     return <Icon src="check-circle" size={20} color="success" />
 }
 
-export const InputContainer = ({
+export function InputContainer({
     id,
     label,
     helper,
     children,
     isLoading,
     validation,
-}: InputContainerProps) => {
+}: InputContainerProps) {
     const input = () =>
         isLoading ? (
             <Skeleton height={INPUT_HEIGHT} borderRadius="s" isShining />

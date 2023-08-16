@@ -3,7 +3,7 @@
 import { Page, Text } from "components"
 import { ForgotPasswordForm } from "pages/auth/ForgotPassword/ForgotPasswordForm"
 
-export const ForgotPassword = () => {
+export function ForgotPassword() {
     return (
         <Page title="I forgot my password" mainSize="form">
             <Text tag="h1">I forgot my password</Text>

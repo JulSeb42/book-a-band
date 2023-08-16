@@ -5,7 +5,7 @@ import styled from "styled-components"
 import { COLORS, Loader, Mixins } from "components"
 import { Helmet } from "components/layouts/Helmet"
 
-export const PageLoading = () => {
+export function PageLoading() {
     return (
         <>
             <Helmet title="Page loading" />

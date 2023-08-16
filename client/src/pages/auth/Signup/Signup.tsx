@@ -10,7 +10,7 @@ import { PATHS } from "data"
 
 import type { UserRoleType } from "types"
 
-export const Signup = () => {
+export function Signup() {
     const [searchParams] = useSearchParams()
     const role = (searchParams.get("role") || "user") as UserRoleType
 

@@ -33,7 +33,7 @@ interface ArtistsFiltersProps {
     setSelectedGenre: Dispatch<SetStateAction<string>>
 }
 
-export const ArtistsFilters = ({
+export function ArtistsFilters({
     sort,
     setSort,
     prices,
@@ -44,7 +44,7 @@ export const ArtistsFilters = ({
     setSelectedGenre,
     isLoading,
     setIsLoading,
-}: ArtistsFiltersProps) => {
+}: ArtistsFiltersProps) {
     const { city: cityParam, genre: genreParam } = useQueryParams()
     const { cities, genres, loading } = useCitiesGenres()
 

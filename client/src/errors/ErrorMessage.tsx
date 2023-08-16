@@ -8,7 +8,7 @@ interface ErrorMessageProps {
     error: ErrorMessageType
 }
 
-export const ErrorMessage = ({ error }: ErrorMessageProps) => {
+export function ErrorMessage({ error }: ErrorMessageProps) {
     if (!error) return null
 
     return <Alert>{error?.response?.data.message}</Alert>

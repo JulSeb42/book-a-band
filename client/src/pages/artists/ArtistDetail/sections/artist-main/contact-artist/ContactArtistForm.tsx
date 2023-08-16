@@ -15,7 +15,7 @@ interface ContactArtistFormProps {
     artist: UserType
 }
 
-export const ContactArtistForm = ({ artist }: ContactArtistFormProps) => {
+export function ContactArtistForm({ artist }: ContactArtistFormProps) {
     const navigate = useNavigate()
 
     const {

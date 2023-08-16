@@ -11,7 +11,7 @@ import {
 } from "components"
 import { useFetchUserConversations } from "hooks"
 
-export const MyAccountConversations = () => {
+export function MyAccountConversations() {
     const { conversations, loading, errorMessage } = useFetchUserConversations()
 
     if (loading) return <MyAccountConversationsSkeleton />

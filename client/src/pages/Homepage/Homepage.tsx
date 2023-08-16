@@ -4,7 +4,7 @@ import { Page, Text, Logo } from "components"
 import { HomeCover } from "pages/Homepage/HomeCover"
 import { HomeSearch } from "pages/Homepage/HomeSearch"
 
-export const Homepage = () => {
+export function Homepage() {
     return (
         <Page title="Homepage" noHeader noWrapper>
             <HomeCover>

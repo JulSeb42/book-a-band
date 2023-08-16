@@ -16,7 +16,7 @@ type LoginFormValidationType = {
     password: ValidationStatusType
 }
 
-export const LoginForm = () => {
+export function LoginForm() {
     const navigate = useNavigate()
     const { loginUser } = useContext(AuthContext) as AuthContextType
 

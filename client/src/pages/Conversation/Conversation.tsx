@@ -11,7 +11,7 @@ import { ReadConversation } from "pages/Conversation/ReadConversation"
 import { NotFound } from "pages/NotFound"
 import { useFetchConversation } from "hooks"
 
-export const Conversation = () => {
+export function Conversation() {
     const { id } = useParams<{ id: string }>()
 
     const { user } = useContext(AuthContext) as AuthContextType

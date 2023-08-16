@@ -5,7 +5,7 @@ import { PATHS } from "data"
 
 import type { MyAccountSectionsProps } from "pages/account/MyAccount/sections/types"
 
-export const MyAccountAside = ({ user, isLoading }: MyAccountSectionsProps) => {
+export function MyAccountAside({ user, isLoading }: MyAccountSectionsProps) {
     return (
         <>
             <Avatar user={user} size={150} isLoading={isLoading} />

@@ -13,17 +13,15 @@ import type {
     TabProps,
 } from "components/ui/Tabs/types"
 
-export const TabsContainer = ({ children }: TabsContainerProps) => {
+export function TabsContainer({ children }: TabsContainerProps) {
     return <StyledTabs>{children}</StyledTabs>
 }
 
-export const TabsButtonsContainer = ({
-    children,
-}: TabsButtonsContainerProps) => {
+export function TabsButtonsContainer({ children }: TabsButtonsContainerProps) {
     return <StyledTabsButtonsContainer>{children}</StyledTabsButtonsContainer>
 }
 
-export const TabButton = ({ isActive, onClick, children }: TabButtonProps) => {
+export function TabButton({ isActive, onClick, children }: TabButtonProps) {
     return (
         <StyledTabButton onClick={onClick} $isActive={isActive}>
             {children}
@@ -31,6 +29,6 @@ export const TabButton = ({ isActive, onClick, children }: TabButtonProps) => {
     )
 }
 
-export const Tab = ({ children, isActive }: TabProps) => {
+export function Tab({ children, isActive }: TabProps) {
     return <StyledTab $isActive={isActive}>{children}</StyledTab>
 }

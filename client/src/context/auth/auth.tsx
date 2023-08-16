@@ -12,7 +12,7 @@ interface AuthProviderWrapperProps {
 
 export const AuthContext = createContext<null | AuthContextType>(null)
 
-export const AuthProviderWrapper = ({ children }: AuthProviderWrapperProps) => {
+export function AuthProviderWrapper({ children }: AuthProviderWrapperProps) {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [user, setUser] = useState<null | UserType>(null)

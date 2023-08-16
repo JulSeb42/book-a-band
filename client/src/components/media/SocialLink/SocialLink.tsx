@@ -5,7 +5,7 @@ import { Icon } from "components"
 import { StyledSocialLink } from "components/media/SocialLink/styles"
 import type { SocialLinkProps } from "components/media/SocialLink/types"
 
-export const SocialLink = ({ url, site }: SocialLinkProps) => {
+export function SocialLink({ url, site }: SocialLinkProps) {
     return (
         <StyledSocialLink
             href={url}

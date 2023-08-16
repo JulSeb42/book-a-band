@@ -7,7 +7,7 @@ import { useKeyPress } from "hooks"
 import { StyledModal } from "components/layouts/Modal/styles"
 import type { ModalProps } from "components/layouts/Modal/types"
 
-export const Modal = ({ isOpen, setIsOpen, children }: ModalProps) => {
+export function Modal({ isOpen, setIsOpen, children }: ModalProps) {
     useEffect(() => {
         const { body } = document
 

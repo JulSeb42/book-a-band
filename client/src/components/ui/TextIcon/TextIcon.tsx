@@ -6,12 +6,12 @@ import { getIconSize } from "components/ui/TextIcon/get-icon-size"
 import { IconContainer } from "components/ui/TextIcon/styles"
 import type { TextIconProps } from "components/ui/TextIcon/types"
 
-export const TextIcon = ({
+export function TextIcon({
     tag,
     icon,
     iconColor = "gray",
     ...rest
-}: TextIconProps) => {
+}: TextIconProps) {
     return (
         <Flexbox alignItems="flex-start" gap="xxs">
             <IconContainer $height={getIconSize(tag || "p") * 1.5}>

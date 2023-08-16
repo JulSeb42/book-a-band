@@ -10,7 +10,7 @@ import { Button, Grid, Flexbox, Text } from "components"
 
 import type { UserRoleType } from "types"
 
-export const LoginDemo = () => {
+export function LoginDemo() {
     const navigate = useNavigate()
     const { loginUser } = useContext(AuthContext) as AuthContextType
 

@@ -2,7 +2,7 @@
 
 import { AdminLayout, UsersListDashboard } from "components"
 
-export const Dashboard = () => {
+export function Dashboard() {
     return (
         <AdminLayout title="Dashboard">
             <UsersListDashboard page="dashboard" />

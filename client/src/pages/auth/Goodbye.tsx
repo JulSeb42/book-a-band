@@ -2,7 +2,7 @@
 
 import { Page, Text } from "components"
 
-export const Goodbye = () => {
+export function Goodbye() {
     return (
         <Page title="Goodbye!">
             <Text tag="h1">We're sorry to see you go!</Text>

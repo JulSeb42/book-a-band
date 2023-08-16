@@ -11,7 +11,7 @@ import type { UserType } from "types"
 
 import type { DashboardSectionProps } from "components/dashboard/UserLineDashboard/sections/types"
 
-export const SectionArtists = ({ user, setLoading }: DashboardSectionProps) => {
+export function SectionArtists({ user, setLoading }: DashboardSectionProps) {
     const [artist, setArtist] = useState<UserType>(user)
 
     const handleClick = (isApproved: boolean) => {

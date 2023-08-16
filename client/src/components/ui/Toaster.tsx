@@ -6,7 +6,7 @@ import styled from "styled-components"
 import { ButtonIcon, COLORS, SPACERS, Text } from "components"
 import { toast } from "utils"
 
-export const Toaster = () => {
+export function Toaster() {
     return (
         <HotToaster
             position="bottom-right"

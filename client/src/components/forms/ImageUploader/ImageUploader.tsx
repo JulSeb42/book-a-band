@@ -16,14 +16,14 @@ import {
 } from "components/forms/ImageUploader/styles"
 import type { ImageUploaderProps } from "components/forms/ImageUploader/types"
 
-export const ImageUploader = ({
+export function ImageUploader({
     image,
     setImage,
     setIsLoading,
     id,
     label,
     helper,
-}: ImageUploaderProps) => {
+}: ImageUploaderProps) {
     const handleImage = async (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
 

@@ -9,12 +9,12 @@ interface SocialLinksListProps {
     isLoading?: boolean
 }
 
-export const SocialLinksList = ({
+export function SocialLinksList({
     facebook,
     instagram,
     youtube,
     isLoading,
-}: SocialLinksListProps) => {
+}: SocialLinksListProps) {
     if (isLoading)
         return (
             <SkeletonCard

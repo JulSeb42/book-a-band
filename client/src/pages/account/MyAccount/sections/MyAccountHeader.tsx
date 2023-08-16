@@ -4,10 +4,7 @@ import { Skeleton, Text, TextIcon } from "components"
 
 import type { MyAccountSectionsProps } from "pages/account/MyAccount/sections/types"
 
-export const MyAccountHeader = ({
-    user,
-    isLoading,
-}: MyAccountSectionsProps) => {
+export function MyAccountHeader({ user, isLoading }: MyAccountSectionsProps) {
     if (isLoading)
         return (
             <>

@@ -14,11 +14,11 @@ import { StyledSearchDashboard } from "components/dashboard/SearchDashboard/styl
 import type { SearchDashboardProps } from "components/dashboard/SearchDashboard/types"
 import type { AdminApproveStatusType, UserRoleType } from "types"
 
-export const SearchDashboard = ({
+export function SearchDashboard({
     search,
     setSearch,
     setLoading,
-}: SearchDashboardProps) => {
+}: SearchDashboardProps) {
     const { pathname } = useLocation()
     const isArtistsList = pathname === PATHS.DASHBOARD_ARTISTS
 

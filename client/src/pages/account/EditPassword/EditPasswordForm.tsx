@@ -12,7 +12,7 @@ import { PATHS } from "data"
 import { FORM_VALIDATION } from "errors"
 import type { ValidationStatusType, ErrorMessageType } from "types"
 
-export const EditPasswordForm = () => {
+export function EditPasswordForm() {
     const navigate = useNavigate()
 
     const { user, isLoading, setUser, setToken } = useContext(

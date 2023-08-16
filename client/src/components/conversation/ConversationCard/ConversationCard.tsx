@@ -16,7 +16,7 @@ import {
 } from "components/conversation/ConversationCard/styles"
 import type { ConversationCardProps } from "components/conversation/ConversationCard/types"
 
-export const ConversationCard = ({ conversation }: ConversationCardProps) => {
+export function ConversationCard({ conversation }: ConversationCardProps) {
     const { user } = useContext(AuthContext) as AuthContextType
 
     const conversationUser =
@@ -79,7 +79,7 @@ export const ConversationCard = ({ conversation }: ConversationCardProps) => {
     )
 }
 
-export const ConversationCardSkeleton = () => {
+export function ConversationCardSkeleton() {
     return (
         <SkeletonCard padding="xs" gap="xs" isShining>
             <Skeleton width={48} height={48} borderRadius="circle" />

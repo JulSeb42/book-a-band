@@ -24,7 +24,7 @@ import type {
     EditAccountYoutubeLinksType,
 } from "pages/account/EditAccount/sections/types"
 
-export const EditAccount = () => {
+export function EditAccount() {
     const FORM_ID = "edit-form"
 
     const navigate = useNavigate()

@@ -5,7 +5,7 @@ import { Text } from "components"
 import { StyledAlert } from "components/ui/Alert/styles"
 import type { AlertProps } from "components/ui/Alert/types"
 
-export const Alert = ({ children, onSubmit }: AlertProps) => {
+export function Alert({ children, onSubmit }: AlertProps) {
     return (
         <StyledAlert
             as={typeof children === "string" ? Text : onSubmit ? "form" : "div"}

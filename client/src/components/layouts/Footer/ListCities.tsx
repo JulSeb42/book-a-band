@@ -7,7 +7,7 @@ import { TextIcon, Text, Skeleton, SkeletonCard } from "components"
 import { useCitiesGenres } from "hooks"
 import { PATHS, SITE_DATA } from "data"
 
-export const ListCities = () => {
+export function ListCities() {
     const { cities, loading, error } = useCitiesGenres()
 
     if (loading) return <ListCitiesSkeleton />
