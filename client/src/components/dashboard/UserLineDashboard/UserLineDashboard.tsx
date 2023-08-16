@@ -29,7 +29,7 @@ export const UserLineDashboard = ({
     return (
         <StyledUserLineDashboard>
             <UserInfo>
-                <Avatar src={user.avatar} username={user.fullName} size={32} />
+                <Avatar user={user} size={32} />
 
                 <NameContainer>
                     <Name>{user.fullName}</Name>

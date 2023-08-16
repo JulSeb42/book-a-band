@@ -39,11 +39,7 @@ export const ConversationCard = ({ conversation }: ConversationCardProps) => {
 
     return (
         <StyledConversationCard to={PATHS.CONVERSATION(conversation._id)}>
-            <Avatar
-                src={conversationUser.avatar}
-                username={conversationUser.fullName}
-                size={48}
-            />
+            <Avatar user={conversationUser} size={48} />
 
             <CardContent>
                 <Text tag="h6" maxLines={1}>

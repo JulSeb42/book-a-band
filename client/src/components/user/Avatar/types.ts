@@ -1,9 +1,10 @@
 /*=============================================== Avatar types ===============================================*/
 
+import type { UserType } from "types"
+
 export interface AvatarProps {
-    src: string
-    username: string
+    user: UserType
     size?: number
     isLoading?: boolean
-    to?: string
+    isLink?: boolean
 }
