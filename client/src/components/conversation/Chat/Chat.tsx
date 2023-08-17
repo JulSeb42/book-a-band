@@ -20,7 +20,7 @@ export function Chat({ conversation, isLoading }: ChatProps) {
 
     const [messages, setMessages] = useState<MessageType[]>([])
     const [whichUser, setWhichUser] = useState<WhichUserType>(undefined)
-    const [inputHeight, setInputHeight] = useState(INPUT_HEIGHT)
+    const [inputHeight, setInputHeight] = useState<number>(INPUT_HEIGHT)
 
     const containerRef = useRef<HTMLDivElement>(null)
 
