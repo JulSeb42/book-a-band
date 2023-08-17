@@ -1,0 +1,13 @@
+/*=============================================== {{ pascal name }} types ===============================================*/
+
+{{#if as}}
+import type { ElementType } from "react"
+
+{{/if}}
+export interface {{ pascal name }}Props {
+	{{#if as}}
+    as?: ElementType
+    {{else}}
+
+    {{/if}}
+}
