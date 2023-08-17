@@ -29,10 +29,11 @@ export function ArtistDetail() {
     const { user: artist, loading, errorMessage } = useFetchUser(id || "")
 
     if (
-        user?._id !== id &&
-        !artist?.isVisible &&
-        user?.role !== "admin" &&
-        !loading
+        (user?._id !== id &&
+            !artist?.isVisible &&
+            user?.role !== "admin" &&
+            !loading) ||
+        (user?.role !== "admin" && !artist?.verified)
     )
         return <NotFound />
 

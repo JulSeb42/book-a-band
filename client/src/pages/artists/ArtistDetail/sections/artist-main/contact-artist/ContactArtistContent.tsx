@@ -25,6 +25,13 @@ export function ContactArtistContent({
     if (artist?._id === user?._id)
         return <Text>You can not contact yourself!</Text>
 
+    if (!user?.verified)
+        return (
+            <Text>
+                Please verify your account to contact {artist?.fullName}.
+            </Text>
+        )
+
     if (isLoading) return null
 
     const conversation: ConversationType | undefined =
