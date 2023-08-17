@@ -23,6 +23,8 @@ export const PATHS = {
     DASHBOARD: "/dashboard",
     DASHBOARD_ARTISTS: "/dashboard/artists",
     DASHBOARD_ROLES: "/dashboard/roles",
+
+    // prependPath
 }
 
 export const SERVER_PATHS = {

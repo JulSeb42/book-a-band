@@ -27,6 +27,8 @@ import { MyAccount, EditAccount, EditPassword } from "pages/account"
 
 import { Dashboard, DashboardArtists, DashboardRoles } from "pages/dashboard"
 
+// prependImport
+
 type RouteType = {
     path: string
     element: JSX.Element
@@ -155,6 +157,8 @@ export const routes = createBrowserRouter([
             </ProtectedRoute>
         ),
     },
+
+    // prependRoute
 
     ...redirects,
 ])
