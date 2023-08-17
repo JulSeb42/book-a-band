@@ -7,14 +7,7 @@ import type { ArtistSectionProps } from "pages/artists/ArtistDetail/sections/typ
 export function ArtistFollow({ artist, isLoading }: ArtistSectionProps) {
     const title = "Follow"
 
-    if (isLoading)
-        return (
-            <Flexbox flexDirection="column" gap="xs" alignItems="stretch">
-                <Text tag="h4">{title}</Text>
-
-                <SocialLinksList isLoading />
-            </Flexbox>
-        )
+    if (isLoading) return <ArtistFollowSkeleton title={title} />
 
     if (!artist?.facebookUrl && !artist?.instagramUrl && !artist?.youtubeUrl)
         return null
@@ -28,6 +21,16 @@ export function ArtistFollow({ artist, isLoading }: ArtistSectionProps) {
                 instagram={artist?.instagramUrl}
                 youtube={artist?.youtubeUrl}
             />
+        </Flexbox>
+    )
+}
+
+function ArtistFollowSkeleton({ title }: { title: string }) {
+    return (
+        <Flexbox flexDirection="column" gap="xs" alignItems="stretch">
+            <Text tag="h4">{title}</Text>
+
+            <SocialLinksList isLoading />
         </Flexbox>
     )
 }

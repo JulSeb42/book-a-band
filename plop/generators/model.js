@@ -3,10 +3,6 @@
 const generateModel = (/** @type {import('plop').NodePlopAPI} */ plop) => {
     const { setGenerator } = plop
 
-    // TODO:
-    // ? create file in
-    // ? export from
-
     setGenerator("model", {
         description: "Mongoose model",
         prompts: [

@@ -4,7 +4,7 @@ import { useState, useEffect, useContext, useRef, useCallback } from "react"
 
 import { AuthContext, type AuthContextType } from "context"
 
-import { Hr, Text, INPUT_HEIGHT } from "components"
+import { Hr, Text, INPUT_HEIGHT, SkeletonCard, Skeleton } from "components"
 import { SendMessage } from "components/conversation/Chat/SendMessage"
 import { Bubble } from "components/conversation/Chat/Bubble"
 import type { MessageType, WhichUserType } from "types"
@@ -79,5 +79,49 @@ export function Chat({ conversation, isLoading }: ChatProps) {
 }
 
 function ChatSkeleton() {
-    return null // TODO: Add skeleton
+    return (
+        <StyledChat>
+            <StyledMessagesContainer $isEmpty={false}>
+                <SkeletonCard justifyContent="flex-end">
+                    <Skeleton
+                        width="60%"
+                        height={64}
+                        borderRadius="m"
+                        isShining
+                    />
+                </SkeletonCard>
+
+                <SkeletonCard justifyContent="flex-start">
+                    <Skeleton
+                        width="40%"
+                        height={96}
+                        borderRadius="m"
+                        isShining
+                    />
+                </SkeletonCard>
+
+                <SkeletonCard justifyContent="flex-end">
+                    <Skeleton
+                        width="50%"
+                        height={64}
+                        borderRadius="m"
+                        isShining
+                    />
+                </SkeletonCard>
+
+                <SkeletonCard justifyContent="flex-start">
+                    <Skeleton
+                        width="60%"
+                        height={128}
+                        borderRadius="m"
+                        isShining
+                    />
+                </SkeletonCard>
+            </StyledMessagesContainer>
+
+            <Hr />
+
+            <Skeleton height={32} borderRadius="s" isShining />
+        </StyledChat>
+    )
 }

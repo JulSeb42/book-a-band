@@ -32,19 +32,7 @@ export function EditAccountAsideLeft({
 
     const [isImageLoading, setIsImageLoading] = useState(false)
 
-    if (isLoading)
-        return (
-            <>
-                <Skeleton
-                    width={150}
-                    height={150}
-                    borderRadius="circle"
-                    isShining
-                />
-                <Skeleton width={120} height={40} borderRadius="m" isShining />
-                <Skeleton width={120} height={40} borderRadius="m" isShining />
-            </>
-        )
+    if (isLoading) return <EditAccountAsideLeftSkeleton />
 
     return (
         <>
@@ -80,6 +68,21 @@ export function EditAccountAsideLeft({
             >
                 Cancel
             </Button>
+        </>
+    )
+}
+
+function EditAccountAsideLeftSkeleton() {
+    return (
+        <>
+            <Skeleton
+                width={150}
+                height={150}
+                borderRadius="circle"
+                isShining
+            />
+            <Skeleton width={120} height={40} borderRadius="m" isShining />
+            <Skeleton width={120} height={40} borderRadius="m" isShining />
         </>
     )
 }

@@ -35,8 +35,6 @@ export function EditAccountMain({
     validation,
     setValidation,
 }: EditAccountMainProps) {
-    // if (isLoading) return <EditAccountMainSkeleton />
-
     const handleInputs = (e: ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target
 

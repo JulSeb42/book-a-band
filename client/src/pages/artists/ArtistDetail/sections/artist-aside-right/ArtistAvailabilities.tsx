@@ -10,10 +10,7 @@ export function ArtistAvailabilities({
     artist,
     isLoading,
 }: ArtistSectionProps) {
-    if (isLoading)
-        return generateNumbers(0, 4).map(n => (
-            <Skeleton height={24} width="80%" isShining key={n} />
-        ))
+    if (isLoading) return <ArtistAvailabilitiesSkeleton />
 
     if (!artist?.available.length)
         return <Text>{artist?.fullName} did not add any date yet.</Text>
@@ -23,4 +20,14 @@ export function ArtistAvailabilities({
             {convertDateShort(new Date(date))}
         </TextIcon>
     ))
+}
+
+function ArtistAvailabilitiesSkeleton() {
+    return (
+        <>
+            {generateNumbers(0, 4).map(n => (
+                <Skeleton height={24} width="80%" isShining key={n} />
+            ))}
+        </>
+    )
 }
