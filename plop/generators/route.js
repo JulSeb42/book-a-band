@@ -3,10 +3,6 @@
 const generateRoute = (/** @type {import('plop').NodePlopAPI} */ plop) => {
     const { setGenerator } = plop
 
-    // TODO:
-    // ? create api service in
-    // ? export service from ../client/src/api/index.ts
-
     setGenerator("route", {
         description: "Generate route",
         prompts: [

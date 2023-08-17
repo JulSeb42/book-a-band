@@ -7,12 +7,13 @@ const {
     generateSingleFileComponent,
     generatePage,
     generateRoute,
+    generateModel,
 } = require("./generators")
 
 // Generate components, pages, routes and models
 
 module.exports = (/** @type {import('plop').NodePlopAPI} */ plop) => {
-    const { setGenerator, setHelper } = plop
+    const { setHelper } = plop
 
     setHelper("capitalize", text => capitalize(text))
 
@@ -20,16 +21,5 @@ module.exports = (/** @type {import('plop').NodePlopAPI} */ plop) => {
     generateSingleFileComponent(plop) // yarn plop:sc
     generatePage(plop) // yarn plop:p
     generateRoute(plop) // yarn plop:r
-
-    setGenerator("model", {
-        description: "Generate model",
-        prompts: [
-            {
-                type: "input",
-                name: "name",
-                message: "Enter model's name",
-            },
-        ],
-        actions: [],
-    })
+    generateModel(plop) // yarn plop:m
 }
