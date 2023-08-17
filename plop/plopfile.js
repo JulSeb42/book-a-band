@@ -4,6 +4,13 @@ const { capitalize, convertToPascal } = require("ts-utils-julseb")
 
 // Generate components, pages, routes and models
 
+const validateInput = input => {
+    if (input && input !== "") {
+        return /^[a-zA-Z.-]+$/.test(input)
+    }
+    return false
+}
+
 module.exports = (
     /** @type {import('plop').NodePlopAPI} */
     plop
@@ -12,7 +19,6 @@ module.exports = (
 
     setHelper("capitalize", text => capitalize(text))
     setHelper("pascal", text => convertToPascal(text))
-    setHelper("lowercase", text => text.toLowerCase())
 
     setGenerator("component", {
         description: "React component",
@@ -43,29 +49,56 @@ module.exports = (
         ],
         actions: [
             {
-                type: "add",
-                path: "../client/src/components/{{ pascal name }}/index.ts",
-                templateFile: "./templates/component/component-index.hbs",
-            },
-            {
-                type: "add",
-                path: "../client/src/components/{{ pascal name }}/{{ pascal name }}.tsx",
-                templateFile: "./templates/component/component-file.hbs",
-            },
-            {
-                type: "add",
-                path: "../client/src/components/{{ pascal name }}/styles.tsx",
-                templateFile: "./templates/component/component-styles.hbs",
-            },
-            {
-                type: "add",
-                path: "../client/src/components/{{ pascal name }}/types.ts",
-                templateFile: "./templates/component/component-types.hbs",
+                type: "addMany",
+                destination: "../client/src/components/{{ pascal name }}",
+                templateFiles: "./templates/component/*.hbs",
+                base: "./templates/component",
             },
             {
                 type: "append",
                 path: "../client/src/components/index.ts",
                 template: 'export * from "components/{{ pascal name }}"',
+                pattern: /(\/\/ appendHere)/g,
+            },
+        ],
+    })
+
+    setGenerator("single-component", {
+        description: "Generate single file React component",
+        prompts: [
+            {
+                type: "input",
+                name: "name",
+                message: "Enter the component's name",
+            },
+            {
+                type: "confirm",
+                name: "props",
+                message: "Add props?",
+                default: false,
+            },
+            {
+                type: "input",
+                name: "tag",
+                message: "Which HTML tag?",
+            },
+            {
+                type: "input",
+                name: "components",
+                message: "Import other components?",
+            },
+        ],
+        actions: [
+            {
+                type: "add",
+                path: "../client/src/components/{{ pascal name }}.tsx",
+                templateFile: "./templates/single-component.hbs",
+            },
+            {
+                type: "append",
+                path: "../client/src/components/index.ts",
+                template: 'export * from "components/{{ pascal name }}"',
+                pattern: /(\/\/ appendHere)/g,
             },
         ],
     })

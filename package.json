@@ -11,6 +11,7 @@
         "dev": "concurrently --kill-others 'yarn server' 'yarn client'",
         "plop": "plop --plopfile 'plop/plopfile.js'",
         "plop:c": "yarn plop component",
+        "plop:sc": "yarn plop single-component",
         "plop:p": "yarn plop page",
         "plop:r": "yarn plop route",
         "plop:m": "yarn plop model"

@@ -1,0 +1,25 @@
+/*=============================================== {{ pascal name }} ===============================================*/
+{{#if components}}
+
+import { {{components}} } from "components"
+{{/if}}
+{{#if props}}
+
+interface {{ pascal name }}Props {
+
+}
+{{/if}}
+
+export function {{ pascal name }}({{#if props}}{ }{{/if}}){{#if props}}: {{ pascal name }}Props{{/if}} {
+    return (
+        {{#if tag}}
+        <{{ lowerCase tag }}>
+
+        </{{ lowerCase tag }}>
+        {{else}}
+        <>
+
+        </>
+        {{/if}}
+    )
+}
