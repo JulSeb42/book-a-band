@@ -1,0 +1,31 @@
+/*=============================================== {{ pascalCase name }} component ===============================================*/
+
+{{#if forward}}
+import { forwardRef, type ForwardedRef } from "react"
+
+{{/if}}
+import { Styled{{ pascalCase name }} } from "components/{{ pascalCase name }}/styles"
+import type { {{ pascalCase name }}Props } from "components/{{ pascalCase name }}/types"
+
+{{#if forward}}
+export const {{ pascalCase name }} = forwardRef(
+    (
+        { {{#if as}}as{{/if}} }: {{ pascalCase name }}Props,
+        ref?: ForwardedRef<HTML{{ capitalize tag }}Element>
+    ) => {
+        return (
+            <Styled{{ pascalCase name }}{{#if as}} as={as}{{/if}} ref={ref}>
+                
+            </Styled{{ pascalCase name }}>
+        )
+    }
+)
+{{else}}
+export function {{ pascalCase name }}({ {{#if as}}as{{/if}} }: {{ pascalCase name }}Props) {
+	return (
+		<Styled{{ pascalCase name }}{{#if as}} as={as}{{/if}}>
+
+		</Styled{{ pascalCase name }}>
+	)
+}
+{{/if}}

@@ -33,4 +33,5 @@ export const SERVER_PATHS = {
     USERS: "/users",
     CONVERSATION: "/conversation",
     MESSAGE: "/message",
+    // prependServerPath
 }

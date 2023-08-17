@@ -1,8 +1,8 @@
 /*=============================================== Generate page route ===============================================*/
 
 const generatePageRoute = pageType => {
-    const pathName = "PATHS.{{ routePath name }}"
-    const elementComp = "<{{ pascal name }} />"
+    const pathName = "PATHS.{{ constantCase name }}"
+    const elementComp = "<{{ pascalCase name }} />"
 
     let element
 

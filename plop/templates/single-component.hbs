@@ -1,21 +1,21 @@
-/*=============================================== {{ pascal name }} ===============================================*/
+/*=============================================== {{ pascalCase name }} ===============================================*/
 {{#if components}}
 
 import { {{components}} } from "components"
 {{/if}}
 {{#if props}}
 
-interface {{ pascal name }}Props {
+interface {{ pascalCase name }}Props {
 
 }
 {{/if}}
 
-export function {{ pascal name }}({{#if props}}{ }{{/if}}){{#if props}}: {{ pascal name }}Props{{/if}} {
+export function {{ pascalCase name }}({{#if props}}{ }{{/if}}){{#if props}}: {{ pascalCase name }}Props{{/if}} {
     return (
         {{#if tag}}
-        <{{ lowerCase tag }}>
+        <{{ tag }}>
 
-        </{{ lowerCase tag }}>
+        </{{ tag }}>
         {{else}}
         <>
 
