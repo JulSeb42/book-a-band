@@ -89,10 +89,10 @@ export enum TRANSITIONS {
 }
 
 export enum BREAKPOINTS {
-    TABLET = "(max-width= 1024px)",
-    MOBILE = "(max-width= 600px)",
-    TOUCH = "(hover= none) and (pointer= coarse)",
-    HOVER = "(hover= hover)",
+    TABLET = "(max-width: 1024px)",
+    MOBILE = "(max-width: 600px)",
+    TOUCH = "(hover: none) and (pointer: coarse)",
+    HOVER = "(hover: hover)",
 }
 
 export const INPUT_HEIGHT = 32 as const

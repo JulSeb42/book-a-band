@@ -33,6 +33,7 @@ export const StyledButton = styled.button<{
     font-family: ${FONT_FAMILY};
     font-weight: ${FONT_WEIGHTS.BOLD};
     line-height: ${LINE_HEIGHT};
+    text-align: center;
     font-size: ${({ $size }) =>
         $size === "small" ? FONT_SIZES.SMALL : FONT_SIZES.BODY};
     padding: ${({ $size, $noPadding }) =>
