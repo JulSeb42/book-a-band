@@ -28,7 +28,13 @@ export function MyAccountConversations({
 
     const { conversations, loading, errorMessage } = useFetchUserConversations()
     const { paginatedData, totalPages } = usePaginatedData(
-        sortConversations(conversations),
+        sortConversations(conversations)?.filter(
+            conversation =>
+                !(
+                    conversation.user2._id === user?._id &&
+                    !conversation.messages.length
+                )
+        ),
         10
     )
 
