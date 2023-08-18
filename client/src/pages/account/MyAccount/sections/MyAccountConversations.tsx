@@ -8,12 +8,23 @@ import {
     ConversationCard,
     ConversationCardSkeleton,
     Hr,
+    Pagination,
 } from "components"
-import { useFetchUserConversations } from "hooks"
+import { useFetchUserConversations, usePaginatedData } from "hooks"
 import { sortConversations } from "utils"
 
-export function MyAccountConversations() {
+interface MyAccountConversationsProps {
+    search: string
+}
+
+export function MyAccountConversations({
+    search,
+}: MyAccountConversationsProps) {
     const { conversations, loading, errorMessage } = useFetchUserConversations()
+    const { paginatedData, totalPages } = usePaginatedData(
+        sortConversations(conversations),
+        10
+    )
 
     if (loading) return <MyAccountConversationsSkeleton />
 
@@ -25,18 +36,37 @@ export function MyAccountConversations() {
             </Text>
         )
 
-    if (!conversations || !conversations?.length)
+    if (!paginatedData || !paginatedData?.length)
         return <Text>You do not have any conversation yet.</Text>
+
+    let filteredConversations = paginatedData
+
+    if (search.length) {
+        filteredConversations = filteredConversations?.filter(
+            conversation =>
+                conversation.user1.fullName
+                    .toLowerCase()
+                    .includes(search.toLowerCase()) ||
+                conversation.user2.fullName
+                    .toLowerCase()
+                    .includes(search.toLowerCase())
+        )
+    }
+
+    if (!filteredConversations?.length)
+        return <Text>Your search did not return any result.</Text>
 
     return (
         <>
-            {sortConversations(conversations)?.map((conversation, i) => (
+            {filteredConversations?.map((conversation, i) => (
                 <Fragment key={conversation._id}>
                     <ConversationCard conversation={conversation} />
 
-                    {i !== conversations?.length - 1 && <Hr />}
+                    {i !== filteredConversations?.length - 1 && <Hr />}
                 </Fragment>
             ))}
+
+            <Pagination totalPages={totalPages} />
         </>
     )
 }

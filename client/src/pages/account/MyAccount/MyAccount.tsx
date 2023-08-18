@@ -1,6 +1,6 @@
 /*=============================================== MyAccount ===============================================*/
 
-import { useContext } from "react"
+import { useContext, useState } from "react"
 
 import { AuthContext, type AuthContextType } from "context"
 
@@ -9,10 +9,13 @@ import {
     MyAccountHeader,
     MyAccountConversations,
     MyAccountAside,
+    SearchConversations,
 } from "pages/account/MyAccount/sections"
 
 export function MyAccount() {
     const { user, isLoading } = useContext(AuthContext) as AuthContextType
+
+    const [search, setSearch] = useState("")
 
     return (
         <Page title={user?.fullName || "My account"} noMain>
@@ -28,12 +31,17 @@ export function MyAccount() {
                 <Flexbox gap="xs" flexDirection="column" alignItems="stretch">
                     <Text tag="h3">Conversations</Text>
 
+                    <SearchConversations
+                        search={search}
+                        setSearch={setSearch}
+                    />
+
                     <Flexbox
-                        gap="xxs"
+                        gap="s"
                         flexDirection="column"
                         alignItems="stretch"
                     >
-                        <MyAccountConversations />
+                        <MyAccountConversations search={search} />
                     </Flexbox>
                 </Flexbox>
             </Main>
