@@ -1,9 +1,10 @@
 /*=============================================== MyAccountConversations ===============================================*/
 
-import { Fragment, useContext } from "react"
+import { Fragment, useContext, useState, useEffect } from "react"
 import { generateNumbers } from "ts-utils-julseb"
 
 import { AuthContext, type AuthContextType } from "context"
+import { conversationService } from "api"
 
 import {
     Text,
@@ -12,8 +13,9 @@ import {
     Hr,
     Pagination,
 } from "components"
-import { useFetchUserConversations, usePaginatedData } from "hooks"
-import { sortConversations } from "utils"
+import { usePaginatedData } from "hooks"
+import { sortConversations, filterConversations } from "utils"
+import type { ConversationType, ServerErrorType } from "types"
 
 interface MyAccountConversationsProps {
     search: string
@@ -26,17 +28,35 @@ export function MyAccountConversations({
 }: MyAccountConversationsProps) {
     const { user } = useContext(AuthContext) as AuthContextType
 
-    const { conversations, loading, errorMessage } = useFetchUserConversations()
-    const { paginatedData, totalPages } = usePaginatedData(
-        sortConversations(conversations)?.filter(
-            conversation =>
-                !(
-                    conversation.user2._id === user?._id &&
-                    !conversation.messages.length
-                )
-        ),
-        10
-    )
+    const [conversations, setConversations] = useState<ConversationType[]>([])
+    const [loading, setLoading] = useState(true)
+    const [errorMessage, setErrorMessage] = useState<ServerErrorType>(undefined)
+
+    useEffect(() => {
+        const getData = async () =>
+            await conversationService
+                .getUserConversations(user?._id || "")
+                .then(res => {
+                    setConversations(
+                        sortConversations(res.data).filter(
+                            conversation =>
+                                !(
+                                    conversation.user2._id === user?._id &&
+                                    !conversation.messages.length
+                                )
+                        )
+                    )
+                    setLoading(false)
+                })
+                .catch(err => {
+                    setErrorMessage(err)
+                    setLoading(false)
+                })
+
+        if (loading) getData()
+    }, [loading, user?._id])
+
+    const { paginatedData, totalPages } = usePaginatedData(conversations, 10)
 
     if (loading) return <MyAccountConversationsSkeleton />
 
@@ -51,41 +71,12 @@ export function MyAccountConversations({
     if (!paginatedData || !paginatedData?.length)
         return <Text>You do not have any conversation yet.</Text>
 
-    let filteredConversations = paginatedData
-
-    if (search.length) {
-        filteredConversations = filteredConversations?.filter(
-            conversation =>
-                conversation.user1.fullName
-                    .toLowerCase()
-                    .includes(search.toLowerCase()) ||
-                conversation.user2.fullName
-                    .toLowerCase()
-                    .includes(search.toLowerCase())
-        )
-    }
-
-    if (read !== "all") {
-        if (read === "unread") {
-            filteredConversations = filteredConversations.filter(
-                conversation =>
-                    (conversation.user1._id === user?._id &&
-                        conversation.readUser1 === false) ||
-                    (conversation.user2._id === user?._id &&
-                        conversation.readUser2 === false)
-            )
-        }
-
-        if (read === "read") {
-            filteredConversations = filteredConversations.filter(
-                conversation =>
-                    (conversation.user1._id === user?._id &&
-                        conversation.readUser1 === true) ||
-                    (conversation.user2._id === user?._id &&
-                        conversation.readUser2 === true)
-            )
-        }
-    }
+    const filteredConversations = filterConversations(
+        paginatedData,
+        user?._id || "",
+        read,
+        search
+    )
 
     if (!filteredConversations?.length)
         return <Text>Your search did not return any result.</Text>
@@ -94,7 +85,10 @@ export function MyAccountConversations({
         <Fragment>
             {filteredConversations?.map((conversation, i) => (
                 <Fragment key={conversation._id}>
-                    <ConversationCard conversation={conversation} />
+                    <ConversationCard
+                        conversation={conversation}
+                        setLoading={setLoading}
+                    />
 
                     {i !== filteredConversations?.length - 1 && <Hr />}
                 </Fragment>

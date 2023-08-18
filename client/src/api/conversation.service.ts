@@ -34,6 +34,12 @@ class ConversationService {
     readConversation(id: string) {
         return http.put(`${SERVER_PATHS.CONVERSATION}/read-conversation/${id}`)
     }
+
+    deleteConversation(id: string) {
+        return http.delete(
+            `${SERVER_PATHS.CONVERSATION}/delete-conversation/${id}`
+        )
+    }
 }
 
 export const conversationService = new ConversationService()

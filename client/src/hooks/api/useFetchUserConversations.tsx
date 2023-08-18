@@ -30,5 +30,5 @@ export function useFetchUserConversations() {
         if (loading) getData()
     }, [loading, user?._id])
 
-    return { conversations, loading, errorMessage }
+    return { conversations, loading, setLoading, errorMessage }
 }

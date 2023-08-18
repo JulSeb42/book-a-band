@@ -198,4 +198,18 @@ router.put("/read-conversation/:id", async (req, res, next) => {
         .catch(err => next(err))
 })
 
+router.delete("/delete-conversation/:id", async (req, res, next) => {
+    return await ConversationModel.findById(req.params.id)
+        .then(() =>
+            MessageModel.deleteMany({ conversation: req.params.id }).then(() =>
+                ConversationModel.findByIdAndDelete(req.params.id).then(() =>
+                    res
+                        .status(200)
+                        .json({ message: "Conversation has been deleted" })
+                )
+            )
+        )
+        .catch(err => next(err))
+})
+
 export default router

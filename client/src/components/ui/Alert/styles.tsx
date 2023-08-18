@@ -13,6 +13,6 @@ export const StyledAlert = styled.div`
     ${Mixins.Flexbox({
         flexDirection: "column",
         alignItems: "stretch",
-        gap: "xs",
+        gap: "s",
     })}
 `
