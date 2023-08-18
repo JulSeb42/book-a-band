@@ -10,7 +10,7 @@ interface {{ pascalCase name }}Props {
 }
 {{/if}}
 
-export function {{ pascalCase name }}({{#if props}}{ }{{/if}}){{#if props}}: {{ pascalCase name }}Props{{/if}} {
+export function {{ pascalCase name }}({{#if props}}{ }{{/if}}{{#if props}}: {{ pascalCase name }}Props{{/if}}) {
     return (
         {{#if tag}}
         <{{ tag }}>
