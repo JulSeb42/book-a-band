@@ -16,6 +16,7 @@ export function MyAccount() {
     const { user, isLoading } = useContext(AuthContext) as AuthContextType
 
     const [search, setSearch] = useState("")
+    const [read, setRead] = useState<string>("all")
 
     return (
         <Page title={user?.fullName || "My account"} noMain>
@@ -34,6 +35,8 @@ export function MyAccount() {
                     <SearchConversations
                         search={search}
                         setSearch={setSearch}
+                        read={read}
+                        setRead={setRead}
                     />
 
                     <Flexbox
@@ -41,7 +44,7 @@ export function MyAccount() {
                         flexDirection="column"
                         alignItems="stretch"
                     >
-                        <MyAccountConversations search={search} />
+                        <MyAccountConversations search={search} read={read} />
                     </Flexbox>
                 </Flexbox>
             </Main>

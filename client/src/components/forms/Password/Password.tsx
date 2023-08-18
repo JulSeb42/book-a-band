@@ -2,16 +2,16 @@
 
 import { forwardRef, useState, type ForwardedRef } from "react"
 
-import { Icon } from "components"
 import {
     InputContainer,
     InputValidationIcon,
     InputRightContainer,
     InputIcon,
+    InputButton,
 } from "components/forms/InputComponents"
 import { InputContent } from "components/forms/Input/styles"
 
-import { Input, PasswordButton } from "components/forms/Password/styles"
+import { Input } from "components/forms/Password/styles"
 import type { PasswordProps } from "components/forms/Password/types"
 
 export const Password = forwardRef(
@@ -54,19 +54,15 @@ export const Password = forwardRef(
                             <InputValidationIcon status={validation?.status} />
                         )}
 
-                        <PasswordButton
+                        <InputButton
                             onClick={() =>
                                 setType(
                                     type === "password" ? "text" : "password"
                                 )
                             }
-                            type="button"
-                        >
-                            <Icon
-                                src={type === "password" ? "hide" : "show"}
-                                size={16}
-                            />
-                        </PasswordButton>
+                            icon={type === "password" ? "hide" : "show"}
+                            label="Password button"
+                        />
                     </InputRightContainer>
                 </InputContent>
             </InputContainer>

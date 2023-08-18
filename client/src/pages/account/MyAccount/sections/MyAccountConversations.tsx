@@ -1,7 +1,9 @@
 /*=============================================== MyAccountConversations ===============================================*/
 
-import { Fragment } from "react"
+import { Fragment, useContext } from "react"
 import { generateNumbers } from "ts-utils-julseb"
+
+import { AuthContext, type AuthContextType } from "context"
 
 import {
     Text,
@@ -15,11 +17,15 @@ import { sortConversations } from "utils"
 
 interface MyAccountConversationsProps {
     search: string
+    read: string
 }
 
 export function MyAccountConversations({
     search,
+    read,
 }: MyAccountConversationsProps) {
+    const { user } = useContext(AuthContext) as AuthContextType
+
     const { conversations, loading, errorMessage } = useFetchUserConversations()
     const { paginatedData, totalPages } = usePaginatedData(
         sortConversations(conversations),
@@ -53,6 +59,28 @@ export function MyAccountConversations({
         )
     }
 
+    if (read !== "all") {
+        if (read === "unread") {
+            filteredConversations = filteredConversations.filter(
+                conversation =>
+                    (conversation.user1._id === user?._id &&
+                        conversation.readUser1 === false) ||
+                    (conversation.user2._id === user?._id &&
+                        conversation.readUser2 === false)
+            )
+        }
+
+        if (read === "read") {
+            filteredConversations = filteredConversations.filter(
+                conversation =>
+                    (conversation.user1._id === user?._id &&
+                        conversation.readUser1 === true) ||
+                    (conversation.user2._id === user?._id &&
+                        conversation.readUser2 === true)
+            )
+        }
+    }
+
     if (!filteredConversations?.length)
         return <Text>Your search did not return any result.</Text>
 
@@ -77,6 +105,7 @@ const MyAccountConversationsSkeleton = () => {
     return numbers.map((n, i) => (
         <Fragment key={n}>
             <ConversationCardSkeleton />
+
             {i !== numbers.length - 1 && <Hr />}
         </Fragment>
     ))

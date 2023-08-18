@@ -12,12 +12,14 @@ import {
     Label,
     StyledInputContainer,
     HelperIconContainer,
+    StyledInputButton,
 } from "components/forms/InputComponents/styles"
 import type {
     InputRightContainerProps,
     InputIconProps,
     InputValidationIconProps,
     InputContainerProps,
+    InputButtonProps,
 } from "components/forms/InputComponents/types"
 
 export function InputRightContainer({ children }: InputRightContainerProps) {
@@ -105,5 +107,13 @@ export function InputContainer({
                 </HelperContainer>
             )}
         </StyledInputContainer>
+    )
+}
+
+export function InputButton({ onClick, icon, label }: InputButtonProps) {
+    return (
+        <StyledInputButton onClick={onClick} type="button" aria-label={label}>
+            <Icon src={icon} size={16} />
+        </StyledInputButton>
     )
 }

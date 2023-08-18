@@ -35,6 +35,13 @@ export const StyledInput = styled.input<{
         }
     }
 
+    &[type="search"] {
+        &::-webkit-search-cancel-button {
+            -webkit-appearance: none;
+            appearance: none;
+        }
+    }
+
     ${({ $isTextarea }) =>
         $isTextarea &&
         css`

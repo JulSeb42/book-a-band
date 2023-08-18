@@ -24,6 +24,7 @@ import {
     Option,
 } from "components/forms/Select/styles"
 import type { SelectProps } from "components/forms/Select/types"
+import { unslugify } from "ts-utils-julseb"
 
 export const Select = forwardRef(
     (
@@ -146,7 +147,7 @@ export const Select = forwardRef(
                         ref={ref}
                         onKeyDown={handleKeyNavigation}
                     >
-                        {value}
+                        {unslugify(value || "")}
                     </SelectButton>
 
                     <InputRightContainer>
@@ -163,7 +164,7 @@ export const Select = forwardRef(
                                 $isActive={option === value}
                                 key={`option-${i}`}
                             >
-                                {option}
+                                {unslugify(option || "")}
                             </Option>
                         ))}
                     </List>
