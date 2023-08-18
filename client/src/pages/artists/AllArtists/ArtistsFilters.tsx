@@ -5,6 +5,7 @@ import {
     type ChangeEvent,
     type Dispatch,
     type SetStateAction,
+    Fragment,
 } from "react"
 
 import {
@@ -93,7 +94,7 @@ export function ArtistsFilters({
         )
 
     return (
-        <>
+        <Fragment>
             <Flexbox flexDirection="column" gap="xs">
                 <Text tag="h5">Sort by</Text>
 
@@ -146,7 +147,7 @@ export function ArtistsFilters({
                 </Grid>
 
                 {(!cityParam || !genreParam) && (
-                    <>
+                    <Fragment>
                         {!cityParam && (
                             <Select
                                 label="City"
@@ -168,7 +169,7 @@ export function ArtistsFilters({
                                 setIsLoading={setIsLoading}
                             />
                         )}
-                    </>
+                    </Fragment>
                 )}
             </Flexbox>
 
@@ -184,6 +185,6 @@ export function ArtistsFilters({
                     </Button>
                 )}
             </Flexbox>
-        </>
+        </Fragment>
     )
 }

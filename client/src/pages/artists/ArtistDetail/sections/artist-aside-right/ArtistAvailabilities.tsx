@@ -1,5 +1,6 @@
 /*=============================================== ArtistAvailabilities ===============================================*/
 
+import { Fragment } from "react"
 import { generateNumbers, convertDateShort } from "ts-utils-julseb"
 
 import { Skeleton, TextIcon, Text } from "components"
@@ -24,10 +25,10 @@ export function ArtistAvailabilities({
 
 function ArtistAvailabilitiesSkeleton() {
     return (
-        <>
+        <Fragment>
             {generateNumbers(0, 4).map(n => (
                 <Skeleton height={24} width="80%" isShining key={n} />
             ))}
-        </>
+        </Fragment>
     )
 }

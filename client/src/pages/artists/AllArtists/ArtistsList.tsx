@@ -47,7 +47,7 @@ export function ArtistsList({
         return <Text>Your search did not return any result.</Text>
 
     return (
-        <>
+        <Fragment>
             {paginatedData.map((artist, i) => (
                 <Fragment key={artist._id}>
                     <ArtistCard artist={artist} />
@@ -57,7 +57,7 @@ export function ArtistsList({
             ))}
 
             <Pagination totalPages={totalPages} />
-        </>
+        </Fragment>
     )
 }
 

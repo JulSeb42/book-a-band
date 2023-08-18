@@ -1,6 +1,6 @@
 /*=============================================== ContactArtist ===============================================*/
 
-import { useContext } from "react"
+import { Fragment, useContext } from "react"
 import { Link } from "react-router-dom"
 
 import { AuthContext, type AuthContextType } from "context"
@@ -17,7 +17,7 @@ export function ContactArtist({ artist, isLoading }: ArtistSectionProps) {
     if (isLoading) return <Skeleton height={44} width="60%" isShining />
 
     return (
-        <>
+        <Fragment>
             <Text tag="h3">Contact {artist?.fullName}</Text>
 
             {isLoggedIn ? (
@@ -28,6 +28,6 @@ export function ContactArtist({ artist, isLoading }: ArtistSectionProps) {
                     {artist?.fullName}.
                 </Text>
             )}
-        </>
+        </Fragment>
     )
 }

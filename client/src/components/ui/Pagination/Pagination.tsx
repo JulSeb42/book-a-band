@@ -1,6 +1,6 @@
 /*=============================================== Pagination component ===============================================*/
 
-import { useState } from "react"
+import { Fragment, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 
 import { Icon } from "components"
@@ -78,7 +78,7 @@ export function Pagination({ totalPages, pageLimit = 5 }: PaginationProps) {
             </StyledPaginationButton>
 
             {paginationGroup[0] !== 1 && (
-                <>
+                <Fragment>
                     <StyledPaginationButton
                         disabled={currentPage === 1}
                         onClick={() => handlePage(1)}
@@ -90,7 +90,7 @@ export function Pagination({ totalPages, pageLimit = 5 }: PaginationProps) {
                     <StyledPaginationButton as="span" $isMore>
                         ...
                     </StyledPaginationButton>
-                </>
+                </Fragment>
             )}
 
             {paginationGroup.map(page => (
@@ -104,7 +104,7 @@ export function Pagination({ totalPages, pageLimit = 5 }: PaginationProps) {
             ))}
 
             {paginationGroup[paginationGroup.length - 1] !== totalPages && (
-                <>
+                <Fragment>
                     <StyledPaginationButton as="span" $isMore>
                         ...
                     </StyledPaginationButton>
@@ -116,7 +116,7 @@ export function Pagination({ totalPages, pageLimit = 5 }: PaginationProps) {
                     >
                         {totalPages}
                     </StyledPaginationButton>
-                </>
+                </Fragment>
             )}
 
             <StyledPaginationButton

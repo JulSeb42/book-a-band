@@ -91,7 +91,7 @@ export function MyAccountConversations({
         return <Text>Your search did not return any result.</Text>
 
     return (
-        <>
+        <Fragment>
             {filteredConversations?.map((conversation, i) => (
                 <Fragment key={conversation._id}>
                     <ConversationCard conversation={conversation} />
@@ -101,7 +101,7 @@ export function MyAccountConversations({
             ))}
 
             <Pagination totalPages={totalPages} />
-        </>
+        </Fragment>
     )
 }
 

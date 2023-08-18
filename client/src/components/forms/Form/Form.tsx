@@ -1,6 +1,6 @@
 /*=============================================== Form component ===============================================*/
 
-import { forwardRef, type ForwardedRef } from "react"
+import { forwardRef, type ForwardedRef, Fragment } from "react"
 
 import { Button, Flexbox } from "components"
 import { ErrorMessage } from "errors"
@@ -8,7 +8,7 @@ import { ErrorMessage } from "errors"
 import { StyledForm } from "components/forms/Form/styles"
 import type { FormProps } from "components/forms/Form/types"
 
-// function Ab 
+// function Ab
 
 export const Form = forwardRef(
     (
@@ -24,7 +24,7 @@ export const Form = forwardRef(
         ref?: ForwardedRef<HTMLFormElement>
     ) => {
         return (
-            <>
+            <Fragment>
                 <StyledForm ref={ref} as={as} {...rest}>
                     {children}
 
@@ -50,7 +50,7 @@ export const Form = forwardRef(
                 </StyledForm>
 
                 <ErrorMessage error={error} />
-            </>
+            </Fragment>
         )
     }
 )

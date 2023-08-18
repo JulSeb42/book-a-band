@@ -53,27 +53,25 @@ export function ForgotPasswordForm() {
     }
 
     return (
-        <>
-            <Form
-                onSubmit={handleSubmit}
-                buttonPrimary="Send"
-                buttonSecondary={{ text: "Cancel", to: PATHS.LOGIN }}
-                isLoading={isLoading}
-                error={errorMessage}
-            >
-                <Input
-                    id="email"
-                    label="Email"
-                    type="email"
-                    value={email}
-                    onChange={handleEmail}
-                    validation={{
-                        status: validation,
-                        message: FORM_VALIDATION.EMAIL_REQUIRED,
-                    }}
-                    autoFocus
-                />
-            </Form>
-        </>
+        <Form
+            onSubmit={handleSubmit}
+            buttonPrimary="Send"
+            buttonSecondary={{ text: "Cancel", to: PATHS.LOGIN }}
+            isLoading={isLoading}
+            error={errorMessage}
+        >
+            <Input
+                id="email"
+                label="Email"
+                type="email"
+                value={email}
+                onChange={handleEmail}
+                validation={{
+                    status: validation,
+                    message: FORM_VALIDATION.EMAIL_REQUIRED,
+                }}
+                autoFocus
+            />
+        </Form>
     )
 }

@@ -1,4 +1,8 @@
 /*=============================================== {{ pascalCase name }} ===============================================*/
+{{#unless tag}}
+
+import { Fragment } from "react"
+{{/unless}}
 {{#if components}}
 
 import { {{components}} } from "components"
@@ -17,9 +21,9 @@ export function {{ pascalCase name }}({{#if props}}{ }{{/if}}{{#if props}}: {{ p
 
         </{{ tag }}>
         {{else}}
-        <>
+        <Fragment>
 
-        </>
+        </Fragment>
         {{/if}}
     )
 }

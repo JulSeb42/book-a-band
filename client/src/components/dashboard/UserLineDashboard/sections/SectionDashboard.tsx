@@ -1,6 +1,6 @@
 /*=============================================== SectionDashboard ===============================================*/
 
-import { useContext } from "react"
+import { Fragment, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { AuthContext, type AuthContextType } from "context"
@@ -53,7 +53,7 @@ export function SectionDashboard({ user }: DashboardSectionProps) {
     }
 
     return (
-        <>
+        <Fragment>
             {user.role === "artist" && (
                 <ButtonIcon
                     icon="file"
@@ -64,7 +64,7 @@ export function SectionDashboard({ user }: DashboardSectionProps) {
             )}
 
             {user._id !== loggedInUser?._id && user.verified && (
-                <>
+                <Fragment>
                     <ButtonIcon
                         icon="message"
                         label="Contact"
@@ -80,8 +80,8 @@ export function SectionDashboard({ user }: DashboardSectionProps) {
                         }
                         {...buttonProps}
                     />
-                </>
+                </Fragment>
             )}
-        </>
+        </Fragment>
     )
 }

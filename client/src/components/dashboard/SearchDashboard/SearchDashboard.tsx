@@ -121,24 +121,20 @@ export function SearchDashboard({
                 onChange={handleSearch}
             />
 
-            {!isArtistsList && (
+            {isArtistsList ? (
+                <Select
+                    label="Filter by status"
+                    value={status}
+                    onChange={handleStatus}
+                    options={statuses}
+                />
+            ) : (
                 <Select
                     label="Filter by role"
                     value={role}
                     onChange={handleRole}
                     options={roles}
                 />
-            )}
-
-            {isArtistsList && (
-                <>
-                    <Select
-                        label="Filter by status"
-                        value={status}
-                        onChange={handleStatus}
-                        options={statuses}
-                    />
-                </>
             )}
         </StyledSearchDashboard>
     )

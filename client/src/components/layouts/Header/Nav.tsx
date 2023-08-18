@@ -1,6 +1,6 @@
 /*=============================================== Nav ===============================================*/
 
-import { useContext, useState, useRef } from "react"
+import { useContext, useState, useRef, Fragment } from "react"
 import { NavLink } from "react-router-dom"
 
 import { AuthContext, type AuthContextType } from "context"
@@ -89,7 +89,7 @@ export function Nav() {
         })
 
     return (
-        <>
+        <Fragment>
             <Burger
                 isOpen={isNavOpen}
                 onClick={() => setIsNavOpen(!isNavOpen)}
@@ -100,6 +100,6 @@ export function Nav() {
 
                 {linksFn(isLoggedIn ? protectedLinks : anonLinks)}
             </StyledNav>
-        </>
+        </Fragment>
     )
 }

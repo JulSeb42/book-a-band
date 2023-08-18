@@ -1,6 +1,6 @@
 /*=============================================== EditAccountAsideLeft ===============================================*/
 
-import { useState } from "react"
+import { Fragment, useState } from "react"
 import type { Dispatch, SetStateAction } from "react"
 import { useNavigate } from "react-router-dom"
 
@@ -35,7 +35,7 @@ export function EditAccountAsideLeft({
     if (isLoading) return <EditAccountAsideLeftSkeleton />
 
     return (
-        <>
+        <Fragment>
             <ImageUploader
                 id="avatar"
                 image={avatar}
@@ -68,13 +68,13 @@ export function EditAccountAsideLeft({
             >
                 Cancel
             </Button>
-        </>
+        </Fragment>
     )
 }
 
 function EditAccountAsideLeftSkeleton() {
     return (
-        <>
+        <Fragment>
             <Skeleton
                 width={150}
                 height={150}
@@ -83,6 +83,6 @@ function EditAccountAsideLeftSkeleton() {
             />
             <Skeleton width={120} height={40} borderRadius="m" isShining />
             <Skeleton width={120} height={40} borderRadius="m" isShining />
-        </>
+        </Fragment>
     )
 }

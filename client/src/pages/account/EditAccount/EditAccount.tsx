@@ -1,6 +1,6 @@
 /*=============================================== EditAccount ===============================================*/
 
-import { useContext, useState, type FormEvent } from "react"
+import { useContext, useState, type FormEvent, Fragment } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { deleteDuplicates } from "ts-utils-julseb"
 
@@ -154,7 +154,7 @@ export function EditAccount() {
 
             <Aside gap="xs">
                 {user?.role === "artist" && (
-                    <>
+                    <Fragment>
                         <Text tag="h4">Availabilities</Text>
 
                         <Flexbox
@@ -168,7 +168,7 @@ export function EditAccount() {
                                 setDates={setDates}
                             />
                         </Flexbox>
-                    </>
+                    </Fragment>
                 )}
             </Aside>
         </Page>

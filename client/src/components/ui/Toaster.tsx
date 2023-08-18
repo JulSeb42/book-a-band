@@ -1,5 +1,6 @@
 /*=============================================== Toaster ===============================================*/
 
+import { Fragment } from "react"
 import { Toaster as HotToaster, ToastBar, resolveValue } from "react-hot-toast"
 import styled from "styled-components"
 
@@ -31,7 +32,7 @@ export function Toaster() {
                     toast={t}
                 >
                     {({ icon }) => (
-                        <>
+                        <Fragment>
                             {icon}
 
                             <Content>{resolveValue(t.message, t)}</Content>
@@ -42,7 +43,7 @@ export function Toaster() {
                                 size={32}
                                 variant="transparent"
                             />
-                        </>
+                        </Fragment>
                     )}
                 </ToastBar>
             )}

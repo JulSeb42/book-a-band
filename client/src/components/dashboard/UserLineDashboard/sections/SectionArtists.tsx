@@ -1,6 +1,6 @@
 /*=============================================== SectionArtists ===============================================*/
 
-import { useState } from "react"
+import { useState, Fragment } from "react"
 
 import { userService } from "api"
 
@@ -27,7 +27,7 @@ export function SectionArtists({ user, setLoading }: DashboardSectionProps) {
     }
 
     return (
-        <>
+        <Fragment>
             <ButtonIcon
                 icon="check"
                 size={24}
@@ -55,6 +55,6 @@ export function SectionArtists({ user, setLoading }: DashboardSectionProps) {
                 }
                 showLabel
             />
-        </>
+        </Fragment>
     )
 }

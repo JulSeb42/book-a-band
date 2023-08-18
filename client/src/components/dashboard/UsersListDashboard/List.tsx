@@ -42,7 +42,7 @@ export function List({
     if (!paginatedData.length) return <Text>No result.</Text>
 
     return (
-        <>
+        <Fragment>
             {paginatedData.map((user, i) => (
                 <Fragment key={user._id}>
                     <UserLineDashboard
@@ -57,7 +57,7 @@ export function List({
             ))}
 
             <Pagination totalPages={totalPages} />
-        </>
+        </Fragment>
     )
 }
 
@@ -65,7 +65,7 @@ function ListSkeleton() {
     const arr = generateNumbers(0, 4)
 
     return (
-        <>
+        <Fragment>
             {arr.map((n, i) => (
                 <Fragment key={n}>
                     <SkeletonCard gap="xs" isShining>
@@ -84,7 +84,7 @@ function ListSkeleton() {
                     {i !== arr.length - 1 && <Hr />}
                 </Fragment>
             ))}
-        </>
+        </Fragment>
     )
 }
 

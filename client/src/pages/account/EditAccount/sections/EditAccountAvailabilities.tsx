@@ -1,6 +1,6 @@
 /*=============================================== EditAccountAvailabilities ===============================================*/
 
-import type { Dispatch, SetStateAction } from "react"
+import { Fragment, type Dispatch, type SetStateAction } from "react"
 import styled from "styled-components"
 import {
     getToday,
@@ -35,9 +35,9 @@ export function EditAccountAvailabilities({
     if (isLoading) return <EditAccountAvailabilitiesSkeleton />
 
     return (
-        <>
+        <Fragment>
             {dates.length ? (
-                <>
+                <Fragment>
                     {sortDates(deleteDuplicates(dates)).map(date => (
                         <DateLine
                             onClick={e =>
@@ -70,7 +70,7 @@ export function EditAccountAvailabilities({
                             </IconContainer>
                         </DateLine>
                     ))}
-                </>
+                </Fragment>
             ) : (
                 <Text>You did not add any availability yet.</Text>
             )}
@@ -82,7 +82,7 @@ export function EditAccountAvailabilities({
                 placeholderText={getToday()}
                 minDate={new Date(getToday())}
             />
-        </>
+        </Fragment>
     )
 }
 
@@ -112,7 +112,7 @@ const StyledText = styled(Text)`
 
 function EditAccountAvailabilitiesSkeleton() {
     return (
-        <>
+        <Fragment>
             {generateNumbers(0, 4).map(n => (
                 <SkeletonCard gap="xxs" alignItems="center" isShining key={n}>
                     <Skeleton width={16} height={16} />
@@ -121,6 +121,6 @@ function EditAccountAvailabilitiesSkeleton() {
             ))}
 
             <Datepicker label="Add a new date" isLoading onChange={() => {}} />
-        </>
+        </Fragment>
     )
 }

@@ -1,6 +1,11 @@
 /*=============================================== EditAccountMain ===============================================*/
 
-import type { ChangeEvent, Dispatch, SetStateAction } from "react"
+import {
+    Fragment,
+    type ChangeEvent,
+    type Dispatch,
+    type SetStateAction,
+} from "react"
 
 import { Input, Autocomplete } from "components"
 import { GERMAN_CITIES } from "data"
@@ -57,7 +62,7 @@ export function EditAccountMain({
         setYoutubeLinks({ ...youtubeLinks, [e.target.id]: e.target.value })
 
     return (
-        <>
+        <Fragment>
             <Input
                 id="fullName"
                 label={`${user?.role === "artist" ? "Display" : "Full"} name`}
@@ -87,7 +92,7 @@ export function EditAccountMain({
             />
 
             {user?.role === "artist" && (
-                <>
+                <Fragment>
                     <Input
                         id="genre"
                         label="Genre"
@@ -113,7 +118,7 @@ export function EditAccountMain({
                         label="Bio"
                         helper={{
                             text: (
-                                <>
+                                <Fragment>
                                     Here you can use{" "}
                                     <a
                                         href="https://www.markdownguide.org/cheat-sheet/"
@@ -123,7 +128,7 @@ export function EditAccountMain({
                                         markdown
                                     </a>{" "}
                                     to write your bio.
-                                </>
+                                </Fragment>
                             ),
                         }}
                         value={inputs.bio}
@@ -190,8 +195,8 @@ export function EditAccountMain({
                             isLoading={isLoading}
                         />
                     ) : null}
-                </>
+                </Fragment>
             )}
-        </>
+        </Fragment>
     )
 }

@@ -1,6 +1,6 @@
 /*=============================================== Page ===============================================*/
 
-import { useEffect, type ReactNode } from "react"
+import { useEffect, type ReactNode, Fragment } from "react"
 import { useLocation } from "react-router-dom"
 
 import { Wrapper, Main, Text } from "components"
@@ -44,7 +44,7 @@ export function Page({
     }, [pathname, search])
 
     return (
-        <>
+        <Fragment>
             <Helmet
                 title={title}
                 description={description}
@@ -76,6 +76,6 @@ export function Page({
             )}
 
             {!noHeader && <Footer />}
-        </>
+        </Fragment>
     )
 }

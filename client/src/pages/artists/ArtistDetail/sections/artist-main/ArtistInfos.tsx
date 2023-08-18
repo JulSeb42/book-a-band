@@ -1,5 +1,6 @@
 /*=============================================== ArtistInfos ===============================================*/
 
+import { Fragment } from "react"
 import { generateNumbers, convertPrice } from "ts-utils-julseb"
 
 import { Text, TextIcon, Skeleton, SkeletonCard } from "components"
@@ -40,26 +41,26 @@ export function ArtistInfos({ artist, isLoading }: ArtistSectionProps) {
     if (isLoading) return <ArtistInfosSkeleton length={infos.length} />
 
     return (
-        <>
+        <Fragment>
             {infos.map(({ id, icon, title, content }) => (
                 <TextIcon icon={icon} key={id}>
                     <Text tag="strong">{title}: </Text>
                     {content}
                 </TextIcon>
             ))}
-        </>
+        </Fragment>
     )
 }
 
 function ArtistInfosSkeleton({ length }: { length: number }) {
     return (
-        <>
+        <Fragment>
             {generateNumbers(0, length).map(n => (
                 <SkeletonCard alignItems="center" gap="xxs" isShining key={n}>
                     <Skeleton width={16} height={16} />
                     <Skeleton height={24} width="40%" />
                 </SkeletonCard>
             ))}
-        </>
+        </Fragment>
     )
 }

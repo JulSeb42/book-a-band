@@ -1,6 +1,12 @@
 /*=============================================== DeleteAccount ===============================================*/
 
-import { useState, useContext, type FormEvent, useEffect } from "react"
+import {
+    useState,
+    useContext,
+    type FormEvent,
+    useEffect,
+    Fragment,
+} from "react"
 import { useNavigate } from "react-router-dom"
 
 import { AuthContext, type AuthContextType } from "context"
@@ -56,7 +62,7 @@ export function DeleteAccount() {
     }
 
     return (
-        <>
+        <Fragment>
             <Button
                 color="danger"
                 onClick={() => setIsOpen(true)}
@@ -106,6 +112,6 @@ export function DeleteAccount() {
             </Modal>
 
             <ErrorMessage error={errorMessage} />
-        </>
+        </Fragment>
     )
 }

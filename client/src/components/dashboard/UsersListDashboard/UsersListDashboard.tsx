@@ -1,6 +1,6 @@
 /*=============================================== ArtistsListDashboard ===============================================*/
 
-import { useEffect, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 
 import { userService } from "api"
@@ -58,7 +58,7 @@ export function UsersListDashboard({ page }: UsersListDashboardProps) {
     }, [loading, pathname, role, search, status])
 
     return (
-        <>
+        <Fragment>
             <SearchDashboard
                 search={search}
                 setSearch={setSearch}
@@ -74,6 +74,6 @@ export function UsersListDashboard({ page }: UsersListDashboardProps) {
                     page={page}
                 />
             </Flexbox>
-        </>
+        </Fragment>
     )
 }
