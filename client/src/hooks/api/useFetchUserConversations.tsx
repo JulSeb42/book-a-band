@@ -22,7 +22,10 @@ export function useFetchUserConversations() {
                     setConversations(res.data)
                     setLoading(false)
                 })
-                .catch(err => setErrorMessage(err))
+                .catch(err => {
+                    setErrorMessage(err)
+                    setLoading(false)
+                })
 
         if (loading) getData()
     }, [loading, user?._id])

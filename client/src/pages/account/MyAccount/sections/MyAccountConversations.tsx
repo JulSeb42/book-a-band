@@ -10,6 +10,7 @@ import {
     Hr,
 } from "components"
 import { useFetchUserConversations } from "hooks"
+import { sortConversations } from "utils"
 
 export function MyAccountConversations() {
     const { conversations, loading, errorMessage } = useFetchUserConversations()
@@ -24,20 +25,18 @@ export function MyAccountConversations() {
             </Text>
         )
 
-    if (!conversations?.length)
+    if (!conversations || !conversations?.length)
         return <Text>You do not have any conversation yet.</Text>
 
     return (
         <>
-            {conversations
-                ?.sort((a, b) => (a.updatedAt > b.updatedAt ? -1 : 0))
-                .map((conversation, i) => (
-                    <Fragment key={conversation._id}>
-                        <ConversationCard conversation={conversation} />
+            {sortConversations(conversations)?.map((conversation, i) => (
+                <Fragment key={conversation._id}>
+                    <ConversationCard conversation={conversation} />
 
-                        {i !== conversations?.length - 1 && <Hr />}
-                    </Fragment>
-                ))}
+                    {i !== conversations?.length - 1 && <Hr />}
+                </Fragment>
+            ))}
         </>
     )
 }
