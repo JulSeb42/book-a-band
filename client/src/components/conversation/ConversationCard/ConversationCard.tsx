@@ -30,8 +30,6 @@ export function ConversationCard({ conversation }: ConversationCardProps) {
                   conversation?.messages?.length - 1
               ].updatedAt
           )
-        : conversation?.updatedAt
-        ? new Date(conversation?.updatedAt)
         : new Date(conversation?.createdAt)
 
     const dateLastMessage = getDateFromIso(isoDateLastMessage)
