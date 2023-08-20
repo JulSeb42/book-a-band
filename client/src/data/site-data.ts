@@ -3,7 +3,7 @@
 export const SITE_DATA = {
     NAME: "Book a Band",
     FAVICON: "/favicon.svg",
-    EMAIL: "",
+    EMAIL: "julien.sebag@me.com",
     AUTHOR: "",
     YEAR: "",
     LOGO: "/images/logo.svg",

@@ -3,7 +3,7 @@
 import { Page, Text } from "components"
 import { EditPasswordForm } from "pages/account/EditPassword/EditPasswordForm"
 
-export const EditPassword = () => {
+export function EditPassword() {
     const PAGE_TITLE = "Edit your password"
 
     return (

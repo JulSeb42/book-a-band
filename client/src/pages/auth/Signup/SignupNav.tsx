@@ -16,7 +16,7 @@ import {
 
 import type { UserRoleType } from "types"
 
-export const SignupNav = () => {
+export function SignupNav() {
     const [searchParams, setSearchParams] = useSearchParams()
     const role = (searchParams.get("role") || "user") as UserRoleType
 

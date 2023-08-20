@@ -10,7 +10,6 @@ import {
     Mixins,
     BREAKPOINTS,
 } from "components"
-import { generateFontSize } from "components/ui/Text/generate-font-size"
 import type { FontSizesType, ColorsType, TextAlignType } from "components/types"
 
 const baseTextStyles = ({
@@ -38,7 +37,7 @@ const baseTextStyles = ({
         color: ${COLORS.PRIMARY};
         transition: ${TRANSITIONS.SHORT};
         font-weight: ${FONT_WEIGHTS.BLACK};
-        font-size: ${generateFontSize(fontSize)};
+        font-size: ${Mixins.FontSize(fontSize)};
         background-color: transparent;
 
         @media ${BREAKPOINTS.HOVER} {

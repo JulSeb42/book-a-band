@@ -1,7 +1,12 @@
 /*=============================================== ArtistsFilters ===============================================*/
 
-import { useState } from "react"
-import type { ChangeEvent, Dispatch, SetStateAction } from "react"
+import {
+    useState,
+    type ChangeEvent,
+    type Dispatch,
+    type SetStateAction,
+    Fragment,
+} from "react"
 
 import {
     Button,
@@ -18,6 +23,7 @@ import type { SortType, PricesType } from "types"
 
 interface ArtistsFiltersProps {
     isLoading: boolean
+    setIsLoading: Dispatch<SetStateAction<boolean>>
     sort: SortType | undefined
     setSort: Dispatch<SetStateAction<SortType | undefined>>
     prices: PricesType
@@ -28,7 +34,7 @@ interface ArtistsFiltersProps {
     setSelectedGenre: Dispatch<SetStateAction<string>>
 }
 
-export const ArtistsFilters = ({
+export function ArtistsFilters({
     sort,
     setSort,
     prices,
@@ -38,7 +44,8 @@ export const ArtistsFilters = ({
     selectedGenre,
     setSelectedGenre,
     isLoading,
-}: ArtistsFiltersProps) => {
+    setIsLoading,
+}: ArtistsFiltersProps) {
     const { city: cityParam, genre: genreParam } = useQueryParams()
     const { cities, genres, loading } = useCitiesGenres()
 
@@ -67,6 +74,7 @@ export const ArtistsFilters = ({
         })
         setSelectedCity("All")
         setSelectedGenre("All")
+        setIsLoading(true)
     }
 
     if (!isOpen && isTablet)
@@ -86,7 +94,7 @@ export const ArtistsFilters = ({
         )
 
     return (
-        <>
+        <Fragment>
             <Flexbox flexDirection="column" gap="xs">
                 <Text tag="h5">Sort by</Text>
 
@@ -139,7 +147,7 @@ export const ArtistsFilters = ({
                 </Grid>
 
                 {(!cityParam || !genreParam) && (
-                    <>
+                    <Fragment>
                         {!cityParam && (
                             <Select
                                 label="City"
@@ -147,6 +155,7 @@ export const ArtistsFilters = ({
                                 setValue={setSelectedCity}
                                 options={cities}
                                 isLoading={loading}
+                                setIsLoading={setIsLoading}
                             />
                         )}
 
@@ -157,9 +166,10 @@ export const ArtistsFilters = ({
                                 setValue={setSelectedGenre}
                                 options={genres}
                                 isLoading={loading}
+                                setIsLoading={setIsLoading}
                             />
                         )}
-                    </>
+                    </Fragment>
                 )}
             </Flexbox>
 
@@ -175,6 +185,6 @@ export const ArtistsFilters = ({
                     </Button>
                 )}
             </Flexbox>
-        </>
+        </Fragment>
     )
 }

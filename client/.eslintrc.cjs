@@ -1,7 +1,7 @@
 /* eslint-env node */
 module.exports = {
     root: true,
-    extends: ["plugin:react-hooks/recommended"],
+    extends: ["plugin:react-hooks/recommended", "plugin:react/recommended"],
     parser: "@typescript-eslint/parser",
     plugins: [
         "@typescript-eslint",
@@ -19,13 +19,24 @@ module.exports = {
                 vars: "all",
                 args: "after-used",
                 ignoreRestSiblings: true,
-                destructuredArrayIgnorePattern: "[A-Z, _]",
+                destructuredArrayIgnorePattern: "[_]",
             },
         ],
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
         "react-hooks/rules-of-hooks": "warn",
+        "react/react-in-jsx-scope": "off",
+        "react/function-component-definition": [
+            "warn",
+            {
+                namedComponents: "function-declaration",
+                // | "function-expression" | "arrow-function" | Array < "function-declaration" | "function-expression" | "arrow-function"
+            },
+        ],
+        "react/display-name": "off",
+        "react/no-unescaped-entities": "off",
+        "import/no-default-export": "warn",
 
         // "import/no-duplicates": "error",
         // "@typescript-eslint/consistent-type-imports": "error",

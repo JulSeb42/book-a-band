@@ -18,7 +18,7 @@ const userSchema = new Schema(
         city: String,
         role: {
             type: String,
-            enum: ["user", "artist"],
+            enum: ["user", "artist", "admin"],
         },
 
         genre: String,
@@ -30,6 +30,7 @@ const userSchema = new Schema(
         instagramUrl: String,
         youtubeLinks: Array,
         isVisible: Boolean,
+        isApproved: Boolean,
         conversations: [
             {
                 type: Schema.Types.ObjectId,

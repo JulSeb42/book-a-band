@@ -2,14 +2,13 @@
 
 import { useContext } from "react"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 
 import { Text, Skeleton, Flexbox } from "components"
 
 import type { ArtistSectionProps } from "pages/artists/ArtistDetail/sections/types"
 
-export const ArtistTitle = ({ artist, isLoading }: ArtistSectionProps) => {
+export function ArtistTitle({ artist, isLoading }: ArtistSectionProps) {
     const { user } = useContext(AuthContext) as AuthContextType
 
     if (isLoading) return <Skeleton height={60} width="45%" isShining />

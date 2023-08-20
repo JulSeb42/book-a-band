@@ -2,5 +2,8 @@
 
 import type { UserType } from "../types"
 
-export const getVisibleArtists = (users: UserType[]) =>
-    users?.filter(user => user.role === "artist" && user.isVisible)
+export const visibleArtists: Partial<UserType> = {
+    role: "artist",
+    isVisible: true,
+    isApproved: true,
+}

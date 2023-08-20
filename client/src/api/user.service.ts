@@ -3,14 +3,52 @@
 import { http } from "api"
 import { SERVER_PATHS } from "data"
 
-import type { SortType } from "types"
+import type { FetchUsersType, SortType, UserRoleType } from "types"
 
 class UserService {
-    allUsers() {
-        return http.get(`${SERVER_PATHS.USERS}/all-users`)
+    users(filters?: FetchUsersType) {
+        const role = filters?.role || undefined
+        const status =
+            filters?.status &&
+            (filters?.status !== "undefined" || filters?.status !== undefined)
+                ? filters?.status
+                : undefined
+        const city =
+            filters?.city && filters?.city !== "All" ? filters.city : undefined
+        const genre =
+            filters?.genre && filters?.genre !== "All"
+                ? filters.genre
+                : undefined
+        const query = filters?.query || undefined
+        const sort =
+            filters?.sort &&
+            (filters?.sort !== "undefined" || filters?.sort !== undefined)
+                ? filters?.sort
+                : undefined
+        const verified =
+            filters?.verified &&
+            (filters?.verified !== "undefined" ||
+                filters?.verified !== undefined ||
+                filters?.verified !== null)
+                ? filters.verified
+                : undefined
+
+        const params = [
+            role ? `role=${role}` : undefined,
+            status ? `status=${status}` : undefined,
+            city ? `city=${city}` : undefined,
+            genre ? `genre=${genre}` : undefined,
+            query ? `query=${query}` : undefined,
+            sort ? `sort=${sort}` : undefined,
+            verified ? `verified=${verified}` : undefined,
+        ]
+            .filter(param => param !== undefined)
+            .join("&")
+
+        return http.get(`${SERVER_PATHS.USERS}/users?${params}`)
     }
 
-    allArtists({
+    artists({
         city,
         genre,
         query,
@@ -36,6 +74,10 @@ class UserService {
 
     getUser(id: string) {
         return http.get(`${SERVER_PATHS.USERS}/user/${id}`)
+    }
+
+    approveArtist(id: string, data: { isApproved: boolean }) {
+        return http.put(`${SERVER_PATHS.USERS}/approve-artist/${id}`, data)
     }
 
     editAccount(
@@ -68,8 +110,12 @@ class UserService {
         return http.put(`${SERVER_PATHS.USERS}/edit-password/${id}`, data)
     }
 
-    deleteAccount(id: string) {
-        return http.delete(`${SERVER_PATHS.USERS}/delete-account/${id}`)
+    setUserRole(id: string, data: { role: UserRoleType }) {
+        return http.put(`${SERVER_PATHS.USERS}/user-role/${id}`, data)
+    }
+
+    deleteAccount(id: string, data: { password: string }) {
+        return http.put(`${SERVER_PATHS.USERS}/delete-account/${id}`, data)
     }
 }
 

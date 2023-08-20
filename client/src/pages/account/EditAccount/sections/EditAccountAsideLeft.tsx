@@ -1,6 +1,6 @@
 /*=============================================== EditAccountAsideLeft ===============================================*/
 
-import { useState } from "react"
+import { Fragment, useState } from "react"
 import type { Dispatch, SetStateAction } from "react"
 import { useNavigate } from "react-router-dom"
 
@@ -18,7 +18,7 @@ interface EditAccountAsideLeftProps extends EditAccountSectionProps {
     isSubmitLoading: boolean
 }
 
-export const EditAccountAsideLeft = ({
+export function EditAccountAsideLeft({
     user,
     isLoading,
     formId,
@@ -27,27 +27,15 @@ export const EditAccountAsideLeft = ({
     isVisible,
     setIsVisible,
     isSubmitLoading,
-}: EditAccountAsideLeftProps) => {
+}: EditAccountAsideLeftProps) {
     const navigate = useNavigate()
 
     const [isImageLoading, setIsImageLoading] = useState(false)
 
-    if (isLoading)
-        return (
-            <>
-                <Skeleton
-                    width={150}
-                    height={150}
-                    borderRadius="circle"
-                    isShining
-                />
-                <Skeleton width={120} height={40} borderRadius="m" isShining />
-                <Skeleton width={120} height={40} borderRadius="m" isShining />
-            </>
-        )
+    if (isLoading) return <EditAccountAsideLeftSkeleton />
 
     return (
-        <>
+        <Fragment>
             <ImageUploader
                 id="avatar"
                 image={avatar}
@@ -80,6 +68,21 @@ export const EditAccountAsideLeft = ({
             >
                 Cancel
             </Button>
-        </>
+        </Fragment>
+    )
+}
+
+function EditAccountAsideLeftSkeleton() {
+    return (
+        <Fragment>
+            <Skeleton
+                width={150}
+                height={150}
+                borderRadius="circle"
+                isShining
+            />
+            <Skeleton width={120} height={40} borderRadius="m" isShining />
+            <Skeleton width={120} height={40} borderRadius="m" isShining />
+        </Fragment>
     )
 }

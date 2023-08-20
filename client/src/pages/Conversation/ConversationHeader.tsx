@@ -11,20 +11,15 @@ interface ConversationHeaderProps {
     isLoading: boolean
 }
 
-export const ConversationHeader = ({
+export function ConversationHeader({
     otherUser,
     isLoading,
-}: ConversationHeaderProps) => {
+}: ConversationHeaderProps) {
     if (isLoading) return <ConversationHeaderSkeleton />
 
     return (
         <Flexbox gap="xs">
-            <Avatar
-                src={otherUser?.avatar}
-                size={36}
-                username={otherUser?.fullName}
-                to={PATHS.ARTIST(otherUser?._id)}
-            />
+            <Avatar user={otherUser} size={36} isLink />
 
             <Text tag="h4" as="h1">
                 Conversation with{" "}
@@ -36,7 +31,7 @@ export const ConversationHeader = ({
     )
 }
 
-const ConversationHeaderSkeleton = () => {
+function ConversationHeaderSkeleton() {
     return (
         <SkeletonCard gap="xs" isShining>
             <Skeleton width={36} height={36} borderRadius="circle" />

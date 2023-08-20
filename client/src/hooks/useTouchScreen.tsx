@@ -2,7 +2,7 @@
 
 import { useState, useLayoutEffect } from "react"
 
-export const useTouchScreen = () => {
+export function useTouchScreen() {
     const [isTouchScreen, setIsTouchScreen] = useState(false)
 
     useLayoutEffect(() => {

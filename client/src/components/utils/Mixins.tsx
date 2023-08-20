@@ -3,7 +3,7 @@
 import { css } from "styled-components"
 import { stringifyPx } from "ts-utils-julseb"
 
-import { COLORS, FONT_SIZES, getBorderRadius, getSpacer } from "components"
+import { COLORS, FONT_SIZES, SPACERS, RADIUSES } from "components"
 import type {
     FontSizesType,
     FlexAlignContentType,
@@ -22,146 +22,140 @@ import type {
     BorderProps,
     RadiusesType,
     PaddingProps,
+    typeValues,
 } from "components/types"
 
 type ColorsGhostType = Exclude<ColorsHoverType, "white">
 
 export const Mixins = {
-    Color: ({ color }: { color: ColorsType }) => css`
-        ${color === "black"
-            ? COLORS.BLACK
-            : color === "white"
-            ? COLORS.WHITE
-            : color === "dark-gray"
-            ? COLORS.DARK_GRAY
-            : color === "dark-gray-hover"
-            ? COLORS.DARK_GRAY_HOVER
-            : color === "dark-gray-active"
-            ? COLORS.DARK_GRAY_ACTIVE
-            : color === "dark-gray-ghost"
-            ? COLORS.DARK_GRAY_GHOST
-            : color === "gray"
-            ? COLORS.GRAY
-            : color === "gray-hover"
-            ? COLORS.GRAY_HOVER
-            : color === "gray-active"
-            ? COLORS.GRAY_ACTIVE
-            : color === "gray-ghost"
-            ? COLORS.GRAY_GHOST
-            : color === "primary"
-            ? COLORS.PRIMARY
-            : color === "primary-hover"
-            ? COLORS.PRIMARY_HOVER
-            : color === "primary-active"
-            ? COLORS.PRIMARY_ACTIVE
-            : color === "primary-ghost"
-            ? COLORS.PRIMARY_GHOST
-            : color === "success"
-            ? COLORS.SUCCESS
-            : color === "success-hover"
-            ? COLORS.SUCCESS_HOVER
-            : color === "success-active"
-            ? COLORS.SUCCESS_ACTIVE
-            : color === "success-ghost"
-            ? COLORS.SUCCESS_GHOST
-            : color === "danger"
-            ? COLORS.DANGER
-            : color === "danger-hover"
-            ? COLORS.DANGER_HOVER
-            : color === "danger-active"
-            ? COLORS.DANGER_ACTIVE
-            : color === "danger-ghost"
-            ? COLORS.DANGER_GHOST
-            : color}
-    `,
+    Color: ({ color }: { color: ColorsType }) => {
+        const colors = new Map<ColorsType, string>([
+            ["black", COLORS.BLACK],
+            ["white", COLORS.WHITE],
+            ["dark-gray", COLORS.DARK_GRAY],
+            ["dark-gray-hover", COLORS.DARK_GRAY_HOVER],
+            ["dark-gray-active", COLORS.DARK_GRAY_ACTIVE],
+            ["dark-gray-ghost", COLORS.DARK_GRAY_GHOST],
+            ["gray", COLORS.GRAY],
+            ["gray-hover", COLORS.GRAY_HOVER],
+            ["gray-active", COLORS.GRAY_ACTIVE],
+            ["gray-ghost", COLORS.GRAY_GHOST],
+            ["primary", COLORS.PRIMARY],
+            ["primary-hover", COLORS.PRIMARY_HOVER],
+            ["primary-active", COLORS.PRIMARY_ACTIVE],
+            ["primary-ghost", COLORS.PRIMARY_GHOST],
+            ["success", COLORS.SUCCESS],
+            ["success-hover", COLORS.SUCCESS_HOVER],
+            ["success-active", COLORS.SUCCESS_ACTIVE],
+            ["success-ghost", COLORS.SUCCESS_GHOST],
+            ["danger", COLORS.DANGER],
+            ["danger-hover", COLORS.DANGER_HOVER],
+            ["danger-active", COLORS.DANGER_ACTIVE],
+            ["danger-ghost", COLORS.DANGER_GHOST],
+            ["transparent", "transparent"],
+            ["currentColor", "currentColor"],
+        ])
 
-    ColorHoverDefault: ({ color }: { color: ColorsHoverType }) => css`
-        ${color === "primary"
-            ? COLORS.PRIMARY
-            : color === "success"
-            ? COLORS.SUCCESS
-            : color === "danger"
-            ? COLORS.DANGER
-            : color === "white" && COLORS.WHITE}
-    `,
-
-    ColorHoverHover: ({ color }: { color: ColorsHoverType }) =>
-        css`
-            ${color === "primary"
-                ? COLORS.PRIMARY_HOVER
-                : color === "success"
-                ? COLORS.SUCCESS_HOVER
-                : color === "danger"
-                ? COLORS.DANGER_HOVER
-                : color === "white" && COLORS.GRAY_GHOST}
-        `,
-
-    ColorHoverActive: ({ color }: { color: ColorsHoverType }) =>
-        css`
-            ${color === "primary"
-                ? COLORS.PRIMARY_ACTIVE
-                : color === "success"
-                ? COLORS.SUCCESS_ACTIVE
-                : color === "danger"
-                ? COLORS.DANGER_ACTIVE
-                : color === "white" && COLORS.GRAY_ACTIVE}
-        `,
-
-    ColorGhostDefault: ({
-        color,
-    }: {
-        color: Exclude<ColorsHoverType, "white">
-    }) =>
-        css`
-            ${color === "primary"
-                ? COLORS.PRIMARY_GHOST
-                : color === "success"
-                ? COLORS.SUCCESS_GHOST
-                : color === "danger" && COLORS.DANGER_GHOST}
-        `,
-
-    ColorGhostHover: ({ color }: { color: ColorsGhostType }) => css`
-        ${color === "primary"
-            ? COLORS.PRIMARY_ACTIVE
-            : color === "success"
-            ? COLORS.SUCCESS_ACTIVE
-            : color === "danger" && COLORS.DANGER_ACTIVE}
-    `,
-
-    ColorGhostActive: ({ color }: { color: ColorsGhostType }) => css`
-        ${color === "primary"
-            ? COLORS.PRIMARY_HOVER
-            : color === "success"
-            ? COLORS.SUCCESS_HOVER
-            : color === "danger" && COLORS.DANGER_HOVER}
-    `,
-
-    FontSize: (fontSize: FontSizesType | "inherit") => {
-        switch (fontSize) {
-            case "h1":
-                return FONT_SIZES.H1
-            case "h2":
-                return FONT_SIZES.H2
-            case "h3":
-                return FONT_SIZES.H3
-            case "h4":
-                return FONT_SIZES.H4
-            case "h5":
-                return FONT_SIZES.H5
-            case "h6":
-                return FONT_SIZES.H6
-            case "small":
-                return FONT_SIZES.SMALL
-            case "inherit":
-                return null
-            default:
-                return FONT_SIZES.BODY
-        }
+        return colors.get(color || "primary")
     },
 
-    Spacers: ({ spacer = null }: { spacer?: SpacersType | null }) => css`
-        ${getSpacer(spacer)}
-    `,
+    ColorHoverDefault: ({ color }: { color: ColorsHoverType }) => {
+        const colors = new Map<ColorsHoverType, string>([
+            ["primary", COLORS.PRIMARY],
+            ["success", COLORS.SUCCESS],
+            ["danger", COLORS.DANGER],
+            ["white", COLORS.WHITE],
+        ])
+
+        return colors.get(color || "primary")
+    },
+
+    ColorHoverHover: ({ color }: { color: ColorsHoverType }) => {
+        const colors = new Map<ColorsHoverType, string>([
+            ["primary", COLORS.PRIMARY_HOVER],
+            ["success", COLORS.SUCCESS_HOVER],
+            ["danger", COLORS.DANGER_HOVER],
+            ["white", COLORS.GRAY_GHOST],
+        ])
+
+        return colors.get(color || "primary")
+    },
+
+    ColorHoverActive: ({ color }: { color: ColorsHoverType }) => {
+        const colors = new Map<ColorsHoverType, string>([
+            ["primary", COLORS.PRIMARY_ACTIVE],
+            ["success", COLORS.SUCCESS_ACTIVE],
+            ["danger", COLORS.DANGER_ACTIVE],
+            ["white", COLORS.GRAY_ACTIVE],
+        ])
+
+        return colors.get(color || "primary")
+    },
+
+    ColorGhostDefault: ({ color }: { color: ColorsGhostType }) => {
+        const colors = new Map<ColorsGhostType, string>([
+            ["primary", COLORS.PRIMARY_GHOST],
+            ["success", COLORS.SUCCESS_GHOST],
+            ["danger", COLORS.DANGER_GHOST],
+        ])
+
+        return colors.get(color || "primary")
+    },
+
+    ColorGhostHover: ({ color }: { color: ColorsGhostType }) => {
+        const colors = new Map<ColorsGhostType, string>([
+            ["primary", COLORS.PRIMARY_ACTIVE],
+            ["success", COLORS.SUCCESS_ACTIVE],
+            ["danger", COLORS.DANGER_ACTIVE],
+        ])
+
+        return colors.get(color || "primary")
+    },
+
+    ColorGhostActive: ({ color }: { color: ColorsGhostType }) => {
+        const colors = new Map<ColorsGhostType, string>([
+            ["primary", COLORS.PRIMARY_HOVER],
+            ["success", COLORS.SUCCESS_HOVER],
+            ["danger", COLORS.DANGER_HOVER],
+        ])
+
+        return colors.get(color || "primary")
+    },
+
+    FontSize: (fontSize: FontSizesType | "inherit") => {
+        const sizes = new Map<FontSizesType | "inherit", string>([
+            ["h1", FONT_SIZES.H1],
+            ["h2", FONT_SIZES.H2],
+            ["h3", FONT_SIZES.H3],
+            ["h4", FONT_SIZES.H4],
+            ["h5", FONT_SIZES.H5],
+            ["h6", FONT_SIZES.H6],
+            ["body", FONT_SIZES.BODY],
+            ["small", FONT_SIZES.SMALL],
+            ["inherit", "inherit"],
+        ])
+
+        return sizes.get(fontSize || "body")
+    },
+
+    Spacers: ({ spacer = null }: { spacer?: SpacersType | null }) => {
+        if (!spacer) return null
+
+        if (typeof spacer === "number") return stringifyPx(spacer)
+
+        const spacers = new Map([
+            ["xxl", SPACERS.XXL],
+            ["xl", SPACERS.XL],
+            ["l", SPACERS.L],
+            ["m", SPACERS.M],
+            ["s", SPACERS.S],
+            ["xs", SPACERS.XS],
+            ["xxs", SPACERS.XXS],
+        ])
+
+        return spacers.get(spacer)
+    },
+
     Flexbox: ({
         inline,
         flexDirection,
@@ -254,28 +248,55 @@ export const Mixins = {
             : undefined};
     `,
 
-    BorderRadius: ({ borderRadius }: { borderRadius?: RadiusesType }) => css`
-        border-top-left-radius: ${getBorderRadius(
-            typeof borderRadius === "object"
-                ? borderRadius?.topLeft
-                : borderRadius
-        )};
-        border-top-right-radius: ${getBorderRadius(
-            typeof borderRadius === "object"
-                ? borderRadius?.topRight
-                : borderRadius
-        )};
-        border-bottom-left-radius: ${getBorderRadius(
-            typeof borderRadius === "object"
-                ? borderRadius?.bottomLeft
-                : borderRadius
-        )};
-        border-bottom-right-radius: ${getBorderRadius(
-            typeof borderRadius === "object"
-                ? borderRadius?.bottomRight
-                : borderRadius
-        )};
-    `,
+    BorderRadius: ({ borderRadius }: { borderRadius?: RadiusesType }) => {
+        type RadiusType =
+            | keyof typeof typeValues.radiuses
+            | number
+            | null
+            | undefined
+
+        const radiusMap = new Map<RadiusType, string>([
+            ["xxl", RADIUSES.XXL],
+            ["xl", RADIUSES.XL],
+            ["l", RADIUSES.L],
+            ["m", RADIUSES.M],
+            ["s", RADIUSES.S],
+            ["xs", RADIUSES.XS],
+            ["round", RADIUSES.ROUND],
+            ["circle", RADIUSES.CIRCLE],
+        ])
+
+        const getRadius = (radius: RadiusType) => {
+            if (!radius) return null
+
+            if (typeof radius === "number") return stringifyPx(radius)
+
+            return radiusMap.get(radius)
+        }
+
+        return css`
+            border-top-left-radius: ${getRadius(
+                typeof borderRadius === "object"
+                    ? borderRadius?.topLeft
+                    : borderRadius
+            )};
+            border-top-right-radius: ${getRadius(
+                typeof borderRadius === "object"
+                    ? borderRadius?.topRight
+                    : borderRadius
+            )};
+            border-bottom-left-radius: ${getRadius(
+                typeof borderRadius === "object"
+                    ? borderRadius?.bottomLeft
+                    : borderRadius
+            )};
+            border-bottom-right-radius: ${getRadius(
+                typeof borderRadius === "object"
+                    ? borderRadius?.bottomRight
+                    : borderRadius
+            )};
+        `
+    },
 
     Padding: ({ padding = null }: PaddingProps) => css`
         padding-left: ${Mixins.Spacers({

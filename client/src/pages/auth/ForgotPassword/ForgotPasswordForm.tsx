@@ -1,7 +1,6 @@
 /*=============================================== ForgotPasswordForm ===============================================*/
 
-import { useState } from "react"
-import type { FormEvent, ChangeEvent } from "react"
+import { useState, type ChangeEvent, type FormEvent } from "react"
 import { useNavigate } from "react-router-dom"
 import { emailRegex } from "ts-utils-julseb"
 
@@ -13,7 +12,7 @@ import { PATHS } from "data"
 
 import type { ErrorMessageType, ValidationStatusType } from "types"
 
-export const ForgotPasswordForm = () => {
+export function ForgotPasswordForm() {
     const navigate = useNavigate()
 
     const [email, setEmail] = useState("")
@@ -54,27 +53,25 @@ export const ForgotPasswordForm = () => {
     }
 
     return (
-        <>
-            <Form
-                onSubmit={handleSubmit}
-                buttonPrimary="Send"
-                buttonSecondary={{ text: "Cancel", to: PATHS.LOGIN }}
-                isLoading={isLoading}
-                error={errorMessage}
-            >
-                <Input
-                    id="email"
-                    label="Email"
-                    type="email"
-                    value={email}
-                    onChange={handleEmail}
-                    validation={{
-                        status: validation,
-                        message: FORM_VALIDATION.EMAIL_REQUIRED,
-                    }}
-                    autoFocus
-                />
-            </Form>
-        </>
+        <Form
+            onSubmit={handleSubmit}
+            buttonPrimary="Send"
+            buttonSecondary={{ text: "Cancel", to: PATHS.LOGIN }}
+            isLoading={isLoading}
+            error={errorMessage}
+        >
+            <Input
+                id="email"
+                label="Email"
+                type="email"
+                value={email}
+                onChange={handleEmail}
+                validation={{
+                    status: validation,
+                    message: FORM_VALIDATION.EMAIL_REQUIRED,
+                }}
+                autoFocus
+            />
+        </Form>
     )
 }

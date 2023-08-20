@@ -1,8 +1,11 @@
 /*=============================================== Nav link types ===============================================*/
 
+import type { UserRoleType } from "./User"
+
 type BaseLinkType = {
     id: number
     text: string
+    role?: UserRoleType
 }
 
 type NavLinkTypeLink = BaseLinkType & {

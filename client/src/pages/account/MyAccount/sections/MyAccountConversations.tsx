@@ -1,10 +1,9 @@
 /*=============================================== MyAccountConversations ===============================================*/
 
-import { Fragment, useContext } from "react"
+import { Fragment, useContext, useState, useEffect } from "react"
 import { generateNumbers } from "ts-utils-julseb"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 import { conversationService } from "api"
 
 import {
@@ -12,47 +11,91 @@ import {
     ConversationCard,
     ConversationCardSkeleton,
     Hr,
+    Pagination,
 } from "components"
-import { useFetch } from "hooks"
+import { usePaginatedData } from "hooks"
+import { sortConversations, filterConversations } from "utils"
+import type { ConversationType, ServerErrorType } from "types"
 
-import type { ConversationType } from "types"
+interface MyAccountConversationsProps {
+    search: string
+    read: string
+}
 
-export const MyAccountConversations = () => {
+export function MyAccountConversations({
+    search,
+    read,
+}: MyAccountConversationsProps) {
     const { user } = useContext(AuthContext) as AuthContextType
 
-    const {
-        response: conversations,
-        loading,
-        error,
-    } = useFetch<ConversationType[]>(
-        conversationService.getUserConversations(user?._id || "")
-    )
+    const [conversations, setConversations] = useState<ConversationType[]>([])
+    const [loading, setLoading] = useState(true)
+    const [errorMessage, setErrorMessage] = useState<ServerErrorType>(undefined)
+
+    useEffect(() => {
+        const getData = async () =>
+            await conversationService
+                .getUserConversations(user?._id || "")
+                .then(res => {
+                    setConversations(
+                        sortConversations(res.data).filter(
+                            conversation =>
+                                !(
+                                    conversation.user2._id === user?._id &&
+                                    !conversation.messages.length
+                                )
+                        )
+                    )
+                    setLoading(false)
+                })
+                .catch(err => {
+                    setErrorMessage(err)
+                    setLoading(false)
+                })
+
+        if (loading) getData()
+    }, [loading, user?._id])
+
+    const { paginatedData, totalPages } = usePaginatedData(conversations, 10)
 
     if (loading) return <MyAccountConversationsSkeleton />
 
-    if (error)
+    if (errorMessage)
         return (
             <Text>
                 Error while fetching conversations:{" "}
-                {error.response.data.message}
+                {errorMessage.response.data.message}
             </Text>
         )
 
-    if (!conversations?.length)
+    if (!paginatedData || !paginatedData?.length)
         return <Text>You do not have any conversation yet.</Text>
 
-    return (
-        <>
-            {conversations
-                ?.sort((a, b) => (a.updatedAt > b.updatedAt ? -1 : 0))
-                .map((conversation, i) => (
-                    <Fragment key={conversation._id}>
-                        <ConversationCard conversation={conversation} />
+    const filteredConversations = filterConversations(
+        paginatedData,
+        user?._id || "",
+        read,
+        search
+    )
 
-                        {i !== conversations?.length - 1 && <Hr />}
-                    </Fragment>
-                ))}
-        </>
+    if (!filteredConversations?.length)
+        return <Text>Your search did not return any result.</Text>
+
+    return (
+        <Fragment>
+            {filteredConversations?.map((conversation, i) => (
+                <Fragment key={conversation._id}>
+                    <ConversationCard
+                        conversation={conversation}
+                        setLoading={setLoading}
+                    />
+
+                    {i !== filteredConversations?.length - 1 && <Hr />}
+                </Fragment>
+            ))}
+
+            <Pagination totalPages={totalPages} />
+        </Fragment>
     )
 }
 
@@ -62,6 +105,7 @@ const MyAccountConversationsSkeleton = () => {
     return numbers.map((n, i) => (
         <Fragment key={n}>
             <ConversationCardSkeleton />
+
             {i !== numbers.length - 1 && <Hr />}
         </Fragment>
     ))

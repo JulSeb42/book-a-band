@@ -1,12 +1,10 @@
 /*=============================================== EditAccount ===============================================*/
 
-import { useContext, useState } from "react"
-import type { FormEvent } from "react"
+import { useContext, useState, type FormEvent, Fragment } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { deleteDuplicates } from "ts-utils-julseb"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 import { userService } from "api"
 
 import { Page, Main, Aside, Form, Text, Flexbox } from "components"
@@ -17,7 +15,7 @@ import {
     EditAccountAvailabilities,
 } from "pages/account/EditAccount/sections"
 import { PATHS } from "data"
-import { formatDate, sortDates } from "utils"
+import { formatDate, sortDates, toast } from "utils"
 
 import type { ErrorMessageType } from "types"
 import type {
@@ -26,7 +24,7 @@ import type {
     EditAccountYoutubeLinksType,
 } from "pages/account/EditAccount/sections/types"
 
-export const EditAccount = () => {
+export function EditAccount() {
     const FORM_ID = "edit-form"
 
     const navigate = useNavigate()
@@ -62,7 +60,7 @@ export const EditAccount = () => {
     })
     const [isSubmitLoading, setIsSubmitLoading] = useState(false)
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         if (!inputs.fullName.length || !city.length) {
@@ -91,7 +89,7 @@ export const EditAccount = () => {
         }
 
         if (user) {
-            userService
+            return await userService
                 .editAccount(user._id, requestBody)
                 .then(res => {
                     const { user, authToken } = res.data
@@ -99,11 +97,14 @@ export const EditAccount = () => {
                     setToken(authToken)
                     navigate(PATHS.MY_ACCOUNT)
                     setIsSubmitLoading(false)
+                    toast.success("Changes were saved!")
                 })
                 .catch(err => {
                     setErrorMessage(err)
                     setIsSubmitLoading(false)
                 })
+        } else {
+            toast.error("User's data is missing.")
         }
     }
 
@@ -153,7 +154,7 @@ export const EditAccount = () => {
 
             <Aside gap="xs">
                 {user?.role === "artist" && (
-                    <>
+                    <Fragment>
                         <Text tag="h4">Availabilities</Text>
 
                         <Flexbox
@@ -167,7 +168,7 @@ export const EditAccount = () => {
                                 setDates={setDates}
                             />
                         </Flexbox>
-                    </>
+                    </Fragment>
                 )}
             </Aside>
         </Page>

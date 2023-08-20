@@ -12,7 +12,7 @@ interface AuthProviderWrapperProps {
 
 export const AuthContext = createContext<null | AuthContextType>(null)
 
-export const AuthProviderWrapper = ({ children }: AuthProviderWrapperProps) => {
+export function AuthProviderWrapper({ children }: AuthProviderWrapperProps) {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [user, setUser] = useState<null | UserType>(null)
@@ -33,19 +33,19 @@ export const AuthProviderWrapper = ({ children }: AuthProviderWrapperProps) => {
         setUser(null)
     }
 
-    const verifyStoredToken = () => {
+    const verifyStoredToken = async () => {
         const storedToken = localStorage.getItem("authToken")
 
         if (storedToken) {
-            authService
+            return await authService
                 .loggedIn({
                     headers: {
                         Authorization: `Bearer ${storedToken}`,
                     },
                 })
-                .then(res => {
+                .then(async res => {
                     const user: UserType = res.data.user
-                    userService
+                    return await userService
                         .getUser(user._id)
                         .then(res => {
                             setUser(res.data)

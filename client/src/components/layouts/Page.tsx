@@ -1,6 +1,6 @@
 /*=============================================== Page ===============================================*/
 
-import { useEffect, type ReactNode } from "react"
+import { useEffect, type ReactNode, Fragment } from "react"
 import { useLocation } from "react-router-dom"
 
 import { Wrapper, Main, Text } from "components"
@@ -12,7 +12,7 @@ import type { HelmetProps } from "components/layouts/Helmet"
 import type { MainSizesType } from "components/layouts/Main/types"
 import type { ServerErrorType } from "types"
 
-interface PageProps extends HelmetProps {
+export interface PageProps extends HelmetProps {
     children?: ReactNode | ReactNode[]
     noWrapper?: boolean
     noHeader?: boolean
@@ -21,7 +21,7 @@ interface PageProps extends HelmetProps {
     error?: ServerErrorType
 }
 
-export const Page = ({
+export function Page({
     children,
     title,
     description,
@@ -32,7 +32,7 @@ export const Page = ({
     noMain,
     mainSize,
     error,
-}: PageProps) => {
+}: PageProps) {
     const { pathname, search } = useLocation()
 
     useEffect(() => {
@@ -44,7 +44,7 @@ export const Page = ({
     }, [pathname, search])
 
     return (
-        <>
+        <Fragment>
             <Helmet
                 title={title}
                 description={description}
@@ -76,6 +76,6 @@ export const Page = ({
             )}
 
             {!noHeader && <Footer />}
-        </>
+        </Fragment>
     )
 }

@@ -1,19 +1,21 @@
 /*=============================================== PageLoading ===============================================*/
 
+import { Fragment } from "react"
+
 import styled from "styled-components"
 
 import { COLORS, Loader, Mixins } from "components"
 import { Helmet } from "components/layouts/Helmet"
 
-export const PageLoading = () => {
+export function PageLoading() {
     return (
-        <>
+        <Fragment>
             <Helmet title="Page loading" />
 
             <Main>
                 <Loader size={48} color="white" />
             </Main>
-        </>
+        </Fragment>
     )
 }
 

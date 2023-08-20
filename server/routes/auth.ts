@@ -19,7 +19,7 @@ import { jwtConfig, SALT_ROUNDS, TOKEN_SECRET, sendMail } from "../utils"
 const router = Router()
 
 // Signup
-router.post("/signup", (req, res, next) => {
+router.post("/signup", async (req, res, next) => {
     const { email, fullName, password, city, role } = req.body
     const verifyToken = getRandomString(20)
 
@@ -42,7 +42,13 @@ router.post("/signup", (req, res, next) => {
         })
     }
 
-    UserModel.findOne({ email })
+    if (role === "admin") {
+        return res
+            .status(400)
+            .json({ message: "You can not create an account as an admin." })
+    }
+
+    return await UserModel.findOne({ email })
         // @ts-expect-error
         .then(foundUser => {
             if (foundUser) {
@@ -85,7 +91,7 @@ router.post("/signup", (req, res, next) => {
 })
 
 // Login
-router.post("/login", (req, res, next) => {
+router.post("/login", async (req, res, next) => {
     const { email, password } = req.body
 
     if (email === "" || password === "") {
@@ -94,11 +100,11 @@ router.post("/login", (req, res, next) => {
             .json({ message: "Please provide your email and password." })
     }
 
-    UserModel.findOne({ email })
+    return await UserModel.findOne({ email })
         .then(foundUser => {
             if (!foundUser) {
                 return res
-                    .status(401)
+                    .status(500)
                     .json({ message: "This user does not exist." })
             }
 
@@ -115,7 +121,7 @@ router.post("/login", (req, res, next) => {
 
                 res.status(200).json({ authToken: authToken })
             } else {
-                res.status(401).json({
+                res.status(500).json({
                     message: "Unable to authenticate the user.",
                 })
             }
@@ -128,26 +134,32 @@ router.get("/loggedin", isAuthenticated, (req, res, next) => {
     // @ts-expect-error
     console.log(`req.payload: ${req.payload}`)
     // @ts-expect-error
-    res.status(200).json(req.payload)
+    return res.status(200).json(req.payload)
 })
 
 // Verify account
-router.put("/verify", (req, res, next) => {
+router.put("/verify", async (req, res, next) => {
     const { id } = req.body
 
-    UserModel.findByIdAndUpdate(id, { verified: true }, { new: true })
+    return await UserModel.findByIdAndUpdate(
+        id,
+        { verified: true },
+        { new: true }
+    )
         .then(updatedUser => {
             const payload = { user: updatedUser }
             // @ts-expect-error
             const authToken = jwt.sign(payload, TOKEN_SECRET, jwtConfig)
 
-            res.status(200).json({ authToken: authToken, user: updatedUser })
+            return res
+                .status(200)
+                .json({ authToken: authToken, user: updatedUser })
         })
         .catch(err => next(err))
 })
 
 // Forgot password
-router.post("/forgot-password", (req, res, next) => {
+router.post("/forgot-password", async (req, res, next) => {
     const { email } = req.body
     const resetToken = getRandomString(20)
 
@@ -155,19 +167,19 @@ router.post("/forgot-password", (req, res, next) => {
         return res.status(400).json({ message: "Please enter a valid email." })
     }
 
-    UserModel.findOne({ email })
-        .then(foundUser => {
+    return await UserModel.findOne({ email })
+        .then(async foundUser => {
             if (!foundUser) {
                 return res
                     .status(400)
                     .json({ message: "This user does not exist." })
             }
 
-            UserModel.findOneAndUpdate(
+            return await UserModel.findOneAndUpdate(
                 { email },
                 { resetToken },
                 { new: true }
-            ).then(foundUser => {
+            ).then(async foundUser => {
                 console.log("Start send mail")
 
                 sendMail(
@@ -178,14 +190,14 @@ router.post("/forgot-password", (req, res, next) => {
                 )
 
                 // @ts-expect-error
-                res.status(200).json(res.body)
+                return res.status(200).json(res.body)
             })
         })
         .catch(err => next(err))
 })
 
 // Reset password
-router.put("/reset-password", (req, res, next) => {
+router.put("/reset-password", async (req, res, next) => {
     const { password, resetToken, id } = req.body
 
     if (!passwordRegex.test(password)) {
@@ -195,10 +207,9 @@ router.put("/reset-password", (req, res, next) => {
         })
     }
 
-    UserModel.findById(id)
-        .then(foundUser => {
-            // @ts-expect-error
-            if (foundUser.resetToken !== resetToken) {
+    return await UserModel.findById(id)
+        .then(async foundUser => {
+            if (foundUser?.resetToken !== resetToken) {
                 return res.status(400).json({
                     message:
                         "There was a problem trying to reset your password.",
@@ -208,13 +219,11 @@ router.put("/reset-password", (req, res, next) => {
             const salt = bcrypt.genSaltSync(SALT_ROUNDS)
             const hashedPassword = bcrypt.hashSync(password, salt)
 
-            UserModel.findByIdAndUpdate(
+            return await UserModel.findByIdAndUpdate(
                 id,
                 { password: hashedPassword, resetToken: "" },
                 { new: true }
-            ).then(updatedUser => {
-                res.status(200).json({ user: updatedUser })
-            })
+            ).then(updatedUser => res.status(200).json({ user: updatedUser }))
         })
         .catch(err => next(err))
 })

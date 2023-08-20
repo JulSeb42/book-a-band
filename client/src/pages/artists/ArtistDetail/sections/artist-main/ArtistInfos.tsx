@@ -1,5 +1,6 @@
 /*=============================================== ArtistInfos ===============================================*/
 
+import { Fragment } from "react"
 import { generateNumbers, convertPrice } from "ts-utils-julseb"
 
 import { Text, TextIcon, Skeleton, SkeletonCard } from "components"
@@ -13,7 +14,7 @@ type InfoType = {
     content: string
 }
 
-export const ArtistInfos = ({ artist, isLoading }: ArtistSectionProps) => {
+export function ArtistInfos({ artist, isLoading }: ArtistSectionProps) {
     const infos: InfoType[] = [
         {
             id: 0,
@@ -37,18 +38,29 @@ export const ArtistInfos = ({ artist, isLoading }: ArtistSectionProps) => {
         },
     ]
 
-    if (isLoading)
-        return generateNumbers(0, infos.length).map(n => (
-            <SkeletonCard alignItems="center" gap="xxs" isShining key={n}>
-                <Skeleton width={16} height={16} />
-                <Skeleton height={24} width="40%" />
-            </SkeletonCard>
-        ))
+    if (isLoading) return <ArtistInfosSkeleton length={infos.length} />
 
-    return infos.map(({ id, icon, title, content }) => (
-        <TextIcon icon={icon} key={id}>
-            <Text tag="strong">{title}: </Text>
-            {content}
-        </TextIcon>
-    ))
+    return (
+        <Fragment>
+            {infos.map(({ id, icon, title, content }) => (
+                <TextIcon icon={icon} key={id}>
+                    <Text tag="strong">{title}: </Text>
+                    {content}
+                </TextIcon>
+            ))}
+        </Fragment>
+    )
+}
+
+function ArtistInfosSkeleton({ length }: { length: number }) {
+    return (
+        <Fragment>
+            {generateNumbers(0, length).map(n => (
+                <SkeletonCard alignItems="center" gap="xxs" isShining key={n}>
+                    <Skeleton width={16} height={16} />
+                    <Skeleton height={24} width="40%" />
+                </SkeletonCard>
+            ))}
+        </Fragment>
+    )
 }

@@ -8,8 +8,7 @@ import {
     type SetStateAction,
 } from "react"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 import { conversationService } from "api"
 
 import { ButtonIcon, INPUT_HEIGHT } from "components"
@@ -27,25 +26,25 @@ interface SendMessageProps {
     setInputHeight: Dispatch<SetStateAction<number>>
 }
 
-export const SendMessage = ({
+export function SendMessage({
     id,
     messages,
     setMessages,
     whichUser,
     inputHeight,
     setInputHeight,
-}: SendMessageProps) => {
+}: SendMessageProps) {
     const { user } = useContext(AuthContext) as AuthContextType
 
     const [body, setBody] = useState("")
     const [isFocused, setIsFocused] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
 
-    const submit = () => {
+    const submit = async () => {
         if (user) {
             setIsLoading(true)
 
-            conversationService
+            return await conversationService
                 .newMessage({
                     body,
                     sender: user?._id,
@@ -83,9 +82,9 @@ export const SendMessage = ({
         true
     )
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        submit()
+        return await submit()
     }
 
     return (

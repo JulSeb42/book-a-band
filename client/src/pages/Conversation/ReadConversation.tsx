@@ -5,13 +5,22 @@ import { useParams } from "react-router-dom"
 
 import { conversationService } from "api"
 
-export const ReadConversation = () => {
+import { toast } from "utils"
+
+export function ReadConversation() {
     const { id } = useParams<{ id: string }>()
 
     useEffect(() => {
-        if (id) {
-            conversationService.readConversation(id).then(() => {})
+        const readConversation = async () => {
+            if (id)
+                await conversationService.readConversation(id).catch(err => {
+                    console.log(err)
+                    toast.error("An error occured while updating conversation.")
+                })
+            else toast.error("Conversation ID is missing.")
         }
+
+        readConversation()
     }, [id])
 
     return null

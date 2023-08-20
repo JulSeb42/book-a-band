@@ -8,65 +8,92 @@ import { passwordRegex, deleteDuplicates, slugify } from "ts-utils-julseb"
 
 import { UserModel } from "../models/User.model"
 
-import {
-    SALT_ROUNDS,
-    TOKEN_SECRET,
-    jwtConfig,
-    getVisibleArtists,
-} from "../utils"
-import type { SortType, UserType } from "../types"
+import { SALT_ROUNDS, TOKEN_SECRET, jwtConfig, visibleArtists } from "../utils"
+import type { SortType, UserRoleType, UserType } from "../types"
 
 const router = Router()
 
-// Get all users
-router.get("/all-users", (_, res, next) => {
-    UserModel.find()
-        .populate("conversations")
-        .populate({
-            path: "conversations",
-            populate: {
-                path: "messages",
-                model: "Message",
-            },
-        })
-        .then(usersFromDb => res.status(200).json(usersFromDb))
-        .catch(err => next(err))
-})
-
-// Get artists
-router.get("/artists", (req, res, next) => {
-    const { city, genre, query, sort } = req.query as {
+// Users
+router.get("/users", (req, res, next) => {
+    const { role, status, city, genre, query, sort, verified } = req.query as {
+        role?: UserRoleType | "undefined"
+        status?: "approved" | "rejected" | "pending" | "undefined"
         city?: string
         genre?: string
         query?: string
         sort?: SortType | "undefined"
+        verified?: "true" | "false"
     }
 
-    UserModel.find()
-        .then(usersFromDb => {
-            let artists = usersFromDb.filter(
-                user => user.role === "artist" && user.isVisible
-            )
+    return UserModel.find()
+        .populate("conversations")
+        .populate({
+            path: "conversations",
+            populate: [
+                {
+                    path: "messages",
+                    model: "Message",
+                },
+                {
+                    path: "user1",
+                    model: "User",
+                },
+                {
+                    path: "user2",
+                    model: "User",
+                },
+            ],
+        })
+        .then(foundUsers => {
+            if (role && role !== "undefined") {
+                foundUsers = foundUsers.filter(user => user.role === role)
+            }
 
-            artists.forEach(artist => {
-                artist.available = artist.available
-                    .filter(date => new Date(date) >= new Date())
-                    .sort((a, b) => (new Date(a) < new Date(b) ? -1 : 0))
-            })
+            if (status && status !== "undefined") {
+                if (status === "approved") {
+                    foundUsers = foundUsers.filter(
+                        user => user.isApproved === true
+                    )
+                }
 
-            if (city !== "undefined")
-                artists = artists.filter(
-                    artist => slugify(artist.city!) === slugify(city!)
+                if (status === "rejected") {
+                    foundUsers = foundUsers.filter(
+                        user => user.isApproved === false
+                    )
+                }
+
+                if (status === "pending") {
+                    foundUsers = foundUsers.filter(
+                        user =>
+                            user.isApproved !== true &&
+                            user.isApproved !== false
+                    )
+                }
+            }
+
+            if (city) {
+                foundUsers = foundUsers.filter(
+                    user => slugify(user.city!) === slugify(city)
                 )
+            }
 
-            if (genre !== "undefined")
-                artists = artists.filter(
-                    artist => slugify(artist.genre!) === slugify(genre!)
+            if (genre) {
+                foundUsers = foundUsers.filter(
+                    user => slugify(user.genre!) === slugify(genre)
                 )
+            }
 
-            if (sort !== "undefined") {
+            if (query && query !== "") {
+                const fuse = new Fuse(foundUsers, {
+                    keys: ["city", "genre", "fullName"],
+                })
+
+                foundUsers = fuse?.search(query).map(fuseItem => fuseItem.item)
+            }
+
+            if (sort) {
                 if (sort === "availability") {
-                    artists = artists.sort((a, b) =>
+                    foundUsers = foundUsers.sort((a, b) =>
                         new Date(a.available[0]) < new Date(b.available[0])
                             ? -1
                             : 0
@@ -74,73 +101,235 @@ router.get("/artists", (req, res, next) => {
                 }
 
                 if (sort === "price") {
-                    artists = artists.sort(
+                    foundUsers = foundUsers.sort(
+                        (a, b) => (a.price || 0) - (b.price || 0)
+                    )
+                }
+            }
+
+            if (verified) {
+                if (verified === "true") {
+                    foundUsers = foundUsers.filter(
+                        user => user.verified === true
+                    )
+                }
+
+                if (verified === "false") {
+                    foundUsers = foundUsers.filter(
+                        user => user.verified === false || !user.verified
+                    )
+                }
+            }
+
+            return res.status(200).json(foundUsers)
+        })
+        .catch(err => next(err))
+})
+
+// Get all users
+router.get("/all-users", async (req, res, next) => {
+    const { role, status } = req.query as {
+        role?: UserRoleType
+        status?: "approved" | "rejected" | "pending" | "undefined"
+    }
+
+    return await UserModel.find()
+        .populate("conversations")
+        .populate({
+            path: "conversations",
+            populate: [
+                {
+                    path: "messages",
+                    model: "Message",
+                },
+                {
+                    path: "user1",
+                    model: "User",
+                },
+                {
+                    path: "user2",
+                    model: "User",
+                },
+            ],
+        })
+        .then(usersFromDb => {
+            if (status) {
+                usersFromDb = usersFromDb.filter(user => user.role === "artist")
+
+                if (status !== "undefined") {
+                    if (status === "approved") {
+                        usersFromDb = usersFromDb.filter(
+                            user => user.isApproved === true
+                        )
+                    }
+
+                    if (status === "rejected") {
+                        usersFromDb = usersFromDb.filter(
+                            user => user.isApproved === false
+                        )
+                    }
+
+                    if (status === "pending") {
+                        usersFromDb = usersFromDb.filter(
+                            user =>
+                                user.isApproved !== true &&
+                                user.isApproved !== false
+                        )
+                    }
+                }
+            }
+
+            if (role)
+                usersFromDb = usersFromDb.filter(user => user.role === role)
+
+            return res.status(200).json(usersFromDb)
+        })
+        .catch(err => {
+            next(err)
+            return res
+                .status(400)
+                .json({ message: "Error while fetching artists." })
+        })
+})
+
+// Get all artists with non approved ones
+router.get("/artists-admin", async (req, res, next) => {
+    const { isApproved } = req.query as {
+        isApproved: "true" | "false" | "undefined"
+    }
+
+    return await UserModel.find({ role: "artist" })
+        .then(foundUsers => {
+            const approvedArtists = foundUsers.filter(
+                artist => artist.isApproved === true
+            )
+            const rejectedArtists = foundUsers.filter(
+                artist => artist.isApproved === false
+            )
+            const pendingArtists = foundUsers.filter(
+                artist =>
+                    artist.isApproved !== true && artist.isApproved !== false
+            )
+
+            const artists = foundUsers.filter(artist => {
+                if (isApproved === "true") return artist.isApproved === true
+                if (isApproved === "false") return artist.isApproved === false
+                return artist.isApproved !== true && artist.isApproved !== false
+            })
+
+            return res.status(200).json({
+                artists,
+                approvedArtists: approvedArtists.length,
+                rejectedArtists: rejectedArtists.length,
+                pendingArtists: pendingArtists.length,
+            })
+        })
+        .catch(err => {
+            next(err)
+            return res
+                .status(400)
+                .json({ message: "Error while fetching artists." })
+        })
+})
+
+// Get artists
+router.get("/artists", async (req, res, next) => {
+    const { city, genre, query, sort } = req.query as {
+        city?: string
+        genre?: string
+        query?: string
+        sort?: SortType | "undefined"
+    }
+
+    return await UserModel.find(visibleArtists)
+        .then(usersFromDb => {
+            usersFromDb.forEach(artist => {
+                artist.available = artist.available
+                    .filter(date => new Date(date) >= new Date())
+                    .sort((a, b) => (new Date(a) < new Date(b) ? -1 : 0))
+            })
+
+            if (city !== "undefined")
+                usersFromDb = usersFromDb.filter(
+                    artist => slugify(artist.city!) === slugify(city!)
+                )
+
+            if (genre !== "undefined")
+                usersFromDb = usersFromDb.filter(
+                    artist => slugify(artist.genre!) === slugify(genre!)
+                )
+
+            if (sort !== "undefined") {
+                if (sort === "availability") {
+                    usersFromDb = usersFromDb.sort((a, b) =>
+                        new Date(a.available[0]) < new Date(b.available[0])
+                            ? -1
+                            : 0
+                    )
+                }
+
+                if (sort === "price") {
+                    usersFromDb = usersFromDb.sort(
                         (a, b) => (a.price || 0) - (b.price || 0)
                     )
                 }
             }
 
             if (query !== "undefined") {
-                const fuse = new Fuse(artists, {
+                const fuse = new Fuse(usersFromDb, {
                     keys: ["city", "genre", "fullName"],
                 })
 
-                artists = fuse?.search(query!).map(fuseItem => fuseItem.item)
+                usersFromDb = fuse
+                    ?.search(query!)
+                    .map(fuseItem => fuseItem.item)
             }
 
-            res.status(200).json(artists)
+            return res.status(200).json(usersFromDb)
         })
         .catch(err => next(err))
 })
 
 // Get all cities
-router.get("/cities", (_, res, next) => {
-    UserModel.find()
+router.get("/cities", async (_, res, next) => {
+    return await UserModel.find(visibleArtists)
         .then(usersFromDb => {
-            // @ts-expect-error
-            const artists = getVisibleArtists(usersFromDb)
-            const cities = artists.map(artist => artist.city)
+            const cities = usersFromDb.map(artist => artist.city)
             return res.status(200).json(deleteDuplicates(cities))
         })
         .catch(err => next(err))
 })
 
 // Get all genres
-router.get("/genres", (_, res, next) => {
-    UserModel.find()
+router.get("/genres", async (_, res, next) => {
+    return await UserModel.find()
         .then(usersFromDb => {
-            // @ts-expect-error
-            const artists = getVisibleArtists(usersFromDb)
-            const genres = artists.map(artist => artist.genre)
+            const genres = usersFromDb.map(artist => artist.genre)
             return res.status(200).json(deleteDuplicates(genres))
         })
         .catch(err => next(err))
 })
 
 // Get user by ID
-router.get("/user/:id", (req, res, next) => {
-    UserModel.findById(req.params.id)
+router.get("/user/:id", async (req, res, next) => {
+    return await UserModel.findById(req.params.id)
         .populate("conversations")
         .populate({
             path: "conversations",
-            populate: {
-                path: "user1",
-                model: "User",
-            },
-        })
-        .populate({
-            path: "conversations",
-            populate: {
-                path: "user2",
-                model: "User",
-            },
-        })
-        .populate({
-            path: "conversations",
-            populate: {
-                path: "messages",
-                model: "Message",
-            },
+            populate: [
+                {
+                    path: "user1",
+                    model: "User",
+                },
+                {
+                    path: "user2",
+                    model: "User",
+                },
+                {
+                    path: "messages",
+                    model: "Message",
+                },
+            ],
         })
         .then(userFromDb => res.status(200).json(userFromDb))
         .catch(err => {
@@ -150,7 +339,7 @@ router.get("/user/:id", (req, res, next) => {
 })
 
 // Edit user
-router.put("/edit-account/:id", (req, res, next) => {
+router.put("/edit-account/:id", async (req, res, next) => {
     const { fullName, avatar, city, ...reqBody } = req.body
 
     if (!fullName) {
@@ -161,7 +350,7 @@ router.put("/edit-account/:id", (req, res, next) => {
 
     if (!city) return res.status(400).json({ message: "City is required." })
 
-    UserModel.findByIdAndUpdate(
+    return await UserModel.findByIdAndUpdate(
         req.params.id,
         { fullName, avatar, city, ...reqBody },
         { new: true }
@@ -177,6 +366,19 @@ router.put("/edit-account/:id", (req, res, next) => {
                 authToken: authToken,
             })
         })
+        .catch(err => next(err))
+})
+
+// Change user role
+router.put("/user-role/:id", async (req, res, next) => {
+    const { role } = req.body
+
+    return await UserModel.findByIdAndUpdate(
+        req.params.id,
+        { role },
+        { new: true }
+    )
+        .then(updatedUser => res.status(200).json(updatedUser))
         .catch(err => next(err))
 })
 
@@ -199,7 +401,7 @@ router.put("/edit-password/:id", async (req, res, next) => {
                 const salt = bcrypt.genSaltSync(SALT_ROUNDS)
                 const hashedPassword = bcrypt.hashSync(newPassword, salt)
 
-                UserModel.findByIdAndUpdate(
+                return await UserModel.findByIdAndUpdate(
                     req.params.id,
                     { password: hashedPassword },
                     { new: true }
@@ -236,11 +438,36 @@ router.put("/edit-password/:id", async (req, res, next) => {
     }
 })
 
-// Delete user
-router.delete("/delete-account/:id", (req, res, next) => {
-    UserModel.findByIdAndDelete(req.params.id)
-        .then(() => res.status(200).json({ message: "User deleted" }))
+// Approve artist
+router.put("/approve-artist/:id", async (req, res, next) => {
+    const { isApproved } = req.body as { isApproved: boolean }
+
+    return await UserModel.findByIdAndUpdate(
+        req.params.id,
+        { isApproved },
+        { new: true }
+    )
+        .then(updatedUser => res.status(200).json(updatedUser))
         .catch(err => next(err))
+})
+
+// Delete user
+router.put("/delete-account/:id", async (req, res, next) => {
+    const { password } = req.body as { password: string }
+
+    const foundUser: UserType | null = await UserModel.findById(req.params.id)
+
+    if (foundUser) {
+        if (await bcrypt.compare(password, foundUser?.password)) {
+            return await UserModel.findByIdAndDelete(req.params.id)
+                .then(() => res.status(200).json({ message: "User deleted" }))
+                .catch(err => next(err))
+        } else {
+            return res.status(500).json({ message: "Wrong password." })
+        }
+    } else {
+        return res.status(500).json({ message: "User not found." })
+    }
 })
 
 export default router

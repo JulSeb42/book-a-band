@@ -1,6 +1,6 @@
 /*=============================================== EditAccountAvailabilities ===============================================*/
 
-import type { Dispatch, SetStateAction } from "react"
+import { Fragment, type Dispatch, type SetStateAction } from "react"
 import styled from "styled-components"
 import {
     getToday,
@@ -27,17 +27,17 @@ interface EditAccountAvailabilitiesPros
     setDates: Dispatch<SetStateAction<string[]>>
 }
 
-export const EditAccountAvailabilities = ({
+export function EditAccountAvailabilities({
     isLoading,
     dates,
     setDates,
-}: EditAccountAvailabilitiesPros) => {
+}: EditAccountAvailabilitiesPros) {
     if (isLoading) return <EditAccountAvailabilitiesSkeleton />
 
     return (
-        <>
+        <Fragment>
             {dates.length ? (
-                <>
+                <Fragment>
                     {sortDates(deleteDuplicates(dates)).map(date => (
                         <DateLine
                             onClick={e =>
@@ -70,7 +70,7 @@ export const EditAccountAvailabilities = ({
                             </IconContainer>
                         </DateLine>
                     ))}
-                </>
+                </Fragment>
             ) : (
                 <Text>You did not add any availability yet.</Text>
             )}
@@ -82,7 +82,7 @@ export const EditAccountAvailabilities = ({
                 placeholderText={getToday()}
                 minDate={new Date(getToday())}
             />
-        </>
+        </Fragment>
     )
 }
 
@@ -110,9 +110,9 @@ const StyledText = styled(Text)`
     flex-grow: 1;
 `
 
-const EditAccountAvailabilitiesSkeleton = () => {
+function EditAccountAvailabilitiesSkeleton() {
     return (
-        <>
+        <Fragment>
             {generateNumbers(0, 4).map(n => (
                 <SkeletonCard gap="xxs" alignItems="center" isShining key={n}>
                     <Skeleton width={16} height={16} />
@@ -121,6 +121,6 @@ const EditAccountAvailabilitiesSkeleton = () => {
             ))}
 
             <Datepicker label="Add a new date" isLoading onChange={() => {}} />
-        </>
+        </Fragment>
     )
 }

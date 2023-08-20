@@ -3,8 +3,7 @@
 import { useContext, type ReactNode } from "react"
 import { Navigate } from "react-router-dom"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 
 import { PageLoading } from "components"
 
@@ -15,10 +14,10 @@ interface AnonRouteProps {
     redirectTo?: string
 }
 
-export const AnonRoute = ({
+export function AnonRoute({
     children,
     redirectTo = PATHS.MY_ACCOUNT,
-}: AnonRouteProps) => {
+}: AnonRouteProps) {
     const { isLoggedIn, isLoading } = useContext(AuthContext) as AuthContextType
 
     return isLoading ? (

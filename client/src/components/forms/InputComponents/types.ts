@@ -40,3 +40,9 @@ export interface InputContainerBaseProps {
 export interface InputContainerProps extends InputContainerBaseProps {
     children?: ReactNode | ReactNode[]
 }
+
+export interface InputButtonProps {
+    icon: string
+    onClick: () => void
+    label: string
+}

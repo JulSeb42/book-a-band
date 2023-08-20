@@ -1,11 +1,11 @@
 {
     "Base React": {
         "prefix": "react",
-        "body": "/*=============================================== $1 ===============================================*/\n\ninterface $1Props {\n\n}\n\nexport const $1 = ({ }: $1Props) => {\n    return (\n        <div>\n\n        </div>\n    )\n}\n"
+        "body": "/*=============================================== $1 ===============================================*/\n\ninterface $1Props {\n\n}\n\nexport function $1({ }: $1Props) {\n    return (\n        <div>\n            \n        </div>\n    )\n}\n"
     },
     "Page React": {
         "prefix": "page",
-        "body": "/*=============================================== $1 ===============================================*/\n\nexport const $1 = () => {\n    return (\n        <div>\n\n        </div>\n    )\n}\n"
+        "body": "/*=============================================== $1 ===============================================*/\n\nexport function $1() {\n    return (\n        <div>\n\n        </div>\n    )\n}\n"
     },
     "Styled Component": {
         "prefix": "styled",

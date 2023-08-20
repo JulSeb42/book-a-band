@@ -1,13 +1,13 @@
 /*=============================================== Config ===============================================*/
 
-import express from "express"
+import express, { type Application } from "express"
 import logger from "morgan"
 import cookieParser from "cookie-parser"
 import cors from "cors"
 
 import { ORIGIN } from "../utils/consts"
 
-const config = (app: any) => {
+const config = (app: Application) => {
     app.set("trust proxy", 1)
 
     app.use(

@@ -3,7 +3,7 @@
 import { StyledKey } from "components/ui/Key/styles"
 import type { KeyProps } from "components/ui/Key/types"
 
-export const Key = ({ keys }: KeyProps) => {
+export function Key({ keys }: KeyProps) {
     const keysArr = keys.map(key =>
         key.includes("Key")
             ? key.replace("Key", "")

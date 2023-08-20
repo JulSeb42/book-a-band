@@ -9,10 +9,10 @@ export const StyledAlert = styled.div`
     border: 1px solid ${COLORS.DANGER};
     padding: ${SPACERS.M};
     border-radius: ${RADIUSES.M};
-    max-width: ${CONTAINERS.MAIN.DEFAULT};
+    max-width: ${CONTAINERS.MAIN_DEFAULT};
     ${Mixins.Flexbox({
         flexDirection: "column",
         alignItems: "stretch",
-        gap: "xs",
+        gap: "s",
     })}
 `

@@ -1,7 +1,6 @@
 /*=============================================== Image component ===============================================*/
 
-import { forwardRef, Suspense, lazy } from "react"
-import type { ForwardedRef } from "react"
+import { forwardRef, Suspense, lazy, type ForwardedRef } from "react"
 
 import { Skeleton } from "components"
 

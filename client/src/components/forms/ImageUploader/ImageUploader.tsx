@@ -2,10 +2,11 @@
 
 import type { ChangeEvent } from "react"
 
+import { cloudinaryService } from "api"
+
 import { Icon } from "components"
 import { InputContainer } from "components/forms/InputComponents"
-
-import { cloudinaryService } from "api"
+import type { UserType } from "types"
 
 import {
     StyledImageUploader,
@@ -15,15 +16,15 @@ import {
 } from "components/forms/ImageUploader/styles"
 import type { ImageUploaderProps } from "components/forms/ImageUploader/types"
 
-export const ImageUploader = ({
+export function ImageUploader({
     image,
     setImage,
     setIsLoading,
     id,
     label,
     helper,
-}: ImageUploaderProps) => {
-    const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
+}: ImageUploaderProps) {
+    const handleImage = async (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
 
         const uploadData = new FormData()
@@ -31,7 +32,7 @@ export const ImageUploader = ({
 
         uploadData.append("imageUrl", e.target.files ? e.target.files[0] : "")
 
-        cloudinaryService
+        await cloudinaryService
             .uploadImage(uploadData)
             .then(res => {
                 setImage(res.secure_url)
@@ -48,14 +49,19 @@ export const ImageUploader = ({
                 setImage(reader.result)
             })
 
-            reader.readAsDataURL(e.target.files[0])
+            return reader.readAsDataURL(e.target.files[0])
         }
+    }
+
+    const user: Partial<UserType> = {
+        avatar: image,
+        fullName: "uploader",
     }
 
     return (
         <InputContainer id={id} label={label} helper={helper}>
             <StyledImageUploader htmlFor={id}>
-                <StyledAvatar src={image} username="uploader" />
+                <StyledAvatar user={user} />
 
                 <IconContainer>
                     <Icon src="edit" size={24} />

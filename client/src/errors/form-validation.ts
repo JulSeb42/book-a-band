@@ -15,4 +15,9 @@ export const FORM_VALIDATION = {
     PASSWORD_REGEX_NOT_PASSED:
         "Password must be at least 6 characters long and must contain at least one number, one lowercase and one uppercase letter.",
     CITY_REQUIRED: "City is required.",
+
+    USER_ID_MISSING: "User ID is missing.",
+    TOKEN_MISSING: "User token is missing.",
+
+    USER_NOT_VERIFIED: "You can not change status if user is not verified.",
 }

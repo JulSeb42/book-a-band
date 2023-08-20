@@ -19,6 +19,12 @@ export const PATHS = {
     EDIT_ACCOUNT: "/my-account/edit",
     EDIT_PASSWORD: "/my-account/edit-password",
     CONVERSATION: (id = ":id") => `/conversations/${id}`,
+
+    DASHBOARD: "/dashboard",
+    DASHBOARD_ARTISTS: "/dashboard/artists",
+    DASHBOARD_ROLES: "/dashboard/roles",
+
+    // prependPath
 }
 
 export const SERVER_PATHS = {
@@ -27,4 +33,5 @@ export const SERVER_PATHS = {
     USERS: "/users",
     CONVERSATION: "/conversation",
     MESSAGE: "/message",
+    // prependServerPath
 }

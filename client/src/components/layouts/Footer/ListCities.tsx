@@ -7,13 +7,18 @@ import { TextIcon, Text, Skeleton, SkeletonCard } from "components"
 import { useCitiesGenres } from "hooks"
 import { PATHS, SITE_DATA } from "data"
 
-export const ListCities = () => {
+export function ListCities() {
     const { cities, loading, error } = useCitiesGenres()
 
     if (loading) return <ListCitiesSkeleton />
 
     if (error.cities)
-        return <Text>Error while fetching cities: {error.cities.message}</Text>
+        return (
+            <Text>
+                Error while fetching cities:{" "}
+                {error.cities.response.data.message}
+            </Text>
+        )
 
     return cities
         .filter(city => city !== "All")

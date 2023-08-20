@@ -5,10 +5,10 @@ import type { RefObject } from "react"
 
 type Event = MouseEvent | TouchEvent
 
-export const useClickOutside = <T extends HTMLElement = HTMLElement>(
+export function useClickOutside<T extends HTMLElement = HTMLElement>(
     ref: RefObject<T>,
     handler: (event: Event) => void
-) => {
+) {
     useEffect(() => {
         const listener = (e: Event) => {
             const target = e.target as HTMLElement
@@ -16,7 +16,7 @@ export const useClickOutside = <T extends HTMLElement = HTMLElement>(
             if (target.getAttribute("href")) return false
 
             const el = ref?.current
-            
+
             if (!el || el.contains((e?.target as Node) || null)) {
                 return
             }

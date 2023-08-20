@@ -1,16 +1,17 @@
 /*=============================================== Get cities and genres ===============================================*/
 
 import { useState, useEffect } from "react"
-import type { AxiosError } from "axios"
 
 import { userService } from "api"
 
+import type { ServerErrorType } from "types"
+
 type CitiesGenresErrorType = {
-    cities: AxiosError | undefined
-    genres: AxiosError | undefined
+    cities: ServerErrorType
+    genres: ServerErrorType
 }
 
-export const useCitiesGenres = () => {
+export function useCitiesGenres() {
     const [cities, setCities] = useState<string[]>([])
     const [genres, setGenres] = useState<string[]>([])
     const [error, setError] = useState<CitiesGenresErrorType>({
@@ -20,8 +21,8 @@ export const useCitiesGenres = () => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        if (loading) {
-            userService
+        const fetchCities = async () =>
+            await userService
                 .allCities()
                 .then(res => setCities(["All", ...res.data]))
                 .catch(err => {
@@ -32,7 +33,8 @@ export const useCitiesGenres = () => {
                     setLoading(false)
                 })
 
-            userService
+        const fetchGenres = async () =>
+            await userService
                 .allGenres()
                 .then(res => {
                     setGenres(["All", ...res.data])
@@ -45,6 +47,10 @@ export const useCitiesGenres = () => {
                     })
                     setLoading(false)
                 })
+
+        if (loading) {
+            fetchCities()
+            fetchGenres()
         }
     }, [error, loading])
 

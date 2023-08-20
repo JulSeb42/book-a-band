@@ -1,6 +1,11 @@
 /*=============================================== EditAccountMain ===============================================*/
 
-import type { ChangeEvent, Dispatch, SetStateAction } from "react"
+import {
+    Fragment,
+    type ChangeEvent,
+    type Dispatch,
+    type SetStateAction,
+} from "react"
 
 import { Input, Autocomplete } from "components"
 import { GERMAN_CITIES } from "data"
@@ -23,7 +28,7 @@ interface EditAccountMainProps extends EditAccountSectionProps {
     setValidation: Dispatch<SetStateAction<EditAccountValidationType>>
 }
 
-export const EditAccountMain = ({
+export function EditAccountMain({
     user,
     isLoading,
     inputs,
@@ -34,9 +39,7 @@ export const EditAccountMain = ({
     setYoutubeLinks,
     validation,
     setValidation,
-}: EditAccountMainProps) => {
-    // if (isLoading) return <EditAccountMainSkeleton />
-
+}: EditAccountMainProps) {
     const handleInputs = (e: ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target
 
@@ -59,7 +62,7 @@ export const EditAccountMain = ({
         setYoutubeLinks({ ...youtubeLinks, [e.target.id]: e.target.value })
 
     return (
-        <>
+        <Fragment>
             <Input
                 id="fullName"
                 label={`${user?.role === "artist" ? "Display" : "Full"} name`}
@@ -89,7 +92,7 @@ export const EditAccountMain = ({
             />
 
             {user?.role === "artist" && (
-                <>
+                <Fragment>
                     <Input
                         id="genre"
                         label="Genre"
@@ -115,7 +118,7 @@ export const EditAccountMain = ({
                         label="Bio"
                         helper={{
                             text: (
-                                <>
+                                <Fragment>
                                     Here you can use{" "}
                                     <a
                                         href="https://www.markdownguide.org/cheat-sheet/"
@@ -125,7 +128,7 @@ export const EditAccountMain = ({
                                         markdown
                                     </a>{" "}
                                     to write your bio.
-                                </>
+                                </Fragment>
                             ),
                         }}
                         value={inputs.bio}
@@ -192,8 +195,8 @@ export const EditAccountMain = ({
                             isLoading={isLoading}
                         />
                     ) : null}
-                </>
+                </Fragment>
             )}
-        </>
+        </Fragment>
     )
 }

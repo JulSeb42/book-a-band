@@ -2,7 +2,7 @@
 
 import type { ConversationType } from "./"
 
-const roles = { user: "user", artist: "artist" } as const
+const roles = { user: "user", artist: "artist", admin: "admin" } as const
 
 export type UserRoleType = keyof typeof roles
 
@@ -28,4 +28,7 @@ export type UserType = {
     youtubeLinks: string[]
     isVisible: boolean
     conversations: ConversationType[]
+    isApproved: boolean
+    createdAt: Date
+    updatedAt: Date
 }

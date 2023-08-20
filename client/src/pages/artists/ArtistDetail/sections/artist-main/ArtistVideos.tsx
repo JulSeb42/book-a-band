@@ -6,7 +6,7 @@ import { Flexbox, Text, Youtube } from "components"
 
 import type { ArtistSectionProps } from "pages/artists/ArtistDetail/sections/types"
 
-export const ArtistVideos = ({ artist, isLoading }: ArtistSectionProps) => {
+export function ArtistVideos({ artist, isLoading }: ArtistSectionProps) {
     if (isLoading || !artist?.youtubeLinks.length) return null
 
     return (

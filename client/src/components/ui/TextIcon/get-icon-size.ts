@@ -2,23 +2,21 @@
 
 import type { TextTagsType } from "components/ui/Text/types"
 
-export const getIconSize = (tag: TextTagsType) => {
-    switch (tag) {
-        case "h1":
-            return 40
-        case "h2":
-            return 32
-        case "h3":
-            return 28.8
-        case "h4":
-            return 24
-        case "h5":
-            return 20.8
-        case "h6":
-            return 17.6
-        case "small":
-            return 14
-        default:
-            return 16
-    }
+export const getIconSize = (
+    tag: Exclude<TextTagsType, "strong" | "em" | "ul">
+) => {
+    const tags = new Map<Exclude<TextTagsType, "strong" | "em" | "ul">, number>(
+        [
+            ["h1", 40],
+            ["h2", 32],
+            ["h3", 28.8],
+            ["h4", 24],
+            ["h5", 20.8],
+            ["h6", 17.6],
+            ["p", 16],
+            ["small", 14],
+        ]
+    )
+
+    return tags.get(tag) || 16
 }

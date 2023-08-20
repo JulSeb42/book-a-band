@@ -1,12 +1,10 @@
 /*=============================================== EditPasswordForm ===============================================*/
 
-import { useState, useContext } from "react"
-import type { ChangeEvent, FormEvent } from "react"
+import { useState, useContext, type ChangeEvent, type FormEvent } from "react"
 import { useNavigate } from "react-router-dom"
 import { passwordRegex } from "ts-utils-julseb"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 import { userService } from "api"
 
 import { Password, Form } from "components"
@@ -14,7 +12,7 @@ import { PATHS } from "data"
 import { FORM_VALIDATION } from "errors"
 import type { ValidationStatusType, ErrorMessageType } from "types"
 
-export const EditPasswordForm = () => {
+export function EditPasswordForm() {
     const navigate = useNavigate()
 
     const { user, isLoading, setUser, setToken } = useContext(
@@ -42,7 +40,7 @@ export const EditPasswordForm = () => {
         }
     }
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         if (!passwordRegex.test(inputs.newPassword)) {
@@ -53,7 +51,7 @@ export const EditPasswordForm = () => {
         if (user) {
             setIsSubmitLoading(true)
 
-            userService
+            return await userService
                 .editPassword(user?._id, inputs)
                 .then(res => {
                     const { user, authToken } = res.data

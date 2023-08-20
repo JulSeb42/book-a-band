@@ -1,6 +1,6 @@
 /*=============================================== JWT middleware ===============================================*/
 
-import { expressjwt as jwt } from "express-jwt"
+import { expressjwt as jwt, type Request } from "express-jwt"
 
 const getTokenFromHeaders = (req: any) => {
     if (
@@ -15,8 +15,7 @@ const getTokenFromHeaders = (req: any) => {
 }
 
 export const isAuthenticated = jwt({
-    // @ts-expect-error
-    secret: process.env.TOKEN_SECRET,
+    secret: process.env.TOKEN_SECRET || "",
     algorithms: ["HS256"],
     requestProperty: "payload",
     getToken: getTokenFromHeaders,

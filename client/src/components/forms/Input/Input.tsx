@@ -8,6 +8,7 @@ import {
     InputRightContainer,
     InputValidationIcon,
     InputContainer,
+    InputButton,
 } from "components/forms/InputComponents"
 import { useTouchScreen } from "hooks"
 
@@ -16,7 +17,7 @@ import type { InputProps } from "components/forms/Input/types"
 
 const InputFn = forwardRef(
     (
-        { type, icon, validation, keys, ...rest }: InputProps,
+        { type, icon, validation, keys, clear, value, ...rest }: InputProps,
         ref?: ForwardedRef<HTMLInputElement & HTMLTextAreaElement>
     ) => {
         const isTouchScreen = useTouchScreen()
@@ -26,6 +27,7 @@ const InputFn = forwardRef(
                 <StyledInput
                     as="textarea"
                     ref={ref}
+                    value={value}
                     $validation={validation?.status}
                     $isTextarea
                     {...rest}
@@ -37,6 +39,7 @@ const InputFn = forwardRef(
                 <StyledInput
                     type={type}
                     ref={ref}
+                    value={value}
                     $validation={validation?.status}
                     $hasIcon={!!icon}
                     {...rest}
@@ -50,13 +53,21 @@ const InputFn = forwardRef(
 
                 {inputFn()}
 
-                {(validation || keys) && (
+                {(validation || keys || clear) && (
                     <InputRightContainer>
                         {keys && !isTouchScreen && <Key keys={keys} />}
 
                         {validation && (
                             <InputValidationIcon status={validation?.status} />
                         )}
+
+                        {clear && typeof value === "string" && value?.length ? (
+                            <InputButton
+                                icon="close-circle"
+                                onClick={clear}
+                                label="Clear"
+                            />
+                        ) : null}
                     </InputRightContainer>
                 )}
             </InputContent>

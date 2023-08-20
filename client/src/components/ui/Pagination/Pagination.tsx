@@ -1,10 +1,11 @@
 /*=============================================== Pagination component ===============================================*/
 
-import { useState } from "react"
+import { Fragment, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 
 import { Icon } from "components"
-import { useQueryParams } from "hooks"
+import { useQueryParams, useAdminParams } from "hooks"
+import { filterObject } from "utils"
 
 import {
     StyledPagination,
@@ -12,10 +13,16 @@ import {
 } from "components/ui/Pagination/styles"
 import type { PaginationProps } from "components/ui/Pagination/types"
 
-export const Pagination = ({ totalPages, pageLimit = 5 }: PaginationProps) => {
+export function Pagination({ totalPages, pageLimit = 5 }: PaginationProps) {
     const [_, setSearchParams] = useSearchParams()
 
     const { page, ...params } = useQueryParams()
+    const adminParams = useAdminParams()
+
+    const filteredAdminParams: any = filterObject(
+        adminParams,
+        ([_, v]) => v !== null
+    )
 
     const [currentPage, setCurrentPage] = useState(parseInt(page || "1"))
 
@@ -24,6 +31,7 @@ export const Pagination = ({ totalPages, pageLimit = 5 }: PaginationProps) => {
 
         setSearchParams({
             ...params,
+            ...filteredAdminParams,
             page: (currentPage - 1).toString(),
         })
     }
@@ -33,6 +41,7 @@ export const Pagination = ({ totalPages, pageLimit = 5 }: PaginationProps) => {
 
         setSearchParams({
             ...params,
+            ...filteredAdminParams,
             page: (currentPage + 1).toString(),
         })
     }
@@ -42,6 +51,7 @@ export const Pagination = ({ totalPages, pageLimit = 5 }: PaginationProps) => {
 
         setSearchParams({
             ...params,
+            ...filteredAdminParams,
             page: n.toString(),
         })
     }
@@ -56,6 +66,8 @@ export const Pagination = ({ totalPages, pageLimit = 5 }: PaginationProps) => {
     }
     const paginationGroup = getPaginationGroup()
 
+    if (totalPages <= 1) return null
+
     return (
         <StyledPagination>
             <StyledPaginationButton
@@ -66,7 +78,7 @@ export const Pagination = ({ totalPages, pageLimit = 5 }: PaginationProps) => {
             </StyledPaginationButton>
 
             {paginationGroup[0] !== 1 && (
-                <>
+                <Fragment>
                     <StyledPaginationButton
                         disabled={currentPage === 1}
                         onClick={() => handlePage(1)}
@@ -78,7 +90,7 @@ export const Pagination = ({ totalPages, pageLimit = 5 }: PaginationProps) => {
                     <StyledPaginationButton as="span" $isMore>
                         ...
                     </StyledPaginationButton>
-                </>
+                </Fragment>
             )}
 
             {paginationGroup.map(page => (
@@ -92,7 +104,7 @@ export const Pagination = ({ totalPages, pageLimit = 5 }: PaginationProps) => {
             ))}
 
             {paginationGroup[paginationGroup.length - 1] !== totalPages && (
-                <>
+                <Fragment>
                     <StyledPaginationButton as="span" $isMore>
                         ...
                     </StyledPaginationButton>
@@ -104,7 +116,7 @@ export const Pagination = ({ totalPages, pageLimit = 5 }: PaginationProps) => {
                     >
                         {totalPages}
                     </StyledPaginationButton>
-                </>
+                </Fragment>
             )}
 
             <StyledPaginationButton

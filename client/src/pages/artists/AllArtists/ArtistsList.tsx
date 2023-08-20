@@ -1,7 +1,6 @@
 /*=============================================== ArtistsList ===============================================*/
 
 import { Fragment } from "react"
-import type { AxiosError } from "axios"
 import { generateNumbers } from "ts-utils-julseb"
 
 import {
@@ -14,33 +13,41 @@ import {
 import { usePaginatedData } from "hooks"
 import { filterByPrice } from "utils"
 
-import type { UserType, PricesType } from "types"
+import type { UserType, PricesType, ServerErrorType } from "types"
 
 interface ArtistsListProps {
     artists: UserType[]
     isLoading: boolean
-    error: AxiosError | undefined
+    error: ServerErrorType
     prices: PricesType
 }
 
-export const ArtistsList = ({
+export function ArtistsList({
     artists,
     isLoading,
     error,
     prices,
-}: ArtistsListProps) => {
+}: ArtistsListProps) {
     const { paginatedData, totalPages } = usePaginatedData<UserType>(
         filterByPrice(artists, prices)
     )
 
     if (isLoading) return <ArtistsListSkeleton />
 
-    if (error) return <Text>Error while fetching artists: {error.message}</Text>
+    if (error)
+        return (
+            <Text>
+                Error while fetching artists: {error.response.data.message}
+            </Text>
+        )
 
     if (!artists.length) return <Text>No artist yet.</Text>
 
+    if (!paginatedData.length)
+        return <Text>Your search did not return any result.</Text>
+
     return (
-        <>
+        <Fragment>
             {paginatedData.map((artist, i) => (
                 <Fragment key={artist._id}>
                     <ArtistCard artist={artist} />
@@ -49,8 +56,8 @@ export const ArtistsList = ({
                 </Fragment>
             ))}
 
-            {totalPages > 1 && <Pagination totalPages={totalPages} />}
-        </>
+            <Pagination totalPages={totalPages} />
+        </Fragment>
     )
 }
 

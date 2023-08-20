@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "react-router-dom"
 
-export const usePaginatedData = <T,>(data: Array<T>, dataLimit = 10) => {
+export function usePaginatedData<T>(data: Array<T>, dataLimit = 10) {
     const [searchParams] = useSearchParams()
     const currentPage = parseInt(searchParams.get("page") || "1")
 

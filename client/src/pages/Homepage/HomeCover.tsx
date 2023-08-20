@@ -9,7 +9,7 @@ interface HomeCoverProps {
     children?: ReactNode
 }
 
-export const HomeCover = ({ children }: HomeCoverProps) => {
+export function HomeCover({ children }: HomeCoverProps) {
     return <Cover>{children}</Cover>
 }
 

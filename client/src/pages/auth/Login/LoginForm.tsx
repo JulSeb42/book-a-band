@@ -1,12 +1,10 @@
 /*=============================================== Login ===============================================*/
 
-import { useState, useContext } from "react"
-import type { ChangeEvent, FormEvent } from "react"
+import { useState, useContext, type ChangeEvent, type FormEvent } from "react"
 import { useNavigate } from "react-router-dom"
 import { emailRegex } from "ts-utils-julseb"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 import { authService } from "api"
 
 import { Form, Input, Password } from "components"
@@ -18,7 +16,7 @@ type LoginFormValidationType = {
     password: ValidationStatusType
 }
 
-export const LoginForm = () => {
+export function LoginForm() {
     const navigate = useNavigate()
     const { loginUser } = useContext(AuthContext) as AuthContextType
 
@@ -78,6 +76,7 @@ export const LoginForm = () => {
                 setIsLoading(false)
             })
             .catch(err => {
+                console.log(err)
                 setErrorMessage(err)
                 setIsLoading(false)
             })

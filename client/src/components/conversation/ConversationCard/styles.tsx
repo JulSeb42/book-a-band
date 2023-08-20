@@ -6,13 +6,15 @@ import { Link } from "react-router-dom"
 import {
     BREAKPOINTS,
     COLORS,
-    FONT_SIZES,
-    LINE_HEIGHT,
     Mixins,
     RADIUSES,
     SPACERS,
     TRANSITIONS,
 } from "components"
+
+export const CardContainer = styled.div`
+    position: relative;
+`
 
 export const StyledConversationCard = styled(Link)`
     text-decoration: none;
@@ -48,9 +50,15 @@ export const CardContent = styled.div<{ $isSkeleton?: boolean }>`
 `
 
 export const BadgeContainer = styled.span`
-    height: calc(${FONT_SIZES.H6} * ${LINE_HEIGHT});
     ${Mixins.Flexbox({
         inline: true,
         alignItems: "center",
+        gap: "xs",
     })}
+`
+
+export const DeleteContainer = styled.span`
+    position: absolute;
+    top: ${SPACERS.XS};
+    right: ${SPACERS.XS};
 `

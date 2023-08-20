@@ -2,10 +2,9 @@
 
 import { useState, useEffect, useContext, useRef, useCallback } from "react"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 
-import { Hr, Text, INPUT_HEIGHT } from "components"
+import { Hr, Text, INPUT_HEIGHT, SkeletonCard, Skeleton } from "components"
 import { SendMessage } from "components/conversation/Chat/SendMessage"
 import { Bubble } from "components/conversation/Chat/Bubble"
 import type { MessageType, WhichUserType } from "types"
@@ -16,12 +15,12 @@ import {
 } from "components/conversation/Chat/styles"
 import type { ChatProps } from "components/conversation/Chat/types"
 
-export const Chat = ({ conversation, isLoading }: ChatProps) => {
+export function Chat({ conversation, isLoading }: ChatProps) {
     const { user } = useContext(AuthContext) as AuthContextType
 
     const [messages, setMessages] = useState<MessageType[]>([])
     const [whichUser, setWhichUser] = useState<WhichUserType>(undefined)
-    const [inputHeight, setInputHeight] = useState(INPUT_HEIGHT)
+    const [inputHeight, setInputHeight] = useState<number>(INPUT_HEIGHT)
 
     const containerRef = useRef<HTMLDivElement>(null)
 
@@ -79,6 +78,50 @@ export const Chat = ({ conversation, isLoading }: ChatProps) => {
     )
 }
 
-const ChatSkeleton = () => {
-    return null // TODO: Add skeleton
+function ChatSkeleton() {
+    return (
+        <StyledChat>
+            <StyledMessagesContainer $isEmpty={false}>
+                <SkeletonCard justifyContent="flex-end">
+                    <Skeleton
+                        width="60%"
+                        height={64}
+                        borderRadius="m"
+                        isShining
+                    />
+                </SkeletonCard>
+
+                <SkeletonCard justifyContent="flex-start">
+                    <Skeleton
+                        width="40%"
+                        height={96}
+                        borderRadius="m"
+                        isShining
+                    />
+                </SkeletonCard>
+
+                <SkeletonCard justifyContent="flex-end">
+                    <Skeleton
+                        width="50%"
+                        height={64}
+                        borderRadius="m"
+                        isShining
+                    />
+                </SkeletonCard>
+
+                <SkeletonCard justifyContent="flex-start">
+                    <Skeleton
+                        width="60%"
+                        height={128}
+                        borderRadius="m"
+                        isShining
+                    />
+                </SkeletonCard>
+            </StyledMessagesContainer>
+
+            <Hr />
+
+            <Skeleton height={32} borderRadius="s" isShining />
+        </StyledChat>
+    )
 }

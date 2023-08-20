@@ -18,7 +18,7 @@ import { PATHS } from "data"
 import { useQueryParams, useCitiesGenres } from "hooks"
 import { filterObject } from "utils"
 
-export const HomeSearch = () => {
+export function HomeSearch() {
     const navigate = useNavigate()
 
     const { cities, genres, loading } = useCitiesGenres()

@@ -9,8 +9,8 @@ import type { ConversationType, WhichUserType } from "../types"
 const router = Router()
 
 // Get all conversations
-router.get("/all-conversations", (_, res, next) => {
-    ConversationModel.find()
+router.get("/all-conversations", async (_, res, next) => {
+    return await ConversationModel.find()
         .populate("user1")
         .populate("user2")
         .populate("messages")
@@ -26,13 +26,13 @@ router.get("/all-conversations", (_, res, next) => {
 })
 
 // Get user's conversations
-router.get("/user-conversations/:id", (req, res, next) => {
-    const foundConversation = ConversationModel.find({
+router.get("/user-conversations/:id", async (req, res, next) => {
+    const foundConversation = await ConversationModel.find({
         $or: [{ user1: req.params.id }, { user2: req.params.id }],
     })
 
     if (foundConversation !== undefined) {
-        ConversationModel.find({
+        return await ConversationModel.find({
             $or: [{ user1: req.params.id }, { user2: req.params.id }],
         })
             .populate("user1")
@@ -48,8 +48,8 @@ router.get("/user-conversations/:id", (req, res, next) => {
 })
 
 // Get conversation
-router.get("/conversation/:id", (req, res, next) => {
-    ConversationModel.findById(req.params.id)
+router.get("/conversation/:id", async (req, res, next) => {
+    return await ConversationModel.findById(req.params.id)
         .populate("user1")
         .populate("user2")
         .populate("messages")
@@ -68,39 +68,65 @@ router.get("/conversation/:id", (req, res, next) => {
 })
 
 // New conversation
-router.post("/new-conversation", (req, res, next) => {
+router.post("/new-conversation", async (req, res, next) => {
     const { body, user1, user2 } = req.body as {
-        body: string
+        body?: string
         user1: string
         user2: string
     }
 
-    if (!body)
-        return res.status(400).json({ message: "Body can not be empty." })
-
-    ConversationModel.create({
+    return await ConversationModel.create({
         user1,
         user2,
         readUser1: true,
         readUser2: false,
     })
-        .then(createdConversation => {
-            MessageModel.create({
+        .then(async createdConversation => {
+            if (!body) {
+                return await UserModel.findByIdAndUpdate(
+                    user1,
+                    { $push: { conversations: createdConversation } },
+                    { new: true }
+                ).then(async updatedUser1 => {
+                    return await UserModel.findByIdAndUpdate(
+                        user2,
+                        { $push: { conversations: createdConversation } },
+                        { new: true }
+                    ).then(() => {
+                        const payload = { user: updatedUser1 }
+
+                        // @ts-expect-error
+                        const authToken = jwt.sign(
+                            payload,
+                            TOKEN_SECRET,
+                            jwtConfig
+                        )
+
+                        return res.status(201).json({
+                            createdConversation,
+                            user: updatedUser1,
+                            authToken: authToken,
+                        })
+                    })
+                })
+            }
+
+            return await MessageModel.create({
                 body,
                 sender: user1,
                 conversation: createdConversation._id,
-            }).then(createdMessage => {
-                ConversationModel.findByIdAndUpdate(
+            }).then(async createdMessage => {
+                return await ConversationModel.findByIdAndUpdate(
                     createdConversation._id,
                     { $push: { messages: createdMessage } },
                     { new: true }
-                ).then(updatedConversation => {
-                    UserModel.findByIdAndUpdate(
+                ).then(async updatedConversation => {
+                    return await UserModel.findByIdAndUpdate(
                         user1,
                         { $push: { conversations: updatedConversation } },
                         { new: true }
-                    ).then(updatedUser1 => {
-                        UserModel.findByIdAndUpdate(
+                    ).then(async updatedUser1 => {
+                        return await UserModel.findByIdAndUpdate(
                             user2,
                             { $push: { conversations: updatedConversation } },
                             { new: true }
@@ -129,7 +155,7 @@ router.post("/new-conversation", (req, res, next) => {
 })
 
 // New message
-router.post("/new-message", (req, res, next) => {
+router.post("/new-message", async (req, res, next) => {
     const { body, conversation, sender, whichUser } = req.body as {
         body: string
         conversation: string
@@ -142,13 +168,13 @@ router.post("/new-message", (req, res, next) => {
             .status(400)
             .json({ message: "Your message can not be empty." })
 
-    MessageModel.create({
+    return await MessageModel.create({
         body,
         sender,
         conversation,
     })
-        .then(createdMessage => {
-            ConversationModel.findByIdAndUpdate(
+        .then(async createdMessage => {
+            return await ConversationModel.findByIdAndUpdate(
                 conversation,
                 {
                     $push: { messages: createdMessage },
@@ -162,13 +188,27 @@ router.post("/new-message", (req, res, next) => {
 })
 
 // Read conversation
-router.put("/read-conversation/:id", (req, res, next) => {
-    ConversationModel.findByIdAndUpdate(
+router.put("/read-conversation/:id", async (req, res, next) => {
+    return await ConversationModel.findByIdAndUpdate(
         req.params.id,
         { readUser1: true, readUser2: true },
         { new: true }
     )
         .then(updatedConversation => res.status(200).json(updatedConversation))
+        .catch(err => next(err))
+})
+
+router.delete("/delete-conversation/:id", async (req, res, next) => {
+    return await ConversationModel.findById(req.params.id)
+        .then(() =>
+            MessageModel.deleteMany({ conversation: req.params.id }).then(() =>
+                ConversationModel.findByIdAndDelete(req.params.id).then(() =>
+                    res
+                        .status(200)
+                        .json({ message: "Conversation has been deleted" })
+                )
+            )
+        )
         .catch(err => next(err))
 })
 

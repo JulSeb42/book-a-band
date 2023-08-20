@@ -2,7 +2,7 @@
 
 import { Page, Text } from "components"
 
-export const ForgotSent = () => {
+export function ForgotSent() {
     return (
         <Page title="Email sent successfully!">
             <Text tag="h1">Email sent successfully!</Text>

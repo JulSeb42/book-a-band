@@ -4,15 +4,10 @@ import { Aside, Avatar } from "components"
 
 import type { ArtistSectionProps } from "pages/artists/ArtistDetail/sections/types"
 
-export const ArtistAsideLeft = ({ artist, isLoading }: ArtistSectionProps) => {
+export function ArtistAsideLeft({ artist, isLoading }: ArtistSectionProps) {
     return (
         <Aside center>
-            <Avatar
-                src={artist?.avatar}
-                isLoading={isLoading}
-                size={150}
-                username={artist?.fullName}
-            />
+            <Avatar user={artist} isLoading={isLoading} size={150} />
         </Aside>
     )
 }

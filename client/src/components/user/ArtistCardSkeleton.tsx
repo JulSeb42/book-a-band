@@ -6,7 +6,7 @@ import { SkeletonCard, Skeleton, Flexbox, SPACERS } from "components"
 
 import { CardContent } from "components/user/ArtistCard/styles"
 
-export const ArtistCardSkeleton = () => {
+export function ArtistCardSkeleton() {
     return (
         <SkeletonCard gap="s" isShining>
             <Skeleton width={120} height={120} borderRadius="circle" />

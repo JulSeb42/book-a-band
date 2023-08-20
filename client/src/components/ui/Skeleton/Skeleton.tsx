@@ -10,7 +10,7 @@ import type {
     SkeletonCardProps,
 } from "components/ui/Skeleton/types"
 
-export const Skeleton = ({
+export function Skeleton({
     width = "100%",
     height = 24,
     maxWidth,
@@ -18,7 +18,7 @@ export const Skeleton = ({
     borderRadius = "s",
     isShining,
     className,
-}: SkeletonProps) => {
+}: SkeletonProps) {
     return (
         <StyledSkeleton
             className={className}
@@ -32,13 +32,13 @@ export const Skeleton = ({
     )
 }
 
-export const SkeletonCard = ({
+export function SkeletonCard({
     isShining,
     padding,
     children,
     border,
     ...rest
-}: SkeletonCardProps) => {
+}: SkeletonCardProps) {
     return (
         <StyledSkeletonCard $padding={padding} $border={border} {...rest}>
             {children}

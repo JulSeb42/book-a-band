@@ -9,25 +9,13 @@ interface SocialLinksListProps {
     isLoading?: boolean
 }
 
-export const SocialLinksList = ({
+export function SocialLinksList({
     facebook,
     instagram,
     youtube,
     isLoading,
-}: SocialLinksListProps) => {
-    if (isLoading)
-        return (
-            <SkeletonCard
-                gap="xs"
-                alignItems="center"
-                flexWrap="wrap"
-                isShining
-            >
-                <Skeleton width={48} height={48} borderRadius="m" />
-                <Skeleton width={48} height={48} borderRadius="m" />
-                <Skeleton width={48} height={48} borderRadius="m" />
-            </SkeletonCard>
-        )
+}: SocialLinksListProps) {
+    if (isLoading) return <SocialLinksListSkeleton />
 
     if (!facebook && !instagram && !youtube) return null
 
@@ -37,5 +25,15 @@ export const SocialLinksList = ({
             {instagram && <SocialLink url={instagram} site="instagram" />}
             {youtube && <SocialLink url={youtube} site="youtube" />}
         </Flexbox>
+    )
+}
+
+function SocialLinksListSkeleton() {
+    return (
+        <SkeletonCard gap="xs" alignItems="center" flexWrap="wrap" isShining>
+            <Skeleton width={48} height={48} borderRadius="m" />
+            <Skeleton width={48} height={48} borderRadius="m" />
+            <Skeleton width={48} height={48} borderRadius="m" />
+        </SkeletonCard>
     )
 }

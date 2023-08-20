@@ -9,6 +9,7 @@ interface InputPropsBase
         InputHTMLAttributes<HTMLInputElement & HTMLTextAreaElement> {
     children?: never
     keys?: string[]
+    clear?: () => void
 }
 
 interface InputTextProps extends InputPropsBase {

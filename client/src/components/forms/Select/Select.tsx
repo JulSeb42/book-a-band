@@ -24,10 +24,19 @@ import {
     Option,
 } from "components/forms/Select/styles"
 import type { SelectProps } from "components/forms/Select/types"
+import { unslugify } from "ts-utils-julseb"
 
 export const Select = forwardRef(
     (
-        { label, helper, value, setValue, options, isLoading }: SelectProps,
+        {
+            label,
+            helper,
+            value,
+            setValue,
+            options,
+            isLoading,
+            setIsLoading,
+        }: SelectProps,
         ref?: ForwardedRef<HTMLButtonElement>
     ) => {
         const [isListOpen, setIsListOpen] = useState(false)
@@ -138,7 +147,7 @@ export const Select = forwardRef(
                         ref={ref}
                         onKeyDown={handleKeyNavigation}
                     >
-                        {value}
+                        {unslugify(value || "")}
                     </SelectButton>
 
                     <InputRightContainer>
@@ -148,11 +157,14 @@ export const Select = forwardRef(
                     <List $isOpen={isListOpen} ref={listRef}>
                         {options.map((option, i) => (
                             <Option
-                                onClick={() => setValue(option)}
+                                onClick={() => {
+                                    setValue(option)
+                                    if (setIsLoading) setIsLoading(true)
+                                }}
                                 $isActive={option === value}
                                 key={`option-${i}`}
                             >
-                                {option}
+                                {unslugify(option || "")}
                             </Option>
                         ))}
                     </List>

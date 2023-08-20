@@ -3,8 +3,7 @@
 import { useContext } from "react"
 import { Link } from "react-router-dom"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 
 import { Text } from "components"
 import { ContactArtistForm } from "pages/artists/ArtistDetail/sections/artist-main/contact-artist/ContactArtistForm"
@@ -17,14 +16,21 @@ interface ContactArtistFormProps {
     isLoading: boolean
 }
 
-export const ContactArtistContent = ({
+export function ContactArtistContent({
     artist,
     isLoading,
-}: ContactArtistFormProps) => {
+}: ContactArtistFormProps) {
     const { user } = useContext(AuthContext) as AuthContextType
 
     if (artist?._id === user?._id)
         return <Text>You can not contact yourself!</Text>
+
+    if (!user?.verified)
+        return (
+            <Text>
+                Please verify your account to contact {artist?.fullName}.
+            </Text>
+        )
 
     if (isLoading) return null
 

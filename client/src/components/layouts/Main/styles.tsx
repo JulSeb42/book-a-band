@@ -9,10 +9,10 @@ export const StyledMain = styled.main<{ $size?: MainSizesType }>`
     width: 100%;
     max-width: ${({ $size }) =>
         $size === "form"
-            ? CONTAINERS.MAIN.FORM
+            ? CONTAINERS.MAIN_FORM
             : $size === "large"
-            ? CONTAINERS.MAIN.LARGE
-            : CONTAINERS.MAIN.DEFAULT};
+            ? CONTAINERS.MAIN_LARGE
+            : CONTAINERS.MAIN_DEFAULT};
     min-height: 100%;
     position: relative;
     ${Mixins.Flexbox({

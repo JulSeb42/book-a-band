@@ -8,7 +8,7 @@ interface HrProps {
     className?: string
 }
 
-export const Hr = ({ className }: HrProps) => {
+export function Hr({ className }: HrProps) {
     return <StyledHr className={className} />
 }
 
@@ -18,4 +18,5 @@ const StyledHr = styled.hr`
     height: 1px;
     background-color: ${COLORS.GRAY_ACTIVE};
     border-radius: ${RADIUSES.ROUND};
+    margin: 0;
 `

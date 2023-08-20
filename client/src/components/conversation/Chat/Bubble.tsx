@@ -3,8 +3,7 @@
 import { useContext, useState } from "react"
 import { convertDateShort } from "ts-utils-julseb"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 
 import { Text, Flexbox } from "components"
 import { getDateFromIso, getTimeFromIso } from "utils"
@@ -17,7 +16,7 @@ interface BubbleProps {
     message: MessageType
 }
 
-export const Bubble = ({ message }: BubbleProps) => {
+export function Bubble({ message }: BubbleProps) {
     const { user } = useContext(AuthContext) as AuthContextType
 
     const isoDate = new Date(message?.updatedAt)
@@ -28,6 +27,8 @@ export const Bubble = ({ message }: BubbleProps) => {
         user?._id === message.sender._id ? "sent" : "received"
 
     const [showTime, setShowTime] = useState(false)
+
+    if (!message.body) return null
 
     return (
         <Flexbox

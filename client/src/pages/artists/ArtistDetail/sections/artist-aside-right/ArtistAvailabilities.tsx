@@ -1,19 +1,17 @@
 /*=============================================== ArtistAvailabilities ===============================================*/
 
+import { Fragment } from "react"
 import { generateNumbers, convertDateShort } from "ts-utils-julseb"
 
 import { Skeleton, TextIcon, Text } from "components"
 
 import type { ArtistSectionProps } from "pages/artists/ArtistDetail/sections/types"
 
-export const ArtistAvailabilities = ({
+export function ArtistAvailabilities({
     artist,
     isLoading,
-}: ArtistSectionProps) => {
-    if (isLoading)
-        return generateNumbers(0, 4).map(n => (
-            <Skeleton height={24} width="80%" isShining key={n} />
-        ))
+}: ArtistSectionProps) {
+    if (isLoading) return <ArtistAvailabilitiesSkeleton />
 
     if (!artist?.available.length)
         return <Text>{artist?.fullName} did not add any date yet.</Text>
@@ -23,4 +21,14 @@ export const ArtistAvailabilities = ({
             {convertDateShort(new Date(date))}
         </TextIcon>
     ))
+}
+
+function ArtistAvailabilitiesSkeleton() {
+    return (
+        <Fragment>
+            {generateNumbers(0, 4).map(n => (
+                <Skeleton height={24} width="80%" isShining key={n} />
+            ))}
+        </Fragment>
+    )
 }

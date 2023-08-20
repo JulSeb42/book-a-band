@@ -1,11 +1,9 @@
 /*=============================================== ContactArtistForm ===============================================*/
 
-import { useContext, useState } from "react"
-import type { ChangeEvent, FormEvent } from "react"
+import { useContext, useState, type ChangeEvent, type FormEvent } from "react"
 import { useNavigate } from "react-router-dom"
 
-import { AuthContext } from "context"
-import type { AuthContextType } from "context/types"
+import { AuthContext, type AuthContextType } from "context"
 import { conversationService } from "api"
 
 import { Form, Input } from "components"
@@ -17,7 +15,7 @@ interface ContactArtistFormProps {
     artist: UserType
 }
 
-export const ContactArtistForm = ({ artist }: ContactArtistFormProps) => {
+export function ContactArtistForm({ artist }: ContactArtistFormProps) {
     const navigate = useNavigate()
 
     const {
@@ -50,7 +48,7 @@ export const ContactArtistForm = ({ artist }: ContactArtistFormProps) => {
         setValidation(undefined)
     }
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         if (!body.length) {
@@ -61,7 +59,7 @@ export const ContactArtistForm = ({ artist }: ContactArtistFormProps) => {
         if (user && artist) {
             setIsLoading(true)
 
-            conversationService
+            return await conversationService
                 .newConversation({
                     body,
                     user1: user?._id,

@@ -1,39 +1,24 @@
 /*=============================================== ResetPasswordForm ===============================================*/
 
-import { useState, useEffect } from "react"
-import type { ChangeEvent, FormEvent } from "react"
+import { useState, type ChangeEvent, type FormEvent } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { passwordRegex } from "ts-utils-julseb"
 
-import { authService, userService } from "api"
+import { authService } from "api"
 
 import { Form, Password, Text } from "components"
 import { FORM_VALIDATION } from "errors"
 import { PATHS } from "data"
+import { toast } from "utils"
+import { useFetchUser } from "hooks"
 
-import type { ValidationStatusType, ErrorMessageType, UserType } from "types"
+import type { ValidationStatusType, ErrorMessageType } from "types"
 
-export const ResetPasswordForm = () => {
+export function ResetPasswordForm() {
     const navigate = useNavigate()
     const { token, id } = useParams<{ token: string; id: string }>()
 
-    const [foundUser, setFoundUser] = useState<UserType | undefined | null>(
-        undefined
-    )
-    const [isUserLoading, setIsUserLoading] = useState(true)
-
-    useEffect(() => {
-        userService
-            .getUser(id!)
-            .then(res => {
-                setFoundUser(res.data)
-                setIsUserLoading(false)
-            })
-            .catch(() => {
-                setFoundUser(null)
-                setIsUserLoading(false)
-            })
-    }, [id])
+    const { user: foundUser, loading } = useFetchUser(id || "")
 
     const [password, setPassword] = useState("")
     const [validation, setValidation] =
@@ -65,17 +50,23 @@ export const ResetPasswordForm = () => {
 
         setIsFormLoading(true)
 
-        await authService
-            .resetPassword({
-                id: id!,
-                password,
-                resetToken: token!,
-            })
-            .then(() => navigate(PATHS.LOGIN))
-            .catch(err => {
-                setErrorMessage(err)
-                setIsFormLoading(false)
-            })
+        if (id && token)
+            await authService
+                .resetPassword({
+                    id: id,
+                    password,
+                    resetToken: token,
+                })
+                .then(() => {
+                    navigate(PATHS.LOGIN)
+                    toast.success("Your password was reset successfully!")
+                })
+                .catch(err => {
+                    setErrorMessage(err)
+                    setIsFormLoading(false)
+                })
+        else if (!id) toast.error(FORM_VALIDATION.USER_ID_MISSING)
+        else if (!token) toast.error(FORM_VALIDATION.TOKEN_MISSING)
     }
 
     if (foundUser === null)
@@ -85,13 +76,13 @@ export const ResetPasswordForm = () => {
         <Form
             onSubmit={handleSubmit}
             buttonPrimary="Send"
-            isLoading={isFormLoading || isUserLoading}
+            isLoading={isFormLoading || loading}
             error={errorMessage}
         >
             <Password
                 id="password"
                 label="New password"
-                isLoading={isUserLoading}
+                isLoading={loading}
                 value={password}
                 onChange={handlePassword}
                 validation={{
